@@ -1,0 +1,42 @@
+.field-title {
+  float: left;
+  width: 85%;
+}
+.field-req {
+  float: right;
+  width: 10%;
+}
+.field-label {
+  float: left;
+  width: 66%;
+}
+.field-year {
+  float: right;
+  width: 26%;
+}
+
+table {
+  padding: 1.5em;
+  padding-top: 1em;
+  width: 72%;
+  min-width: 730px;
+}
+
+thead {
+  font-family: 'Alegreya', serif;
+  font-weight: 900;
+  font-style: italic;
+  td {
+    padding-bottom: 0.5em;
+  }
+}
+
+td {
+  padding-bottom: 0.3em;
+  height: 1.2em;
+}
+
+.time-col { min-width: 60px; }
+
+.thin { font-weight: 300; }
+.italic { font-style:italic; }

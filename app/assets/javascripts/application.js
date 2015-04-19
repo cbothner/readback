@@ -13,4 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require best_in_place
 //= require_tree .
+
+$(document).on("page:change", function() {
+  jQuery(".best_in_place").best_in_place();  
+});

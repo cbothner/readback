@@ -1,0 +1,39 @@
+= form_for(@song) do |f|
+  - if @song.errors.any?
+    #error_explanation
+      %h2<
+        = pluralize(@song.errors.count, "error")
+        prohibited this song from being saved:
+      %ul
+        - @song.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :artist, "Artist"
+    %br
+    = f.text_field :artist, tabindex: 1
+  .field.field-title
+    = f.label :name, "Song Title*"
+    %br
+    = f.text_field :name, tabindex: 2
+  .field.field-req
+    = f.label :request, "Req?"
+    %br
+    = f.check_box :request, tabindex:6
+  .field
+    = f.label :album, "Album"
+    %br
+    = f.text_field :album, tabindex: 3
+  .field.field-label
+    = f.label :label, "Label"
+    %br
+    = f.text_field :label, tabindex: 4
+  .field.field-year
+    = f.label :year, "Year"
+    %br
+    = f.number_field :year, tabindex: 5
+  .field
+    %label Notes
+    %br
+    %textarea{rows: '3', tabindex: 7}
+  .actions
+    = f.submit 'Save Song', data: { disable_with: 'Saving...' }, tabindex: 8

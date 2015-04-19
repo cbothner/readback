@@ -1,0 +1,25 @@
+- title "Input"
+%aside.sidebar
+  %h1.accent WCBN Playlist
+  .showinfo
+    %h2 Ceci n’est pas Freeform
+    %p Thursday, April 16, 2015 4:00&ndash;6:00pm
+  = render 'form'
+%table
+  %thead
+    %td Time
+    %td Artist
+    %td Song Title
+    %td Album
+    %td Label
+    %td Year
+  - @songs.each do |song|
+    %tr
+      %td.thin.time-col=song.start.getlocal.strftime '%l:%M %p'
+      %td=best_in_place song, :artist
+      %td<
+        =best_in_place song, :name, display_with: lambda {|str| '“' + str + '”' }
+        %span.thin.accent=' (by request)' if song.request
+      %td.italic=best_in_place song, :album
+      %td.thin=best_in_place song, :label
+      %td.thin.lnum=best_in_place song, :year

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  artist: MyString
+  album: MyString
+  label: MyString
+  year: 1
+  request: false
+  start: 2015-04-16 20:16:51
+
+two:
+  name: MyString
+  artist: MyString
+  album: MyString
+  label: MyString
+  year: 1
+  request: false
+  start: 2015-04-16 20:16:51

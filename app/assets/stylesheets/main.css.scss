@@ -1,0 +1,82 @@
+html { background-color: #EEE; }
+
+body {
+  font-family: 'Alegreya Sans', sans-serif;
+  font-weight: 500;
+  min-width: 1050px;
+}
+
+header {
+  text-align: right;
+  padding: 0.2em;
+  margin: -8px;
+  margin-bottom: 0px;
+  min-width: 100%;
+  background-color: white;
+  .auth {
+    padding-right: 1em;
+    padding-top: 0.2em;
+  }
+}
+
+.sidebar { 
+  float: left;
+  width: 250px;
+  padding-left: 40px;
+  padding-top:2em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Alegreya', serif;
+  font-weight: 900;
+  font-style: italic;
+  color: #555;
+  line-height: 1;
+}
+/* The Sass "context" map */
+$context-font: (
+  sidebar: 1,
+  showinfo: 0.8,
+);
+$step-size-heading: 0.33333;
+@mixin heading-size($size) {
+  font-size: $size * $step-size-heading + em;
+}
+@each $element, $value in $context-font {
+  .#{$element} {
+    h1 { @include heading-size(6 * $value); }
+    h2 { @include heading-size(5 * $value); }
+    h3 { @include heading-size(4 * $value); }
+    h4 { @include heading-size(3 * $value); }
+    h5 { @include heading-size(2 * $value); }
+    h6 { @include heading-size(1 * $value); }
+  }
+}
+
+.showinfo h2 {
+  font-style: normal;
+  color: #222;
+  padding: none; margin: none;
+}
+.showinfo p { margin-top: -1em; }
+
+.field {
+  margin-bottom: 1em;
+}
+
+label {
+  font-weight: 300;
+  font-style: italic;
+}
+
+input {
+  width: 100%;
+  height: 2em;
+  padding: none;
+}
+textarea {
+  width: 100%;
+  border: none;
+}
+
+.accent { color: #FD7400 !important; }
