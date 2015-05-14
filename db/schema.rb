@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20150417001651) do
     t.string   "label"
     t.integer  "year"
     t.boolean  "request"
-    t.datetime "start"
+    t.datetime "at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

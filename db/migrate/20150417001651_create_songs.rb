@@ -7,7 +7,7 @@ class CreateSongs < ActiveRecord::Migration
       t.string :label
       t.integer :year
       t.boolean :request
-      t.datetime :start
+      t.datetime :at
 
       t.timestamps null: false
     end

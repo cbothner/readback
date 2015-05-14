@@ -1,10 +1,4 @@
-- title "Input"
-%aside.sidebar
-  %h1.accent WCBN Playlist
-  .showinfo
-    %h2 Ceci n’est pas Freeform
-    %p Thursday, April 16, 2015 4:00&ndash;6:00pm
-  = render 'form'
+- title "Songs"
 %table
   %thead
     %td Time
@@ -15,7 +9,7 @@
     %td Year
   - @songs.each do |song|
     %tr
-      %td.thin.time-col=song.start.getlocal.strftime '%l:%M %p'
+      %td.thin.time-col=song.at.getlocal.strftime '%l:%M %p'
       %td=best_in_place song, :artist
       %td<
         =best_in_place song, :name, display_with: lambda {|str| '“' + str + '”' }

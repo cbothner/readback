@@ -1,0 +1,25 @@
+- title "Input"
+%aside.sidebar
+  %h1.accent WCBN Playlist
+  .showinfo
+    %h2 Ceci n’est pas Freeform
+    %p Thursday, April 16, 2015 4:00&ndash;6:00pm
+  = render 'songs/form'
+%article
+  %table
+    %thead
+    %tr
+      %td{colspan: 6}
+    %thead#now
+      %td Time
+      %td Artist
+      %td Song Title
+      %td Album
+      %td Label
+      %td Year
+    - @items.each do |item|
+      =render item
+
+-#<div style="position:absolute; text-align:right; border-top: 3px solid black;
+-#margin-left: -215px; width: 200px;">This is a DJ comment! It should have a
+-#maximum width, don't you think?</div>

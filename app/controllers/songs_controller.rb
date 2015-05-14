@@ -4,7 +4,7 @@ class SongsController < ApplicationController
   # GET /songs
   # GET /songs.json
   def index
-    @songs = Song.all.sort_by(&:start).reverse
+    @songs = Song.all.sort_by(&:at).reverse
     @song = Song.new
   end
 
@@ -26,7 +26,7 @@ class SongsController < ApplicationController
   # POST /songs.json
   def create
     @song = Song.new(song_params)
-    @song.start = Time.now
+    @song.at = Time.now
 
     respond_to do |format|
       if @song.save

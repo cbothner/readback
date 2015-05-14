@@ -15,12 +15,19 @@
   width: 26%;
 }
 
-table {
+article {
   padding: 1.5em;
-  padding-top: 1em;
-  width: 72%;
-  min-width: 730px;
+  padding-top: 2em;
+  width: 60%;
+  margin-left: 320px;
 }
+
+table {
+  width: 100%;
+  max-width:1000px;
+  margin: auto;
+}
+body > table { padding-top: 2em; }
 
 thead {
   font-family: 'Alegreya', serif;
