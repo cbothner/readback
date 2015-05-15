@@ -39,9 +39,9 @@ thead {
   }
 }
 
-tr.grey, tr.grey td .showinfo h2 { color: #999; }
+tr.grey * { color: #999; }
 
-#next_up td span {
+#now td span {
   display: inline-block;
   padding-bottom: 1em;
   font-style: italic;
