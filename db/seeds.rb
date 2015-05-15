@@ -1,49 +1,108 @@
-decemberists = Song.create(
-  name: "Sons and Daughters",
-  artist: "The Decemberists",
-  album: "The Crane Wife",
-  label: "Capitol",
-  year: 2006,
-  request: false,
-  at: "Thu, 16 Apr 2015 20:01:00 UTC +00:00"
+semester = Semester.create( beginning: "Tue, 12 May 2015 6:00:00 -04:00" )
+
+cameron = Dj.create(
+  name: "Cameron", phone: "(734) 395-5779", email: "cbothner@umich.edu"
 )
 
-funkadelic = Song.create(
-  name: "Funkadelic",
-  artist: "Maggot Brain",
-  album: "Maggot Brain",
-  label: "Westbound",
-  year: 1971,
-  request: false,
-  at: "Thu, 16 Apr 2015 20:06:00 UTC +00:00"
+brandok = Dj.create(
+  name: "Brandok", phone: "(555) 555-5555", email: "brandok@wcbn.org"
 )
 
-beatles = Song.create(
-  name: "Dear Prudence",
-  artist: "The Beatles",
-  album: "The Beatles (White Album)",
-  label: "Apple",
-  year: 1968,
-  request: false,
-  at: "Thu, 16 Apr 2015 20:14:00 UTC +00:00"
+tyler = Dj.create(
+  name: "Tyler C", phone: "(555) 555-5555", email: "tyler@wcbn.org"
 )
 
-japandroids = Song.create(
-  name: "The Nights of Wine and Roses",
-  artist: "Japandroids",
-  album: "Celebration Rock",
-  label: "Polyvinyl",
-  year: 2012,
-  request: false,
-  at: "Thu, 16 Apr 2015 20:18:00 UTC +00:00"
+
+surrealist = cameron.freeform_shows.build(
+  name: "Ceci n’est pas Freeform",
+  weekday: 1,
+  start: "Tue, 12 May 2015 15:00:00 -04:00",
+  ending: "Tue, 12 May 2015 17:30:00 -04:00"
+)
+surrealist.semester = semester
+surrealist.save
+
+bleached_meat = brandok.freeform_shows.build(
+  name: "Bleached Meat",
+  weekday: 1,
+  start: "Tue, 12 May 2015 12:00:00 -04:00",
+  ending: "Tue, 12 May 2015 15:00:00 -04:00"
+)
+bleached_meat.semester = semester
+bleached_meat.save
+
+disco = tyler.specialty_shows.build(
+  name: "Drive Time Disco",
+  weekday: 1,
+  start: "Tue, 12 May 2015 17:30:00 -04:00",
+  ending: "Tue, 12 May 2015 18:30:00 -04:00"
+)
+disco.semester = semester
+disco.save
+
+six_oclock_shadow = semester.specialty_shows.create(
+  name: "The Six O’Clock Shadow",
+  weekday: 5,
+  start: "Tue, 12 May 2015 18:00:00 -04:00",
+  ending: "Tue, 12 May 2015 19:00:00 -04:00"
+)
+cameron.specialty_shows << six_oclock_shadow
+brandok.specialty_shows << six_oclock_shadow
+
+radiozilla = semester.specialty_shows.create(
+  name: "Radiozilla",
+  weekday: 0,
+  start: "Tue, 12 May 2015 14:00:00 -04:00",
+  ending: "Tue, 12 May 2015 15:00:00 -04:00"
+)
+cameron.specialty_shows << radiozilla
+
+surr_first = surrealist.show_instances.create(
+  beginning: "Mon, 18 May 2015 15:00:00 -04:00",
+  ending: "Mon, 18 May 2015 17:30:00 -04:00"
 )
 
-fleet_foxes = Song.create(
-  name: "Oliver James",
-  artist: "Fleet Foxes",
-  album: "Fleet Foxes",
-  label: "Sub Pop",
-  year: 2008,
-  request: true,
-  at: "Thu, 16 Apr 2015 20:22:00 UTC +00:00"
+bm_first = bleached_meat.show_instances.create(
+  beginning: "Mon, 18 May 2015 12:00:00 -04:00",
+  ending: "Mon, 18 May 2015 15:00:00 -04:00"
 )
+
+disco_first = tyler.show_instances.build(
+  beginning: "Mon, 18 May 2015 17:30:00 -04:00",
+  ending: "Mon, 18 May 2015 18:30:00 -04:00"
+)
+disco.show_instances << disco_first
+disco.save
+disco_first.save
+
+surr_first.songs.create([{
+  name: "Sons and Daughters", artist: "The Decemberists",
+  album: "The Crane Wife", label: "Capitol", year: 2006, request: false,
+  at: "Mon, 18 May 2015 15:01:00 -04:00"
+},{
+  name: "Funkadelic", artist: "Maggot Brain", album: "Maggot Brain",
+  label: "Westbound", year: 1971, request: false,
+  at: "Mon, 18 May 2015 15:06:00 -04:00"
+},{
+  name: "Dear Prudence", artist: "The Beatles",
+  album: "The Beatles (White Album)", label: "Apple", year: 1968,
+  request: false, at: "Mon, 18 May 2015 15:14:00 -04:00"
+},{
+  name: "The Nights of Wine and Roses", artist: "Japandroids",
+  album: "Celebration Rock", label: "Polyvinyl", year: 2012, request: false,
+  at: "Mon, 18 May 2015 15:18:00 -04:00"
+},{
+  name: "Oliver James", artist: "Fleet Foxes", album: "Fleet Foxes",
+  label: "Sub Pop", year: 2008, request: true,
+  at: "Mon, 18 May 2015 15:22:00 -04:00"
+}])
+
+bm_first.songs.create([{
+  name: "Alone Again", artist: "The King Khan & BBQ Show",
+  album: "Bad News Boys", label: "In The Red", year: 2005,
+  request: false, at: "Mon, 18 May 2015 14:55:00 -04:00"
+},{
+  name: "Autodidactic", artist: "Swervedriver",
+  album: "I Wasn't Born To Lose You", label: "Cobraside", year: 2015,
+  request: true, at: "Mon, 18 May 2015 14:51:00 -04:00"
+}])

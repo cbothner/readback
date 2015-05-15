@@ -5,7 +5,6 @@ class SongsController < ApplicationController
   # GET /songs.json
   def index
     @songs = Song.all.sort_by(&:at).reverse
-    @song = Song.new
   end
 
   # GET /songs/1
@@ -27,13 +26,17 @@ class SongsController < ApplicationController
   def create
     @song = Song.new(song_params)
     @song.at = Time.now
+    @song.show_instance = ShowInstance.on_air
 
     respond_to do |format|
       if @song.save
-        format.html { redirect_to :songs, notice: 'Song was successfully created.' }
+        format.html { redirect_to controller: :playlist, action: :index }
         format.json { render :show, status: :created, location: @song }
       else
-        format.html { render :index }
+        format.html {
+          flash[:alert] = @song.errors.full_messages
+          session[:song] = @song
+          redirect_to controller: :playlist, action: :index }
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end

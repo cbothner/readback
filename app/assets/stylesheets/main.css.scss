@@ -20,6 +20,15 @@ header {
   position: fixed;
 }
 
+.alert {
+  padding: 0.3em 2.5em;
+  margin-bottom: 0.5em;
+  border: 1px solid #c0392b;
+  background-color: #e74c3c;
+  font-weight: 900;
+  color: #FFF;
+}
+
 .sidebar {
   float: left;
   width: 250px;
@@ -60,7 +69,11 @@ $step-size-heading: 0.33333;
   color: #222;
   padding: none; margin: none;
 }
-.showinfo p { margin-top: -1em; }
+.showinfo p { margin-top: -1.1em; }
+.showinfo .with {
+  padding-left: 1.5em;
+  font-style: italic;
+}
 
 .field {
   margin-bottom: 1em;

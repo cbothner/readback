@@ -1,24 +1,43 @@
 - title "Input"
+
 %aside.sidebar
   %h1.accent WCBN Playlist
-  .showinfo
-    %h2 Ceci n’est pas Freeform
-    %p Thursday, April 16, 2015 4:00&ndash;6:00pm
+  =render @on_air
+  - if flash[:alert]
+    .alert
+      - flash[:alert].each do |err|
+        =err
   = render 'songs/form'
 %article
   %table
     %thead
-    %tr
+    - @future_items.each do |item|
+      %tr.grey
+        =render item
+    %tr#next_up.grey
       %td{colspan: 6}
-    %thead#now
+        ⇧
+        %span Next up on WCBN
+        ⇧
+        %br
+    %thead
       %td Time
       %td Artist
       %td Song Title
       %td Album
       %td Label
       %td Year
-    - @items.each do |item|
-      =render item
+    - @past_items.each do |item|
+      %tr
+        =render item
+      -if item.is_a? ShowInstance
+        %thead
+          %td Time
+          %td Artist
+          %td Song Title
+          %td Album
+          %td Label
+          %td Year
 
 -#<div style="position:absolute; text-align:right; border-top: 3px solid black;
 -#margin-left: -215px; width: 200px;">This is a DJ comment! It should have a

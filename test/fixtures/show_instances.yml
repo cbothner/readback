@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  show_id: 
+  show_type: Show
+  dj_id: 
+  beginning: 2015-05-14 16:06:35
+
+two:
+  show_id: 
+  show_type: Show
+  dj_id: 
+  beginning: 2015-05-14 16:06:35

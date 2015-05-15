@@ -38,4 +38,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+end
+
+Time.class_eval do
+  def self.now
+    new 2015, 05, 18, 15, 25, 00, "-04:00"
+  end
 end

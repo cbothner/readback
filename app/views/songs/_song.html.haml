@@ -1,9 +1,8 @@
-%tr
-  %td.thin.time-col=song.at.getlocal.strftime '%l:%M %p'
-  %td=best_in_place song, :artist
-  %td<
-    =best_in_place song, :name, display_with: lambda {|str| '“' + str + '”' }
-    %span.thin.accent=' (by request)' if song.request
-  %td.italic=best_in_place song, :album
-  %td.thin=best_in_place song, :label
-  %td.thin.lnum=best_in_place song, :year
+%td.thin.time-col=song.at.getlocal.strftime '%l:%M %p'
+%td=best_in_place song, :artist
+%td<
+  =best_in_place song, :name, display_with: lambda {|str| '“' + str + '”' }
+  %span.thin.accent=' (by request)' if song.request
+%td.italic=best_in_place song, :album
+%td.thin=best_in_place song, :label
+%td.thin.lnum=best_in_place song, :year

@@ -11,7 +11,55 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417001651) do
+ActiveRecord::Schema.define(version: 20150514210752) do
+
+  create_table "djs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "djs_specialty_shows", id: false, force: :cascade do |t|
+    t.integer "dj_id",             null: false
+    t.integer "specialty_show_id", null: false
+  end
+
+  add_index "djs_specialty_shows", ["specialty_show_id", "dj_id"], name: "index_djs_specialty_shows_on_specialty_show_id_and_dj_id", unique: true
+
+  create_table "freeform_shows", force: :cascade do |t|
+    t.integer  "semester_id"
+    t.integer  "dj_id"
+    t.string   "name"
+    t.integer  "weekday"
+    t.datetime "start"
+    t.datetime "ending"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "freeform_shows", ["dj_id"], name: "index_freeform_shows_on_dj_id"
+  add_index "freeform_shows", ["semester_id"], name: "index_freeform_shows_on_semester_id"
+
+  create_table "semesters", force: :cascade do |t|
+    t.datetime "beginning"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "show_instances", force: :cascade do |t|
+    t.integer  "show_id"
+    t.string   "show_type"
+    t.integer  "dj_id"
+    t.datetime "beginning"
+    t.datetime "ending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "show_instances", ["dj_id"], name: "index_show_instances_on_dj_id"
+  add_index "show_instances", ["show_type", "show_id"], name: "index_show_instances_on_show_type_and_show_id"
 
   create_table "songs", force: :cascade do |t|
     t.string   "name"
@@ -21,8 +69,23 @@ ActiveRecord::Schema.define(version: 20150417001651) do
     t.integer  "year"
     t.boolean  "request"
     t.datetime "at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "show_instance_id"
   end
+
+  add_index "songs", ["show_instance_id"], name: "index_songs_on_show_instance_id"
+
+  create_table "specialty_shows", force: :cascade do |t|
+    t.integer  "semester_id"
+    t.string   "name"
+    t.integer  "weekday"
+    t.datetime "start"
+    t.datetime "ending"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "specialty_shows", ["semester_id"], name: "index_specialty_shows_on_semester_id"
 
 end
