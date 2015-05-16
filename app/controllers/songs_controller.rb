@@ -1,24 +1,10 @@
 class SongsController < ApplicationController
-  before_action :set_song, only: [:show, :edit, :update, :destroy]
+  before_action :set_song, only: [:update, :destroy]
 
   # GET /songs
   # GET /songs.json
   def index
     @songs = Song.all.sort_by(&:at).reverse
-  end
-
-  # GET /songs/1
-  # GET /songs/1.json
-  def show
-  end
-
-  # GET /songs/new
-  def new
-    @song = Song.new
-  end
-
-  # GET /songs/1/edit
-  def edit
   end
 
   # POST /songs
@@ -47,10 +33,8 @@ class SongsController < ApplicationController
   def update
     respond_to do |format|
       if @song.update(song_params)
-        format.html { redirect_to @song, notice: 'Song was successfully updated.' }
         format.json { respond_with_bip @song }
       else
-        format.html { render :edit }
         format.json { respond_with_bip @song }
       end
     end
@@ -61,7 +45,10 @@ class SongsController < ApplicationController
   def destroy
     @song.destroy
     respond_to do |format|
-      format.html { redirect_to songs_url, notice: 'Song was successfully destroyed.' }
+      format.html {
+        flash[:alert] = ["Song deleted"]
+        redirect_to controller: :playlist, action: :index
+      }
       format.json { head :no_content }
     end
   end

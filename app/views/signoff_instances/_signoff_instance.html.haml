@@ -1,0 +1,11 @@
+%td.thin.time-col=signoff_instance.at.getlocal.strftime '%l:%M %P'
+%td.signoff-instance{colspan: 5}
+  - if signoff_instance.signed.nil?
+    .signoff-on{class: ("accent bold" if signoff_instance.at <= Time.now) }
+      ="#{signoff_instance.on}: "
+    = form_for signoff_instance do |f|
+      = f.label :signed
+      = f.text_field :signed
+      = f.submit 'Sign off', data: { disable_with: 'Saving...' }
+  - else
+    %span.signed="#{signoff_instance.on}: #{signoff_instance.signed}"

@@ -4,7 +4,7 @@ class CreateSpecialtyShows < ActiveRecord::Migration
       t.references :semester, index: true
       t.string :name
       t.integer :weekday
-      t.datetime :start
+      t.datetime :beginning
       t.datetime :ending
 
       t.timestamps null: false

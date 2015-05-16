@@ -16,7 +16,7 @@ tyler = Dj.create(
 surrealist = cameron.freeform_shows.build(
   name: "Ceci n’est pas Freeform",
   weekday: 1,
-  start: "Tue, 12 May 2015 15:00:00 -04:00",
+  beginning: "Tue, 12 May 2015 15:00:00 -04:00",
   ending: "Tue, 12 May 2015 17:30:00 -04:00"
 )
 surrealist.semester = semester
@@ -25,7 +25,7 @@ surrealist.save
 bleached_meat = brandok.freeform_shows.build(
   name: "Bleached Meat",
   weekday: 1,
-  start: "Tue, 12 May 2015 12:00:00 -04:00",
+  beginning: "Tue, 12 May 2015 12:00:00 -04:00",
   ending: "Tue, 12 May 2015 15:00:00 -04:00"
 )
 bleached_meat.semester = semester
@@ -34,7 +34,7 @@ bleached_meat.save
 disco = tyler.specialty_shows.build(
   name: "Drive Time Disco",
   weekday: 1,
-  start: "Tue, 12 May 2015 17:30:00 -04:00",
+  beginning: "Tue, 12 May 2015 17:30:00 -04:00",
   ending: "Tue, 12 May 2015 18:30:00 -04:00"
 )
 disco.semester = semester
@@ -43,7 +43,7 @@ disco.save
 six_oclock_shadow = semester.specialty_shows.create(
   name: "The Six O’Clock Shadow",
   weekday: 5,
-  start: "Tue, 12 May 2015 18:00:00 -04:00",
+  beginning: "Tue, 12 May 2015 18:00:00 -04:00",
   ending: "Tue, 12 May 2015 19:00:00 -04:00"
 )
 cameron.specialty_shows << six_oclock_shadow
@@ -52,7 +52,7 @@ brandok.specialty_shows << six_oclock_shadow
 radiozilla = semester.specialty_shows.create(
   name: "Radiozilla",
   weekday: 0,
-  start: "Tue, 12 May 2015 14:00:00 -04:00",
+  beginning: "Tue, 12 May 2015 14:00:00 -04:00",
   ending: "Tue, 12 May 2015 15:00:00 -04:00"
 )
 cameron.specialty_shows << radiozilla
@@ -106,3 +106,28 @@ bm_first.songs.create([{
   album: "I Wasn't Born To Lose You", label: "Cobraside", year: 2015,
   request: true, at: "Mon, 18 May 2015 14:51:00 -04:00"
 }])
+
+legal_id = Signoff.create(
+  on: "Legal ID",
+  times: 7.times.map do |wday|
+    24.times.map do |hr|
+      {weekday: wday, at: Time.parse("Tue, 12 May 2015 #{hr}:00:00 -04:00")}
+    end
+  end.flatten
+)
+
+legal_2 = legal_id.signoff_instances.create(
+  on: "Legal ID",
+  signed: "Brandon Kierdorf",
+  at: "Mon, 18 May 2015 14:00:00 -04:00"
+)
+legal_3 = legal_id.signoff_instances.create(
+  on: "Legal ID",
+  signed: nil,
+  at: "Mon, 18 May 2015 15:00:00 -04:00"
+)
+legal_4 = legal_id.signoff_instances.create(
+  on: "Legal ID",
+  signed: nil,
+  at: "Mon, 18 May 2015 16:00:00 -04:00"
+)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514210752) do
+ActiveRecord::Schema.define(version: 20150518192501) do
 
   create_table "djs", force: :cascade do |t|
     t.string   "name"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20150514210752) do
     t.integer  "dj_id"
     t.string   "name"
     t.integer  "weekday"
-    t.datetime "start"
+    t.datetime "beginning"
     t.datetime "ending"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
@@ -61,6 +61,24 @@ ActiveRecord::Schema.define(version: 20150514210752) do
   add_index "show_instances", ["dj_id"], name: "index_show_instances_on_dj_id"
   add_index "show_instances", ["show_type", "show_id"], name: "index_show_instances_on_show_type_and_show_id"
 
+  create_table "signoff_instances", force: :cascade do |t|
+    t.string   "on"
+    t.string   "signed"
+    t.datetime "at"
+    t.integer  "signoff_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "signoff_instances", ["signoff_id"], name: "index_signoff_instances_on_signoff_id"
+
+  create_table "signoffs", force: :cascade do |t|
+    t.string   "on"
+    t.text     "times"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "songs", force: :cascade do |t|
     t.string   "name"
     t.string   "artist"
@@ -80,7 +98,7 @@ ActiveRecord::Schema.define(version: 20150514210752) do
     t.integer  "semester_id"
     t.string   "name"
     t.integer  "weekday"
-    t.datetime "start"
+    t.datetime "beginning"
     t.datetime "ending"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false

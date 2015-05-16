@@ -1,0 +1,25 @@
+.signoff-instance form {
+  display: inline;
+
+  label {
+    display: block;
+    float: left;
+    padding-top: 3px;
+    padding-right: 0.5em;
+  }
+
+  input {
+    width: 20em;
+  }
+
+  input[type="submit"] {
+    width: 6em;
+    margin-left: 0.5em;
+  }
+}
+
+.signoff-on {
+  float: left;
+  padding-top: 3px;
+  padding-right: 1em;
+}

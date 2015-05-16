@@ -5,7 +5,7 @@ class CreateFreeformShows < ActiveRecord::Migration
       t.references :dj, index: true
       t.string :name
       t.integer :weekday
-      t.datetime :start
+      t.datetime :beginning
       t.datetime :ending
 
       t.timestamps null: false

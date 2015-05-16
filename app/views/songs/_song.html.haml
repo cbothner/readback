@@ -1,4 +1,6 @@
-%td.thin.time-col=song.at.getlocal.strftime '%l:%M %P'
+%td
+  .delete-song=link_to '[x]', {controller: :songs, action: :destroy, id: song.id}, method: :delete, data: {confirm: "Are you sure you want to delete this song?"}
+  .thin.time-col=song.at.getlocal.strftime '%l:%M %P'
 %td=best_in_place song, :artist
 %td<
   =best_in_place song, :name, display_with: lambda {|str| '“' + str + '”' }

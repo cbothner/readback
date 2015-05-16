@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  'on': MyString
+  signed: MyString
+  at: 2015-05-18 15:25:00
+  signoff_id: 
+
+two:
+  'on': MyString
+  signed: MyString
+  at: 2015-05-18 15:25:00
+  signoff_id: 
