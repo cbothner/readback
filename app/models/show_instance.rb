@@ -25,6 +25,6 @@ class ShowInstance < ActiveRecord::Base
   end
 
   def time_string
-    "#{beginning.getlocal.strftime("%A, %B %-d, %Y %l:%M")} &ndash; #{show.ending.getlocal.strftime("%l:%M%P")}".html_safe
+    "#{beginning.getlocal.strftime("%A, %B %-d, %Y &nbsp;%l:%M")} &ndash; #{show.ending.getlocal.strftime("%l:%M%P")}".html_safe
   end
 end

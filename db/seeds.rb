@@ -116,19 +116,19 @@ legal_id = Signoff.create(
   end.flatten
 )
 
-legal_id.signoff_instances.create([{
+legal_id.signoff_instances.create(
   on: "Legal ID",
   signed: "Brandon Kierdorf",
   at: "Mon, 18 May 2015 14:00:01 -04:00"
-},{
-  on: "Legal ID",
-  signed: nil,
-  at: "Mon, 18 May 2015 15:00:01 -04:00"
-},{
-  on: "Legal ID",
-  signed: nil,
-  at: "Mon, 18 May 2015 16:00:01 -04:00"
-}])
+)
+
+15.upto(20) do |i|
+  legal_id.signoff_instances.create(
+    on: "Legal ID",
+    signed: nil,
+    at: "Mon, 18 May 2015 #{i}:00:01 -04:00"
+  )
+end
 
 events_info = Signoff.create(
   on: "Events Information",
