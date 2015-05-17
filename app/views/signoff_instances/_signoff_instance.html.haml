@@ -1,4 +1,5 @@
-%td.thin.time-col=signoff_instance.at.getlocal.strftime '%l:%M %P'
+%td.thin.time-col{class: ("signed" unless signoff_instance.signed.nil?)}
+  =signoff_instance.at.getlocal.strftime '%l:%M %P'
 %td.signoff-instance{colspan: 5}
   - if signoff_instance.signed.nil?
     .signoff-on{class: ("accent bold" if signoff_instance.at <= Time.now) }

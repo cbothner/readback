@@ -104,30 +104,56 @@ bm_first.songs.create([{
 },{
   name: "Autodidactic", artist: "Swervedriver",
   album: "I Wasn't Born To Lose You", label: "Cobraside", year: 2015,
-  request: true, at: "Mon, 18 May 2015 14:51:00 -04:00"
+  request: true, at: "Mon, 18 May 2015 14:25:00 -04:00"
 }])
 
 legal_id = Signoff.create(
   on: "Legal ID",
   times: 7.times.map do |wday|
     24.times.map do |hr|
-      {weekday: wday, at: Time.parse("Tue, 12 May 2015 #{hr}:00:00 -04:00")}
+      {weekday: wday, at: Time.parse("Tue, 12 May 2015 #{hr}:00:01 -04:00")}
     end
   end.flatten
 )
 
-legal_2 = legal_id.signoff_instances.create(
+legal_id.signoff_instances.create([{
   on: "Legal ID",
   signed: "Brandon Kierdorf",
-  at: "Mon, 18 May 2015 14:00:00 -04:00"
-)
-legal_3 = legal_id.signoff_instances.create(
+  at: "Mon, 18 May 2015 14:00:01 -04:00"
+},{
   on: "Legal ID",
   signed: nil,
-  at: "Mon, 18 May 2015 15:00:00 -04:00"
-)
-legal_4 = legal_id.signoff_instances.create(
+  at: "Mon, 18 May 2015 15:00:01 -04:00"
+},{
   on: "Legal ID",
   signed: nil,
-  at: "Mon, 18 May 2015 16:00:00 -04:00"
+  at: "Mon, 18 May 2015 16:00:01 -04:00"
+}])
+
+events_info = Signoff.create(
+  on: "Events Information",
+  times: 7.times.map do |wday|
+    [1,4,7,10,13,16,20].map do |hr|
+      {weekday: wday, at: Time.parse("Tue, 12 May 2015 #{hr}:30:00 -04:00")}
+    end
+  end
 )
+concert_info = Signoff.create(
+  on: "Concert Information",
+  times: 7.times.map do |wday|
+    [2,5,8,11,14,17,21,23].map do |hr|
+      {weekday: wday, at: Time.parse("Tue, 12 May 2015 #{hr}:30:00 -04:00")}
+    end
+  end
+)
+
+concert_info.signoff_instances.create([{
+  on: "Concert Information",
+  signed: "Brandon Kierdorf",
+  at: "Mon, 18 May 2015 14:30:00 -04:00"
+}])
+events_info.signoff_instances.create([{
+  on: "Events Information",
+  signed: nil,
+  at: "Mon, 18 May 2015 16:30:00 -04:00"
+}])
