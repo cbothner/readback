@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   resources :songs
+
   resources :signoff_instances
+
+  resources :semesters
+
   root 'playlist#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

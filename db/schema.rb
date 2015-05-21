@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518192501) do
+ActiveRecord::Schema.define(version: 20150518200410) do
 
   create_table "djs", force: :cascade do |t|
     t.string   "name"
@@ -105,5 +105,19 @@ ActiveRecord::Schema.define(version: 20150518192501) do
   end
 
   add_index "specialty_shows", ["semester_id"], name: "index_specialty_shows_on_semester_id"
+
+  create_table "talk_shows", force: :cascade do |t|
+    t.integer  "semester_id"
+    t.integer  "dj_id"
+    t.string   "name"
+    t.integer  "weekday"
+    t.datetime "beginning"
+    t.datetime "ending"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "talk_shows", ["dj_id"], name: "index_talk_shows_on_dj_id"
+  add_index "talk_shows", ["semester_id"], name: "index_talk_shows_on_semester_id"
 
 end

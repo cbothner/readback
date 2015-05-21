@@ -15,11 +15,6 @@ class ShowInstance < ActiveRecord::Base
     !dj.nil?
   end
 
-  def with
-    dj_name = subbed_for? ? dj.name : show.dj.name
-    "with #{show.different_dj_title if subbed_for?} #{dj_name}"
-  end
-
   def self.on_air
     where(beginning: (Time.now - 6.hours)..Time.now).order(:beginning).last
   end

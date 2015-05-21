@@ -43,6 +43,19 @@ disco = tyler.specialty_shows.build(
 disco.semester = semester
 disco.save
 
+grey_matters = semester.talk_shows.build(
+  name: "Grey Matters",
+  weekday: 1,
+  beginning: "Tue, 12 May 2015 18:30:00 -04:00",
+  ending: "Tue, 12 May 2015 19:00:00 -04:00"
+)
+grey_matters.save
+
+grey_matters.show_instances.create(
+  beginning: "Mon 18 May 2015 18:30:00 -04:00",
+  ending: "Mon 18 May 2015 19:00:00 -04:00"
+)
+
 six_oclock_shadow = semester.specialty_shows.create(
   name: "The Six O’Clock Shadow",
   weekday: 5,
