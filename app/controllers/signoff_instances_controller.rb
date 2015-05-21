@@ -42,11 +42,11 @@ class SignoffInstancesController < ApplicationController
   def update
     @signoff_instance.at = Time.now
     respond_to do |format|
-      if !@signoff_instance.signed.nil? && @signoff_instance.update(signoff_instance_params)
+      if @signoff_instance.update(signoff_instance_params)
         format.html { redirect_to controller: :playlist, action: :index }
       else
         format.html {
-          flash[:alert] = ["You must type your name to sign off on the #{@signoff_instance.on}."]
+          flash[:alert] = @signoff_instance.errors.full_messages
           redirect_to controller: :playlist, action: :index
         }
       end

@@ -18,14 +18,12 @@
 article {
   padding: 1.5em;
   padding-top: 2em;
-  width: 60%;
-  margin-left: 320px;
+  margin-left: 20em;
 }
 
 table {
   width: 100%;
   max-width:1000px;
-  margin: auto;
 }
 body > table { padding-top: 2em; }
 
@@ -65,6 +63,15 @@ tr.grey * { color: #999; }
 td {
   padding-bottom: 0.3em;
   height: 1.2em;
+  vertical-align: top;
+}
+
+.width1{ width: 3em; }
+.width2{ width: 6em; }
+.width3{ width: 12em; }
+.width4{ width: 15em; }
+.bip-sized{
+  width: 95%;
 }
 
 .time-col { min-width: 60px; }
