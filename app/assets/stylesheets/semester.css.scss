@@ -1,0 +1,9 @@
+table.schedule {
+  table-layout: fixed;
+  thead {text-align: center;}
+  th {
+    vertical-align: top;
+    text-align: right;
+  }
+  td.show { border: 1px solid #999; }
+}

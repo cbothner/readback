@@ -9,17 +9,21 @@ body {
 }
 
 header {
-  text-align: right;
-  padding: 0.2em;
   margin: -8px;
   margin-bottom: 0px;
   min-width: 100%;
   background-color: white;
-  .auth {
-    padding-right: 1em;
-    padding-top: 0.2em;
+  .left {
+    float: left;
+    padding: 0.2em 1em;
+    span { padding-right: 1em; }
+  }
+  .right {
+    float: right;
+    padding: 0.2em 1em;
   }
   position: fixed;
+  z-index: 100
 }
 
 .alert {

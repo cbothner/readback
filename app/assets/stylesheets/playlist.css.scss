@@ -18,12 +18,15 @@
 article {
   padding: 1.5em;
   padding-top: 2em;
-  margin-left: 20em;
+  margin:auto;
+  max-width:1000px;
+  &.with_sidebar{
+    margin-left: 20em;
+  }
 }
 
 table {
   width: 100%;
-  max-width:1000px;
 }
 body > table { padding-top: 2em; }
 

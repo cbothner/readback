@@ -1,4 +1,6 @@
 class SpecialtyShow < ActiveRecord::Base
+  include Show
+
   belongs_to :semester
   has_and_belongs_to_many :djs
   has_many :show_instances, as: :show

@@ -56,6 +56,24 @@ grey_matters.show_instances.create(
   ending: "Mon 18 May 2015 19:00:00 -04:00"
 )
 
+slipstream = semester.freeform_shows.build(
+  name: "SlipStream Radio",
+  weekday: 1,
+  beginning: "Tue, 12 May 2015 06:00:00 -04:00",
+  ending: "Tue, 12 May 2015 09:00:00 -04:00"
+)
+dwb.freeform_shows << slipstream
+slipstream.save
+
+trying = semester.freeform_shows.create(
+  name: "Trying Not To Swear",
+  weekday: 0,
+  beginning: "Tue, 12 May 2015 03:00:00 -04:00",
+  ending: "Tue, 12 May 2015 06:00:00 -04:00"
+)
+tyler.freeform_shows << trying
+trying.save
+
 six_oclock_shadow = semester.specialty_shows.create(
   name: "The Six O’Clock Shadow",
   weekday: 5,

@@ -9,7 +9,11 @@
 <body>
 
 <header>
-  <div class="auth">
+  <div class="left">
+    <span><%= link_to "Playlist", controller: :playlist %></span>
+    <span><%= link_to "Schedule", Semester.current %></span>
+  </div>
+  <div class="right">
     Logged in as a WCBN DJ
   </div>
 </header>

@@ -1,4 +1,6 @@
 class TalkShow < ActiveRecord::Base
+  include Show
+
   belongs_to :semester
   belongs_to :dj
   has_many :show_instances, as: :show

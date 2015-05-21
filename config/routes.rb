@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   resources :signoff_instances
 
-  resources :semesters
+  resources :semesters, shallow: true do
+    resources :freeform_shows
+    resources :specialty_shows
+    resources :talk_shows
+  end
 
   root 'playlist#index'
 
