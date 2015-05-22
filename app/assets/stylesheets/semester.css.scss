@@ -1,9 +1,16 @@
 table.schedule {
-  table-layout: fixed;
   thead {text-align: center;}
   th {
     vertical-align: top;
     text-align: right;
+    min-width: 4em;
+    width: 4em;
   }
-  td.show { border: 1px solid #999; }
+  td.show {
+    width: 7em;
+    border: 1px solid #999;
+  }
 }
+
+.show_name { font-style: italic; }
+.show_with { font-size: 85%; }

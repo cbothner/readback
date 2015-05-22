@@ -1,0 +1,9 @@
+<% if content_for?(:headline) %>
+<header id="headline">
+  <h2><%= content_for(:headline) %></h2>
+</header>
+<% end %>
+
+<%= yield %>
+
+<% parent_layout 'application' %>
