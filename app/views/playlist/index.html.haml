@@ -9,7 +9,7 @@
       - flash[:alert].each do |err|
         =err
   = render 'songs/form'
-%article.with_sidebar
+%article.with-sidebar.scroll-up
   %table.playlist
     %thead
     - @future_items.each do |item|

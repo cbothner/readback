@@ -1,7 +1,20 @@
 - title "Show Schedule"
-- headline "WCBN Schedule Beginning #{@semester.beginning.strftime "%B %-d, %Y"}"
+- headline "WCBN Schedule Beginning #{@semester.start}"
 
-%article
+- content_for :sidebar do
+  %h4.no-margin All Schedules
+  %ul.semesters
+    - @semesters.each do |semester|
+      %li{class: ("arrow" if semester == Semester.current)}
+        %span{class: ("highlight" if semester == @semester)}
+          =(semester == Semester.current ? "&rarr; ".html_safe : "".html_safe)
+          =link_to("#{semester.beginning.strftime '%B %-d, %Y'}", semester) 
+        .copy
+          [
+          =link_to("copy", "/semesters/new/based_on/#{semester.id}")
+          ]
+
+%article.with-thin-sidebar
   %table.schedule
     %thead
       - ["", "Monday", "Tuesday", "Wednesday", "Thursday",

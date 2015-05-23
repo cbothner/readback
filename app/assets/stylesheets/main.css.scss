@@ -28,6 +28,7 @@ body {
 
 #headline {
   margin: auto;
+  padding: 0 1.5em;
   padding-top: 2em;
   padding-bottom: 0.5em;
   max-width:1200px;
@@ -36,10 +37,17 @@ body {
 
 article {
   margin:auto;
+  padding: 0 1.5em;
   max-width:1200px;
-  &.with_sidebar{
-    margin-left: 20em;
-  }
+}
+.with-sidebar{
+  margin-left: 20em !important;
+}
+.with-thin-sidebar{
+  margin-left: 16em !important;
+}
+.scroll-up {
+  padding-top: 2em;
 }
 
 .alert {
@@ -60,6 +68,13 @@ article {
   position: fixed;
 }
 
+.thin-sidebar {
+  float: left;
+  padding-left: 40px;
+  padding-top: 2em;
+  width: 14em;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Alegreya', serif;
   font-weight: 900;
@@ -70,6 +85,7 @@ h1, h2, h3, h4, h5, h6 {
 /* The Sass "context" map */
 $context-font: (
   sidebar: 1,
+  thin-sidebar: 1,
   showinfo: 0.8,
 );
 $step-size-heading: 0.33333;
@@ -86,11 +102,11 @@ $step-size-heading: 0.33333;
     h6 { @include heading-size(1 * $value); }
   }
 }
+.no-margin {margin: 0;}
 
 .showinfo h2 {
   font-style: normal;
   color: #222;
-  padding: none; margin: none;
 }
 .showinfo p { margin-top: -1.1em; }
 .showinfo .with {
@@ -132,3 +148,5 @@ label {
   color: #999;
   font-weight: 100;
 }
+
+.highlight { background-color: #ffe88a; }

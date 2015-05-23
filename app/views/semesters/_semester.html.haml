@@ -1,0 +1,16 @@
+%table.schedule
+  %thead
+    - ["", "Monday", "Tuesday", "Wednesday", "Thursday",
+      "Friday", "Saturday", "Sunday"].each do |day|
+      %td=day
+  - @start_times.each do |time|
+    %tr
+      %th=time[:printable]
+      - 1.upto 7 do |i|
+        - s = @shows[time[:sortable]].select{|x| x.weekday == i % 7}
+        - if s.empty?
+          %td
+        -else
+          - s = s.first
+          %td.show-non-rowskip{data: {show_type: s.class, show_id: s.id}}
+            = render s, locals: {no_links: true}

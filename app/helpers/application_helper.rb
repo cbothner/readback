@@ -11,4 +11,8 @@ module ApplicationHelper
   def headline(headline)
     content_for(:headline) { headline }
   end
+
+  def back_link(back_link)
+    content_for(:back_link) { back_link }
+  end
 end

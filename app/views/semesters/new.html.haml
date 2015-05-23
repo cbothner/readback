@@ -1,0 +1,29 @@
+- title "New Schedule"
+- headline "New Schedule Based on #{@model.start}"
+
+%script
+  $(document).on("ready page:load", function() {
+  $("#semester_beginning").datepicker({
+  dateFormat: 'yy-mm-dd'
+  });
+  })
+
+- content_for :sidebar do
+  = render "form"
+
+%script
+  $(document).on("ready page:load", function(){
+  $(".schedule").selectable({
+  filter: ".show-non-rowskip",
+  stop: function(){
+  var result = {"FreeformShow": [], "SpecialtyShow": [], "TalkShow": []};
+  $(".ui-selected").each(function() {
+  result[$(this).attr("data-show-type")].push(parseInt($(this).attr("data-show-id")));
+  })
+  $("#shows_to_copy").val(JSON.stringify(result));
+  }
+  })
+  });
+
+%article.with-thin-sidebar
+  = render @model

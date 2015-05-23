@@ -1,8 +1,19 @@
-<% if content_for?(:headline) %>
-<header id="headline">
-  <h2><%= content_for(:headline) %></h2>
-</header>
+<aside class="thin-sidebar">
+<h1 class="accent">Readback</h1>
+<p class="subtitle">The WCBN Database</p>
+<%= content_for(:sidebar) if content_for?(:sidebar) %>
+</aside>
+
+<header id="headline" class="with-thin-sidebar">
+<% if content_for?(:back_link) %>
+  <div class="back-link">
+    <%= content_for(:back_link) %>
+  </div>
 <% end %>
+<% if content_for?(:headline) %>
+  <h2><%= content_for(:headline) %></h2>
+<% end %>
+</header>
 
 <%= yield %>
 

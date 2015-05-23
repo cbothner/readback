@@ -1,0 +1,8 @@
+- title "Semesters"
+- headline "WCBN Schedules"
+
+%article.with-sidebar
+  %h3 Semesters beginning:
+  %ul.semesters
+    - @semesters.each do |semester|
+      %li=link_to("#{semester.beginning.strftime '%B %-d, %Y'}", semester) + (" (current)" if semester == Semester.current)

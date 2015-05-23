@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :freeform_shows
     resources :specialty_shows
     resources :talk_shows
+    get 'based_on/:model_id', action: :new, on: :new
   end
 
   root 'playlist#index'

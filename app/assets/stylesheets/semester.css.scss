@@ -1,16 +1,46 @@
 table.schedule {
+  margin-left: -1em;
   thead {text-align: center;}
   th {
     vertical-align: top;
     text-align: right;
     min-width: 4em;
     width: 4em;
+    padding-right: 0.5em;
   }
   td.show {
     width: 7em;
-    border: 1px solid #999;
+    border: 1px solid #BBB;
+    padding: 0.2em;
+  }
+  td.show-non-rowskip {
+    width: 7em;
+    border-top: 5px solid #DDD;
+    padding: 0.2em;
   }
 }
 
+.ui-selectee {cursor: pointer}
+table.schedule td.ui-selected { border-top: 5px solid #e67e22 }
+table.schedule td.ui-selecting { border-top: 5px solid #ffcd02 }
+
 .show_name { font-style: italic; }
 .show_with { font-size: 85%; }
+
+ul.semesters {
+  list-style: none;
+  padding-left: 1em;
+  margin-top: 0.3em;
+  li {
+    width: auto;
+    &.arrow { margin-left: -0.7em; }
+    .copy {
+      float: right;
+      margin-right: 1.5em;
+    }
+  }
+}
+.highlight {
+  padding: 0 0.2em;
+  margin-left: -0.2em;
+}

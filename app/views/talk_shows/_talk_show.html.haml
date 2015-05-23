@@ -1,2 +1,5 @@
-.show_name=link_to talk_show.name, talk_show
-.show_with=talk_show.with nil
+- if defined? locals && locals[:no_links]
+  .show_name=talk_show.name
+- else
+  .show_name=link_to talk_show.name, talk_show
+-#.show_with=talk_show.with nil

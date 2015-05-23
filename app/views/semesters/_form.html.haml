@@ -1,0 +1,13 @@
+= form_for @semester do |f|
+  - if @semester.errors.any?
+    .alert
+      - @semester.errors.full_messages.each do |msg|
+        %p= msg
+  = hidden_field_tag :shows_to_copy
+  = hidden_field_tag :model_id, @model.id
+  .field
+    = f.label :beginning
+    %br
+    = f.date_field :beginning, tabindex: 1
+  .actions
+    = f.submit 'Save semester', data: { disable_with: 'Saving...' }, tabindex: 8
