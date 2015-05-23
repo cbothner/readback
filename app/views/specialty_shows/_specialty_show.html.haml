@@ -1,4 +1,4 @@
-- if defined? locals && locals[:no_links]
+- if defined?(locals) && locals[:no_links]
   .show_name=specialty_show.name
 - else
   .show_name=link_to specialty_show.name, specialty_show

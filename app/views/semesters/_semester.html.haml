@@ -13,4 +13,4 @@
         -else
           - s = s.first
           %td.show-non-rowskip{data: {show_type: s.class, show_id: s.id}}
-            = render s, locals: {no_links: true}
+            = render s, locals: {no_links: defined?(locals) && locals[:no_links]}

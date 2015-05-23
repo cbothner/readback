@@ -1,4 +1,4 @@
-- if defined? locals && locals[:no_links]
+- if defined?(locals) && locals[:no_links]
   .show_name=freeform_show.name
 - else
   .show_name=link_to freeform_show.name, freeform_show
