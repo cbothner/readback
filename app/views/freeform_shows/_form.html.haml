@@ -1,0 +1,22 @@
+= form_for [@semester, @freeform_show] do |f|
+  - if @freeform_show.errors.any?
+    .alert
+      - @freeform_show.errors.full_messages.each do |msg|
+        %p= msg
+  .field.field-beginning
+    = f.label :name
+    = f.text_field :name, tabindex: 10
+  .field.field-ending
+    = f.label :dj_id, 'DJ'
+    = f.select :dj_id, options_from_collection_for_select(Dj.all, :id, :name), {}, tabindex: 11
+  .field.field-weekday
+    = f.label :weekday
+    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex:12
+  .field.field-time
+    = f.label :ending, 'End'
+    = f.time_field :ending, tabindex: 14
+  .field.field-time
+    = f.label :beginning, 'Start'
+    = f.time_field :beginning, tabindex: 13
+  .actions
+    = f.submit 'Add freeform show', data: { disable_with: 'Saving...' }, tabindex: 15

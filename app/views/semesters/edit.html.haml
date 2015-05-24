@@ -1,6 +1,15 @@
 - title "Editing Schedule"
+- back_link link_to "Back", @semester
 - headline "Editing Schedule Beginning #{@semester.start}"
-- back_link link_to "Done editing", @semester
+
+- content_for :sidebar do
+  = render "form"
+  %h4 Add a Freeform Show
+  = render "freeform_shows/form"
+  %h4 Add a Specialty Show
+  = render "specialty_shows/form"
+  %h4 Add a Talk Show
+  = render "talk_shows/form"
 
 %article.with-thin-sidebar
   = render @semester

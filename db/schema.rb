@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150518200410) do
 
   create_table "semesters", force: :cascade do |t|
     t.datetime "beginning"
+    t.datetime "ending"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

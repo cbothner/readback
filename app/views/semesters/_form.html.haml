@@ -1,13 +1,25 @@
+%script
+  $(document).on("ready page:load", function() {
+  $("#semester_beginning, #semester_ending").datepicker({
+  dateFormat: 'yy-mm-dd'
+  });
+  })
+
 = form_for @semester do |f|
   - if @semester.errors.any?
     .alert
       - @semester.errors.full_messages.each do |msg|
         %p= msg
-  = hidden_field_tag :shows_to_copy
-  = hidden_field_tag :model_id, @model.id
-  .field
+  - unless @model.nil?
+    = hidden_field_tag :shows_to_copy
+    = hidden_field_tag :model_id, @model.id
+  .field.field-beginning
     = f.label :beginning
     %br
     = f.date_field :beginning, tabindex: 1
+  .field.field-ending
+    = f.label :ending
+    %br
+    = f.date_field :ending, tabindex: 1
   .actions
     = f.submit 'Save semester', data: { disable_with: 'Saving...' }, tabindex: 8

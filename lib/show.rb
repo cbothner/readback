@@ -4,3 +4,4 @@ module Show
      printable: (send(t).strftime '%l:%M %P')}
   end
 end
+

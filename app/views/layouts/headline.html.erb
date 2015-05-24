@@ -13,6 +13,9 @@
 <% if content_for?(:headline) %>
   <h2><%= content_for(:headline) %></h2>
 <% end %>
+<% if content_for?(:subtitle) %>
+  <p class="subtitle italic"><%= content_for(:subtitle) %></p>
+<% end %>
 </header>
 
 <%= yield %>

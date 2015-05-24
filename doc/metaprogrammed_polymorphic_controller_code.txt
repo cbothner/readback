@@ -1,0 +1,19 @@
+def create
+  # @freeform_show = FreeformShow.new(freeform_show_params)
+  instance = instance_variable_set( "@#{controller_name}", 
+                        controller_name.classify.constantize.new(
+                          self.send("#{controller_name}_params")))
+  instance.dj = Dj.find(params[controller_name.singularize.to_sym][:dj_id])
+  instance.semester = Semester.find(params[:semester_id])
+  respond_to do |format|
+    if instance.save
+      format.html { redirect_to edit_semester_path(instance.semester), notice: 'Freeform show was successfully created.' }
+    else
+      format.html {
+        flash[:alert] = instance.errors.full_messages
+        session[controller_name.to_sym] = instance
+        redirect_to edit_semester_path(params[:semester_id])
+      }
+    end
+  end
+end

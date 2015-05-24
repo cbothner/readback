@@ -29,10 +29,13 @@ body {
 #headline {
   margin: auto;
   padding: 0 1.5em;
-  padding-top: 2em;
-  padding-bottom: 0.5em;
+  padding-top: 3em;
   max-width:1200px;
-  h2 { font-style: normal; }
+  .back_link { padding-top: -1em; }
+  h2 {
+    margin-top: 0;
+    font-style: normal;
+  }
 }
 
 article {
@@ -52,7 +55,7 @@ article {
 
 .alert {
   padding: 0.3em 2.5em;
-  margin-bottom: 0.5em;
+  margin: 0.5em 0;
   border: 1px solid #c0392b;
   background-color: #e74c3c;
   font-weight: 900;
@@ -81,6 +84,7 @@ h1, h2, h3, h4, h5, h6 {
   font-style: italic;
   color: #555;
   line-height: 1;
+  margin-bottom: 0;
 }
 /* The Sass "context" map */
 $context-font: (
@@ -108,7 +112,7 @@ $step-size-heading: 0.33333;
   font-style: normal;
   color: #222;
 }
-.showinfo p { margin-top: -1.1em; }
+.showinfo p { margin: 0; }
 .showinfo .with {
   padding-left: 1.5em;
   font-style: italic;
@@ -123,7 +127,7 @@ a:hover {
 }
 
 .field {
-  margin-bottom: 1em;
+  margin-bottom: 0.7em;
 }
 
 label {
@@ -131,7 +135,8 @@ label {
   font-style: italic;
 }
 
-.field input {
+.field input,
+.field select {
   width: 100%;
   height: 2em;
   padding: none;
@@ -143,8 +148,9 @@ label {
 
 .accent { color: #FD7400 !important; }
 .bold { font-weight: 700; }
+.italic { font-style: italic; }
 .subtitle {
-  margin-top: -1.8em;
+  margin-top: 0;
   color: #999;
   font-weight: 100;
 }

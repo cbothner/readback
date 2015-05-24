@@ -11,5 +11,8 @@ class Semester < ActiveRecord::Base
   def start
     beginning.strftime "%B %-d, %Y"
   end
+  def end
+    ending.strftime "%B %-d, %Y"
+  end
 
 end

@@ -14,7 +14,7 @@ dwb = Dj.create(
   name: "dwb", phone: "(734) 395-5793", email: "slowtrain@comcast.net"
 )
 
-oldsem = Semester.create( beginning: "Tue 13 January 2015 06:00:00 -05:00" )
+oldsem = Semester.create( beginning: "Tue 13 January 2015 06:00:00 -05:00", ending: "Tue, 12 May 2015 6:00:00 -04:00"  )
 shows = []
 shows.append oldsem.freeform_shows.create({name: "Radio Rama Lama Fa Fa Fa -or- Booze, Broads, Boards and Rods", weekday: 1, beginning: "2000-01-01 22:00:00 -05:00", ending: "2000-01-01 23:59:59 -05:00"})
 shows.append oldsem.freeform_shows.create({name: "The Daily Sports Report", weekday: 1, beginning: "2000-01-01 18:00:00 -05:00", ending: "2000-01-01 18:30:00 -05:00"})
@@ -105,7 +105,7 @@ shows.append oldsem.freeform_shows.create({name: "Prop Shop", weekday: 6, beginn
 shows.append oldsem.freeform_shows.create({name: "The Seizure Experiment", weekday: 0, beginning: "2000-01-01 22:00:00 -05:00", ending: "2000-01-01 23:59:59 -05:00"})
 shows.each{|s| Dj.all.sample.freeform_shows << s}
 
-semester = Semester.create( beginning: "Tue, 12 May 2015 6:00:00 -04:00" )
+semester = Semester.create( beginning: "Tue, 12 May 2015 6:00:00 -04:00", ending: "Tue, 11 Aug 2015 5:59:59 -05:00" )
 
 surrealist = cameron.freeform_shows.build(
   name: "Ceci n’est pas Freeform",

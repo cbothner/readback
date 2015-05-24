@@ -1,0 +1,19 @@
+= form_for [@semester, @specialty_show] do |f|
+  - if @specialty_show.errors.any?
+    .alert
+      - @specialty_show.errors.full_messages.each do |msg|
+        %p= msg
+  .field
+    = f.label :name
+    = f.text_field :name, tabindex: 20
+  .field.field-weekday
+    = f.label :weekday
+    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex: 21
+  .field.field-time
+    = f.label :ending, 'End'
+    = f.time_field :ending, tabindex: 23
+  .field.field-time
+    = f.label :beginning, 'Start'
+    = f.time_field :beginning, tabindex: 22
+  .actions
+    = f.submit 'Add specialty show', data: { disable_with: 'Saving...' }, tabindex: 24

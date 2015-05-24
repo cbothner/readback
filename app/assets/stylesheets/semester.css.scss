@@ -26,6 +26,10 @@ table.schedule td.ui-selecting { border-top: 5px solid #ffcd02 }
 
 .show_name { font-style: italic; }
 .show_with { font-size: 85%; }
+.show_delete {
+  float: right;
+  a { color: #e74c3c; }
+}
 
 ul.semesters {
   list-style: none;
@@ -43,4 +47,22 @@ ul.semesters {
 .highlight {
   padding: 0 0.2em;
   margin-left: -0.2em;
+}
+
+.field-beginning {
+  float: left;
+  width: 47%;
+}
+.field-ending {
+  float: right;
+  width: 47%;
+}
+.field-weekday {
+  float: left;
+  width: 42%;
+}
+.field-time {
+  float:right;
+  margin-left: 5%;
+  width: 24%;
 }

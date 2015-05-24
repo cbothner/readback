@@ -18,11 +18,17 @@ class SemestersController < ApplicationController
   # GET /semesters/new
   def new
     @semester = Semester.new
+    @semester.beginning = Semester.current.ending.strftime "%%Y-%B-%d"
   end
 
   # GET /semesters/1/edit
   def edit
     @semesters = Semester.all.sort_by(&:beginning).reverse
+    [(@freeform_show = FreeformShow.new),
+     (@specialty_show = SpecialtyShow.new),
+     (@talk_show = TalkShow.new)].each do |x|
+      x.semester = @semester
+    end
   end
 
   # POST /semesters
@@ -32,6 +38,8 @@ class SemestersController < ApplicationController
 
     params[:semester][:beginning] = Time.parse(params[:semester][:beginning])
       .change(hour: 6).beginning_of_hour
+    params[:semester][:ending] = Time.parse(params[:semester][:ending])
+      .change(hour: 5, minute: 59, second:59)
     @semester = Semester.new(semester_params)
 
     copies.each do |show_type, shows|
