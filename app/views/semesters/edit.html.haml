@@ -2,6 +2,11 @@
 - back_link link_to "Back", @semester
 - headline "Editing Schedule Beginning #{@semester.start}"
 
+%script
+  $(document).on("ready page:load", function() {
+  $(".chzn-select").chosen();
+  });
+
 - content_for :sidebar do
   = render "form"
   %h4 Add a Freeform Show

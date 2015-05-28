@@ -26,7 +26,8 @@ class SemestersController < ApplicationController
     @semesters = Semester.all.sort_by(&:beginning).reverse
     [(@freeform_show = FreeformShow.new),
      (@specialty_show = SpecialtyShow.new),
-     (@talk_show = TalkShow.new)].each do |x|
+     (@talk_show = TalkShow.new)
+    ].each do |x|
       x.semester = @semester
     end
   end

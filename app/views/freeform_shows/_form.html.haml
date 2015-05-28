@@ -8,7 +8,7 @@
     = f.text_field :name, tabindex: 10
   .field.field-ending
     = f.label :dj_id, 'DJ'
-    = f.select :dj_id, options_from_collection_for_select(Dj.all, :id, :name), {}, tabindex: 11
+    = f.select :dj_id, options_from_collection_for_select(Dj.all, :id, :name), {}, tabindex: 11, class: 'chzn-select'
   .field.field-weekday
     = f.label :weekday
     = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex:12

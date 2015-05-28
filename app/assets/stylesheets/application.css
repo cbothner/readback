@@ -13,6 +13,7 @@
  *
  *= require jquery-ui/selectable
  *= require jquery-ui/datepicker
+ *= require chosen
  *= require_tree
  *= require_self
  */

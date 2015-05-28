@@ -16,6 +16,7 @@
 //= require jquery-ui/datepicker
 //= require turbolinks
 //= require best_in_place
+//= require chosen.jquery.min
 //= require_tree .
 
 $(document).on("page:change", function() {
