@@ -19,6 +19,14 @@
 //= require chosen.jquery.min
 //= require_tree .
 
-$(document).on("page:change", function() {
+$(document).on("ready page:load", function() {
+
   jQuery(".best_in_place").best_in_place();  
+
+  if ( $('[type="date"]').prop('type') != 'date' ) {
+    $("[type='date']").datepicker({
+      dateFormat: 'yy-mm-dd'
+    });
+  }
+
 });
