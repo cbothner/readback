@@ -17,8 +17,10 @@ ActiveRecord::Schema.define(version: 20150518200410) do
     t.string   "name"
     t.string   "phone"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "um_affiliation"
+    t.text     "roles"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "djs_specialty_shows", id: false, force: :cascade do |t|

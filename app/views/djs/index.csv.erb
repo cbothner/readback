@@ -1,0 +1,4 @@
+Name,Email,Affiliation,Roles
+<% @djs.each do |dj| %>
+<%= dj.name %>,<%= dj.email %>,<%= dj.um_affiliation.capitalize %>,<%= dj.roles.sort * '; ' %>
+<% end %>

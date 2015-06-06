@@ -46,7 +46,7 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'devise'
+#gem 'devise'
 gem 'google-api-client'
 gem 'best_in_place', '~> 3.0.1'
-
+gem 'rails-latex'

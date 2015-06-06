@@ -1,0 +1,51 @@
+<% @latex_config={parse_runs: 2} %>
+\documentclass[10pt, letterpaper]{article}
+
+\usepackage[cm]{fullpage}
+\usepackage{fourier}
+
+\usepackage{graphics}
+\graphicspath{ {../../../app/assets/images/} }
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{textpos}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+
+
+\begin{document}
+
+\begin{center}
+
+\textbf{WCBN Volunteer Roster}\\
+\emph{Current as of <%= lesc Time.now.strftime("%B %-d, %Y") %>}
+
+\begin{longtable}{llll}
+\toprule
+\textsc{Name} & \textsc{Email} & \textsc{Affiliation} & \textsc{Roles}\\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}%
+  {WCBN Volunteer Roster -- <%= lesc Time.now.strftime("%B %-d, %Y") %>} \\\\
+\toprule
+\textsc{Name} & \textsc{Affiliation} & \textsc{Email}\\
+\midrule
+\endhead
+\midrule \multicolumn{4}{r}{\textit{Continued on next page}} \\
+\endfoot
+\endlastfoot
+<% @djs.each do |dj| %>
+  <%= lesc(dj.name) %> &
+  \texttt{<%= lesc(dj.email) %>} &
+  <%=lesc(dj.um_affiliation.capitalize) %> &
+  <%=lesc(dj.roles.sort * ', ') %>
+  \\
+<% end %>
+\bottomrule
+\end{longtable}
+\end{center}
+
+
+
+\end{document}

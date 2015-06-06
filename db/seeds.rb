@@ -1,19 +1,10 @@
-cameron = Dj.create(
-  name: "Cameron", phone: "(734) 395-5779", email: "cbothner@umich.edu"
-)
+roster = YAML.load_file 'db/roster.yml'
+Dj.create roster
 
-brandok = Dj.create(
-  name: "Brandok", phone: "(555) 555-5555", email: "brandok@wcbn.org"
-)
-
-tyler = Dj.create(
-  name: "Tyler C", phone: "(555) 555-5555", email: "tyler@wcbn.org"
-)
-
-dwb = Dj.create(
-  name: "dwb", phone: "(734) 395-5793", email: "slowtrain@comcast.net"
-)
-
+cameron = Dj.where(name: "Cameron Bothner").first
+brandok = Dj.where(name: "Brandon Kierdorf").first
+tyler = Dj.where(name: "Tyler Carr").first
+dwb = Dj.where(name: "David Bothner").first
 oldsem = Semester.create( beginning: "Tue 13 January 2015 06:00:00 -05:00", ending: "Tue, 12 May 2015 6:00:00 -04:00"  )
 shows = []
 shows.append oldsem.freeform_shows.create({name: "Radio Rama Lama Fa Fa Fa -or- Booze, Broads, Boards and Rods", weekday: 1, beginning: "2000-01-01 22:00:00 -05:00", ending: "2000-01-01 23:59:59 -05:00"})

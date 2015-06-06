@@ -4,6 +4,8 @@ class FreeformShowsController < ApplicationController
   before_action :set_freeform_show, only: [:show, :edit, :update, :destroy]
   before_action :define_params_method, only: [:create, :update]
 
+  layout "headline"
+
   # GET /freeform_shows
   # GET /freeform_shows.json
   def index
@@ -72,5 +74,6 @@ class FreeformShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_freeform_show
       @freeform_show = FreeformShow.find(params[:id])
+      @show_instances = @freeform_show.show_instances
     end
 end

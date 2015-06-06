@@ -4,6 +4,13 @@ module ApplicationHelper
     self.output_buffer = render(file: "layouts/#{layout}")
   end
 
+  def lesc(text)
+    [['“', '``'], ['”', "''"], ['‘', '`'], ['’', "'"]].each do |a, b|
+      text.sub! a, b
+    end
+    LatexToPdf.escape_latex(text)
+  end
+
   %i(title headline back_link subtitle)
     .each do |key|
     ApplicationHelper.send(:define_method, key) do |val|

@@ -1,0 +1,7 @@
+- title "#{@freeform_show.name}"
+- headline "#{@freeform_show.name}"
+
+%article.with-thin-sidebar
+  %h3 Episodes
+  - @show_instances.each do |show_instance|
+    = render show_instance

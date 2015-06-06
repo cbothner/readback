@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     get 'based_on/:model_id', action: :new, on: :new
   end
 
+  resources :djs
+
   root 'playlist#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
