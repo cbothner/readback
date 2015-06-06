@@ -5,7 +5,11 @@ class DjsController < ApplicationController
   # GET /djs
   # GET /djs.json
   def index
-    @djs = Dj.all.sort_by(&:name)
+    djs = Dj.all
+    @trainees = djs.reject(&:active).sort_by(&:created_at).reverse
+    non_trainees = djs - @trainees
+    @active_djs = non_trainees.select{ |dj| dj.semesters_count > 0 }.sort_by(&:name)
+    @trained = (non_trainees - @active_djs).sort_by(&:name)
   end
 
   # GET /djs/1

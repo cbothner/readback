@@ -1,0 +1,18 @@
+- title "DJs"
+- headline "WCBN DJs"
+
+.one-of-three-columns
+  %h3 Active DJs
+  -@active_djs.each do |dj|
+    .dj
+      =link_to dj.name, dj
+.one-of-three-columns
+  %h3 Trained DJs
+  -@trained.each do |dj|
+    .dj
+      =link_to dj.name, dj
+.one-of-three-columns
+  %h3 DJs In Training
+  -@trainees.each do |dj|
+    .dj
+      =link_to dj.name, dj
