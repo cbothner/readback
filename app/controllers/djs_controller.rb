@@ -1,5 +1,6 @@
 class DjsController < ApplicationController
   before_action :set_dj, only: [:show, :edit, :update, :destroy]
+  layout "headline"
 
   # GET /djs
   # GET /djs.json
@@ -25,10 +26,12 @@ class DjsController < ApplicationController
   # POST /djs.json
   def create
     @dj = Dj.new(dj_params)
+    @dj.stage1 = "#{Date.today.to_date}"
 
     respond_to do |format|
       if @dj.save
-        format.html { redirect_to @dj, notice: 'Dj was successfully created.' }
+        flash[:notice] = 'Got it! Welcome to WCBN'
+        format.html { redirect_to action: 'new' }
         format.json { render :show, status: :created, location: @dj }
       else
         format.html { render :new }
@@ -69,6 +72,6 @@ class DjsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dj_params
-      params[:dj]
+      params.require(:dj).permit(:name, :phone, :email, :umid, :um_affiliation, :um_dept, :experience, :referral, :interests, :statement)
     end
 end

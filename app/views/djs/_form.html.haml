@@ -1,0 +1,114 @@
+.dj-form-container
+  = form_for(@dj) do |f|
+    -if flash[:notice]
+      .notice=flash[:notice]
+    -if @dj.errors.any? 
+      .alert
+        - @dj.errors.full_messages.each do |msg|
+          %p= msg
+    .field
+      =f.label :name 
+      %br
+      =f.text_field :name 
+    .field
+      = f.label :phone 
+      %br
+      = f.phone_field :phone 
+    .field
+      = f.label :email 
+      %br
+      = f.email_field :email 
+    .field
+      =f.label :umid, "UMID Number"
+      %p.instructions
+        If applicable.  If you don't have one, choose "Community Member" as your U-M Affiliation.
+      =f.number_field :umid 
+    .field.field-beginning
+      = f.label :um_affiliation, "U-M Affiliation"
+      %br
+      = f.select :um_affiliation, options_for_select([['U-M Student', 'student'],
+          ['U-M Faculty or Staff', 'faculty'],
+          ['U-M Alumnus/a', 'alumnus'],
+          ['Community Member', 'community']],
+        @dj.um_affiliation) 
+    .field.field-ending
+      = f.label :um_dept, "What school/department, if applicable?" 
+      %br
+      = f.text_field :um_dept 
+    .field
+      = f.label :experience, "Any previous radio experience? Where and how long?" 
+      %br
+      = f.text_area :experience 
+    .field
+      = f.label :referral, "How did you find out about WCBN?" 
+      %br
+      = f.text_area :referral 
+    .field
+      = f.label :interests 
+      %br
+      %p.instructions
+        What aspect of radio are you most interested in doing? Choose as many as apply.
+      .instructions
+        = interest_links ["Freeform Music Show", "Talkshow", "Sports Radio"]
+        %br
+        = interest_links ["Development", "Engineering", "Events", "Publicity", "Music Review"]
+        %br
+        = interest_links ["Social Media", "Website", "Carts", "Archiving/Library Management"]
+      = f.text_area :interests 
+    .field{ class: ('hidden' unless needs_statement @dj) }
+      = f.label :statement, "Community Volunteers' Personal Statement"
+      %br
+      %p.instructions
+        WCBN is a student-run, and primarily student-staffed station.  The role of
+        community voluteers on the air is limited to an educational and/or
+        advisory role, meaning that community volunteers must have something
+        concrete to give the station, such as exceptional music knowledge,
+        technical expertise, or previous radio experience.  Please explain why
+        you'd like to join WCBN, what you propose to do here, and in what ways you
+        would like to become involved.  What do you have to offer WCBN on-air and
+        off?  Please know that DJs are required to match their on-air hours with
+        off-air work at the station.  Do you have the time for this kind of
+        commitment?  What would your contribution be?
+      = f.text_area :statement, class: "tall"
+    -#- if @trainers_view 
+      -#.field
+        -#= f.label :stage1, 'Stage One Training'
+        -#%br
+        -#= f.text_field :stage1 
+      -#.field
+        -#= f.label :demotape, 'Demo Tape Approval'
+        -#= approval_button 'demotape'
+        -#%br
+        -#= f.text_field :demotape 
+      -#.field
+        -#= f.label :stage2, 'Stage Two Training'
+        -#= approval_button 'stage2'
+        -#%br
+        -#= f.text_field :stage2 
+      -#.field
+        -#= f.label :apprenticeship_freeform1, 'Freeform Apprenticeship No. 1'
+        -#= approval_button 'apprenticeship_freeform1'
+        -#%br
+        -#= f.text_field :apprenticeship_freeform1 
+      -#.field
+        -#= f.label :apprenticeship_freeform2, 'Freeform Apprenticeship No. 2'
+        -#= approval_button 'apprenticeship_freeform2'
+        -#%br
+        -#= f.text_field :apprenticeship_freeform2 
+      -#.field
+        -#= f.label :apprenticeship_specialty1, 'Specialty Apprenticeship No. 1'
+        -#= approval_button 'apprenticeship_specialty1'
+        -#%br
+        -#= f.text_field :apprenticeship_specialty1 
+      -#.field
+        -#= f.label :apprenticeship_specialty2, 'Specialty Apprenticeship No. 2'
+        -#= approval_button 'apprenticeship_specialty2'
+        -#%br
+        -#= f.text_field :apprenticeship_specialty2 
+      -#.field
+        -#= f.label :broadcasters_exam, 'Broadcaster\'s Exam Passed'
+        -#= approval_button 'broadcasters_exam'
+        -#%br
+        -#= f.text_field :broadcasters_exam 
+    .actions
+      = f.submit "Submit"

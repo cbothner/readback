@@ -1,0 +1,25 @@
+.dj-form-container {
+  width: 30em;
+  margin: 0;
+
+  input.interest-link {
+    width: auto;
+    margin-right: 0.4em;
+    margin-bottom: 0.4em;
+  }
+  
+  .instructions {
+    color: #888;
+    font-weight: 300;
+    font-size:95%;
+    font-style: italic;
+    margin:0 0 0.3em 0;
+  }
+  textarea{
+    height: 3em;
+  }
+  textarea.tall{
+    height: 10em;
+  }
+  .hidden{ display:none; }
+}

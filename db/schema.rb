@@ -18,9 +18,24 @@ ActiveRecord::Schema.define(version: 20150518200410) do
     t.string   "phone"
     t.string   "email"
     t.string   "um_affiliation"
+    t.string   "um_dept"
+    t.integer  "umid"
+    t.string   "experience"
+    t.string   "referral"
+    t.string   "interests"
+    t.text     "statement"
+    t.string   "stage1"
+    t.string   "demotape"
+    t.string   "stage2"
+    t.string   "apprenticeship_freeform1"
+    t.string   "apprenticeship_freeform2"
+    t.string   "apprenticeship_specialty1"
+    t.string   "apprenticeship_specialty2"
+    t.string   "broadcasters_exam"
+    t.boolean  "active"
     t.text     "roles"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "djs_specialty_shows", id: false, force: :cascade do |t|

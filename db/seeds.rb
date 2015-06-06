@@ -1,5 +1,6 @@
 roster = YAML.load_file 'db/roster.yml'
 Dj.create roster
+Dj.all.each do |dj| dj.update_attributes active: true end
 
 cameron = Dj.where(name: "Cameron Bothner").first
 brandok = Dj.where(name: "Brandon Kierdorf").first
