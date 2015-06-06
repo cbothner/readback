@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150518200410) do
     t.string   "apprenticeship_specialty1"
     t.string   "apprenticeship_specialty2"
     t.string   "broadcasters_exam"
+    t.integer  "most_recent_email"
     t.boolean  "active"
     t.text     "roles"
     t.datetime "created_at",                null: false

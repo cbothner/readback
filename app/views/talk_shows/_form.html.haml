@@ -9,7 +9,7 @@
   .field.field-ending
     = f.label :dj_id, 'Single host?'
     = f.select :dj_id,
-      options_from_collection_for_select(Dj.all, :id, :name),
+      active_for_select,
       {include_blank: "Many hosts"}, tabindex: 31, class: 'chzn-select'
   .field.field-weekday
     = f.label :weekday

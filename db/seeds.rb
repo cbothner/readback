@@ -1,11 +1,15 @@
+trainees = YAML.load_file 'db/trainees.yml'
+Dj.create trainees
+Dj.all.each do |dj| dj.update_attributes(active: true) unless dj.broadcasters_exam.blank? end
 roster = YAML.load_file 'db/roster.yml'
-Dj.create roster
-Dj.all.each do |dj| dj.update_attributes active: true end
+roster.reject! {|dj| Dj.find_by_name(dj["name"])}
+djs_in_roster = Dj.create roster
+djs_in_roster.each do |dj| dj.update_attributes active: true end
 
-cameron = Dj.where(name: "Cameron Bothner").first
-brandok = Dj.where(name: "Brandon Kierdorf").first
-tyler = Dj.where(name: "Tyler Carr").first
-dwb = Dj.where(name: "David Bothner").first
+cameron = Dj.find_by_name "Cameron Bothner"
+brandok = Dj.find_by_name "Brandon Kierdorf"
+tyler = Dj.find_by_name "Tyler Carr"
+dwb = Dj.find_by_name "David Bothner"
 oldsem = Semester.create( beginning: "Tue 13 January 2015 06:00:00 -05:00", ending: "Tue, 12 May 2015 6:00:00 -04:00"  )
 shows = []
 shows.append oldsem.freeform_shows.create({name: "Radio Rama Lama Fa Fa Fa -or- Booze, Broads, Boards and Rods", weekday: 1, beginning: "2000-01-01 22:00:00 -05:00", ending: "2000-01-01 23:59:59 -05:00"})

@@ -22,6 +22,7 @@ class CreateDjs < ActiveRecord::Migration
       t.string  :apprenticeship_specialty1
       t.string  :apprenticeship_specialty2
       t.string  :broadcasters_exam
+      t.integer  :most_recent_email
 
       # Trained Station Member
       t.boolean :active

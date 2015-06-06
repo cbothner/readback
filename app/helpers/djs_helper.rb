@@ -11,4 +11,9 @@ module DjsHelper
   def needs_statement(trainee)
     trainee.um_affiliation == 'community' || !trainee.statement.blank?
   end
+
+  def active_for_select
+    active_djs = Dj.where(active: true).order(:name)
+    options_from_collection_for_select(active_djs, :id, :name)
+  end
 end
