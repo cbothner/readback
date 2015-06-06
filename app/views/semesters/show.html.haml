@@ -15,17 +15,16 @@
           =link_to("copy", "/semesters/new/based_on/#{semester.id}")
           ]
 
-%article.with-thin-sidebar
-  %table.schedule
-    %thead
-      - ["", "Monday", "Tuesday", "Wednesday", "Thursday",
-        "Friday", "Saturday", "Sunday"].each do |day|
-        %td=day
-    - @start_times.each do |time|
-      %tr
-        %th=time[:printable]
-        - 1.upto 7 do |i|
-          - s = @shows[time[:sortable]].select{|x| x.weekday == i % 7}
-          - unless s.empty?
-            %td.show{rowspan: rowspan(time, s.first.sort_times(:ending))}
-              = render s
+%table.schedule
+  %thead
+    - ["", "Monday", "Tuesday", "Wednesday", "Thursday",
+      "Friday", "Saturday", "Sunday"].each do |day|
+      %td=day
+  - @start_times.each do |time|
+    %tr
+      %th=time[:printable]
+      - 1.upto 7 do |i|
+        - s = @shows[time[:sortable]].select{|x| x.weekday == i % 7}
+        - unless s.empty?
+          %td.show{rowspan: rowspan(time, s.first.sort_times(:ending))}
+            = render s

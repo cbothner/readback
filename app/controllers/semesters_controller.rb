@@ -107,7 +107,7 @@ class SemestersController < ApplicationController
 
     def semester_params
       hash = {}
-      hash.merge! params.require(:semester).permit(:beginning)
+      hash.merge! params.require(:semester).permit(:beginning, :ending)
       hash.merge! params.slice(:model_id, :shows_to_copy)
     end
 end
