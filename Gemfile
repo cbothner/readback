@@ -47,6 +47,5 @@ group :development, :test do
 end
 
 #gem 'devise'
-gem 'google-api-client'
 gem 'best_in_place', '~> 3.0.1'
 gem 'rails-latex'
