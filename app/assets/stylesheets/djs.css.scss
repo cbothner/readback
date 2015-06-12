@@ -24,9 +24,12 @@
   .hidden{ display:none; }
 }
 
-.one-of-three-columns {
-  width: 30%;
-  padding-right: 1em;
-  float: left;
-  min-width: 15em;
+.djs-container {
+  min-width: 40em;
+  .dj-column {
+    width: 30%;
+    padding-right: 1em;
+    float: left;
+    min-width: 12em;
+  }
 }
