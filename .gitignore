@@ -18,3 +18,5 @@
 
 *.swp
 *.swo
+
+/db/private

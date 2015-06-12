@@ -1,7 +1,7 @@
-trainees = YAML.load_file 'db/trainees.yml'
+trainees = YAML.load_file 'db/private/trainees.yml'
 Dj.create trainees
 Dj.all.each do |dj| dj.update_attributes(active: !dj.broadcasters_exam.blank?) end
-roster = YAML.load_file 'db/roster.yml'
+roster = YAML.load_file 'db/private/roster.yml'
 roster.reject! {|dj| Dj.find_by_name(dj["name"])}
 djs_in_roster = Dj.create roster
 djs_in_roster.each do |dj| dj.update_attributes active: true end
