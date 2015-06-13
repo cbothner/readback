@@ -20,3 +20,4 @@
 *.swo
 
 /db/private
+.DS_Store
