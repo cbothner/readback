@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   trait :show do
 
-    # semester
+    semester
     weekday { Faker::Number.between 0, 6 }
     beginning { Show::UNIMPORTANT_DATE.change(hour: Faker::Number.between(6, 20)) }
     ending { beginning + Faker::Number.between(1, 3).hours }
