@@ -7,9 +7,9 @@ class DjsController < ApplicationController
   def index
     djs = Dj.all
     @trainees = djs.reject(&:active).sort_by(&:created_at).reverse
-    non_trainees = djs - @trainees
-    @active_djs = non_trainees.select{ |dj| dj.semesters_count > 0 }.sort_by(&:name)
-    @trained = (non_trainees - @active_djs).sort_by(&:name)
+    non_trainees = (djs - @trainees).sort_by(&:name)
+    @active_djs = non_trainees.select{ |dj| dj.semesters_count > 0 }
+    @trained = (non_trainees - @active_djs)
   end
 
   # GET /djs/1

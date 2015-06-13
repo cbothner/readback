@@ -26,7 +26,7 @@ FactoryGirl.define do
       transient { dj_count 4 }
 
       after(:create) do |show, evaluator|
-        create_list(:dj, evaluator.dj_count, specialty_show: specialty_show)
+        create_list(:dj, evaluator.dj_count, specialty_show: show)
       end
 
     end
