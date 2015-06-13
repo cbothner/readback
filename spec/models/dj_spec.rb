@@ -2,34 +2,63 @@ require 'rails_helper'
 
 RSpec.describe Dj, type: :model do
 
-  # UM Affiliation contexts
+  before :example do
+    @dj = Dj.new(
+      name: "Cameron Bothner",
+      phone: "(734) 395-5779",
+      email: "cbothner@umich.edu"
+    )
+  end
 
-  #context "when she is affiliated with UM" do
-    #subject { create(:dj, um_affiliated: true) }
+  subject { @dj }
 
-    #it {should validate_presence_of :umid}
-    #it {should validate_numericality_of(:umid).only_integer}
-    #it {should validate_length_of(:umid).is_equal_to 8}
+  it {should validate_presence_of :name}
+  it {should validate_presence_of :phone}
+  it {should validate_presence_of :email}
 
-    #it {should validate_presence_of :um_dept}
+  #
+  ###########################
+  # UM Affiliation contexts #
+  ###########################
+
+  context "when she is affiliated with UM" do
+    subject do 
+      @dj.um_affiliation = 'student'
+      @dj
+    end
+
+    it {should validate_presence_of :umid}
+    it {
+      should validate_numericality_of(:umid)
+        .only_integer
+        .is_greater_than_or_equal_to(1111_1111)
+        .is_less_than_or_equal_to(9999_9999)
+    }
+
+    it {should validate_presence_of :um_dept}
 
 
-    #it {should be_um_affiliated}
+    it {should be_um_affiliated}
 
-  #end
+  end
 
-  #context "when she is not affiliated with UM" do
-    #subject { create(:dj, um_affiliated: false) }
+  context "when she is not affiliated with UM" do
+    subject do 
+      @dj.um_affiliation = 'community'
+      @dj
+    end
 
-    #it {should validate_presence_of :statement}
-
-
-    #it {should_not be_um_affiliated}
-
-  #end
+    it {should validate_presence_of :statement}
 
 
-  # Trainee contexts
+    it {should_not be_um_affiliated}
+
+  end
+
+
+  ####################
+  # Trainee contexts #
+  ####################
 
   context "when she is a trainee" do
     subject { create( :dj ) }
