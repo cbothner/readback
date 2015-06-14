@@ -16,13 +16,13 @@ RSpec.describe Dj, type: :model do
   it {should validate_presence_of :phone}
   it {should validate_presence_of :email}
 
-  #
+
   ###########################
   # UM Affiliation contexts #
   ###########################
 
   context "when she is affiliated with UM" do
-    subject do 
+    subject do
       @dj.um_affiliation = 'student'
       @dj
     end
@@ -43,7 +43,7 @@ RSpec.describe Dj, type: :model do
   end
 
   context "when she is not affiliated with UM" do
-    subject do 
+    subject do
       @dj.um_affiliation = 'community'
       @dj
     end
