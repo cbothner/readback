@@ -24,3 +24,17 @@ en:
     attributes:
       song:
         name: "Song title"
+      dj:
+        umid: "UMID"
+        um_dept: "U-M Department"
+        statement: "Personal Statement"
+    errors:
+      models:
+        dj:
+          attributes:
+            umid:
+              blank: "can’t be blank when U-M Affiliation is not Community Member"
+            um_dept:
+              blank: "can’t be blank when U-M Affiliation is not Community Member"
+            statement:
+              blank: "can’t be blank when U-M Affiliation is Community Member"

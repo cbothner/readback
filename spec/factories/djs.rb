@@ -17,6 +17,8 @@ FactoryGirl.define do
     umid { Faker::Number.between(1111_1111, 9999_9999) if um_affiliated }
     statement { Faker::Lorem.paragraph unless um_affiliated }
 
+    active true
+
     ['freeform_show', 'specialty_show', 'talk_show'].each do |s|
       factory "dj_with_#{s}s".to_sym do
         transient { show_count 2 }

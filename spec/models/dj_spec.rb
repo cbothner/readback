@@ -27,7 +27,10 @@ RSpec.describe Dj, type: :model do
       @dj
     end
 
-    it {should validate_presence_of :umid}
+    it {
+      should validate_presence_of(:umid)
+        .with_message "can’t be blank when U-M Affiliation is not Community Member"
+    }
     it {
       should validate_numericality_of(:umid)
         .only_integer
@@ -35,7 +38,10 @@ RSpec.describe Dj, type: :model do
         .is_less_than_or_equal_to(9999_9999)
     }
 
-    it {should validate_presence_of :um_dept}
+    it {
+      should validate_presence_of(:um_dept)
+        .with_message "can’t be blank when U-M Affiliation is not Community Member"
+    }
 
 
     it {should be_um_affiliated}
@@ -48,7 +54,10 @@ RSpec.describe Dj, type: :model do
       @dj
     end
 
-    it {should validate_presence_of :statement}
+    it {
+      should validate_presence_of(:statement)
+        .with_message "can’t be blank when U-M Affiliation is Community Member"
+    }
 
 
     it {should_not be_um_affiliated}

@@ -138,6 +138,17 @@ a:hover {
 .field {
   margin-bottom: 0.7em;
 }
+.field_with_errors {
+  display: inline;
+  label {
+    padding: 0 0.2em;
+    background-color: rgba(231, 76, 60, 0.72);
+    margin-bottom: 1pt;
+  }
+  input {
+    margin-top: 0.3em;
+  }
+}
 
 label {
   font-weight: 300;
