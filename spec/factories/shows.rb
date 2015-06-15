@@ -20,6 +20,7 @@ FactoryGirl.define do
   end
 
   factory :specialty_show, traits: [:show] do
+    association :coordinator, factory: :dj
     name { ["Radiozilla", "Dead White Guys", "What It Is"].sample }
 
     factory :specialty_show_with_djs do

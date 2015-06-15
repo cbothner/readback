@@ -2,6 +2,7 @@ class SpecialtyShow < ActiveRecord::Base
   include Show
 
   belongs_to :semester
+  belongs_to :coordinator, class_name: "Dj", foreign_key: "coordinator_id"
   has_and_belongs_to_many :djs
   has_many :show_instances, as: :show
 

@@ -28,6 +28,7 @@ class SpecialtyShowsController < ApplicationController
   # POST /specialty_shows.json
   def create
     @specialty_show = SpecialtyShow.new(specialty_show_params)
+    @specialty_show.coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
     #@specialty_show.djs = Dj.find(params[:specialty_show][:dj_id])
     @specialty_show.semester = Semester.find(params[:semester_id])
 
@@ -72,5 +73,11 @@ class SpecialtyShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_specialty_show
       @specialty_show = SpecialtyShow.find(params[:id])
+    end
+
+    def specialty_show_params
+      params.require(:specialty_show).permit(
+        :name, :coordinator_id, :weekday, :ending, :beginning
+      )
     end
 end

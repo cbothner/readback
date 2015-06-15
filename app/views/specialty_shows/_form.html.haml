@@ -3,17 +3,20 @@
     .alert
       - @specialty_show.errors.full_messages.each do |msg|
         %p= msg
-  .field
+  .field.field-beginning
     = f.label :name
     = f.text_field :name, tabindex: 20
+  .field.field-ending
+    = f.label :coordinator_id, 'Coordinator'
+    = f.select :coordinator_id, active_for_select, {}, tabindex:21, class: 'chzn-select'
   .field.field-weekday
     = f.label :weekday
-    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex: 21
+    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex: 22
   .field.field-time
     = f.label :ending, 'End'
-    = f.time_field :ending, tabindex: 23
+    = f.time_field :ending, tabindex: 24
   .field.field-time
     = f.label :beginning, 'Start'
-    = f.time_field :beginning, tabindex: 22
+    = f.time_field :beginning, tabindex: 23
   .actions
-    = f.submit 'Add specialty show', data: { disable_with: 'Saving...' }, tabindex: 24
+    = f.submit 'Add specialty show', data: { disable_with: 'Saving...' }, tabindex: 25

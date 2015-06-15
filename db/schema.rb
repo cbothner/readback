@@ -115,14 +115,16 @@ ActiveRecord::Schema.define(version: 20150518200410) do
 
   create_table "specialty_shows", force: :cascade do |t|
     t.integer  "semester_id"
+    t.integer  "coordinator_id"
     t.string   "name"
     t.integer  "weekday"
     t.datetime "beginning"
     t.datetime "ending"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
+  add_index "specialty_shows", ["coordinator_id"], name: "index_specialty_shows_on_coordinator_id"
   add_index "specialty_shows", ["semester_id"], name: "index_specialty_shows_on_semester_id"
 
   create_table "talk_shows", force: :cascade do |t|
