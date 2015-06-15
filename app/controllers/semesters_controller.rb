@@ -43,19 +43,20 @@ class SemestersController < ApplicationController
       .change(hour: 5, minute: 59, second:59)
     @semester = Semester.new(semester_params)
 
-    copies.each do |show_type, shows|
-      shows.each do |show|
-        s = show_type.constantize.new(
-          show_type.constantize.find(show).attributes
-            .slice("dj_id", "name", "weekday", "beginning", "ending")
-        )
-        s.semester = @semester
-        s.save
-      end
-    end
-
     respond_to do |format|
       if @semester.save
+
+        copies.each do |show_type, shows|
+          shows.each do |show|
+            s = show_type.constantize.new(
+              show_type.constantize.find(show).attributes
+              .slice("dj_id", "name", "weekday", "beginning", "ending")
+            )
+            s.semester = @semester
+            s.save
+          end
+        end
+
         format.html { redirect_to edit_semester_path @semester }
         format.json { render :show, status: :created, location: @semester }
       else
@@ -99,7 +100,8 @@ class SemestersController < ApplicationController
     end
 
     def set_model
-      @model = Semester.find(params.delete(:model_id))
+      @model = Semester.find_by_id(params.delete(:model_id))
+      @model ||= Semester.current
       shows = @model.freeform_shows + @model.specialty_shows + @model.talk_shows
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq
       @shows = shows.group_by{|x| x.sort_times(:beginning)[:sortable]}
