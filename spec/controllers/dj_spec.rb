@@ -4,11 +4,13 @@ RSpec.describe DjsController do
 
   describe "GET index" do
 
-    before do
+    before :all do
       @active_dj = create :dj_with_freeform_shows
       @trained = create :dj
       @trainee = create :dj, active: false
+    end
 
+    before :each do
       get :index
     end
 

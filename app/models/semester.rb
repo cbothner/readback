@@ -8,6 +8,9 @@ class Semester < ActiveRecord::Base
     where("beginning < ?", Time.now).order(beginning: :desc).first
   end
 
+  def range
+    beginning.to_datetime..ending.to_datetime
+  end
   def start
     beginning.strftime "%B %-d, %Y"
   end
