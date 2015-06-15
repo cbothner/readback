@@ -47,6 +47,10 @@ group :development, :test do
 
   gem 'rspec-rails'
   gem 'factory_girl_rails', require: false
+
+  gem 'thor', '0.19.1'
+  gem 'guard'
+  gem 'guard-rspec', require: false
 end
 
 group :test do
