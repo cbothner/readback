@@ -102,7 +102,7 @@ shows.append oldsem.freeform_shows.create({name: "The Seizure Experiment", weekd
 shows.each{|s| Dj.all.sample.freeform_shows << s}
 shows.each(&:propagate)
 
-semester = Semester.create( beginning: "Tue, 12 May 2015 6:00:00 -04:00", ending: "Tue, 11 Aug 2015 5:59:59 -05:00" )
+semester = Semester.create( beginning: "Tue, 12 May 2015 6:00:00 -04:00", ending: "Tue, 15 September 2015 5:59:59 -05:00" )
 
 surrealist = cameron.freeform_shows.build(
   name: "Ceci n’est pas Freeform",

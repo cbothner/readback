@@ -11,6 +11,10 @@ class ShowInstance < ActiveRecord::Base
     where(beginning: (day.at_beginning_of_day..day.tomorrow.at_beginning_of_day)).take
   end
 
+  def past
+    Time.now > beginning
+  end
+
   def at
     if Time.now > ending
       ending

@@ -1,7 +1,20 @@
 - title "#{@freeform_show.name}"
 - headline "#{@freeform_show.name}"
 
-%article.with-thin-sidebar
-  %h3 Episodes
-  - @show_instances.each do |show_instance|
-    = render show_instance
+%h3 Episodes
+- @show_instances.each do |show_instance|
+  .showinfo.tiled
+    %p=show_instance.time_string
+    %p.with
+      =show_instance.show.with show_instance
+      -# If user cannot request sub for this show, don't take up the extra line below
+      -#-if show_instance.past
+        -#%span.show-instance-links
+          -#=link_to "#{show_instance.songs.count} #{"song".pluralize(show_instance.songs.count)}",
+            -#show_instance
+    %p.show-instance-links
+      - if show_instance.past
+        =link_to "#{show_instance.songs.count} #{"song".pluralize(show_instance.songs.count)}",
+          show_instance
+      - else
+        =link_to "Request Substitute", show_instance_request_sub_path(show_instance)
