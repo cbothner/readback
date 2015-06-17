@@ -2,7 +2,8 @@ module Show
   UNIMPORTANT_DATE = Time.zone.parse "January 23, 1972"
 
   def propagate
-    days = semester.range.to_enum.select { |x| x.wday == self.weekday }
+    offset = (0..6).include?(beginning.hour) ? 1 : 0
+    days = semester.range.to_enum.select { |x| (x - offset.days).wday == self.weekday }
     days.each do |d|
       d = d.in_time_zone
       bbb = d.change(beginning.hms)

@@ -23,7 +23,7 @@ RSpec.describe Show do
       end
 
       it "has ShowInstances only on the right weekday" do
-        weekdays = @show.show_instances.map { |x| x.beginning.wday }.sort.uniq
+        weekdays = @show.show_instances.map { |x| (x.beginning - 6.hours).wday }.sort.uniq
         expect(weekdays.length).to eq 1
         expect(weekdays).to include @show.weekday
       end
