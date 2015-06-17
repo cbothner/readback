@@ -19,7 +19,7 @@
 \begin{center}
 
 \textbf{WCBN Volunteer Roster}\\
-\emph{Current as of <%= lesc Time.now.strftime("%B %-d, %Y") %>}
+\emph{Current as of <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>}
 
 \begin{longtable}{llll}
 \toprule
@@ -27,7 +27,7 @@
 \midrule
 \endfirsthead
 \multicolumn{4}{c}%
-  {WCBN Volunteer Roster -- <%= lesc Time.now.strftime("%B %-d, %Y") %>} \\\\
+  {WCBN Volunteer Roster -- <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>} \\\\
 \toprule
 \textsc{Name} & \textsc{Affiliation} & \textsc{Email}\\
 \midrule

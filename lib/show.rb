@@ -1,11 +1,12 @@
 module Show
-  UNIMPORTANT_DATE = DateTime.parse "January 23, 1972"
+  UNIMPORTANT_DATE = Time.zone.parse "January 23, 1972"
 
   def propagate
     days = semester.range.to_enum.select { |x| x.wday == self.weekday }
     days.each do |d|
-      bbb = d.change(beginning.to_datetime.hms)
-      eee = d.change(ending.to_datetime.hms)
+      d = d.in_time_zone
+      bbb = d.change(beginning.hms)
+      eee = d.change(ending.hms)
       if show_instances.starts_on_day(d).nil?
         show_instances.create(beginning: bbb, ending: eee)
       end
@@ -18,8 +19,8 @@ module Show
   end
 end
 
-class DateTime
+class Time
   def hms
-    {hour: hour, minute: minute, second: second}
+    {hour: hour, min: min, sec: sec}
   end
 end

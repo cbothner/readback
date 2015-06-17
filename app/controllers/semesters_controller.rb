@@ -37,9 +37,9 @@ class SemestersController < ApplicationController
   def create
     copies = JSON.parse params.delete(:shows_to_copy)
 
-    params[:semester][:beginning] = Time.parse(params[:semester][:beginning])
+    params[:semester][:beginning] = Time.zone.parse(params[:semester][:beginning])
       .change(hour: 6).beginning_of_hour
-    params[:semester][:ending] = Time.parse(params[:semester][:ending])
+    params[:semester][:ending] = Time.zone.parse(params[:semester][:ending])
       .change(hour: 5, minute: 59, second:59)
     @semester = Semester.new(semester_params)
 

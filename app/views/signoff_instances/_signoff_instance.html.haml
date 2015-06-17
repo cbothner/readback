@@ -2,7 +2,7 @@
   =signoff_instance.at.getlocal.strftime '%l:%M %P'
 %td.signoff-instance{colspan: 5}
   - if signoff_instance.signed.nil?
-    .signoff-on{class: ("accent bold" if signoff_instance.at <= Time.now) }
+    .signoff-on{class: ("accent bold" if signoff_instance.at <= Time.zone.now) }
       ="#{signoff_instance.on}: "
     = form_for signoff_instance do |f|
       = f.label :signed

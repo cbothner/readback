@@ -11,7 +11,7 @@ class SongsController < ApplicationController
   # POST /songs.json
   def create
     @song = Song.new(song_params)
-    @song.at = Time.now
+    @song.at = Time.zone.now
     @song.show_instance = ShowInstance.on_air
 
     respond_to do |format|

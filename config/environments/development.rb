@@ -42,20 +42,8 @@ Rails.application.configure do
 
 end
 
-Date.class_eval do
-  def self.now
-    new 2015, 05, 18, 16, 04, 10, "-04:00"
-  end
-end
-
-DateTime.class_eval do
-  def self.now
-    new 2015, 05, 18, 16, 04, 10, "-04:00"
-  end
-end
-
 Time.class_eval do
   def self.now
-    new 2015, 05, 18, 16, 04, 10, "-04:00"
+    new(2015, 05, 18, 16, 04, 10, "-04:00")
   end
 end

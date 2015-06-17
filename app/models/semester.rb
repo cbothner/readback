@@ -5,15 +5,21 @@ class Semester < ActiveRecord::Base
   validates :beginning, presence: true
 
   def self.current
-    where("beginning < ?", Time.now).order(beginning: :desc).first
+    where("beginning < ?", Time.zone.now).order(beginning: :desc).first
   end
 
   def range
     beginning.to_datetime..ending.to_datetime
   end
+
+  def weeks
+    range.count / 7
+  end
+
   def start
     beginning.strftime "%B %-d, %Y"
   end
+
   def end
     ending.strftime "%B %-d, %Y"
   end

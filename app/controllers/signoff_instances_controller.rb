@@ -40,7 +40,7 @@ class SignoffInstancesController < ApplicationController
   # PATCH/PUT /signoff_instances/1
   # PATCH/PUT /signoff_instances/1.json
   def update
-    @signoff_instance.at = Time.now
+    @signoff_instance.at = Time.zone.now
     respond_to do |format|
       if @signoff_instance.update(signoff_instance_params)
         format.html { redirect_to controller: :playlist, action: :index }
