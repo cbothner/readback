@@ -100,6 +100,7 @@ shows.append oldsem.freeform_shows.create({name: "The Prescription", weekday: 5,
 shows.append oldsem.freeform_shows.create({name: "Prop Shop", weekday: 6, beginning: "2000-01-01 21:00:00 -05:00", ending: "2000-01-01 23:59:59 -05:00"})
 shows.append oldsem.freeform_shows.create({name: "The Seizure Experiment", weekday: 0, beginning: "2000-01-01 22:00:00 -05:00", ending: "2000-01-01 23:59:59 -05:00"})
 shows.each{|s| Dj.all.sample.freeform_shows << s}
+shows.each(&:propagate)
 
 semester = Semester.create( beginning: "Tue, 12 May 2015 6:00:00 -04:00", ending: "Tue, 11 Aug 2015 5:59:59 -05:00" )
 
@@ -111,6 +112,7 @@ surrealist = cameron.freeform_shows.build(
 )
 surrealist.semester = semester
 surrealist.save
+surrealist.propagate
 
 bleached_meat = brandok.freeform_shows.build(
   name: "Bleached Meat",
@@ -120,15 +122,17 @@ bleached_meat = brandok.freeform_shows.build(
 )
 bleached_meat.semester = semester
 bleached_meat.save
+bleached_meat.propagate
 
-disco = tyler.specialty_shows.build(
+disco = semester.specialty_shows.build(
   name: "Drive Time Disco",
   weekday: 1,
   beginning: "Tue, 12 May 2015 17:30:00 -04:00",
   ending: "Tue, 12 May 2015 18:30:00 -04:00"
 )
-disco.semester = semester
+disco.coordinator = tyler
 disco.save
+disco.propagate
 
 grey_matters = semester.talk_shows.build(
   name: "Grey Matters",
@@ -137,6 +141,7 @@ grey_matters = semester.talk_shows.build(
   ending: "Tue, 12 May 2015 19:00:00 -04:00"
 )
 grey_matters.save
+grey_matters.propagate
 
 grey_matters.show_instances.create(
   beginning: "Mon 18 May 2015 18:30:00 -04:00",
@@ -151,6 +156,7 @@ slipstream = semester.freeform_shows.build(
 )
 dwb.freeform_shows << slipstream
 slipstream.save
+slipstream.propagate
 
 trying = semester.freeform_shows.create(
   name: "Trying Not To Swear",
@@ -160,6 +166,7 @@ trying = semester.freeform_shows.create(
 )
 tyler.freeform_shows << trying
 trying.save
+trying.propagate
 
 six_oclock_shadow = semester.specialty_shows.create(
   name: "The Six O’Clock Shadow",
@@ -167,6 +174,8 @@ six_oclock_shadow = semester.specialty_shows.create(
   beginning: "Tue, 12 May 2015 18:00:00 -04:00",
   ending: "Tue, 12 May 2015 19:00:00 -04:00"
 )
+six_oclock_shadow.coordinator = Dj.find_by_name "Kristin Sumrall"
+six_oclock_shadow.propagate
 cameron.specialty_shows << six_oclock_shadow
 brandok.specialty_shows << six_oclock_shadow
 
@@ -176,27 +185,33 @@ radiozilla = semester.specialty_shows.create(
   beginning: "Tue, 12 May 2015 14:00:00 -04:00",
   ending: "Tue, 12 May 2015 15:00:00 -04:00"
 )
+radiozilla.coordinator = Dj.find_by_name "Mick Thorensen"
+radiozilla.propagate
 cameron.specialty_shows << radiozilla
 
-surr_first = surrealist.show_instances.create(
-  beginning: "Mon, 18 May 2015 15:00:00 -04:00",
-  ending: "Mon, 18 May 2015 17:30:00 -04:00"
-)
+#surr_first = surrealist.show_instances.create(
+  #beginning: "Mon, 18 May 2015 15:00:00 -04:00",
+  #ending: "Mon, 18 May 2015 17:30:00 -04:00"
+#)
 
-bm_first = bleached_meat.show_instances.create(
-  beginning: "Mon, 18 May 2015 12:00:00 -04:00",
-  ending: "Mon, 18 May 2015 15:00:00 -04:00"
-)
+surr_first = surrealist.show_instances.starts_on_day DateTime.parse("18 May 2015")
+bm_first = bleached_meat.show_instances.starts_on_day DateTime.parse("18 May 2015")
+disco_first = disco.show_instances.starts_on_day DateTime.parse("18 May 2015")
+
+#bm_first = bleached_meat.show_instances.create(
+  #beginning: "Mon, 18 May 2015 12:00:00 -04:00",
+  #ending: "Mon, 18 May 2015 15:00:00 -04:00"
+#)
 bm_first.dj = dwb
 bm_first.save
 
-disco_first = tyler.show_instances.build(
-  beginning: "Mon, 18 May 2015 17:30:00 -04:00",
-  ending: "Mon, 18 May 2015 18:30:00 -04:00"
-)
-disco.show_instances << disco_first
-disco.save
-disco_first.save
+#disco_first = tyler.show_instances.build(
+  #beginning: "Mon, 18 May 2015 17:30:00 -04:00",
+  #ending: "Mon, 18 May 2015 18:30:00 -04:00"
+#)
+#disco.show_instances << disco_first
+#disco.save
+#disco_first.save
 
 surr_first.songs.create([{
   artist: "Toro y Moi", name: "Lilly", album: "What For?", label: "Carpark",
@@ -249,28 +264,6 @@ surr_first.songs.create([{
   label: "Self-Released", year: 2014, request: false,
   at: "Mon 18 May 2015 16:03:58 -04:00"
 }])
-
-#surr_first.songs.create([{
-  #name: "Sons and Daughters", artist: "The Decemberists",
-  #album: "The Crane Wife", label: "Capitol", year: 2006, request: false,
-  #at: "Mon, 18 May 2015 15:01:00 -04:00"
-#},{
-  #name: "Funkadelic", artist: "Maggot Brain", album: "Maggot Brain",
-  #label: "Westbound", year: 1971, request: false,
-  #at: "Mon, 18 May 2015 15:06:00 -04:00"
-#},{
-  #name: "Dear Prudence", artist: "The Beatles",
-  #album: "The Beatles (White Album)", label: "Apple", year: 1968,
-  #request: false, at: "Mon, 18 May 2015 15:14:00 -04:00"
-#},{
-  #name: "The Nights of Wine and Roses", artist: "Japandroids",
-  #album: "Celebration Rock", label: "Polyvinyl", year: 2012, request: false,
-  #at: "Mon, 18 May 2015 15:18:00 -04:00"
-#},{
-  #name: "Oliver James", artist: "Fleet Foxes", album: "Fleet Foxes",
-  #label: "Sub Pop", year: 2008, request: true,
-  #at: "Mon, 18 May 2015 15:22:00 -04:00"
-#}])
 
 bm_first.songs.create([{
   name: "Alone Again", artist: "The King Khan & BBQ Show",

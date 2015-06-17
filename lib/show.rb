@@ -6,7 +6,7 @@ module Show
     days.each do |d|
       bbb = d.change(beginning.to_datetime.hms)
       eee = d.change(ending.to_datetime.hms)
-      if show_instances.select {|x| x.beginning.at_noon == d.at_noon}.empty?
+      if show_instances.starts_on_day(d).nil?
         show_instances.create(beginning: bbb, ending: eee)
       end
     end

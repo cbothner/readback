@@ -34,6 +34,7 @@ class SpecialtyShowsController < ApplicationController
 
     respond_to do |format|
       if @specialty_show.save
+        @specialty_show.propagate
         format.html { redirect_to edit_semester_path(@specialty_show.semester) }
       else
         format.html do

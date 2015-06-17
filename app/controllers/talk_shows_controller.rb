@@ -35,6 +35,7 @@ class TalkShowsController < ApplicationController
 
     respond_to do |format|
       if @talk_show.save
+        @talk_show.propagate
         format.html { redirect_to edit_semester_path(@talk_show.semester) }
       else
         format.html do

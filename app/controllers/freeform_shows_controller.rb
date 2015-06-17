@@ -35,6 +35,7 @@ class FreeformShowsController < ApplicationController
 
     respond_to do |format|
       if @freeform_show.save
+        @freeform_show.propagate
         format.html { redirect_to edit_semester_path(@freeform_show.semester) }
       else
         format.html do
