@@ -1,4 +1,13 @@
 - title "Songs"
+- headline "Playlist: #{@show_instance.show.name}"
+- subtitle "#{@show_instance.show.with @show_instance}, #{@show_instance.time_string}".html_safe
+- back_link link_to "All Episodes", @show_instance.show
+- content_for :sidebar do
+  %h3 Other Episodes
+  %ul
+  - @show_instance.show.show_instances.each do |episode|
+    %li= link_to episode.time_string, episode
+
 %table
   %thead
     %td Time
@@ -10,10 +19,10 @@
   - @songs.each do |song|
     %tr
       %td.thin.time-col=song.at.getlocal.strftime '%l:%M %p'
-      %td=best_in_place song, :artist
+      %td=song.artist
       %td<
-        =best_in_place song, :name, display_with: lambda {|str| '“' + str + '”' }
+        ="“#{song.name}”"
         %span.thin.accent=' (by request)' if song.request
-      %td.italic=best_in_place song, :album
-      %td.thin=best_in_place song, :label
-      %td.thin.lnum=best_in_place song, :year
+      %td.italic=song.album
+      %td.thin=song.label
+      %td.thin.lnum= song.year

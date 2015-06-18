@@ -1,5 +1,6 @@
 - title "#{@freeform_show.name}"
 - headline "#{@freeform_show.name}"
+- back_link link_to "Schedule", @freeform_show.semester
 
 %h3 Episodes
 - @show_instances.each do |show_instance|
@@ -15,6 +16,6 @@
     %p.show-instance-links
       - if show_instance.past
         =link_to "#{show_instance.songs.count} #{"song".pluralize(show_instance.songs.count)}",
-          show_instance
+          show_instance_songs_path(show_instance)
       - else
         =link_to "Request Substitute", show_instance_request_sub_path(show_instance)

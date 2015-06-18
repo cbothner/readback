@@ -1,10 +1,13 @@
 class SongsController < ApplicationController
   before_action :set_song, only: [:update, :destroy]
+  layout "headline"
 
   # GET /songs
   # GET /songs.json
   def index
-    @songs = Song.all.sort_by(&:at).reverse
+    @show_instance = ShowInstance.find(params[:show_instance_id])
+    #@songs = Song.all.sort_by(&:at).reverse
+    @songs = @show_instance.songs
   end
 
   # POST /songs

@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :songs
-
-  resources :signoff_instances
-
   resources :semesters, shallow: true do
     resources :freeform_shows
     resources :specialty_shows
@@ -12,8 +8,11 @@ Rails.application.routes.draw do
   end
 
   resources :show_instances do
+    resources :songs
     post 'request_sub'
   end
+
+  resources :signoff_instances
 
   resources :djs
 
