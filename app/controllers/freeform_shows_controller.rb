@@ -75,6 +75,6 @@ class FreeformShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_freeform_show
       @freeform_show = FreeformShow.find(params[:id])
-      @show_instances = @freeform_show.show_instances
+      @episodes = @freeform_show.episodes
     end
 end

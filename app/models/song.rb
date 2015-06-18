@@ -1,4 +1,4 @@
 class Song < ActiveRecord::Base
   validates :name, presence: true
-  belongs_to :show_instance
+  belongs_to :episode
 end

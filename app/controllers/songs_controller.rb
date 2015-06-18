@@ -5,9 +5,9 @@ class SongsController < ApplicationController
   # GET /songs
   # GET /songs.json
   def index
-    @show_instance = ShowInstance.find(params[:show_instance_id])
+    @episode = Episode.find(params[:episode_id])
     #@songs = Song.all.sort_by(&:at).reverse
-    @songs = @show_instance.songs
+    @songs = @episode.songs
   end
 
   # POST /songs
@@ -15,7 +15,7 @@ class SongsController < ApplicationController
   def create
     @song = Song.new(song_params)
     @song.at = Time.zone.now
-    @song.show_instance = ShowInstance.on_air
+    @song.episode = Episode.on_air
 
     respond_to do |format|
       if @song.save

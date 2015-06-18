@@ -18,26 +18,26 @@ RSpec.describe Show do
     context "when creating a show" do
       before { @show.propagate }
 
-      it "creates the right number of ShowInstances" do
-        expect(@show.show_instances.count).to eq @semester.weeks
+      it "creates the right number of Episodes" do
+        expect(@show.episodes.count).to eq @semester.weeks
       end
 
-      it "has ShowInstances only on the right weekday" do
-        weekdays = @show.show_instances.map { |x| (x.beginning - 6.hours).wday }.sort.uniq
+      it "has Episodes only on the right weekday" do
+        weekdays = @show.episodes.map { |x| (x.beginning - 6.hours).wday }.sort.uniq
         expect(weekdays.length).to eq 1
         expect(weekdays).to include @show.weekday
       end
 
-      it "has ShowInstances beginning at the right times" do
-        beginnings = @show.show_instances.map do |x|
+      it "has Episodes beginning at the right times" do
+        beginnings = @show.episodes.map do |x|
           x.beginning.hms
         end.sort.uniq
         expect(beginnings).to include @show.beginning.hms
         expect(beginnings.count).to eq 1
       end
 
-      it "has ShowInstances ending at the right times" do
-        endings = @show.show_instances.map do |x|
+      it "has Episodes ending at the right times" do
+        endings = @show.episodes.map do |x|
           x.ending.hms
         end.sort.uniq
         expect(endings).to include @show.ending.hms
@@ -48,12 +48,12 @@ RSpec.describe Show do
     context "when editing a show" do
       before :each do
         @show.propagate
-        @prev_si = @show.show_instances.to_a
+        @prev_si = @show.episodes.to_a
         @show.propagate
       end
 
-      it "doesn't change the number of ShowInstances" do
-        expect(@show.show_instances.count).to eq @prev_si.count
+      it "doesn't change the number of Episodes" do
+        expect(@show.episodes.count).to eq @prev_si.count
       end
 
     end

@@ -3,7 +3,7 @@ class FreeformShow < ActiveRecord::Base
 
   belongs_to :semester
   belongs_to :dj
-  has_many :show_instances, as: :show
+  has_many :episodes, as: :show
 
   def with(today)
     today_dj = today.nil? ? today : today.dj

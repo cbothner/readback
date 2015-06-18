@@ -1,6 +1,6 @@
-class CreateShowInstances < ActiveRecord::Migration
+class CreateEpisodes < ActiveRecord::Migration
   def change
-    create_table :show_instances do |t|
+    create_table :episodes do |t|
       t.references :show, polymorphic: true, index: true
       t.references :dj, index: true
       t.datetime :beginning
@@ -8,6 +8,6 @@ class CreateShowInstances < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_foreign_key :show_instances, :djs
+    add_foreign_key :episodes, :djs
   end
 end

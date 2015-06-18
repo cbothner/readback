@@ -3,7 +3,7 @@ class TalkShow < ActiveRecord::Base
 
   belongs_to :semester
   belongs_to :dj
-  has_many :show_instances, as: :show
+  has_many :episodes, as: :show
 
   def with(today)
     "a WCBN public affairs show#{" with your host, #{dj.name}" unless dj.nil?}"

@@ -31,7 +31,7 @@
     - @past_items.each do |item|
       %tr
         =render item
-      -if item.is_a? ShowInstance
+      -if item.is_a? Episode
         %thead
           %td Time
           %td Artist

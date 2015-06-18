@@ -46,6 +46,19 @@ ActiveRecord::Schema.define(version: 20150518200410) do
 
   add_index "djs_specialty_shows", ["specialty_show_id", "dj_id"], name: "index_djs_specialty_shows_on_specialty_show_id_and_dj_id", unique: true
 
+  create_table "episodes", force: :cascade do |t|
+    t.integer  "show_id"
+    t.string   "show_type"
+    t.integer  "dj_id"
+    t.datetime "beginning"
+    t.datetime "ending"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "episodes", ["dj_id"], name: "index_episodes_on_dj_id"
+  add_index "episodes", ["show_type", "show_id"], name: "index_episodes_on_show_type_and_show_id"
+
   create_table "freeform_shows", force: :cascade do |t|
     t.integer  "semester_id"
     t.integer  "dj_id"
@@ -66,19 +79,6 @@ ActiveRecord::Schema.define(version: 20150518200410) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "show_instances", force: :cascade do |t|
-    t.integer  "show_id"
-    t.string   "show_type"
-    t.integer  "dj_id"
-    t.datetime "beginning"
-    t.datetime "ending"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "show_instances", ["dj_id"], name: "index_show_instances_on_dj_id"
-  add_index "show_instances", ["show_type", "show_id"], name: "index_show_instances_on_show_type_and_show_id"
 
   create_table "signoff_instances", force: :cascade do |t|
     t.string   "on"
@@ -106,12 +106,12 @@ ActiveRecord::Schema.define(version: 20150518200410) do
     t.integer  "year"
     t.boolean  "request"
     t.datetime "at"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "show_instance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "episode_id"
   end
 
-  add_index "songs", ["show_instance_id"], name: "index_songs_on_show_instance_id"
+  add_index "songs", ["episode_id"], name: "index_songs_on_episode_id"
 
   create_table "specialty_shows", force: :cascade do |t|
     t.integer  "semester_id"

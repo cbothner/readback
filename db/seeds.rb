@@ -143,7 +143,7 @@ grey_matters = semester.talk_shows.build(
 grey_matters.save
 grey_matters.propagate
 
-grey_matters.show_instances.create(
+grey_matters.episodes.create(
   beginning: "1972-01-23 18:30:00 Eastern Time (US & Canada)",
   ending: "1972-01-23 19:00:00 Eastern Time (US & Canada)"
 )
@@ -184,27 +184,27 @@ radiozilla.coordinator = Dj.find_by_name "Mick Thorensen"
 radiozilla.propagate
 cameron.specialty_shows << radiozilla
 
-#surr_first = surrealist.show_instances.create(
+#surr_first = surrealist.episodes.create(
   #beginning: "Mon, 18 May 2015 15:00:00 Eastern Time (US & Canada)",
   #ending: "Mon, 18 May 2015 17:30:00 Eastern Time (US & Canada)"
 #)
 
-surr_first = surrealist.show_instances.starts_on_day Time.zone.parse("18 May 2015")
-bm_first = bleached_meat.show_instances.starts_on_day Time.zone.parse("18 May 2015")
-disco_first = disco.show_instances.starts_on_day Time.zone.parse("18 May 2015")
+surr_first = surrealist.episodes.starts_on_day Time.zone.parse("18 May 2015")
+bm_first = bleached_meat.episodes.starts_on_day Time.zone.parse("18 May 2015")
+disco_first = disco.episodes.starts_on_day Time.zone.parse("18 May 2015")
 
-#bm_first = bleached_meat.show_instances.create(
+#bm_first = bleached_meat.episodes.create(
   #beginning: "Mon, 18 May 2015 12:00:00 Eastern Time (US & Canada)",
   #ending: "Mon, 18 May 2015 15:00:00 Eastern Time (US & Canada)"
 #)
 bm_first.dj = dwb
 bm_first.save
 
-#disco_first = tyler.show_instances.build(
+#disco_first = tyler.episodes.build(
   #beginning: "Mon, 18 May 2015 17:30:00 Eastern Time (US & Canada)",
   #ending: "Mon, 18 May 2015 18:30:00 Eastern Time (US & Canada)"
 #)
-#disco.show_instances << disco_first
+#disco.episodes << disco_first
 #disco.save
 #disco_first.save
 

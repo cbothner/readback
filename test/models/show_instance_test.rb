@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ShowInstanceTest < ActiveSupport::TestCase
+class EpisodeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

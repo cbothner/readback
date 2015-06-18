@@ -3,19 +3,19 @@
 - back_link link_to "Schedule", @freeform_show.semester
 
 %h3 Episodes
-- @show_instances.each do |show_instance|
+- @episodes.each do |episode|
   .showinfo.tiled
-    %p=show_instance.time_string
+    %p=episode.date_string
     %p.with
-      =show_instance.show.with show_instance
+      =episode.show.with episode
       -# If user cannot request sub for this show, don't take up the extra line below
-      -#-if show_instance.past
+      -#-if episode.past
         -#%span.show-instance-links
-          -#=link_to "#{show_instance.songs.count} #{"song".pluralize(show_instance.songs.count)}",
-            -#show_instance
+          -#=link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
+            -#episode
     %p.show-instance-links
-      - if show_instance.past
-        =link_to "#{show_instance.songs.count} #{"song".pluralize(show_instance.songs.count)}",
-          show_instance_songs_path(show_instance)
+      - if episode.past
+        =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
+          episode_songs_path(episode)
       - else
-        =link_to "Request Substitute", show_instance_request_sub_path(show_instance)
+        =link_to "Request Substitute", episode_request_sub_path(episode)

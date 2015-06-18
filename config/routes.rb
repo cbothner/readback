@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     get 'based_on/:model_id', action: :new, on: :new
   end
 
-  resources :show_instances do
+  resources :episodes do
     resources :songs
     post 'request_sub'
   end

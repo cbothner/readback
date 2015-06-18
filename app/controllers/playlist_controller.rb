@@ -1,8 +1,8 @@
 class PlaylistController < ApplicationController
   def index
     songs = Song.where(at: 6.hours.ago..Time.zone.now)
-    shows = ShowInstance.where(beginning: 6.hours.ago..4.hours.since)
-    @on_air = ShowInstance.on_air
+    shows = Episode.where(beginning: 6.hours.ago..4.hours.since)
+    @on_air = Episode.on_air
     signoff_instances = SignoffInstance.where(at: 6.hours.ago..4.hours.since)
 
     items = (songs + shows - [@on_air] + signoff_instances).sort_by(&:at).reverse

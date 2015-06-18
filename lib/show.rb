@@ -8,8 +8,8 @@ module Show
       d = d.in_time_zone
       bbb = d.change(beginning.hms)
       eee = d.change(ending.hms)
-      if show_instances.starts_on_day(d).nil?
-        show_instances.create(beginning: bbb, ending: eee)
+      if episodes.starts_on_day(d).nil?
+        episodes.create(beginning: bbb, ending: eee)
       end
     end
   end

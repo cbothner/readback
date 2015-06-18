@@ -1,4 +1,4 @@
-class ShowInstance < ActiveRecord::Base
+class Episode < ActiveRecord::Base
   belongs_to :show, polymorphic: true
   belongs_to :dj
   has_many :songs
@@ -27,7 +27,11 @@ class ShowInstance < ActiveRecord::Base
     !dj.nil?
   end
 
+  def date_string
+    "#{beginning.strftime("%A, %B %-d, %Y")}".html_safe
+  end
   def time_string
-    "#{beginning.strftime("%A, %B %-d, %Y &nbsp;%l:%M")} &ndash; #{ending.strftime("%l:%M%P")}".html_safe
+    date_string + "#{beginning.strftime(" &nbsp;%l:%M")} &ndash; #{ending.strftime("%l:%M%P")}".html_safe
+    
   end
 end

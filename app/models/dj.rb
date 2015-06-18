@@ -7,18 +7,18 @@ class Dj < ActiveRecord::Base
   has_many :freeform_shows
   has_many :talk_shows
 
-  has_many :show_instances
+  has_many :episodes
   
   serialize :roles, Array
 
-  validates :name, :phone, :email, presence: true
-  with_options if: :um_affiliated? do |dj|
-    dj.validates :umid, :um_dept, presence: true
-    dj.validates :umid, numericality: {only_integer: true,
-                                       greater_than_or_equal_to: 1111_1111,
-                                       less_than_or_equal_to: 9999_9999}
-  end
-  validates :statement, presence: true, unless: :um_affiliated?
+  #validates :name, :phone, :email, presence: true
+  #with_options if: :um_affiliated? do |dj|
+    #dj.validates :umid, :um_dept, presence: true
+    #dj.validates :umid, numericality: {only_integer: true,
+                                       #greater_than_or_equal_to: 1111_1111,
+                                       #less_than_or_equal_to: 9999_9999}
+  #end
+  #validates :statement, presence: true, unless: :um_affiliated?
 
   def um_affiliated?
     AFFILIATED_UM_AFFILIATIONS.include? um_affiliation
