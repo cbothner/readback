@@ -30,6 +30,7 @@ class Episode < ActiveRecord::Base
   def date_string
     "#{beginning.strftime("%A, %B %-d, %Y")}".html_safe
   end
+
   def time_string
     date_string + "#{beginning.strftime(" &nbsp;%l:%M")} &ndash; #{ending.strftime("%l:%M%P")}".html_safe
     

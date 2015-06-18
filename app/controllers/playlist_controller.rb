@@ -9,7 +9,7 @@ class PlaylistController < ApplicationController
     @past_items = items.select{|i| i.at <= Time.zone.now }
     @future_items = items - @past_items
 
-    @song = Song.new(session[:song])
+    @song = Song.new(session[:song])  # TODO: clear this
     @song ||= Song.new
   end
 end

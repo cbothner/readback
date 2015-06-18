@@ -8,7 +8,7 @@
     = f.text_field :name, tabindex: 20
   .field.field-ending
     = f.label :coordinator_id, 'Coordinator'
-    = f.select :coordinator_id, active_for_select, {}, tabindex:21, class: 'chzn-select'
+    = f.select :coordinator_id, active_for_select(@specialty_show.coordinator), {}, tabindex:21, class: 'chzn-select'
   .field.field-weekday
     = f.label :weekday
     = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex: 22

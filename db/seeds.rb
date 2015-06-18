@@ -143,11 +143,6 @@ grey_matters = semester.talk_shows.build(
 grey_matters.save
 grey_matters.propagate
 
-grey_matters.episodes.create(
-  beginning: "1972-01-23 18:30:00 Eastern Time (US & Canada)",
-  ending: "1972-01-23 19:00:00 Eastern Time (US & Canada)"
-)
-
 slipstream = semester.freeform_shows.build({name: "SlipStream Radio", weekday: 1, beginning: "2000-01-01 06:00:00 Eastern Time (US & Canada)", ending: "2000-01-01 09:00:00 Eastern Time (US & Canada)"})
 dwb.freeform_shows << slipstream
 slipstream.save
@@ -170,6 +165,7 @@ six_oclock_shadow = semester.specialty_shows.create(
   ending: "1972-01-23 19:00:00 Eastern Time (US & Canada)"
 )
 six_oclock_shadow.coordinator = Dj.find_by_name "Kristin Sumrall"
+six_oclock_shadow.save
 six_oclock_shadow.propagate
 cameron.specialty_shows << six_oclock_shadow
 brandok.specialty_shows << six_oclock_shadow

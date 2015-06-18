@@ -1,6 +1,9 @@
 - title "#{@freeform_show.name}"
 - headline "#{@freeform_show.name}"
+- subtitle link_to @freeform_show.dj.name, @freeform_show.dj
 - back_link link_to "Schedule", @freeform_show.semester
+= content_for :sidebar do
+  =render 'form'
 
 %h3 Episodes
 - @episodes.each do |episode|
@@ -13,7 +16,7 @@
         -#%span.show-instance-links
           -#=link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
             -#episode
-    %p.show-instance-links
+    %p.rightalign
       - if episode.past
         =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
           episode_songs_path(episode)

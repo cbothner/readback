@@ -1,6 +1,10 @@
 module Show
   UNIMPORTANT_DATE = Time.zone.parse "January 23, 1972"
 
+  def most_recent_episode
+    episodes.where("beginning < ?", Time.zone.now).order(beginning: :desc).first
+  end
+
   def propagate
     offset = (0..6).include?(beginning.hour) ? 1 : 0
     days = semester.range.to_enum.select { |x| (x - offset.days).wday == self.weekday }

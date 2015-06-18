@@ -3,20 +3,20 @@
     .alert
       - @freeform_show.errors.full_messages.each do |msg|
         %p= msg
-  .field.field-beginning
+  .field
     = f.label :name
     = f.text_field :name, tabindex: 10
-  .field.field-ending
+  .field
     = f.label :dj_id, 'DJ'
-    = f.select :dj_id, active_for_select, {}, tabindex: 11, class: 'chzn-select'
-  .field.field-weekday
+    = f.select :dj_id, active_for_select(@freeform_show.dj), {}, tabindex: 11, class: 'chzn-select'
+  .field
     = f.label :weekday
     = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex:12
-  .field.field-time
+  .field.field-ending
     = f.label :ending, 'End'
     = f.time_field :ending, tabindex: 14
-  .field.field-time
+  .field.field-beginning
     = f.label :beginning, 'Start'
     = f.time_field :beginning, tabindex: 13
   .actions
-    = f.submit 'Add freeform show', data: { disable_with: 'Saving...' }, tabindex: 15
+    = f.submit 'Save freeform show', data: { disable_with: 'Saving...' }, tabindex: 15
