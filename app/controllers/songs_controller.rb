@@ -5,7 +5,7 @@ class SongsController < ApplicationController
   # GET /songs
   # GET /songs.json
   def index
-    @episode = Episode.find(params[:episode_id])
+    @episode = Episode.includes(show: [:semester, :dj]).find(params[:episode_id])
     #@songs = Song.all.sort_by(&:at).reverse
     @songs = @episode.songs
   end

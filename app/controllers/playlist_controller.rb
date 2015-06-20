@@ -1,7 +1,7 @@
 class PlaylistController < ApplicationController
   def index
-    songs = Song.where(at: 6.hours.ago..Time.zone.now)
-    shows = Episode.where(beginning: 6.hours.ago..4.hours.since)
+    songs = Song.includes(:episode).where(at: 6.hours.ago..Time.zone.now)
+    shows = Episode.includes(:dj, show: [:dj]).where(beginning: 6.hours.ago..4.hours.since)
     @on_air = Episode.on_air
     signoff_instances = SignoffInstance.where(at: 6.hours.ago..4.hours.since)
 

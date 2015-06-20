@@ -48,6 +48,10 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails', require: false
 
+  # To identify database inefficiencies like n+1 queries and unused eager
+  # loading
+  gem 'bullet'
+
   gem 'thor', '0.19.1'
   gem 'guard'
   gem 'guard-rspec', require: false

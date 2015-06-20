@@ -93,14 +93,14 @@ class SemestersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_semester
-      @semester = Semester.find(params[:id])
+      @semester = Semester.includes(freeform_shows: [:dj]).find(params[:id])
       shows = @semester.freeform_shows + @semester.specialty_shows + @semester.talk_shows
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq
       @shows = shows.group_by{|x| x.sort_times(:beginning)[:sortable]}
     end
 
     def set_model
-      @model = Semester.find_by_id(params.delete(:model_id))
+      @model = Semester.includes(freeform_shows: [:dj]).find_by_id(params.delete(:model_id))
       @model ||= Semester.current
       shows = @model.freeform_shows + @model.specialty_shows + @model.talk_shows
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq

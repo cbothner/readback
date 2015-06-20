@@ -43,6 +43,9 @@ GEM
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
+    bullet (4.14.4)
+      activesupport (>= 3.0.0)
+      uniform_notifier (>= 1.6.0)
     byebug (4.0.5)
       columnize (= 0.9.0)
     celluloid (0.16.0)
@@ -213,6 +216,7 @@ GEM
     uglifier (2.7.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.8.0)
     web-console (2.1.2)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -224,6 +228,7 @@ PLATFORMS
 
 DEPENDENCIES
   best_in_place (~> 3.0.1)
+  bullet
   byebug
   coffee-rails (~> 4.1.0)
   factory_girl_rails

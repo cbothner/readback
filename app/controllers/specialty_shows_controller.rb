@@ -77,7 +77,7 @@ class SpecialtyShowsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_specialty_show
-      @specialty_show = SpecialtyShow.find(params[:id])
+      @specialty_show = SpecialtyShow.includes(episodes: [:dj]).find(params[:id])
       @episodes = @specialty_show.episodes
       @rotating_hosts = @specialty_show.djs.to_a << @specialty_show.coordinator
     end
