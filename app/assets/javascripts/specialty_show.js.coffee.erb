@@ -1,0 +1,17 @@
+$(document).on 'ready page:load', ->
+  $('.rotating-host').draggable revert: true
+  $('.episode').droppable
+    activeClass: 'episode-droppable'
+    hoverClass: 'episode-hover'
+    drop: (event, ui) ->
+      droppedOn = $(this)
+      $.ajax
+        type: 'PUT'
+        url: droppedOn.attr 'data-episode-path'
+        dataType: 'json'
+        data:
+          episode:
+            dj_id: ui.draggable.attr 'data-dj-id'
+        success: ->
+          droppedOn.removeClass 'episode-unassigned'
+          droppedOn.find('.with').html ui.draggable.find('a').html()

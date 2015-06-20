@@ -12,8 +12,10 @@ module DjsHelper
     trainee.um_affiliation == 'community' || !trainee.statement.blank?
   end
 
-  def active_for_select(selected_dj)
+  def active_for_select(*selected_djs)
     active_djs = Dj.where(active: true).order(:name)
-    options_from_collection_for_select(active_djs, :id, :name, selected_dj.try(:id))
+    selected = selected_djs.flatten.map{ |dj| dj.try(:id) }
+    puts "selected = #{selected}"
+    options_from_collection_for_select(active_djs, :id, :name, selected)
   end
 end

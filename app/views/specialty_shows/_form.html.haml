@@ -3,20 +3,25 @@
     .alert
       - @specialty_show.errors.full_messages.each do |msg|
         %p= msg
-  .field.field-beginning
+  .field
     = f.label :name
     = f.text_field :name, tabindex: 20
-  .field.field-ending
+  .field
     = f.label :coordinator_id, 'Coordinator'
-    = f.select :coordinator_id, active_for_select(@specialty_show.coordinator), {}, tabindex:21, class: 'chzn-select'
-  .field.field-weekday
+    %br
+    = f.select :coordinator_id, active_for_select(f.object.coordinator), {}, tabindex:21, class: 'chzn-select'
+  .field
+    =f.label :djs, 'Rotating Hosts'
+    %br
+    =f.select :djs, active_for_select(f.object.djs.to_a), {}, multiple: true, tabindex: 22, class: 'chzn-select'
+  .field
     = f.label :weekday
-    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex: 22
-  .field.field-time
+    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex: 23
+  .field.field-ending
     = f.label :ending, 'End'
-    = f.time_field :ending, tabindex: 24
-  .field.field-time
+    = f.time_field :ending, value: format_time(f.object.ending), tabindex: 25
+  .field.field-beginning
     = f.label :beginning, 'Start'
-    = f.time_field :beginning, tabindex: 23
+    = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 24
   .actions
-    = f.submit 'Add specialty show', data: { disable_with: 'Saving...' }, tabindex: 25
+    = f.submit 'Save specialty show', data: { disable_with: 'Saving...' }, tabindex: 26

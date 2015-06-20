@@ -6,11 +6,11 @@
   - unless @model.nil?
     = hidden_field_tag :shows_to_copy
     = hidden_field_tag :model_id, @model.id
-  .field.field-beginning
+  .field
     = f.label :beginning
     %br
     = f.date_field :beginning, tabindex: 1
-  .field.field-ending
+  .field
     = f.label :ending
     %br
     = f.date_field :ending, tabindex: 1

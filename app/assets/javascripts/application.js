@@ -12,11 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui/selectable
-//= require jquery-ui/datepicker
+//= require jquery-ui
 //= require turbolinks
 //= require best_in_place
-//= require chosen.jquery.min
 //= require_tree .
 
 $(document).on("ready page:load", function() {
@@ -28,5 +26,7 @@ $(document).on("ready page:load", function() {
       dateFormat: 'yy-mm-dd'
     });
   }
+
+  $(".chzn-select").chosen();
 
 });

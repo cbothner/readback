@@ -1,14 +1,27 @@
 .tiled {
   border: 1px solid #BBB;
-
-  width: 12em;
+  display: inline-block;
+  width: 14em;
   padding: 0.1em 0.4em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   margin-right: 1em;
-  float: left;
+  background-color: #f6f6f6;
 }
+
+.episode-droppable {
+  background-color: rgba(255, 232, 138, 0.45) !important;
+}
+
+.episode-hover {
+  background-color: rgba(65, 231, 5, 0.13) !important;
+}
+
 .rightalign {
   margin-left: 1em;
   text-align: right;
+}
+
+.episode.episode-unassigned {
+  background-color: rgba(231, 5, 12, 0.13);
 }

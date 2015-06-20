@@ -11,7 +11,7 @@ class Episode < ActiveRecord::Base
     where(beginning: (day.at_beginning_of_day..day.tomorrow.at_beginning_of_day)).take
   end
 
-  def past
+  def past?
     Time.zone.now > beginning
   end
 

@@ -6,4 +6,8 @@ module ShowsHelper
       show.name
     end
   end
+
+  def format_time(t)
+    t.try {strftime("%H:%M")}
+  end
 end

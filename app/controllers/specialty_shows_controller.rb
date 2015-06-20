@@ -4,6 +4,8 @@ class SpecialtyShowsController < ApplicationController
   before_action :set_specialty_show, only: [:show, :edit, :update, :destroy]
   before_action :define_params_method, only: [:create, :update]
 
+  layout "headline"
+
   # GET /specialty_shows
   # GET /specialty_shows.json
   def index
@@ -29,7 +31,7 @@ class SpecialtyShowsController < ApplicationController
   def create
     @specialty_show = SpecialtyShow.new(specialty_show_params)
     @specialty_show.coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
-    #@specialty_show.djs = Dj.find(params[:specialty_show][:dj_id])
+    @specialty_show.djs = Dj.find(params[:specialty_show][:djs])
     @specialty_show.semester = Semester.find(params[:semester_id])
 
     respond_to do |format|
@@ -49,6 +51,8 @@ class SpecialtyShowsController < ApplicationController
   # PATCH/PUT /specialty_shows/1
   # PATCH/PUT /specialty_shows/1.json
   def update
+    @specialty_show.coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
+    @specialty_show.djs = Dj.find(params[:specialty_show].delete(:djs).reject(&:blank?))
     respond_to do |format|
       if @specialty_show.update(specialty_show_params)
         format.html { redirect_to @specialty_show, notice: 'Specialty show was successfully updated.' }
@@ -74,6 +78,8 @@ class SpecialtyShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_specialty_show
       @specialty_show = SpecialtyShow.find(params[:id])
+      @episodes = @specialty_show.episodes
+      @rotating_hosts = @specialty_show.djs.to_a << @specialty_show.coordinator
     end
 
     def specialty_show_params

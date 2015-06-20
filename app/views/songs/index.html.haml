@@ -5,7 +5,7 @@
 - content_for :sidebar do
   %h3 All Episodes
   .rightalign=link_to "Configure", @episode.show
-  - @episode.show.episodes.order(beginning: :desc).select(&:past).each do |episode|
+  - @episode.show.episodes.order(beginning: :desc).select(&:past?).each do |episode|
     .showinfo.tiled
       %p{class: ("highlight" if episode == @episode)}
         =link_to episode.date_string, episode_songs_path(episode)

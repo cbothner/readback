@@ -2,18 +2,22 @@
 - back_link link_to "Back", @semester
 - headline "Editing Schedule Beginning #{@semester.start}"
 
-%script
-  $(document).on("ready page:load", function() {
-  $(".chzn-select").chosen();
-  });
-
 - content_for :sidebar do
   = render "form"
-  %h4 Add a Freeform Show
-  = render "freeform_shows/form"
-  %h4 Add a Specialty Show
-  = render "specialty_shows/form"
-  %h4 Add a Talk Show
-  = render "talk_shows/form"
+  %h4 Add a Show
+  #tabs
+    %ul
+      %li
+        %a{href: "#tab-freeform"} Freeform
+      %li
+        %a{href: "#tab-specialty"} Specialty
+      %li
+        %a{href: "#tab-talk"} Talk Show
+    #tab-freeform
+      = render "freeform_shows/form"
+    #tab-specialty
+      = render "specialty_shows/form"
+    #tab-talk
+      = render "talk_shows/form"
 
 = render @semester

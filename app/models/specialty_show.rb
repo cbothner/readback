@@ -10,6 +10,6 @@ class SpecialtyShow < ActiveRecord::Base
 
   def with(today)
     dj_name = today.dj.nil? ? dj.name : today.dj.name
-    "with #{"rotating host" unless today.dj.nil?} #{dj_name}"
+    "with #{today.dj.nil? ? "coordinator" : "rotating host"} #{dj_name}"
   end
 end

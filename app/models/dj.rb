@@ -29,6 +29,10 @@ class Dj < ActiveRecord::Base
       .uniq.count
   end
 
+  def to_s
+    name
+  end
+
   # TODO: Refactor to able_to_do_daytime_radio?
   def allowed_to_do_daytime_radio?
     semesters_count > 1

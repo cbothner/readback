@@ -8,10 +8,11 @@
     = f.text_field :name, tabindex: 10
   .field
     = f.label :dj_id, 'DJ'
-    = f.select :dj_id, active_for_select(@freeform_show.dj), {}, tabindex: 11, class: 'chzn-select'
+    %br
+    = f.select :dj_id, active_for_select(f.object.dj), {}, tabindex: 11, class: 'chzn-select'
   .field
     = f.label :weekday
-    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a), {}, tabindex:12
+    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex:12
   .field.field-ending
     = f.label :ending, 'End'
     = f.time_field :ending, tabindex: 14
