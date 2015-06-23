@@ -17,11 +17,11 @@
   .field
     = f.label :weekday
     = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex: 23
-  .field.field-ending
-    = f.label :ending, 'End'
-    = f.time_field :ending, value: format_time(f.object.ending), tabindex: 25
   .field.field-beginning
     = f.label :beginning, 'Start'
     = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 24
+  .field.field-ending
+    = f.label :ending, 'End'
+    = f.time_field :ending, value: format_time(f.object.ending), tabindex: 25
   .actions
     = f.submit 'Save specialty show', data: { disable_with: 'Saving...' }, tabindex: 26
