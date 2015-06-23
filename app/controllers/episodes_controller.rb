@@ -10,6 +10,7 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
+    @episode.status = :confirmed
     respond_to do |format|
       if @episode.update(episode_params)
         format.html { redirect_to @episode, notice: 'Episode was successfully updated.' }

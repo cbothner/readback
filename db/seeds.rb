@@ -176,7 +176,8 @@ radiozilla = semester.specialty_shows.create(
   beginning: "1972-01-23 14:00:00 Eastern Time (US & Canada)",
   ending: "1972-01-23 15:00:00 Eastern Time (US & Canada)"
 )
-radiozilla.coordinator = Dj.find_by_name "Mick Thorensen"
+radiozilla.coordinator = Dj.find_by_name "Mick Thoresen"
+radiozilla.save
 radiozilla.propagate
 cameron.specialty_shows << radiozilla
 

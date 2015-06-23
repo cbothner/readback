@@ -80,10 +80,13 @@ class SpecialtyShowsController < ApplicationController
   # of n hosts
   def deal
     hosts = @specialty_show.rotating_hosts
-    # modify only unassigned episodes
-    episodes = @specialty_show.episodes.reject(&:dj).reject(&:past?)
+    # modify only unassigned or unconfirmed episodes
+    episodes = @specialty_show.episodes.reject(&:past?).select do |x|
+      x.unassigned? || x.normal?
+    end
     episodes.each_with_index do |episode, inx|
       episode.dj = hosts[inx % hosts.count]
+      episode.status = :normal
     end
 
     respond_to do |format|

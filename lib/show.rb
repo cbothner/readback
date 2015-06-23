@@ -13,7 +13,7 @@ module Show
       bbb = d.change(beginning.hms)
       eee = d.change(ending.hms)
       if episodes.starts_on_day(d).nil?
-        episodes.create(beginning: bbb, ending: eee)
+        ep = episodes.create(beginning: bbb, ending: eee, status: default_status)
       end
     end
   end

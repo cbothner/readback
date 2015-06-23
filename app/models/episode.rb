@@ -1,4 +1,7 @@
 class Episode < ActiveRecord::Base
+  enum status: [:unassigned, :normal, :confirmed, :needs_sub_in_group,
+                :needs_sub, :needs_sub_including_nighttime_djs, :overridden]
+
   belongs_to :show, polymorphic: true
   belongs_to :dj
   has_many :songs
@@ -33,6 +36,15 @@ class Episode < ActiveRecord::Base
 
   def time_string
     date_string + "#{beginning.strftime(" &nbsp;%l:%M")} &ndash; #{ending.strftime("%l:%M%P")}".html_safe
-    
+  end
+
+  def status_string
+    case status
+    when 'unassigned' then 'Unassigned'
+    when 'normal' then dj.name
+    when 'confirmed' then "#{dj.name} &#x2713;".html_safe
+    when /needs_sub/ then "#{dj.name}"
+    when 'overridden' then "Overridden!"
+    end
   end
 end

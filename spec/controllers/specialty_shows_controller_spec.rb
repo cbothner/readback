@@ -44,6 +44,7 @@ RSpec.describe SpecialtyShowsController do
       before :each do
         @special_episode = @show.episodes[3]
         @special_episode.dj = @show.coordinator
+        @special_episode.status = :confirmed
         @special_episode.save
       end
 

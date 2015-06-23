@@ -16,4 +16,8 @@ class SpecialtyShow < ActiveRecord::Base
   def rotating_hosts
     (djs + [coordinator]).uniq.sort_by(&:name)
   end
+
+  def default_status
+    :unassigned
+  end
 end

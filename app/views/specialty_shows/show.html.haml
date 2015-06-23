@@ -7,8 +7,8 @@
 
 %h3 Rotating Hosts
 .subtitle
-  =link_to "Assign", deal_specialty_show_path(@specialty_show), method: :patch
-  rotating hosts to unassigned episodes automatically.
+  =link_to "Assign rotation", deal_specialty_show_path(@specialty_show), method: :patch
+  to unconfirmed episodes.
 .rotating-hosts
   -@specialty_show.rotating_hosts.each do |host|
     .tiled.rotating-host{data: {dj_id: host.id}}
@@ -17,10 +17,10 @@
 %h3 Episodes
 .episodes
   - @episodes.each do |episode|
-    .showinfo.tiled{class: [('episode'  unless episode.past?), ('episode-unassigned' unless episode.dj)], data: {episode_path: episode_path(episode)}}
+    .showinfo.tiled{class: [('episode'  unless episode.past?), "episode-#{episode.status}"], data: {episode_path: episode_path(episode)}}
       %p=episode.date_string
       %p.with
-        =episode.dj || "Unassigned"
+        =episode.status_string
         -# If user cannot request sub for this show, don't take up the extra line below
         -#-if episode.past?
           -#%span.show-instance-links
@@ -31,5 +31,5 @@
         - if episode.past?
           =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
             episode_songs_path(episode)
-        - elsif episode.dj
+        - elsif !episode.unassigned?
           =link_to "Request Substitute", episode_request_sub_path(episode)
