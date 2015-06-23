@@ -12,4 +12,8 @@ class SpecialtyShow < ActiveRecord::Base
     dj_name = today.dj.nil? ? dj.name : today.dj.name
     "with #{today.dj.nil? ? "coordinator" : "rotating host"} #{dj_name}"
   end
+
+  def rotating_hosts
+    (djs + [coordinator]).uniq.sort_by(&:name)
+  end
 end

@@ -6,8 +6,11 @@
   =render 'form'
 
 %h3 Rotating Hosts
+.subtitle
+  =link_to "Assign", deal_specialty_show_path(@specialty_show), method: :patch
+  rotating hosts to unassigned episodes automatically.
 .rotating-hosts
-  -@rotating_hosts.each do |host|
+  -@specialty_show.rotating_hosts.each do |host|
     .tiled.rotating-host{data: {dj_id: host.id}}
       =render host
 

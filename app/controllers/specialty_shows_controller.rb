@@ -1,7 +1,7 @@
 class SpecialtyShowsController < ApplicationController
   include ShowsController
 
-  before_action :set_specialty_show, only: [:show, :edit, :update, :destroy]
+  before_action :set_specialty_show, only: [:show, :edit, :update, :destroy, :deal]
   before_action :define_params_method, only: [:create, :update]
 
   layout "headline"
@@ -74,12 +74,30 @@ class SpecialtyShowsController < ApplicationController
     end
   end
 
+  # PATCH/PUT /specialty_shows/1/deal
+  #
+  # This "deals" djs out to the show's episodes, setting up a standard rotation
+  # of n hosts
+  def deal
+    hosts = @specialty_show.rotating_hosts
+    # modify only unassigned episodes
+    episodes = @specialty_show.episodes.reject(&:dj).reject(&:past?)
+    episodes.each_with_index do |episode, inx|
+      episode.dj = hosts[inx % hosts.count]
+    end
+
+    respond_to do |format|
+      if SpecialtyShow.transaction do episodes.each(&:save) end
+        format.html { redirect_to @specialty_show }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_specialty_show
       @specialty_show = SpecialtyShow.includes(episodes: [:dj]).find(params[:id])
       @episodes = @specialty_show.episodes
-      @rotating_hosts = @specialty_show.djs.to_a << @specialty_show.coordinator
     end
 
     def specialty_show_params

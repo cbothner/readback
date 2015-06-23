@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   resources :semesters, shallow: true do
     resources :freeform_shows
-    resources :specialty_shows
+    resources :specialty_shows do
+      patch 'deal', on: :member
+    end
     resources :talk_shows
     get 'based_on/:model_id', action: :new, on: :new
   end

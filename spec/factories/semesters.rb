@@ -3,7 +3,7 @@ FactoryGirl.define do
   factory :semester do
     transient do
       reference_date Date.today
-      weeks 2
+      weeks 10
     end
 
     trait :past do
