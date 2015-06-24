@@ -24,9 +24,9 @@ class SemestersController < ApplicationController
   # GET /semesters/1/edit
   def edit
     @semesters = Semester.all.sort_by(&:beginning).reverse
-    [(@freeform_show = FreeformShow.new),
-     (@specialty_show = SpecialtyShow.new),
-     (@talk_show = TalkShow.new)
+    [(@freeform_show ||= FreeformShow.new),
+     (@specialty_show ||= SpecialtyShow.new),
+     (@talk_show ||= TalkShow.new)
     ].each do |x|
       x.semester = @semester
     end
@@ -93,14 +93,14 @@ class SemestersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_semester
-      @semester = Semester.includes(freeform_shows: [:dj]).find(params[:id])
+      @semester = Semester.includes(freeform_shows: [:dj], specialty_shows: [:dj,:djs]).find(params[:id])
       shows = @semester.freeform_shows + @semester.specialty_shows + @semester.talk_shows
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq
       @shows = shows.group_by{|x| x.sort_times(:beginning)[:sortable]}
     end
 
     def set_model
-      @model = Semester.includes(freeform_shows: [:dj]).find_by_id(params.delete(:model_id))
+      @model = Semester.includes(freeform_shows: [:dj], specialty_shows: [:dj,:djs]).find_by_id(params.delete(:model_id))
       @model ||= Semester.current
       shows = @model.freeform_shows + @model.specialty_shows + @model.talk_shows
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq

@@ -36,12 +36,12 @@ class TalkShowsController < ApplicationController
     respond_to do |format|
       if @talk_show.save
         @talk_show.propagate
-        format.html { redirect_to edit_semester_path(@talk_show.semester) }
+        format.html { redirect_to edit_semester_path(@talk_show.semester, anchor: "tab-talk") }
       else
         format.html do
           flash[:alert] = @talk_show.errors.full_messages
           session[:talk_show] = @talk_show
-          redirect_to edit_semester_path(params[:semester_id])
+          redirect_to edit_semester_path(params[:semester_id], anchor: "tab-talk")
         end
       end
     end

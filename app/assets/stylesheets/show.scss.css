@@ -22,6 +22,7 @@
   text-align: right;
 }
 
-.episode.episode-unassigned {
-  background-color: rgba(231, 5, 12, 0.13);
-}
+.episode-past,
+.episode.episode-confirmed { border-color: #999; }
+.episode.episode-normal { background-color: #ebebeb; }
+.episode.episode-unassigned { background-color: rgba(231, 5, 12, 0.13); }

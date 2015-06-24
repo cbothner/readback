@@ -16,6 +16,7 @@ module Show
         ep = episodes.create(beginning: bbb, ending: eee, status: default_status)
       end
     end
+    self
   end
 
   def sort_times t

@@ -5,6 +5,10 @@ class FreeformShow < ActiveRecord::Base
   belongs_to :dj
   has_many :episodes, as: :show
 
+  validates :name, :dj, :weekday, presence: true
+  validates_time :beginning
+  validates_time :ending, after: :beginning
+
   def with(today)
     today_dj = today.try(:dj)
     dj_name = today_dj.nil? ? dj.name : today_dj.name

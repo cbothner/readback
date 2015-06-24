@@ -29,20 +29,23 @@ class SpecialtyShowsController < ApplicationController
   # POST /specialty_shows
   # POST /specialty_shows.json
   def create
+    coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
+    djs = Dj.find(params[:specialty_show].delete(:djs).reject(&:blank?))
     @specialty_show = SpecialtyShow.new(specialty_show_params)
-    @specialty_show.coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
-    @specialty_show.djs = Dj.find(params[:specialty_show][:djs])
+    @specialty_show.coordinator = coordinator
     @specialty_show.semester = Semester.find(params[:semester_id])
 
     respond_to do |format|
       if @specialty_show.save
+        @specialty_show.djs = djs
         @specialty_show.propagate
-        format.html { redirect_to edit_semester_path(@specialty_show.semester) }
+        @specialty_show.deal
+        format.html { redirect_to edit_semester_path(@specialty_show.semester, anchor: "tab-specialty") }
       else
         format.html do
           flash[:alert] = @specialty_show.errors.full_messages
           session[:specialty_show] = @specialty_show
-          redirect_to edit_semester_path(params[:semester_id])
+          redirect_to edit_semester_path(params[:semester_id], anchor: "tab-specialty")
         end
       end
     end
@@ -79,18 +82,8 @@ class SpecialtyShowsController < ApplicationController
   # This "deals" djs out to the show's episodes, setting up a standard rotation
   # of n hosts
   def deal
-    hosts = @specialty_show.rotating_hosts
-    # modify only unassigned or unconfirmed episodes
-    episodes = @specialty_show.episodes.reject(&:past?).select do |x|
-      x.unassigned? || x.normal?
-    end
-    episodes.each_with_index do |episode, inx|
-      episode.dj = hosts[inx % hosts.count]
-      episode.status = :normal
-    end
-
     respond_to do |format|
-      if SpecialtyShow.transaction do episodes.each(&:save) end
+      if @specialty_show.deal
         format.html { redirect_to @specialty_show }
       end
     end
@@ -104,8 +97,7 @@ class SpecialtyShowsController < ApplicationController
     end
 
     def specialty_show_params
-      params.require(:specialty_show).permit(
-        :name, :coordinator_id, :weekday, :ending, :beginning
-      )
+      params.require(:specialty_show).permit(:name, :coordinator_id, :weekday,
+                                             :ending, :beginning, :djs)
     end
 end

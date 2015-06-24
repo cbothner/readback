@@ -3,6 +3,10 @@
 - headline "Editing Schedule Beginning #{@semester.start}"
 
 - content_for :sidebar do
+  - if flash[:alert]
+    .alert
+      - flash[:alert].each do |err|
+        %div=err
   = render "form"
   %h4 Add a Show
   #tabs
@@ -19,5 +23,6 @@
       = render "specialty_shows/form"
     #tab-talk
       = render "talk_shows/form"
+
 
 = render @semester

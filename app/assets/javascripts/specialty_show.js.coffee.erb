@@ -14,4 +14,6 @@ $(document).on 'ready page:load', ->
             dj_id: ui.draggable.attr 'data-dj-id'
         success: ->
           droppedOn.removeClass 'episode-unassigned'
+          droppedOn.removeClass 'episode-normal'
+          droppedOn.addClass 'episode-confirmed'
           droppedOn.find('.with').html(ui.draggable.find('a').html() + "&#x2713;")

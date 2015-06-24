@@ -7,7 +7,7 @@
 
 %h3 Rotating Hosts
 .subtitle
-  =link_to "Assign rotation", deal_specialty_show_path(@specialty_show), method: :patch
+  =link_to "Reassign rotation", deal_specialty_show_path(@specialty_show), method: :patch
   to unconfirmed episodes.
 .rotating-hosts
   -@specialty_show.rotating_hosts.each do |host|
@@ -17,7 +17,7 @@
 %h3 Episodes
 .episodes
   - @episodes.each do |episode|
-    .showinfo.tiled{class: [('episode'  unless episode.past?), "episode-#{episode.status}"], data: {episode_path: episode_path(episode)}}
+    .showinfo.tiled{class: ["episode#{'-past' if episode.past? }", "episode-#{episode.status}"], data: {episode_path: episode_path(episode)}}
       %p=episode.date_string
       %p.with
         =episode.status_string
