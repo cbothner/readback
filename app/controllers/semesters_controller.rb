@@ -53,7 +53,11 @@ class SemestersController < ApplicationController
               .slice("dj_id", "name", "weekday", "beginning", "ending")
             )
             s.semester = @semester
-            s.save
+            if s.save
+              s.propagate
+            else
+              throw
+            end
           end
         end
 
