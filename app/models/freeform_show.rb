@@ -9,6 +9,7 @@ class FreeformShow < ActiveRecord::Base
   validates_time :beginning
   validates_time :ending, after: :beginning
 
+  # TODO: refactor this out of here.
   def with(today)
     today_dj = today.try(:dj)
     dj_name = today_dj.nil? ? dj.name : today_dj.name

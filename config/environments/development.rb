@@ -51,5 +51,6 @@ end
 Time.class_eval do
   def self.now
     new(2015, 05, 18, 16, 04, 10, "-04:00")
+    #new + 10135078.185059
   end
 end
