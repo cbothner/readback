@@ -71,3 +71,26 @@ td {
 
 .thin { font-weight: 300; }
 .italic { font-style:italic; }
+
+#now-button {
+  background-color: #fdbc05;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  position: absolute;
+  right: -0.5em;
+  top: 3.9em;
+  color: #FFF;
+  font-weight: 800;
+  font-variant: small-caps;
+  text-align: center;
+  -webkit-transform: rotate(30deg);
+  -moz-transform: rotate(30deg);
+  -ie-transform: rotate(30deg);
+  -o-transform: rotate(30deg);
+  span {
+    top:25%;
+    position: relative;
+  }
+  display: none;
+}
