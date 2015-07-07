@@ -9,14 +9,11 @@ class FreeformShow < ActiveRecord::Base
   validates_time :beginning
   validates_time :ending, after: :beginning
 
-  # TODO: refactor this out of here.
-  def with(today)
-    today_dj = today.try(:dj)
-    dj_name = today_dj.nil? ? dj.name : today_dj.name
-    "with #{"guest DJ" unless today_dj.nil?} #{dj_name}"
-  end
-
   def default_status
     :normal
+  end
+
+  def alternate_host_name
+    "guest DJ"
   end
 end

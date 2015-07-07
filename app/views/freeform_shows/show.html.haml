@@ -1,6 +1,5 @@
 - title "#{@freeform_show.name}"
 - headline "#{@freeform_show.name}"
-- subtitle link_to @freeform_show.dj.name, @freeform_show.dj
 - back_link link_to "Back to Schedule", edit_semester_path(@freeform_show.semester)
 = content_for :sidebar do
   =render 'form'
@@ -10,7 +9,7 @@
   .showinfo.tiled
     %p=episode.date_string
     %p.with
-      =episode.show.with episode
+      =with episode
       -# If user cannot request sub for this show, don't take up the extra line below
       -#-if episode.past?
         -#%span.show-instance-links

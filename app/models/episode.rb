@@ -38,6 +38,10 @@ class Episode < ActiveRecord::Base
     date_string + "#{beginning.strftime(" &nbsp;%l:%M")} &ndash; #{ending.strftime("%l:%M%P")}".html_safe
   end
 
+  def active_dj
+    dj.nil? ? show.dj : dj
+  end
+
   def status_string
     case status
     when 'unassigned' then 'Unassigned'
