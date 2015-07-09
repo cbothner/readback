@@ -9,8 +9,7 @@ class SpecialtyShow < ActiveRecord::Base
   alias_attribute :coordinator, :dj
 
   validates :name, :weekday, presence: true
-  validates_time :beginning
-  validates_time :ending, after: :beginning
+  validates_time :beginning, :ending
 
   def rotating_hosts
     (djs + [coordinator]).uniq.sort_by(&:name)

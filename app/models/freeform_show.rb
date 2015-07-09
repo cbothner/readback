@@ -6,8 +6,7 @@ class FreeformShow < ActiveRecord::Base
   has_many :episodes, as: :show
 
   validates :name, :dj, :weekday, presence: true
-  validates_time :beginning
-  validates_time :ending, after: :beginning
+  validates_time :beginning, :ending
 
   def default_status
     :normal

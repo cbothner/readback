@@ -24,9 +24,9 @@ class SemestersController < ApplicationController
   # GET /semesters/1/edit
   def edit
     @semesters = Semester.all.sort_by(&:beginning).reverse
-    [(@freeform_show ||= FreeformShow.new),
-     (@specialty_show ||= SpecialtyShow.new),
-     (@talk_show ||= TalkShow.new)
+    [(@freeform_show = FreeformShow.new(session.delete(:freeform_show))),
+     (@specialty_show = SpecialtyShow.new(session.delete( :specialty_show ))),
+     (@talk_show = TalkShow.new(session.delete( :talk_show )))
     ].each do |x|
       x.semester = @semester
     end

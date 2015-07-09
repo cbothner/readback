@@ -40,7 +40,13 @@ class SpecialtyShowsController < ApplicationController
         @specialty_show.djs = djs
         @specialty_show.propagate
         @specialty_show.deal
-        format.html { redirect_to edit_semester_path(@specialty_show.semester, anchor: "tab-specialty") }
+        format.html do
+          session[:specialty_show] = {
+            weekday: @specialty_show.weekday,
+            beginning: @specialty_show.ending
+          }
+          redirect_to edit_semester_path(@specialty_show.semester, anchor: "tab-specialty")
+        end
       else
         format.html do
           flash[:alert] = @specialty_show.errors.full_messages

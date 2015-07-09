@@ -14,9 +14,7 @@ class Dj < ActiveRecord::Base
   validates :name, :phone, :email, presence: true
   with_options if: :um_affiliated? do |dj|
     dj.validates :umid, :um_dept, presence: true
-    dj.validates :umid, numericality: {only_integer: true,
-                                       greater_than_or_equal_to: 1111_1111,
-                                       less_than_or_equal_to: 9999_9999}
+    dj.validates :umid, numericality: {only_integer: true}
   end
   validates :statement, presence: true, unless: :um_affiliated?
 

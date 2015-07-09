@@ -36,7 +36,13 @@ class FreeformShowsController < ApplicationController
     respond_to do |format|
       if @freeform_show.save
         @freeform_show.propagate
-        format.html { redirect_to edit_semester_path(@freeform_show.semester) }
+        format.html do
+          session[:freeform_show] = {
+            weekday: @freeform_show.weekday,
+            beginning: @freeform_show.ending
+          }
+          redirect_to edit_semester_path(@freeform_show.semester)
+        end
       else
         format.html do
           flash[:alert] = @freeform_show.errors.full_messages
