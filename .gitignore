@@ -19,5 +19,5 @@
 *.swp
 *.swo
 
-/db/private
+/db/seeds.rb
 .DS_Store

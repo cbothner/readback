@@ -52,6 +52,8 @@ group :development, :test do
   # loading
   gem 'bullet'
 
+  gem 'seed_dump'
+
   gem 'thor', '0.19.1'
   gem 'guard'
   gem 'guard-rspec', require: false
