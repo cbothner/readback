@@ -13,6 +13,14 @@ class FreeformShow < ActiveRecord::Base
     :normal
   end
 
+  def unambiguous_name
+    if name == "Freeform"
+      "Freeform w/ #{dj.name}"
+    else
+      name
+    end
+  end
+
   def alternate_host_name
     "guest DJ"
   end

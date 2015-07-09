@@ -26,6 +26,10 @@ class Episode < ActiveRecord::Base
     end
   end
 
+  def range
+    beginning..ending
+  end
+
   def subbed_for?
     !dj.nil?
   end

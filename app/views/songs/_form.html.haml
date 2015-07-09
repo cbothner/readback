@@ -1,4 +1,7 @@
 = form_for [@on_air, @song] do |f|
+  - if session[:confirm_episode]
+    .alert
+      Would you like to save this to the new show, or the old?
   - if @song.errors.any?
     #error_explanation
       %h2<
@@ -35,5 +38,10 @@
     -#%label Notes
     -#%br
     -#%textarea{rows: '3', tabindex: 7}
+  = hidden_field_tag :override_episode
   .actions
-    = f.submit 'Save song', data: { disable_with: 'Saving...' }, tabindex: 8
+    - if session[:confirm_episode]
+      = f.submit "Save song to #{@song.episode.show.unambiguous_name}", data: { disable_with: 'Saving...', previous_show: @song.episode.id},  tabindex: 8, id: "submit-to-previous-show"
+      = f.submit "Save song to #{@on_air.show.unambiguous_name}", data: { disable_with: 'Saving...' }, tabindex: 9
+    - else
+      = f.submit "Save song", data: { disable_with: 'Saving...' }, tabindex: 8

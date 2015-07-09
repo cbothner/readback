@@ -14,19 +14,33 @@ class SongsController < ApplicationController
   # POST /songs.json
   def create
     @song = Song.new(song_params)
-    @song.at = Time.zone.now
-    @song.episode = Episode.on_air
+    @episode = Episode.includes(show: [:semester, :dj]).find(params[:episode_id])
+    @song.episode = @episode
+    @song.at = unless params[:override_episode] == 'true'
+                 Time.zone.now
+               else
+                 @song.episode.ending - 1.second
+               end
 
     respond_to do |format|
-      if @song.save
-        format.html { redirect_to controller: :playlist, action: :index }
-        format.json { render :show, status: :created, location: @song }
+      if (@song.at.between?( @song.episode.beginning, @song.episode.ending ) ||
+          params[:override_episode] == 'true')
+        if @song.save
+          format.html { redirect_to controller: :playlist, action: :index }
+          format.json { render :show, status: :created, location: @song }
+        else
+          format.html {
+            flash[:alert] = @song.errors.full_messages
+            session[:song] = @song
+            redirect_to controller: :playlist, action: :index }
+          format.json { render json: @song.errors, status: :unprocessable_entity }
+        end
       else
         format.html {
-          flash[:alert] = @song.errors.full_messages
           session[:song] = @song
-          redirect_to controller: :playlist, action: :index }
-        format.json { render json: @song.errors, status: :unprocessable_entity }
+          session[:confirm_episode] = true
+          redirect_to controller: :playlist, action: :index
+        }
       end
     end
   end
@@ -64,6 +78,7 @@ class SongsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def song_params
-      params.require(:song).permit(:name, :artist, :request, :album, :label, :year)
+      params.require(:song).permit(:name, :artist, :request, :album, :label,
+                                   :year, :episode_id)
     end
 end

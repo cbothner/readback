@@ -11,7 +11,6 @@ $(document).on("ready page:load", function() {
   function enableScroll() {
     $(window).scroll(function(){
       var diff = Math.abs($(window).scrollTop() - $("#now").offset().top);
-      console.log( diff );
       if (diff > 100) {
         showNowButton();
         $(window).off("scroll")
@@ -27,4 +26,12 @@ $(document).on("ready page:load", function() {
       enableScroll();
     });
   });
+
+  $("#submit-to-previous-show").on("click touchend", function() {
+    var previous = $("#submit-to-previous-show").attr("data-previous-show");
+    $("#override_episode").val('true');
+    $("form#new_song").attr("action", "/episodes/"+previous+"/songs");
+    debugger;
+  });
+
 });
