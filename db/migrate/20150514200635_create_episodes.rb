@@ -5,6 +5,8 @@ class CreateEpisodes < ActiveRecord::Migration
       t.datetime :beginning
       t.datetime :ending
 
+      t.text :notes
+
       t.references :dj, index: true
       t.integer :status, default: 0
 
