@@ -12,6 +12,11 @@
       %p.with
         =with episode
 
+- unless @episode.notes.nil?
+  .show-notes
+    %h4 Show Notes
+    = @episode.notes
+
 %table
   %thead
     %td Time

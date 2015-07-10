@@ -11,6 +11,15 @@
       - flash[:alert].each do |err|
         =err
   = render 'songs/form'
+  %br
+  = form_for @on_air, remote: true do |f|
+    .field
+      = f.label :notes, "Show Notes"
+      %br
+      = f.text_area :notes
+    .actions
+      = f.submit "Save Show Notes", data: {disable_with: "Saving..."}
+
 %article.with-sidebar.scroll-up
   %table.playlist
     %thead
@@ -34,6 +43,11 @@
       %tr
         =render item
       -if item.is_a? Episode
+        -unless item.notes.blank?
+          %tr
+            %td.show-notes{colspan: 6}
+              %h4 Show Notes
+              = item.notes
         %thead
           %td Time
           %td Artist

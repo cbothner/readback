@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150518200410) do
     t.string   "show_type"
     t.datetime "beginning"
     t.datetime "ending"
+    t.text     "notes"
     t.integer  "dj_id"
     t.integer  "status",     default: 0
     t.datetime "created_at",             null: false

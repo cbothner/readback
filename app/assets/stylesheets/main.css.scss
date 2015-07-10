@@ -176,3 +176,14 @@ label {
 }
 
 .highlight { background-color: #ffe88a; }
+
+.show-notes {
+  font-style: italic;
+  color: #777;
+  h4 {
+    margin: 0;
+    display: inline-block;
+    margin-right: 1em;
+    color: #7f9932;
+  }
+}
