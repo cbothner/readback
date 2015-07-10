@@ -19,7 +19,7 @@ class Episode < ActiveRecord::Base
   end
 
   def at
-    if Time.zone.now > ending
+    if Time.zone.now > beginning
       ending
     else
       beginning
