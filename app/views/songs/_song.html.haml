@@ -1,10 +1,13 @@
+- path = episode_song_path(song.episode, song)
+- can_bip = song.episode == @on_air
 %td.width1
-  .delete-song=link_to '[x]', episode_song_path(song.episode, song), method: :delete, data: {confirm: "Are you sure you want to delete this song?"}
+  - if can_bip
+    .delete-song=link_to '[x]', path, method: :delete, data: {confirm: "Are you sure you want to delete this song?"}
   .thin.time-col=song.at.getlocal.strftime '%l:%M %P'
-%td.width3=best_in_place song, :artist, inner_class: "bip-sized", url: episode_song_path(song.episode, song)
+%td.width3=best_in_place_if can_bip, song, :artist, inner_class: "bip-sized", url: path
 %td.width4<
-  =best_in_place song, :name, display_with: lambda {|str| '“' + str + '”' }, inner_class: "bip-sized", url: episode_song_path(song.episode, song)
+  =best_in_place_if can_bip, song, :name, display_with: lambda {|str| '“' + str + '”' }, inner_class: "bip-sized", url: path
   %span.thin.accent=' (by request)' if song.request
-%td.width3.italic=best_in_place song, :album, inner_class: "bip-sized", url: episode_song_path(song.episode, song)
-%td.width2.thin=best_in_place song, :label, inner_class: "bip-sized", url: episode_song_path(song.episode, song)
-%td.width1.thin=best_in_place song, :year, inner_class: "bip-sized", url: episode_song_path(song.episode, song)
+%td.width3.italic=best_in_place_if can_bip, song, :album, inner_class: "bip-sized", url: path
+%td.width2.thin=best_in_place_if can_bip, song, :label, inner_class: "bip-sized", url: path
+%td.width1.thin=best_in_place_if can_bip, song, :year, inner_class: "bip-sized", url: path
