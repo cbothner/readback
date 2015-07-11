@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, hard_wrap: true,
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true),
                                        no_intra_emphasis: true, autolink: true,
                                        disable_indented_code_blocks: true)
     markdown.render(text).html_safe
