@@ -15,39 +15,7 @@
   = render 'episodes/shownotes', episode: @on_air, editable: true
 
 %article.with-sidebar.scroll-up
-  %table.playlist
-    %thead
-    - @future_items.each do |item|
-      %tr.grey
-        =render item
-    %tr#now.grey
-      %td{colspan: 6}
-        ⇧
-        %span Next up on WCBN
-        ⇧
-        %br
-    %thead
-      %td Time
-      %td Artist
-      %td Song Title
-      %td Album
-      %td Label
-      %td Year
-    - @past_items.each do |item|
-      %tr
-        =render item
-      -if item.is_a? Episode
-        -unless item.notes.blank?
-          %tr
-            %td{colspan: 6}
-              = render 'episodes/shownotes', episode: item
-        %thead
-          %td Time
-          %td Artist
-          %td Song Title
-          %td Album
-          %td Label
-          %td Year
+  = render 'playlist'
 
 -#<div style="position:absolute; text-align:right; border-top: 3px solid black;
 -#margin-left: -215px; width: 200px;">This is a DJ comment! It should have a

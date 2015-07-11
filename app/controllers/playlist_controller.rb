@@ -1,5 +1,7 @@
 class PlaylistController < ApplicationController
   def index
+    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://wcbn.org"
+
     songs = Song.includes(:episode).where(at: 6.hours.ago..Time.zone.now)
     episodes = Episode.includes(:dj, show: [:dj]).where("beginning < '#{4.hours.since.utc}' and ending > '#{6.hours.ago.utc}'")
     @on_air = Episode.on_air
@@ -21,5 +23,9 @@ class PlaylistController < ApplicationController
     @song = Song.new(session.delete(:song))  # TODO: clear this
     @song ||= Song.new
     @song.episode ||= @on_air
+
+    if params[:from] == 'iframe'
+      render 'iframe', layout: 'iframe' and return
+    end
   end
 end

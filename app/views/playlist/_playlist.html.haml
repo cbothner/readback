@@ -1,0 +1,34 @@
+%table.playlist
+  - unless defined?(iframe) && iframe
+    %thead
+    - @future_items.each do |item|
+      %tr.grey
+        =render item
+    %tr#now.grey
+      %td{colspan: 6}
+        ⇧
+        %span Next up on WCBN
+        ⇧
+        %br
+  %thead
+    %td Time
+    %td Artist
+    %td Song Title
+    %td Album
+    %td Label
+    %td Year
+  - @past_items.each do |item|
+    %tr
+      =render item
+    -if item.is_a? Episode
+      -unless item.notes.blank?
+        %tr
+          %td{colspan: 6}
+            = render 'episodes/shownotes', episode: item
+      %thead
+        %td Time
+        %td Artist
+        %td Song Title
+        %td Album
+        %td Label
+        %td Year
