@@ -13,7 +13,7 @@
         -else
           - s = s.first
           %td.show-non-rowskip{data: {show_type: s.class, show_id: s.id}}
-            - if current_page? 'semester/edit'
+            - if current_page? edit_semester_path(semester)
               .show_delete=link_to "[x]", s, method: :delete, 
                 confirm_with: "Are you sure you want to delete this show?"
             = render s, locals: {no_links: defined?(locals) && locals[:no_links]}

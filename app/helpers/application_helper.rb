@@ -17,4 +17,11 @@ module ApplicationHelper
       content_for(key) { val }
     end
   end
+
+  def markdown(text)
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, hard_wrap: true,
+                                       no_intra_emphasis: true, autolink: true,
+                                       disable_indented_code_blocks: true)
+    markdown.render(text).html_safe
+  end
 end

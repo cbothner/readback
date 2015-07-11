@@ -1,0 +1,6 @@
+- unless episode.notes.nil?
+  .show-notes-box
+    %h4 Show Notes:
+    .show-notes
+      - editable ||= false
+      = best_in_place_if editable, episode, :notes, display_with: -> (notes) { markdown(notes)}, as: :textarea, nil: "Click here to add your show notes."

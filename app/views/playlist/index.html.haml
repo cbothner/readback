@@ -12,13 +12,7 @@
         =err
   = render 'songs/form'
   %br
-  = form_for @on_air, remote: true do |f|
-    .field
-      = f.label :notes, "Show Notes"
-      %br
-      = f.text_area :notes
-    .actions
-      = f.submit "Save Show Notes", data: {disable_with: "Saving..."}
+  = render 'episodes/shownotes', episode: @on_air, editable: true
 
 %article.with-sidebar.scroll-up
   %table.playlist
@@ -45,9 +39,8 @@
       -if item.is_a? Episode
         -unless item.notes.blank?
           %tr
-            %td.show-notes{colspan: 6}
-              %h4 Show Notes
-              = item.notes
+            %td{colspan: 6}
+              = render 'episodes/shownotes', episode: item
         %thead
           %td Time
           %td Artist

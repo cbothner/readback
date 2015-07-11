@@ -14,10 +14,10 @@ class EpisodesController < ApplicationController
     respond_to do |format|
       if @episode.update(episode_params)
         format.html { redirect_to @episode, notice: 'Episode was successfully updated.' }
-        format.json { render :show, status: :ok, location: @episode }
+        format.json { respond_with_bip @episode }
       else
         format.html { render :edit }
-        format.json { render json: @episode.errors, status: :unprocessable_entity }
+        format.json { respond_with_bip @episode }
       end
     end
   end

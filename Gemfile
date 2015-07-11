@@ -69,3 +69,5 @@ gem 'jc-validates_timeliness'
 #gem 'devise'
 gem 'best_in_place', '~> 3.0.1'
 gem 'rails-latex'
+
+gem 'redcarpet'

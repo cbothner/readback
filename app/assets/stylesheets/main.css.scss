@@ -95,11 +95,13 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
   margin-bottom: 0;
 }
+
 /* The Sass "context" map */
 $context-font: (
   sidebar: 1,
   thin-sidebar: 1,
   showinfo: 0.8,
+  show-notes: 0.7
 );
 $step-size-heading: 0.33333;
 @mixin heading-size($size) {
@@ -177,13 +179,28 @@ label {
 
 .highlight { background-color: #ffe88a; }
 
-.show-notes {
-  font-style: italic;
+.show-notes-box {
   color: #777;
+  border: solid 1pt #7f9932;
+  background-color: #ECEFE4;
+  padding: 0.25em;
+  margin: -0.5em 0 0.5em 0;
+  max-width: 45em;
   h4 {
     margin: 0;
     display: inline-block;
     margin-right: 1em;
     color: #7f9932;
   }
+  p {
+    margin: 0.5em 0;
+  }
+  .show-notes {
+    *:first-child {
+      margin-top: 0;
+    }
+  } 
+}
+td > .show-notes-box {
+  margin:0;
 }
