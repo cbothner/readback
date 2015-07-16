@@ -10,11 +10,16 @@
 
 <header id="nav">
   <div class="left">
-    <span><%= link_to "Playlist", controller: :playlist, anchor: 'now' %></span>
+    <span><%= link_to "Playlist", root_path, anchor: 'now' %></span>
     <span><%= link_to "Schedule", Semester.current %></span>
   </div>
   <div class="right">
-    Logged in as a WCBN DJ
+    <% if current_dj %>
+      <%= link_to current_dj.name, current_dj %> &mdash;
+      <%= link_to "Log out", destroy_dj_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Log in", new_dj_session_path %>
+    <% end %>
   </div>
 </header>
 

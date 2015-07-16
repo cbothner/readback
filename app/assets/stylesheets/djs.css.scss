@@ -1,3 +1,16 @@
+/* DEVISE */
+.thin-center {
+  width: 20em;
+  margin: auto;
+  padding-top: 3em;
+
+  input[type="checkbox"] {
+    width: auto;
+    top: 4px;
+    position: relative;
+  }
+}
+
 .dj-form-container {
   width: 30em;
   margin: 0;
