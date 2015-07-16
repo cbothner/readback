@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518200410) do
+ActiveRecord::Schema.define(version: 20150709190910) do
 
   create_table "djs", force: :cascade do |t|
     t.string   "name"
     t.string   "phone"
-    t.string   "email"
+    t.string   "email",                     default: "", null: false
     t.string   "um_affiliation"
     t.string   "um_dept"
     t.integer  "umid"
@@ -35,9 +35,21 @@ ActiveRecord::Schema.define(version: 20150518200410) do
     t.integer  "most_recent_email"
     t.boolean  "active"
     t.text     "roles"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.string   "encrypted_password",        default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",             default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
+
+  add_index "djs", ["email"], name: "index_djs_on_email", unique: true
+  add_index "djs", ["reset_password_token"], name: "index_djs_on_reset_password_token", unique: true
 
   create_table "djs_specialty_shows", id: false, force: :cascade do |t|
     t.integer "dj_id",             null: false

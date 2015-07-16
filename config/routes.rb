@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :djs
   resources :semesters, shallow: true do
     resources :freeform_shows
     resources :specialty_shows do
