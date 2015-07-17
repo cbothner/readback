@@ -77,7 +77,7 @@ class DjsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dj
-      @dj = Dj.find(params[:id])
+      @dj = Dj.includes(:freeform_shows, :specialty_shows, :talk_shows, episodes: [:show]).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
