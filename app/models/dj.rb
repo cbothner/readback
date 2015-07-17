@@ -3,10 +3,11 @@ class Dj < ActiveRecord::Base
   UNAFFILIATED_UM_AFFILIATIONS = %w(community)
   UM_AFFILIATIONS = AFFILIATED_UM_AFFILIATIONS + UNAFFILIATED_UM_AFFILIATIONS
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  include Authority::UserAbilities
+  include Authority::Abilities
+  rolify
 
   has_and_belongs_to_many :specialty_shows
   has_many :freeform_shows

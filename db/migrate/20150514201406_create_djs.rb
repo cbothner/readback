@@ -26,7 +26,6 @@ class CreateDjs < ActiveRecord::Migration
 
       # Trained Station Member
       t.boolean :active
-      t.text    :roles
 
       t.timestamps null: false
     end

@@ -1,4 +1,6 @@
 class DjsController < ApplicationController
+  authorize_actions_for Dj, except: :show
+
   before_action :set_dj, only: [:show, :edit, :update, :destroy]
   layout "headline"
 
@@ -24,6 +26,7 @@ class DjsController < ApplicationController
 
   # GET /djs/1/edit
   def edit
+    authorize_action_for @dj
   end
 
   # POST /djs
@@ -47,6 +50,7 @@ class DjsController < ApplicationController
   # PATCH/PUT /djs/1
   # PATCH/PUT /djs/1.json
   def update
+    authorize_action_for @dj
     respond_to do |format|
       if @dj.update(dj_params)
         format.html { redirect_to @dj, notice: 'Dj was successfully updated.' }
