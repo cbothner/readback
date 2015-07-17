@@ -10,7 +10,7 @@
 
 <header id="nav">
   <div class="left">
-    <span><%= link_to "Playlist", root_path, anchor: 'now' %></span>
+    <span><%= link_to "Playlist", root_path(anchor: 'now') %></span>
     <span><%= link_to "Schedule", Semester.current %></span>
   </div>
   <div class="right">

@@ -20,6 +20,10 @@ class Semester < ActiveRecord::Base
     beginning.strftime "%B %-d, %Y"
   end
 
+  def season
+    beginning.strftime "%B %Y"
+  end
+
   def end
     ending.strftime "%B %-d, %Y"
   end

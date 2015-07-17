@@ -11,6 +11,105 @@
   }
 }
 
+header#headline.with-profile-pic {
+  height: 4em;
+  display: table;
+  padding-bottom: 1em;
+  div {
+    display: table-cell;
+    vertical-align: middle;
+    p.subtitle.italic {margin: 0}
+  }
+  img.profile-pic {
+    width: 4em;
+    float: left;
+    margin-right: 1em;
+    border-radius: 10%;
+  }
+}
+
+section {
+  width: 70%;
+  float: left;
+  position: relative;
+  top: -1em;
+  div {
+    padding-right: 2em;
+  }
+}
+
+.dj-info {
+  ul {
+    border: solid 1pt #7f9932;
+    background-color: #ECEFE4;
+    padding: 0.25em;
+    list-style: none;
+    li {
+      display: inline-table;
+      min-width: 45%;
+      padding-right: 1em;
+      white-space: nowrap;
+    }
+  }
+}
+
+.dj-about {
+  p {
+    max-width: 40em;
+    margin: 0.5em auto;
+  }
+}
+
+aside.right-sidebar {
+  font-size: 90%;
+  width: 30%;
+  float: left;
+  .dj-lists {
+    border: solid 1pt #AAA;
+    padding: 0.25em;
+    .dj-list {
+      padding: 0.5em 0;
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Alegreya Sans';
+        font-style: normal;
+        font-variant: small-caps;
+        text-transform: lowercase;
+        text-align: center;
+        letter-spacing: 1px;
+        margin: 0;
+        margin-bottom: 0.2em;
+      }
+      ul, ol { margin: 0; }
+    }
+  }
+}
+
+.dj-shows {
+  h4 { margin: 0; }
+  ul {
+    margin-top: 0.5em;
+    padding-left: 1.5em;
+  }
+}
+
+.dj-recent-episode {
+  font-size: 90%;
+  padding: 0.1em 0.4em 0.1em 0.4em;
+  margin: 0.3em 0;
+  border: solid 1pt #3498db;
+  color: #555 !important;
+  background-color: #DAE6ED;
+  display: block;
+}
+.dj-recent-episode:hover {
+  text-decoration: underline !important;
+}
+.dj-recent-episode:first-child {
+  margin-top: 0.7em;
+}
+
+.clear-left { clear: left; }
+
 .dj-form-container {
   width: 30em;
   margin: 0;

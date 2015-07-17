@@ -1,5 +1,78 @@
-- title @dj.name
-- headline @dj.name
-- subtitle "#{@dj.um_dept} #{@dj.um_affiliation.titlecase}"
+- title "#{@dj}"
+%aside.thin-sidebar
+  %h1.accent Readback
+  %p.subtitle The WCBN Database
+
+  .dj-shows
+    - @shows.each do |name, shows|
+      %h4=name
+      %ul
+        - shows.each do |show|
+          %li=link_to show.semester.season, show
+  .dj-recent-episodes
+    %h4 Most Recent Episodes
+    - @recent_episodes.each do |ep|
+      =link_to episode_songs_path(ep), {class: %w(dj-recent-episode showinfo)} do
+        %b=ep.show.name
+        %p=ep.date_string
 
 
+%header#headline.with-thin-sidebar.with-profile-pic
+  %img.profile-pic{src: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"}
+  %div
+    %h2= "dwb"  # @dj.dj_name
+    - if dj_signed_in?
+      %p.subtitle.italic=@dj.name
+
+%article.with-thin-sidebar.with-right-sidebar
+  %section
+    .dj-info
+      %ul
+        %li
+          UM Affiliation:&nbsp;
+          = @dj.um_dept
+          = Dj::AFFILIATION_NAMES[@dj.um_affiliation]
+        - if @dj.um_affiliated?
+          %li
+            UMID:
+            = @dj.um_id
+        %li
+          URL:
+          = link_to 'slipstreamradio.org', "http://www.slipstreamradio.org"
+        %li
+          Email:
+          = link_to @dj.email, "mailto://#{@dj.email}"
+        %li
+          Phone:
+          = @dj.phone
+    .dj-about
+      %p
+        SlipStream Radio with dwb: a freeform show where we drop in and draft
+        behind the music on 3 hour soundscape tour. Whether cutting through
+        turbulent free jazz or basking in soulshine reggae, rolling with rock
+        and the blues or just cruising through a trip-hop or jam-band groove,
+        we’ll let the music pull us along because it is always all about the
+        ride.
+      %p
+        SlipStream Radio airs 6–9am, Monday mornings, 88.3 FM Ann Arbor or
+        www.wcbn.org, with David Bothner riding at the front, cutting the
+        slipstream listeners can draft behind.
+
+  %aside.right-sidebar
+    .dj-lists
+      .dj-list
+        %h3 Top 5 Albums of the Year
+        %ol
+          %li Album 1
+          %li Album 2
+          %li Album 3
+          %li Album 4
+          %li Album 5
+      .dj-list
+        %h3 Top 5 Concerts
+        %ol
+          %li Concert 1
+          %li Concert 2
+          %li Concert 3
+          %li Concert 4
+          %li Concert 5

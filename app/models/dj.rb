@@ -2,6 +2,8 @@ class Dj < ActiveRecord::Base
   AFFILIATED_UM_AFFILIATIONS = %w(student alumni faculty)
   UNAFFILIATED_UM_AFFILIATIONS = %w(community)
   UM_AFFILIATIONS = AFFILIATED_UM_AFFILIATIONS + UNAFFILIATED_UM_AFFILIATIONS
+  AFFILIATION_NAMES = {'student' => "Student", 'alumni' => "Alumni",
+                       'faculty' => "Faculty/Staff", 'community' => "Community Advisor"}
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -28,6 +30,11 @@ class Dj < ActiveRecord::Base
     AFFILIATED_UM_AFFILIATIONS.include? um_affiliation
   end
 
+  def um_id
+    s = umid.to_s
+    "#{s[0..3]} #{s[4..7]}"
+  end
+
   def semesters_count
     (freeform_shows.map(&:semester) + specialty_shows.map(&:semester))
       .uniq.count
@@ -41,4 +48,9 @@ class Dj < ActiveRecord::Base
   def allowed_to_do_daytime_radio?
     semesters_count > 1
   end
+
+  def shows
+    freeform_shows + specialty_shows + talk_shows
+  end
+
 end

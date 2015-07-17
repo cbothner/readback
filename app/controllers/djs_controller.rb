@@ -2,7 +2,6 @@ class DjsController < ApplicationController
   authorize_actions_for Dj, except: :show
 
   before_action :set_dj, only: [:show, :edit, :update, :destroy]
-  layout "headline"
 
   # GET /djs
   # GET /djs.json
@@ -17,6 +16,9 @@ class DjsController < ApplicationController
   # GET /djs/1
   # GET /djs/1.json
   def show
+    @shows = @dj.shows.group_by(&:name)
+    @recent_episodes = @dj.episodes.where("beginning < ?", Time.zone.now)
+      .order(beginning: :desc).first(5)
   end
 
   # GET /djs/new
