@@ -31,7 +31,7 @@ class Episode < ActiveRecord::Base
   end
 
   def subbed_for?
-    !dj.nil?
+    confirmed?
   end
 
   def date_string
@@ -43,7 +43,7 @@ class Episode < ActiveRecord::Base
   end
 
   def active_dj
-    dj.nil? ? show.dj : dj
+    dj || show.dj
   end
 
   def status_string
