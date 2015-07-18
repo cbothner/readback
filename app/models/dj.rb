@@ -53,4 +53,8 @@ class Dj < ActiveRecord::Base
     freeform_shows + specialty_shows + talk_shows
   end
 
+  def website_name
+    URI(website || (return nil)).host.sub('www.','')
+  end
+
 end

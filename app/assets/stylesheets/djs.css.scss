@@ -67,20 +67,18 @@ aside.right-sidebar {
   .dj-lists {
     border: solid 1pt #AAA;
     padding: 0.25em;
-    .dj-list {
-      padding: 0.5em 0;
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Alegreya Sans';
-        font-style: normal;
-        font-variant: small-caps;
-        text-transform: lowercase;
-        text-align: center;
-        letter-spacing: 1px;
-        margin: 0;
-        margin-bottom: 0.2em;
-      }
-      ul, ol { margin: 0; }
+    padding-bottom: 0.75em;
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Alegreya Sans';
+      font-style: normal;
+      font-variant: small-caps;
+      text-transform: lowercase;
+      text-align: center;
+      letter-spacing: 1px;
+      margin: 0.5em 0 0.2em 0;
+      margin-bottom: 0.2em;
     }
+    ul, ol { margin: 0; }
   }
 }
 

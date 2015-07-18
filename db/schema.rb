@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709190911) do
+ActiveRecord::Schema.define(version: 20150709190912) do
 
   create_table "djs", force: :cascade do |t|
     t.string   "name"
@@ -45,6 +45,12 @@ ActiveRecord::Schema.define(version: 20150709190911) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "dj_name"
+    t.boolean  "real_name_is_public"
+    t.string   "public_email"
+    t.string   "website"
+    t.text     "about"
+    t.text     "lists"
   end
 
   add_index "djs", ["email"], name: "index_djs_on_email", unique: true
