@@ -1,5 +1,5 @@
 %table.playlist
-  - unless defined?(iframe) && iframe
+  - unless !dj_signed_in? || (defined?(iframe) && iframe)
     %thead
     - @future_items.each do |item|
       %tr.grey
@@ -11,12 +11,13 @@
         ⇧
         %br
   %thead
-    %td Time
-    %td Artist
-    %td Song Title
-    %td Album
-    %td Label
-    %td Year
+    - unless defined?(iframe) && iframe
+      %td Time
+      %td Artist
+      %td Song Title
+      %td Album
+      %td Label
+      %td Year
   - @past_items.each do |item|
     %tr
       =render item

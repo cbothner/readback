@@ -10,9 +10,9 @@
     .alert
       - flash[:alert].each do |err|
         =err
-  = render 'songs/form'
+  = render 'songs/form' if dj_signed_in?  # NO NO NO! if on_fm_computer?
   %br
-  = render 'episodes/shownotes', episode: @on_air, editable: true
+  = render 'episodes/shownotes', episode: @on_air, editable: dj_signed_in?  # NO NO NO!
 
 %article.with-sidebar.scroll-up
   = render 'playlist'
