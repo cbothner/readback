@@ -24,6 +24,7 @@ class DjsController < ApplicationController
   # GET /djs/new
   def new
     @dj = Dj.new
+    render layout: "headline"
   end
 
   # GET /djs/1/edit
