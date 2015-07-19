@@ -1,5 +1,5 @@
 - title "Songs"
-- headline "Playlist: #{@episode.show.name}"
+- headline "Playlist: #{@episode.show.unambiguous_name}"
 - subtitle "#{with @episode} on #{@episode.date_string}".html_safe
 - back_link link_to "Back to Schedule", @episode.show.semester
 - content_for :sidebar do

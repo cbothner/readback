@@ -23,6 +23,14 @@ module Show
     name
   end
 
+  def time_string
+    "<span style=\"display:inline-block\">(#{["Sunday", "Monday", "Tuesday",
+                                             "Wednesday", "Thursday", "Friday",
+                                             "Saturday"][weekday]}s,
+    #{beginning.strftime("%l:%M")} &ndash; #{
+        ending.strftime("%l:%M%P")})</span>".html_safe
+  end
+
   def sort_times t
     {sortable: ((send(t) - 6.hours).seconds_since_midnight),
      printable: (send(t).strftime '%l:%M %P')}

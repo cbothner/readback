@@ -16,7 +16,7 @@ class DjsController < ApplicationController
   # GET /djs/1
   # GET /djs/1.json
   def show
-    @shows = @dj.shows.group_by(&:name)
+    @shows = @dj.shows.group_by(&:unambiguous_name)
     @recent_episodes = @dj.episodes.where("beginning < ?", Time.zone.now)
       .order(beginning: :desc).first(5)
   end
@@ -83,6 +83,9 @@ class DjsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dj_params
-      params.require(:dj).permit(:name, :phone, :email, :umid, :um_affiliation, :um_dept, :experience, :referral, :interests, :statement)
+      params.require(:dj).permit(:name, :phone, :email, :umid, :um_affiliation,
+                                 :um_dept, :experience, :referral, :interests,
+                                 :statement, :real_name_is_public, :dj_name,
+                                 :website, :public_email, :about, :lists)
     end
 end

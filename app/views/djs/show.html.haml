@@ -1,59 +1,76 @@
 - title "#{@dj}"
-%aside.thin-sidebar
-  %h1.accent Readback
-  %p.subtitle The WCBN Database
 
+-# DJ Activity is in the sidebar if the dj has about text written, and in the
+-# main body if not.
+- content_for :dj_activity do
   .dj-shows
     - @shows.each do |name, shows|
       %h4=name
       %ul
         - shows.each do |show|
-          %li=link_to show.semester.season, show
+          %li
+            =link_to "#{show.semester.season}", show
+            =raw show.time_string
   .dj-recent-episodes
-    %h4 Most Recent Episodes
+    %h4 Most Recent Shows
     - @recent_episodes.each do |ep|
       =link_to episode_songs_path(ep), {class: %w(dj-recent-episode showinfo)} do
-        %b=ep.show.name
+        %b=ep.show.unambiguous_name
         %p=ep.date_string
+
+%aside.thin-sidebar
+  %h1.accent Readback
+  %p.subtitle The WCBN Database
+
+  = content_for(:dj_activity) unless @dj.about.blank?
 
 
 %header#headline.with-thin-sidebar.with-profile-pic
   %img.profile-pic{src: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"}
   %div
-    %h2=@dj.dj_name || @dj.name.split(' ').first
+    %h2="#{@dj}"
     - if dj_signed_in? || @dj.real_name_is_public
-      %p.subtitle.italic=@dj.name
+      %p.subtitle.italic
+        =@dj.name
+        =" (real name is #{"not " unless @dj.real_name_is_public}public)" if dj_signed_in?
+    - if dj_signed_in? && @dj.updatable_by?(current_dj)
+      %p.subtitle.dj-edit-link=link_to "edit profile", edit_dj_path(@dj)
 
 %article.with-thin-sidebar.with-right-sidebar
   %section
-    .dj-info
-      %ul
-        - if dj_signed_in?
-          %li
-            UM Affiliation:&nbsp;
-            = @dj.um_dept
-            = Dj::AFFILIATION_NAMES[@dj.um_affiliation]
-          - if @dj.um_affiliated?
+    - unless !dj_signed_in? && @dj.website.blank? && @dj.public_email.blank?
+      .dj-info
+        %ul
+          - if dj_signed_in?
             %li
-              UMID:
-              = @dj.um_id
-          %li
-            Phone:
-            = @dj.phone
-          %li
-            Email:
-            = link_to @dj.email, "mailto://#{@dj.email}"
-            %br
-        - unless @dj.website.blank?
-          %li
-            URL:
-            = link_to @dj.website_name, @dj.website
-        - unless @dj.public_email.blank?
-          %li
-            = "#{"Public " if dj_signed_in?}Email:"
-            = link_to @dj.public_email, "mailto://#{@dj.public_email}"
-    .dj-about
-      = markdown @dj.about
+              UM Affiliation:&nbsp;
+              = @dj.um_dept
+              = Dj::AFFILIATION_NAMES[@dj.um_affiliation]
+            - if @dj.um_affiliated?
+              %li
+                UMID:
+                = @dj.um_id
+            %li
+              Phone:
+              = @dj.phone
+            %li
+              Email:
+              = link_to @dj.email, "mailto://#{@dj.email}"
+              %br
+          - unless @dj.website.blank?
+            %li
+              URL:
+              = link_to @dj.website_name, @dj.website
+          - unless @dj.public_email.blank?
+            %li
+              = "#{"Public " if dj_signed_in?}Email:"
+              = link_to @dj.public_email, "mailto://#{@dj.public_email}"
+    - if @dj.about.blank?
+      %div
+        = content_for(:dj_activity)
+    - unless @dj.about.blank?
+      .dj-about
+        = markdown @dj.about
 
   - unless @dj.lists.blank?
     %aside.right-sidebar

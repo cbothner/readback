@@ -14,7 +14,7 @@ class FreeformShow < ActiveRecord::Base
 
   def unambiguous_name
     if name == "Freeform"
-      "Freeform w/ #{dj.name}"
+      "Freeform w/ #{dj}"
     else
       name
     end

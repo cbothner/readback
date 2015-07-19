@@ -101,7 +101,8 @@ $context-font: (
   sidebar: 1,
   thin-sidebar: 1,
   showinfo: 0.8,
-  show-notes: 0.7
+  show-notes: 0.7,
+  dj-about: 0.8
 );
 $step-size-heading: 0.33333;
 @mixin heading-size($size) {

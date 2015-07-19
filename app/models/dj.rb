@@ -40,8 +40,12 @@ class Dj < ActiveRecord::Base
       .uniq.count
   end
 
+  def first_name
+    name.split(' ').first
+  end
+
   def to_s
-    name
+    dj_name.blank? ? first_name : dj_name
   end
 
   # TODO: Refactor to able_to_do_daytime_radio?

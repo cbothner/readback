@@ -11,6 +11,20 @@
   }
 }
 
+label { margin-right: 0.5em; }
+.linear-field {
+  margin: 0.2em 0 0.1em 0 !important;
+  input, select {
+    top: -0.2em;
+    position: relative;
+  }
+  input[type="checkbox"] { top: -1px; }
+}
+
+textarea { 
+  font-family: Consolas, Monaco, monospace !important;
+  font-size: 9pt !important;
+}
 header#headline.with-profile-pic {
   height: 4em;
   display: table;
@@ -18,7 +32,9 @@ header#headline.with-profile-pic {
   div {
     display: table-cell;
     vertical-align: middle;
-    p.subtitle.italic {margin: 0}
+    p {
+      margin: 0
+    }
   }
   img.profile-pic {
     width: 4em;
@@ -26,6 +42,10 @@ header#headline.with-profile-pic {
     margin-right: 1em;
     border-radius: 10%;
   }
+}
+.dj-edit-link {
+  font-size: 85%;
+  margin-top: -0.1em !important;
 }
 
 section {
@@ -58,27 +78,51 @@ section {
     max-width: 40em;
     margin: 0.5em auto;
   }
+  blockquote {
+    max-width: 38em;
+    margin: 0.5em auto;
+    padding: 0 1em;
+    border-left: 3px solid #bbb;
 }
+  h1, h2, h3, h4, h5, h6{
+    text-align: center;
+  }
+  ol, ul {
+    max-width: 40em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+code, .code {
+  font-family: "Monaco";
+  white-space: pre-wrap;
+  font-size: 8pt;
+  margin-top: 0;
+  color: #888;
+}
+.dj-about-textarea {height: 15em;}
+.dj-lists-textarea {height: 20em;}
 
 aside.right-sidebar {
-  font-size: 90%;
   width: 30%;
   float: left;
   .dj-lists {
+    font-size: 90%;
     border: solid 1pt #AAA;
-    padding: 0.25em;
-    padding-bottom: 0.75em;
+    padding: 0.25em 0 0.75em 0;
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Alegreya Sans';
       font-style: normal;
       font-variant: small-caps;
-      text-transform: lowercase;
       text-align: center;
       letter-spacing: 1px;
       margin: 0.5em 0 0.2em 0;
       margin-bottom: 0.2em;
     }
-    ul, ol { margin: 0; }
+    ul, ol {
+      margin: 0;
+      padding: 0 0.5em 0 2em;
+    }
   }
 }
 
@@ -105,8 +149,26 @@ aside.right-sidebar {
 .dj-recent-episode:first-child {
   margin-top: 0.7em;
 }
+section {
+  .dj-shows, .dj-recent-episodes {
+    width: 50%;
+    float: left;
+    margin-top: 0.5em;
+    padding-right: 0;
+    h4 {margin:0;}
+  }
+}
 
 .clear-left { clear: left; }
+
+
+.instructions {
+  color: #888;
+  font-weight: 300;
+  font-size:95%;
+  font-style: italic;
+  margin:0 0 0.3em 0;
+}
 
 .dj-form-container {
   width: 30em;
@@ -117,22 +179,14 @@ aside.right-sidebar {
     margin-right: 0.4em;
     margin-bottom: 0.4em;
   }
-  
-  .instructions {
-    color: #888;
-    font-weight: 300;
-    font-size:95%;
-    font-style: italic;
-    margin:0 0 0.3em 0;
-  }
+}
   textarea{
     height: 3em;
   }
   textarea.tall{
     height: 10em;
   }
-  .hidden{ display:none; }
-}
+.hidden{ display:none; }
 
 .djs-container {
   min-width: 40em;
