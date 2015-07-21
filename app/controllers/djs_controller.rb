@@ -1,5 +1,6 @@
 class DjsController < ApplicationController
   authorize_actions_for Dj, except: :show
+  before_filter :authenticate_dj!, except: :show
 
   before_action :set_dj, only: [:show, :edit, :update, :destroy]
 

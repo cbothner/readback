@@ -1,23 +1,24 @@
 - title "#{@freeform_show.name}"
 - headline "#{@freeform_show.name}"
-- back_link link_to "Back to Schedule", edit_semester_path(@freeform_show.semester)
-= content_for :sidebar do
-  =render 'form'
+- back_link link_to "Back to Schedule", semester_path(@freeform_show.semester)
+- if dj_signed_in? && current_dj.can_update?(@freeform_show)
+  = content_for :sidebar do
+    =render 'form'
 
 %h3 Episodes
 - @episodes.each do |episode|
   .showinfo.tiled
     %p=episode.date_string
-    %p.with
-      =with episode
-      -# If user cannot request sub for this show, don't take up the extra line below
-      -#-if episode.past?
-        -#%span.show-instance-links
-          -#=link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
-            -#episode
+    - unless dj_signed_in? && current_dj.can_update?(episode)
+      -if episode.past?
+        %p.show-instance-links
+          =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
+            episode
+    %p.with=with episode
     %p.rightalign
-      - if episode.past?
-        =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
-          episode_songs_path(episode)
-      - else
-        =link_to "Request Substitute", episode_request_sub_path(episode)
+      - if dj_signed_in? && current_dj.can_update?(episode)
+        - if episode.past?
+          =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
+            episode_songs_path(episode)
+        - else
+          =link_to "Request Substitute", episode_request_sub_path(episode)

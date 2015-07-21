@@ -3,8 +3,7 @@
 - subtitle "#{with @episode} on #{@episode.date_string}".html_safe
 - back_link link_to "Back to Schedule", @episode.show.semester
 - content_for :sidebar do
-  %h3 All Episodes
-  .rightalign=link_to "Configure", @episode.show
+  .rightalign=link_to "All Episodes", @episode.show
   - @episode.show.episodes.order(beginning: :desc).select(&:past?).each do |episode|
     .showinfo.tiled
       %p{class: ("highlight" if episode == @episode)}

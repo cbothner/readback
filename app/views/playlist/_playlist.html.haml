@@ -10,6 +10,7 @@
         %span Next up on WCBN
         ⇧
         %br
+
   %thead
     - unless defined?(iframe) && iframe
       %td Time
@@ -18,11 +19,12 @@
       %td Album
       %td Label
       %td Year
+  = message_if_episode_has_no_songs(@on_air)
   - @past_items.each do |item|
     %tr
       =render item
-    -if item.is_a? Episode
-      -unless item.notes.blank?
+    - if item.is_a? Episode
+      - unless item.notes.blank?
         %tr
           %td{colspan: 6}
             = render 'episodes/shownotes', episode: item
@@ -33,3 +35,4 @@
         %td Album
         %td Label
         %td Year
+      = message_if_episode_has_no_songs(item)

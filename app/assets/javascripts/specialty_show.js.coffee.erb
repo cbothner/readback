@@ -1,6 +1,6 @@
 $(document).on 'ready page:load', ->
-  $('.rotating-host').draggable revert: true
-  $('.episode').droppable
+  $('.rotating-host[data-dj-id]').draggable revert: true
+  $('.episode[data-episode-path]').droppable
     activeClass: 'episode-droppable'
     hoverClass: 'episode-hover'
     drop: (event, ui) ->

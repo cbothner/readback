@@ -1,6 +1,9 @@
 class TalkShow < ActiveRecord::Base
   include Show
 
+  include Authority::Abilities
+  self.authorizer_name = 'OwnedModelAuthorizer'
+
   belongs_to :semester
   belongs_to :dj
   has_many :episodes, as: :show

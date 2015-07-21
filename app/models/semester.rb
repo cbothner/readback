@@ -3,6 +3,7 @@ class Semester < ActiveRecord::Base
   has_many :specialty_shows
   has_many :talk_shows
   validates :beginning, :ending, presence: true
+  include Authority::Abilities
 
   def self.current
     where("beginning < ?", Time.zone.now).order(beginning: :desc).first

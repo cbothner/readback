@@ -1,6 +1,8 @@
 class SpecialtyShowsController < ApplicationController
   include ShowsController
 
+  authorize_actions_for SpecialtyShow, except: :show
+
   before_action :set_specialty_show, only: [:show, :edit, :update, :destroy, :deal]
   before_action :define_params_method, only: [:create, :update]
 
@@ -24,6 +26,7 @@ class SpecialtyShowsController < ApplicationController
 
   # GET /specialty_shows/1/edit
   def edit
+    authorize_action_for @specialty_show
   end
 
   # POST /specialty_shows
@@ -60,6 +63,7 @@ class SpecialtyShowsController < ApplicationController
   # PATCH/PUT /specialty_shows/1
   # PATCH/PUT /specialty_shows/1.json
   def update
+    authorize_action_for @specialty_show
     @specialty_show.coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
     @specialty_show.djs = Dj.find(params[:specialty_show].delete(:djs).reject(&:blank?))
     respond_to do |format|

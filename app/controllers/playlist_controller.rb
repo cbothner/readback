@@ -9,20 +9,21 @@ class PlaylistController < ApplicationController
     episodes -= [@on_air]
     signoff_instances = SignoffInstance.where(at: 6.hours.ago..4.hours.since)
 
-    unless iframe
-      items = (songs + episodes + signoff_instances).sort_by(&:at).reverse
-    else
+    items = songs + episodes
+    if iframe
       def @on_air.at
         Time.zone.now
       end
-      items = (songs + episodes + [@on_air] + signoff_instances).sort_by(&:at).reverse
+      items += [@on_air] 
     end
+    items += signoff_instances if dj_signed_in?  # && ON FM COMPUTER
 
+    items.sort_by!(&:at).reverse!
     @past_items = items.select{|i| i.at <= Time.zone.now }
     @future_items = items - @past_items
 
     session[:confirm_episode] = false unless session[:song]
-    @song = Song.new(session.delete(:song))  # TODO: clear this
+    @song = Song.new(session.delete(:song))
     @song ||= Song.new
     @song.episode ||= @on_air
 

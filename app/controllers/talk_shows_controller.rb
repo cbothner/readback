@@ -1,6 +1,8 @@
 class TalkShowsController < ApplicationController
   include ShowsController
 
+  authorize_actions_for TalkShow, except: :show
+
   before_action :set_talk_show, only: [:show, :edit, :update, :destroy]
   before_action :define_params_method, only: [:create, :update]
 
@@ -22,6 +24,7 @@ class TalkShowsController < ApplicationController
 
   # GET /talk_shows/1/edit
   def edit
+    authorize_action_for @talk_show
   end
 
   # POST /talk_shows
@@ -50,6 +53,7 @@ class TalkShowsController < ApplicationController
   # PATCH/PUT /talk_shows/1
   # PATCH/PUT /talk_shows/1.json
   def update
+    authorize_action_for @talk_show
     respond_to do |format|
       if @talk_show.update(talk_show_params)
         format.html { redirect_to @talk_show, notice: 'Talk show was successfully updated.' }

@@ -24,7 +24,7 @@ module Show
   end
 
   def time_string
-    "<span style=\"display:inline-block\">(#{["Sunday", "Monday", "Tuesday",
+    "<span style=\"display:inline-table\">(#{["Sunday", "Monday", "Tuesday",
                                              "Wednesday", "Thursday", "Friday",
                                              "Saturday"][weekday]}s,
     #{beginning.strftime("%l:%M")} &ndash; #{

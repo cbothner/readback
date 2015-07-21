@@ -1,6 +1,7 @@
 - title "Show Schedule"
 - headline "WCBN Schedule Beginning #{@semester.start}"
-- subtitle "until #{@semester.end} &mdash; #{link_to "edit schedule", edit_semester_path(@semester)}".html_safe
+- conditional_edit_link = " &mdash; #{link_to("edit schedule", edit_semester_path(@semester))}" if dj_signed_in? && current_dj.can_update?(Semester)
+- subtitle "until #{@semester.end}#{conditional_edit_link}".html_safe
 
 - content_for :sidebar do
   %h4.no-margin All Schedules
@@ -10,10 +11,11 @@
         %span{class: ("highlight" if semester == @semester)}
           =(semester == Semester.current ? "&rarr; ".html_safe : "".html_safe)
           =link_to("#{semester.beginning.strftime '%B %-d, %Y'}", semester)
-        .copy
-          [
-          =link_to("copy", "/semesters/new/based_on/#{semester.id}")
-          ]
+        - if dj_signed_in? && current_dj.can_create?(Semester)
+          .copy
+            [
+            =link_to("copy", "/semesters/new/based_on/#{semester.id}")
+            ]
 
 %table.schedule
   %thead

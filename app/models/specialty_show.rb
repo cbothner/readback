@@ -1,6 +1,9 @@
 class SpecialtyShow < ActiveRecord::Base
   include Show
 
+  include Authority::Abilities
+  self.authorizer_name = 'OwnedModelAuthorizer'
+
   belongs_to :semester
   belongs_to :dj, class_name: "Dj", foreign_key: "coordinator_id"
   has_and_belongs_to_many :djs
