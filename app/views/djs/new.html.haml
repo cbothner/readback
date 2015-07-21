@@ -115,4 +115,4 @@
         -#%br
         -#= f.text_field :broadcasters_exam 
     .actions
-      = f.submit "Submit"
+      = f.submit "Submit", data: {disable_with: "Saving..."}
