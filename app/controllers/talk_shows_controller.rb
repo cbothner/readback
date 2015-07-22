@@ -6,6 +6,8 @@ class TalkShowsController < ApplicationController
   before_action :set_talk_show, only: [:show, :edit, :update, :destroy]
   before_action :define_params_method, only: [:create, :update]
 
+  layout "headline"
+
   # GET /talk_shows
   # GET /talk_shows.json
   def index
@@ -79,5 +81,6 @@ class TalkShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_talk_show
       @talk_show = TalkShow.find(params[:id])
+      @episodes = @talk_show.episodes
     end
 end
