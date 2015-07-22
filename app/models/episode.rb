@@ -34,7 +34,7 @@ class Episode < ActiveRecord::Base
   end
 
   def subbed_for?
-    confirmed?
+    confirmed? || ((needs_sub? || needs_sub_including_nighttime_djs?) && (dj != show.dj))
   end
 
   def date_string
@@ -52,9 +52,9 @@ class Episode < ActiveRecord::Base
   def status_string
     case status
     when 'unassigned' then 'Unassigned'
-    when 'normal' then dj.name
-    when 'confirmed' then "#{dj.name} &#x2713;".html_safe
-    when /needs_sub/ then "#{dj.name}"
+    when 'normal' then "#{dj}"
+    when 'confirmed' then "#{dj} &#x2713;".html_safe
+    when /needs_sub/ then "#{dj}"
     when 'overridden' then "Overridden!"
     end
   end

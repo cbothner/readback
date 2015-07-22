@@ -1,5 +1,6 @@
 class EpisodesController < ApplicationController
-  before_action :set_episode, only: [:show, :edit, :update, :destroy]
+  authorize_actions_for Episode, except: :show
+  before_action :set_episode, only: [:show, :update, :request_sub]
   layout "headline"
 
   # GET /episodes/1
@@ -10,6 +11,7 @@ class EpisodesController < ApplicationController
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json
   def update
+    authorize_action_for @episode
     @episode.status = :confirmed
     respond_to do |format|
       if @episode.update(episode_params)
@@ -18,6 +20,29 @@ class EpisodesController < ApplicationController
       else
         format.html { render :edit }
         format.json { respond_with_bip @episode }
+      end
+    end
+  end
+
+  def request_sub
+    authorize_action_for @episode
+    first_level_sub_request = if @episode.show.is_a? SpecialtyShow
+                                :needs_sub_in_group
+                              else
+                                :needs_sub
+                              end
+
+    @episode.status = case @episode.status
+                      when 'normal', 'confirmed' then first_level_sub_request
+                      when 'needs_sub_in_group' then :needs_sub
+                      when 'needs_sub' then :needs_sub_including_nighttime_djs
+                      end
+
+    respond_to do |format|
+      if @episode.save
+        format.html { redirect_to @episode.show, notice: 'Sub request placed.' }
+      else
+        format.html { render :show }
       end
     end
   end

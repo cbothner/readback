@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :episodes do
     resources :songs
-    post 'request_sub'
+    put 'request_sub', on: :member
   end
 
   resources :signoff_instances
