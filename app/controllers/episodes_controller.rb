@@ -1,7 +1,12 @@
 class EpisodesController < ApplicationController
-  authorize_actions_for Episode, except: :show
+  before_filter :authenticate_dj!, except: :show
+  authorize_actions_for Episode, except: [:show, :index]
   before_action :set_episode, only: [:show, :update, :request_sub]
   layout "headline"
+
+  def index
+
+  end
 
   # GET /episodes/1
   # GET /episodes/1.json
