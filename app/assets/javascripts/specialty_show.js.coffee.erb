@@ -16,4 +16,4 @@ $(document).on 'ready page:load', ->
           droppedOn.removeClass 'episode-unassigned'
           droppedOn.removeClass 'episode-normal'
           droppedOn.addClass 'episode-confirmed'
-          droppedOn.find('.with').html(ui.draggable.find('a').html() + "&#x2713;")
+          droppedOn.find('.with').html(ui.draggable.find('#dj-name').html() + "&#x2713;")

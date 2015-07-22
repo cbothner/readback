@@ -25,10 +25,10 @@ textarea {
   font-family: Consolas, Monaco, monospace !important;
   font-size: 9pt !important;
 }
+
+.dj,
 header#headline.with-profile-pic {
-  height: 4em;
   display: table;
-  padding-bottom: 1em;
   div {
     display: table-cell;
     vertical-align: middle;
@@ -36,21 +36,45 @@ header#headline.with-profile-pic {
       margin: 0
     }
   }
+}
+header#headline.with-profile-pic {
+  height: 4em;
+  padding-bottom: 1em;
   img.profile-pic {
-    width: 4em;
-    float: left;
+    height: 4em;
     margin-right: 1em;
-    border-radius: 10%;
   }
   img.profile-pic.robot {
-    width: 5em !important;
-    margin: -0.5em 0.5em !important;
+    height: 5em !important;
+    margin:  0;
   }
+}
+.dj {
+  height: 2.5em;
+  img.profile-pic {
+    height: 2em;
+    width: 2em;
+    margin-right: 0.5em;
+  }
+  img.profile-pic.robot {
+    height: 3em !important;
+    width: 3em !important;
+    margin: 0;
+  }
+}
+img.profile-pic {
+  float: left;
+  border-radius: 10%;
+}
+img.profile-pic.robot {
+  margin-top: -10% !important;
+  margin-bottom: -10% !important;
 }
 .dj-edit-link {
   font-size: 85%;
   margin-top: -0.1em !important;
 }
+a:hover .dj div p span#dj-name {text-decoration: underline;}
 
 section {
   width: 70%;

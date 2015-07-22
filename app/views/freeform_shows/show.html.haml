@@ -5,20 +5,19 @@
   = content_for :sidebar do
     =render 'form'
 
+%h3 Your Host
+.rotating-hosts
+  .tiled.rotating-host
+    =render @freeform_show.dj
 %h3 Episodes
 - @episodes.each do |episode|
   .showinfo.tiled
     %p=episode.date_string
-    - unless dj_signed_in? && current_dj.can_update?(episode)
-      -if episode.past?
-        %p.show-instance-links
-          =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
-            episode
-    %p.with=with episode
-    %p.rightalign
-      - if dj_signed_in? && current_dj.can_update?(episode)
-        - if episode.past?
-          =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
-            episode_songs_path(episode)
-        - else
-          =link_to "Request Substitute", episode_request_sub_path(episode)
+    -if episode.past?
+      %p.show-instance-links
+        =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
+          episode
+    %p.with
+      =with(episode) if episode.subbed_for?
+      &nbsp;
+
