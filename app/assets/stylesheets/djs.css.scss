@@ -131,6 +131,15 @@ code, .code {
 .dj-about-textarea {height: 15em;}
 .dj-lists-textarea {height: 20em;}
 
+.small-caps-title {
+  font-family: 'Alegreya Sans';
+  font-style: normal;
+  font-variant: small-caps;
+  letter-spacing: 1px;
+  margin: 0;
+  margin-top: 1em;
+  margin-bottom: -0.5em
+}
 aside.right-sidebar {
   width: 30%;
   float: left;
@@ -139,11 +148,8 @@ aside.right-sidebar {
     border: solid 1pt #AAA;
     padding: 0.25em 0 0.75em 0;
     h1, h2, h3, h4, h5, h6 {
-      font-family: 'Alegreya Sans';
-      font-style: normal;
-      font-variant: small-caps;
+      @extend .small-caps-title;
       text-align: center;
-      letter-spacing: 1px;
       margin: 0.5em 0 0.2em 0;
       margin-bottom: 0.2em;
     }

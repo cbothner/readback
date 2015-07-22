@@ -5,10 +5,10 @@
     %span now
   %h1.accent Readback
   %p.subtitle The WCBN Database
-  =render @on_air
+  = render 'episodes/upcoming_episodes'  # Change weirdness in here too
   - if flash[:alert]
     .alert
-      - flash[:alert].each do |err|
+      - Array(flash[:alert]).each do |err|
         =err
   = render 'songs/form' if dj_signed_in?  # NO NO NO! if on_fm_computer?
   %br

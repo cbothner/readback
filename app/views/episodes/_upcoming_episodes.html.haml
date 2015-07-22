@@ -1,0 +1,7 @@
+.on-and-upcoming
+  %h4.small-caps-title On Air:
+  =render @on_air
+  - unless dj_signed_in?  # if on_fm_computer?
+    %h4.small-caps-title Up Next:
+    - @future_items.select {|e| e.is_a? Episode}.reverse.each do |ep|
+      = render ep
