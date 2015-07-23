@@ -1,8 +1,8 @@
+<% if content_for? :sidebar %>
 <aside class="thin-sidebar">
-<h1 class="accent">Readback</h1>
-<p class="subtitle">The WCBN Database</p>
-<%= content_for(:sidebar) if content_for?(:sidebar) %>
+<%= content_for(:sidebar) %>
 </aside>
+<% end %>
 
 <header id="headline" class="with-thin-sidebar">
 <% if content_for?(:back_link) %>

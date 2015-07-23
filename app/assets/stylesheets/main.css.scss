@@ -1,39 +1,48 @@
-html { background-color: #EEE; }
-
 body {
   font-family: 'Alegreya Sans', sans-serif;
   font-size: 12pt;
   font-weight: 500;
-  min-width: 750px;
   overflow-x: hidden
 }
 .container {
-  max-width: 1500px;
+  width: 90%;
   margin:auto;
+  min-width: 750px;
 }
+.dj-signed-in-container { padding-top: 2em; }
 
 #nav {
   margin: -8px;
   margin-bottom: 0px;
   min-width: 100%;
-  background-color: white;
   position: fixed;
   z-index: 100;
-  .left {
-    float: left;
-    padding: 0.2em 1em;
-    span { padding-right: 1em; }
-  }
   .right {
     float: right;
     padding: 0.2em 1em;
   }
 }
+#dj-signed-in-nav {
+  @extend #nav;
+  background-color: #FFEAD9;
+  border-bottom: 1px solid #FF8C2A;
+  .right {
+    color: black;
+  }
+}
+#dj-signed-out-nav {
+  @extend #nav;
+  .right {
+    a {
+      color: #FD7400;
+      text-decoration: underline;
+    }
+  }
+}
 
 #headline {
-  margin: auto;
   padding: 0 1.5em;
-  padding-top: 3em;
+  padding-top: 1em;
   max-width:1200px;
   .back_link { padding-top: -1em; }
   h2 {
@@ -48,10 +57,10 @@ article {
   max-width:1200px;
 }
 .with-sidebar{
-  margin-left: 18em !important;
+  margin-left: 16em !important;
 }
 .with-thin-sidebar{
-  margin-left: 16em !important;
+  margin-left: 14em !important;
 }
 .scroll-up {
   padding-top: 2em;
@@ -79,15 +88,15 @@ article {
 .sidebar {
   float: left;
   width: 15em;
-  padding-left: 30px;
-  padding-top:2em;
+}
+.sidebar-fixed{
   position: fixed;
+  padding-top: 3.5em;
 }
 
 .thin-sidebar {
   float: left;
-  padding-left: 30px;
-  padding-top: 2em;
+  padding-top: 1.5em;
   width: 14em;
 }
 
@@ -137,7 +146,7 @@ $step-size-heading: 0.33333;
 }
 
 a {
-  color: #3498db;
+  color: #41A5E8;
   text-decoration: none;
 }
 a:hover {
@@ -188,8 +197,8 @@ label {
 
 .show-notes-box {
   color: #777;
-  border: solid 1pt #7f9932;
-  background-color: #ECEFE4;
+  border: solid 1pt #8FB913;
+  background-color: #F9FEEC;
   padding: 0.25em;
   margin: -0.5em 0 0.5em 0;
   max-width: 45em;

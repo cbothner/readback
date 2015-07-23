@@ -8,11 +8,7 @@
 </head>
 <body>
 
-<header id="nav">
-  <div class="left">
-    <span><%= link_to "Playlist", root_path(anchor: 'now') %></span>
-    <span><%= link_to "Schedule", Semester.current %></span>
-  </div>
+<header id="dj-signed-<%= dj_signed_in? ? 'in' : 'out'%>-nav">
   <div class="right">
     <% if current_dj %>
       <%= link_to current_dj.name, current_dj %> &mdash;
@@ -23,7 +19,32 @@
   </div>
 </header>
 
-<div class="container">
+<div class="container <%= 'dj-signed-in-container' if dj_signed_in? %>">
+<%#FROM DRUPAL%>
+<% fixed_or_absolute = if controller_name == 'playlist' && on_fm_computer?
+                         'fixed'
+                       else
+                         'absolute'
+                       end%>
+<ul id="wcbn-org-nav" class="<%=fixed_or_absolute%>-wcbn-org-nav">
+  <%= image_tag "wcbn"%>
+  <li id="LI_2">
+  <a href="http://www.wcbn.org/about" id="A_3">About</a>
+  </li>
+  <li id="LI_4">
+  <a href="http://www.wcbn.org/events" id="A_5">Events</a>
+  </li>
+  <li id="LI_6">
+  <a href="http://www.wcbn.org/content/contact" title="Contact" id="A_7">Contact</a>
+  </li>
+  <li id="LI_8">
+  <a href="<%=semester_path(Semester.current) %>" id="A_9">Schedule</a>
+  </li>
+  <li id="LI_10">
+  <a href="<%=root_path(anchor: 'now')%>" id="A_11">Playlist</a>
+  </li>
+</ul>
+
 <%= yield %>
 </div>
 

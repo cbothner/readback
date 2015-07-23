@@ -25,4 +25,8 @@ module ApplicationHelper
                                        disable_indented_code_blocks: true)
     markdown.render(text).html_safe
   end
+  
+  def on_fm_computer?
+    dj_signed_in?  #TODO
+  end
 end

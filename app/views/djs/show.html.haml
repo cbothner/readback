@@ -18,14 +18,7 @@
         %b=ep.show.unambiguous_name
         %p=ep.date_string
 
-%aside.thin-sidebar
-  %h1.accent Readback
-  %p.subtitle The WCBN Database
-
-  = content_for(:dj_activity) unless @dj.about.blank?
-
-
-%header#headline.with-thin-sidebar.with-profile-pic
+%header#headline.with-profile-pic
   %img.profile-pic.robot{src: "http://www.robohash.org/#{Digest::MD5.hexdigest(@dj.email)}?set=set3"}
   -#%img.profile-pic{src: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"}
   %div
@@ -36,6 +29,9 @@
         =" (real name is #{"not " unless @dj.real_name_is_public}public)" if dj_signed_in?
     - if dj_signed_in? && @dj.updatable_by?(current_dj)
       %p.subtitle.dj-edit-link=link_to "edit profile", edit_dj_path(@dj)
+
+%aside.thin-sidebar
+  = content_for(:dj_activity) unless @dj.about.blank?
 
 %article.with-thin-sidebar.with-right-sidebar
   %section

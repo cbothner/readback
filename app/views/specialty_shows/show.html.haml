@@ -1,21 +1,27 @@
+- dj_can_update_show = dj_signed_in? && current_dj.can_update?(@specialty_show)
+- content_for :rotating_hosts do
+  %h3 Rotating Hosts
+  - if dj_signed_in? && current_dj.can_update?(@specialty_show)
+    .subtitle
+      =link_to "Reassign rotation", deal_specialty_show_path(@specialty_show), method: :patch
+      to unconfirmed episodes.
+  .rotating-hosts
+    -@specialty_show.rotating_hosts.each do |host|
+      .tiled.rotating-host{data: ({dj_id: host.id} if dj_can_update_show)}
+        =render host
+
 - title "#{@specialty_show.name}"
 - headline "#{@specialty_show.name}"
 - subtitle "Coordinated by #{@specialty_show.coordinator.name}"
 - back_link link_to "Back to Schedule", semester_path(@specialty_show.semester)
-- dj_can_update_show = dj_signed_in? && current_dj.can_update?(@specialty_show)
-- if dj_can_update_show
-  = content_for :sidebar do
+= content_for :sidebar do
+  - if dj_can_update_show
     =render 'form'
+  - else 
+    = content_for :rotating_hosts
 
-%h3 Rotating Hosts
-- if dj_signed_in? && current_dj.can_update?(@specialty_show)
-  .subtitle
-    =link_to "Reassign rotation", deal_specialty_show_path(@specialty_show), method: :patch
-    to unconfirmed episodes.
-.rotating-hosts
-  -@specialty_show.rotating_hosts.each do |host|
-    .tiled.rotating-host{data: ({dj_id: host.id} if dj_can_update_show)}
-      =render host
+- if dj_can_update_show
+  = content_for :rotating_hosts
 
 %h3 Episodes
 .episodes

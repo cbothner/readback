@@ -1,20 +1,18 @@
 - title "Playlist Input"
 
-%aside.sidebar
+%aside.sidebar{class: ("sidebar-fixed" if on_fm_computer?)}
   %a#now-button{href: "#now"}
     %span now
-  %h1.accent Readback
-  %p.subtitle The WCBN Database
-  = render 'episodes/upcoming_episodes'  # Change weirdness in here too
+  = render 'episodes/upcoming_episodes'
   - if flash[:alert]
     .alert
       - Array(flash[:alert]).each do |err|
         =err
-  = render 'songs/form' if dj_signed_in?  # NO NO NO! if on_fm_computer?
+  = render 'songs/form' if on_fm_computer?
   %br
-  = render 'episodes/shownotes', episode: @on_air, editable: dj_signed_in?  # NO NO NO!
+  = render 'episodes/shownotes', episode: @on_air, editable: on_fm_computer?
 
-%article.with-sidebar.scroll-up
+%article.with-sidebar{class: ('scroll-up' if on_fm_computer?)}
   = render 'playlist'
 
 -#<div style="position:absolute; text-align:right; border-top: 3px solid black;

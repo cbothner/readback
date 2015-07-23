@@ -1,0 +1,33 @@
+#wcbn-org-nav {
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  min-width: 750px;
+  display: table;
+}
+
+.fixed-wcbn-org-nav{ position: fixed }
+
+#wcbn-org-nav img {
+  width: 132px;
+  margin-right: 12px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#wcbn-org-nav li {
+  padding: 0px 8px;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#wcbn-org-nav li a {
+  color: black;
+  display: block;
+  border: 3px solid black;
+  font: normal normal bold normal 16px/normal Latoblack, Helvetica, Arial, sans-serif;
+  text-align: center;
+  padding: 8px 8px 5px;
+  text-transform: uppercase;
+  background-color: white;
+}
