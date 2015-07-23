@@ -5,7 +5,24 @@ class EpisodesController < ApplicationController
   layout "headline"
 
   def index
+    sub_statuses = Episode.statuses.select{ |stat| stat[/needs_sub/] }
+    episodes_needing_subs = Episode.where(status: sub_statuses.values)
 
+    @requests_by_day = episodes_needing_subs.group_by do
+      |ep| (ep.at - 6.hours).at_beginning_of_day
+    end
+
+    unless @requests_by_day.empty?
+      start_of_week = Time.zone.now.at_beginning_of_day.at_beginning_of_week
+      max = episodes_needing_subs.max_by(&:at).at.at_beginning_of_day
+      @weeks = []
+      while start_of_week < max do
+        @weeks << start_of_week
+        start_of_week +=  7.days
+      end
+    end
+
+    render layout: "wide"
   end
 
   # GET /episodes/1

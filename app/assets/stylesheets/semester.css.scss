@@ -70,3 +70,8 @@ ul.semesters {
 #tabs {
   margin-top: 0.5em;
 }
+
+table.sub-board {
+  @extend table.schedule;
+  table-layout: fixed;
+}

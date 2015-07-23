@@ -1,0 +1,22 @@
+.sub-board tbody tr td {
+  border: 1px solid #bbb;
+  padding: 0.25em;
+  margin: 0;
+  height: 6em;
+}
+
+.sub-req { margin-top: 0.25em; }
+.sub-req:first-of-type { margin-top: 0; }
+
+.req-day { margin: 0 }
+.req-time {
+  margin: 0;
+  color: #bbb;
+  font-style: italic;
+  float: left;
+}
+.req-name {
+  margin: 0;
+  margin-left: 2.25em;
+  line-height: 1.1;
+}

@@ -6,14 +6,14 @@ module Show
   end
 
   def propagate
-    offset = (0..6).include?(beginning.hour) ? 1 : 0
+    offset = (0..5).include?(beginning.hour) ? 1 : 0
     days = semester.range.to_enum.select { |x| (x - offset.days).wday == self.weekday }
     days.each do |d|
       d = d.in_time_zone
       bbb = d.change(beginning.hms)
       eee = d.change(ending.hms)
       if episodes.starts_on_day(d).nil?
-        ep = episodes.create(beginning: bbb, ending: eee, status: default_status)
+        ep = episodes.create(beginning: bbb, ending: eee, status: default_status, dj: dj )
       end
     end
     self
