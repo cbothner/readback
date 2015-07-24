@@ -1,0 +1,18 @@
+<header id="headline" class="thin-center">
+<% if content_for?(:back_link) %>
+  <div class="back-link">
+    <%= content_for(:back_link) %>
+  </div>
+<% end %>
+<% if content_for?(:headline) %>
+  <h2><%= content_for(:headline) %></h2>
+<% end %>
+<% if content_for?(:subtitle) %>
+  <p class="subtitle italic"><%= content_for(:subtitle) %></p>
+<% end %>
+</header>
+<article class="thin-center">
+<%= yield %>
+</article>
+
+<% parent_layout 'application' %>

@@ -20,3 +20,23 @@
   margin-left: 2.25em;
   line-height: 1.1;
 }
+
+.sub-req-info {
+  ul {
+    border: solid 1pt #8fb913;
+    background-color: #f9feec;
+    padding: 0.25em;
+    list-style: none;
+    li {
+      span:first-child { float: left; }
+      span:last-child {
+        display: block;
+        margin-left: 5em;
+      }
+      blockquote {
+        clear: left;
+        margin: 0 1em 0 2em;
+      }
+    }
+  }
+}

@@ -41,8 +41,13 @@ class Episode < ActiveRecord::Base
     "#{beginning.strftime("%A, %B %-d, %Y")}".html_safe
   end
 
+  def just_time_string
+    "#{beginning.strftime("%l:%M")} &ndash; #{ending.strftime("%l:%M%P")}"
+      .html_safe
+  end
+
   def time_string
-    date_string + "<span style=\"display:inline-block\">#{beginning.strftime("&nbsp;&nbsp;&nbsp;%l:%M")} &ndash; #{ending.strftime("%l:%M%P")}</span>".html_safe
+    date_string + "<span style=\"display:inline-block\">&nbsp;&nbsp;&nbsp;#{just_time_string}</span>".html_safe
   end
 
   def active_dj

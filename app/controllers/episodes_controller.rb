@@ -2,7 +2,6 @@ class EpisodesController < ApplicationController
   before_filter :authenticate_dj!, except: :show
   authorize_actions_for Episode, except: [:show, :index]
   before_action :set_episode, only: [:show, :update, :request_sub]
-  layout "headline"
 
   def index
     sub_statuses = Episode.statuses.select{ |stat| stat[/needs_sub/] }
@@ -29,6 +28,7 @@ class EpisodesController < ApplicationController
   # GET /episodes/1
   # GET /episodes/1.json
   def show
+    render layout: 'thin'
   end
 
   # PATCH/PUT /episodes/1
