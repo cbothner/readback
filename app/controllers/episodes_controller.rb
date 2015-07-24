@@ -7,9 +7,10 @@ class EpisodesController < ApplicationController
   def index
     sub_statuses = Episode.statuses.select{ |stat| stat[/needs_sub/] }
     episodes_needing_subs = Episode.where(status: sub_statuses.values)
+      .select {|ep| ep.updatable_by?(current_dj)}
 
     @requests_by_day = episodes_needing_subs.group_by do
-      |ep| (ep.at - 6.hours).at_beginning_of_day
+      |ep| ep.at.at_beginning_of_day
     end
 
     unless @requests_by_day.empty?

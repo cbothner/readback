@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709190912) do
+ActiveRecord::Schema.define(version: 20150720213243) do
 
   create_table "djs", force: :cascade do |t|
     t.string   "name"
@@ -77,9 +77,11 @@ ActiveRecord::Schema.define(version: 20150709190912) do
     t.datetime "ending"
     t.text     "notes"
     t.integer  "dj_id"
-    t.integer  "status",     default: 0
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "status",                  default: 0
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "sub_request_information"
+    t.string   "sub_request_group"
   end
 
   add_index "episodes", ["dj_id"], name: "index_episodes_on_dj_id"

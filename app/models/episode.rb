@@ -1,9 +1,9 @@
 class Episode < ActiveRecord::Base
   include Authority::Abilities
-  self.authorizer_name = 'OwnedModelAuthorizer'
 
   enum status: [:unassigned, :normal, :confirmed, :needs_sub_in_group,
                 :needs_sub, :needs_sub_including_nighttime_djs, :overridden]
+  serialize :sub_request_group
 
   belongs_to :show, polymorphic: true
   belongs_to :dj

@@ -1,5 +1,6 @@
 - title "Sub Board"
 - headline "The Sub Board"
+- disclaimer_needed = false
 
 - unless @requests_by_day.empty?
   - subtitle "Be a hero: take one of these slots!"
@@ -14,9 +15,10 @@
       %tr
         - (0..6).each do |wday|
           - day = week + wday.days
-          - format = day.day == 1 || day == @weeks.first ? '%b %d' : '%d'
-          %td
-            %p.req-day= day.strftime(format)
+          - format = day.day == 1 || day == Time.zone.now.at_beginning_of_day ? '%b %d' : '%d'
+          - day_in_past = day < Time.zone.now.at_beginning_of_day
+          %td{class: ('active' unless day_in_past)}
+            %p.req-day= day.strftime(format) unless day_in_past
 
             - if reqs = @requests_by_day[day]
               - reqs.sort_by(&:at).each do |episode_needing_sub|
@@ -25,6 +27,14 @@
                   %p.req-name
                     = link_to episode_needing_sub do
                       = episode_needing_sub.show.unambiguous_name
+                    - if episode_needing_sub.needs_sub_including_nighttime_djs?
+                      *
+                      - disclaimer_needed = true
+  - if disclaimer_needed
+    .italic.subtitle *The Program Director has made this slot available to all WCBN DJs.
 
 - else
   - subtitle 'There are currently no outstanding sub requests!'
+
+- unless current_dj.allowed_to_do_daytime_radio? || current_dj.has_role?(:superuser)
+  - subtitle "<br /> (As you have not completed one semester on WCBN, only nighttime requests are shown.)".html_safe
