@@ -6,6 +6,7 @@ class EpisodesController < ApplicationController
   def index
     sub_statuses = Episode.statuses.select{ |stat| stat[/needs_sub/] }
     episodes_needing_subs = Episode.where(status: sub_statuses.values)
+      .includes( show: [:dj] )
       .select {|ep| ep.updatable_by?(current_dj)}
 
     @requests_by_day = episodes_needing_subs.group_by do
