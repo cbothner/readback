@@ -11,6 +11,39 @@ body {
 }
 .dj-signed-in-container { padding-top: 2em; }
 
+@keyframes hiding {
+  0% { top: -10em; }
+  30% { top: -1em; }
+  100% { top: -1em; }
+}
+
+.floating-notice {
+  position: fixed;
+  top: -10em;
+  padding: 1.5em 1.5em 0.5em 1.5em;
+  background-color: #C1E3F9;
+  border: 1px solid #3498DB;
+  border-radius: 0.5em;
+  left: 30%;
+  right: 30%;
+  z-index: 200;
+  font-weight: 900;
+  text-align: center;
+  p {
+    margin: 0;
+  }
+  animation-name: hiding;
+  animation-duration: 3s;
+  animation-iteration-count: 2;
+  animation-direction: alternate;
+}
+
+.floating-alert {
+  @extend .floating-notice;
+  border: 1px solid #D62816;
+  background-color: #FFA79E;
+}
+
 #nav {
   margin: -8px;
   margin-bottom: 0px;

@@ -13,8 +13,9 @@ Rails.application.routes.draw do
 
   resources :episodes do
     resources :songs
-    put 'request_sub', on: :member
+    resources :sub_requests, only: [:new, :create]
   end
+  resources :sub_requests, except: [:new, :create]
 
   resources :signoff_instances
 

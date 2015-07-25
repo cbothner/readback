@@ -50,7 +50,7 @@ class Dj < ActiveRecord::Base
 
   # TODO: Refactor to able_to_do_daytime_radio?
   def allowed_to_do_daytime_radio?
-    semesters_count > 1
+    semesters_count > 1 || has_role?(:grandfathered_in)
   end
 
   def shows

@@ -21,13 +21,13 @@
             %p.req-day= day.strftime(format) unless day_in_past
 
             - if reqs = @requests_by_day[day]
-              - reqs.sort_by(&:at).each do |episode_needing_sub|
+              - reqs.sort_by(&:at).each do |req|
                 .sub-req
-                  %p.req-time= episode_needing_sub.at.strftime '%l%P'
+                  %p.req-time= req.at.strftime '%l%P'
                   %p.req-name
-                    = link_to episode_needing_sub do
-                      = episode_needing_sub.show.unambiguous_name
-                    - if episode_needing_sub.needs_sub_including_nighttime_djs?
+                    = link_to req do
+                      = req.episode.show.unambiguous_name
+                    - if req.needs_sub_including_nighttime_djs?
                       *
                       - disclaimer_needed = true
   - if disclaimer_needed

@@ -1,5 +1,6 @@
 class Episode < ActiveRecord::Base
   include Authority::Abilities
+  self.authorizer_name = 'OwnedModelAuthorizer'
 
   enum status: [:unassigned, :normal, :confirmed, :needs_sub_in_group,
                 :needs_sub, :needs_sub_including_nighttime_djs, :overridden]
@@ -8,6 +9,7 @@ class Episode < ActiveRecord::Base
   belongs_to :show, polymorphic: true
   belongs_to :dj
   has_many :songs
+  has_many :sub_requests
 
   def self.on_air
     where(beginning: (Time.zone.now - 6.hours)..Time.zone.now).order(:beginning).last

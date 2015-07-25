@@ -34,7 +34,7 @@ class SpecialtyShow < ActiveRecord::Base
     end
 
     transaction do 
-      unconfirmed_episodes.each(&:save)
+      unconfirmed_episodes.each(&:save!)
     end
   end
 end

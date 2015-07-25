@@ -1,0 +1,35 @@
+- title "Sub Request for #{@episode.show.unambiguous_name}"
+- headline "#{@episode.dj} Needs a Sub"
+- back_link link_to "Back to Sub Board", sub_requests_path
+- subtitle "Be a hero:"
+
+.sub-req-info
+  %ul
+    %li
+      %span Show:&nbsp;
+      %span= link_to @episode.show.unambiguous_name, @episode.show
+    %li
+      %span Date:&nbsp;
+      %span= @episode.date_string
+    %li
+      %span Time:&nbsp;
+      %span= @episode.just_time_string
+    %li
+      %span Current DJ:&nbsp;
+      %span= link_to @episode.dj.name, @episode.dj
+    %li
+      %span Reason:
+      %blockquote= "“#{@sub_request.reason}”"
+  - case @sub_request.status
+  - when 'needs_sub_in_group'
+    %p.subtitle
+      This request has been sent only to:
+      %br
+      = raw @sub_request.group.map {|x| Dj.find(x)}.map {|dj| link_to dj.name,
+        dj}.to_sentence + '.'
+  - when 'needs_sub_including_nighttime_djs'
+    %p.subtitle The Program Director has made this slot available to all WCBN DJs.
+
+.actions
+  = form_for @sub_request do |f|
+    - f.submit @fulfill_button_text

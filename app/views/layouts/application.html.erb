@@ -8,10 +8,22 @@
 </head>
 <body>
 
+  <% if flash[:notice] %>
+    <div class="floating-notice">
+      <p><%= flash[:notice] %></p>
+    </div>
+  <% end %>
+  <% if flash[:alert] %>
+    <div class="floating-alert">
+      <p><%= flash[:alert] %></p>
+    </div>
+  <% end %>
+
+
   <header id="dj-signed-<%= dj_signed_in? ? 'in' : 'out'%>-nav" <%="class=fixed" if on_fm_computer? %>>
   <div class="right">
     <% if current_dj %>
-      <%= link_to "Sub Board", episodes_path %> &mdash;
+      <%= link_to "Sub Board", sub_requests_path %> &mdash;
       <%= link_to current_dj.name, current_dj %>
       [<%= link_to "Log out", destroy_dj_session_path, method: :delete %>]
     <% else %>
