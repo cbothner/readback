@@ -6,7 +6,7 @@ body {
 }
 .container {
   width: 90%;
-  margin:auto;
+  margin: auto;
   min-width: 750px;
 }
 .dj-signed-in-container { padding-top: 2em; }
@@ -36,6 +36,10 @@ body {
   animation-duration: 3s;
   animation-iteration-count: 2;
   animation-direction: alternate;
+  -webkit-animation-name: hiding;
+  -webkit-animation-duration: 3s;
+  -webkit-animation-iteration-count: 2;
+  -webkit-animation-direction: alternate;
 }
 
 .floating-alert {
@@ -90,10 +94,14 @@ article {
   max-width:1200px;
 }
 .with-sidebar{
+  padding-top: 1em;
   margin-left: 16em !important;
 }
 .with-thin-sidebar{
   margin-left: 14em !important;
+}
+.with-thinner-sidebar{
+  margin-left: 9em !important;
 }
 .scroll-up {
   padding-top: 2em;
@@ -121,6 +129,7 @@ article {
 .sidebar {
   float: left;
   width: 15em;
+  padding-top: 1em;
 }
 .sidebar-fixed{
   position: fixed;
@@ -133,36 +142,40 @@ article {
   padding-top: 1.5em;
   width: 14em;
 }
+.thinner-sidebar {
+  float: left;
+  padding-top: 1.5em;
+  width: 9em;
+}
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Alegreya', serif;
+  font-family: 'Merriweather', serif;
   font-weight: 900;
   font-style: italic;
   color: #555;
   line-height: 1;
   margin-bottom: 0;
+  letter-spacing: -0.02em;
 }
 
 /* The Sass "context" map */
 $context-font: (
-  sidebar: 1,
-  thin-sidebar: 1,
-  showinfo: 0.8,
-  show-notes: 0.7,
+  showinfo: 0.85,
+  show-notes: 0.6,
   dj-about: 0.8
 );
-$step-size-heading: 0.33333;
+$step-size-heading: 0.25;
 @mixin heading-size($size) {
   font-size: $size * $step-size-heading + em;
 }
 @each $element, $value in $context-font {
   .#{$element} {
-    h1 { @include heading-size(6 * $value); }
-    h2 { @include heading-size(5 * $value); }
-    h3 { @include heading-size(4 * $value); }
-    h4 { @include heading-size(3 * $value); }
-    h5 { @include heading-size(2 * $value); }
-    h6 { @include heading-size(1 * $value); }
+    h1 { @include heading-size(7 * $value); }
+    h2 { @include heading-size(6 * $value); }
+    h3 { @include heading-size(5 * $value); }
+    h4 { @include heading-size(4 * $value); }
+    h5 { @include heading-size(3 * $value); }
+    h6 { @include heading-size(2 * $value); }
   }
 }
 .no-margin {margin: 0;}
@@ -233,8 +246,8 @@ label {
   color: #777;
   border: solid 1pt #8FB913;
   background-color: #F9FEEC;
-  padding: 0.25em;
-  margin: -0.5em 0 0.5em 0;
+  padding: 0.5em;
+  margin: 0.5em auto 0.5em auto;
   max-width: 45em;
   h4 {
     margin: 0;
@@ -253,7 +266,20 @@ label {
       margin-bottom: 0;
     }
   }
+  .show-notes.longform { padding: 0.5em 2em }
 }
 td > .show-notes-box {
   margin:0;
+}
+
+.longform {
+  line-height: 1.35em;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  text-align: justify;
+  img {
+    float: right;
+    max-width: 40%;
+    margin-left: 1em;
+  }
 }

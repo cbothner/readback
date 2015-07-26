@@ -2,8 +2,11 @@
   list-style: none outside none;
   margin: 0;
   padding: 0;
+  font-family: Latoblack, Helvetica, Arial, sans-serif;
+  font-weight: bold;
   min-width: 750px;
   display: table;
+  z-index: 101;
 }
 
 .fixed-wcbn-org-nav{ position: fixed }
@@ -25,9 +28,14 @@
   color: black;
   display: block;
   border: 3px solid black;
-  font: normal normal bold normal 16px/normal Latoblack, Helvetica, Arial, sans-serif;
   text-align: center;
   padding: 8px 8px 5px;
   text-transform: uppercase;
   background-color: white;
+}
+
+#wcbn-org-nav li a:hover {
+  color: gray;
+  border: 3px solid gray;
+  text-decoration: none;
 }

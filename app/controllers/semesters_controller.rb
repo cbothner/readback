@@ -16,6 +16,7 @@ class SemestersController < ApplicationController
   # GET /semesters/1.json
   def show
     @semesters = Semester.all.sort_by(&:beginning).reverse
+    render layout: 'wide_with_sidebar'
   end
 
   # GET /semesters/new

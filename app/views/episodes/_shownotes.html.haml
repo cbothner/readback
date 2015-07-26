@@ -1,7 +1,8 @@
 - editable ||= false
+- longform ||= false
 - unless episode.notes.nil? && !editable
   .show-notes-box
     %h4 Show Notes:
-    .show-notes
+    .show-notes{lang: 'en', class: ('longform' if longform)}
       - episode.notes ||= ''
       = best_in_place_if editable, episode, :notes, display_with: -> (notes) { markdown(notes)}, as: :textarea, place_holder: "Click here to add your show notes."

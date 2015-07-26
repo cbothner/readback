@@ -1,0 +1,25 @@
+<% if content_for? :sidebar %>
+  <aside class="thin<%='ner' unless dj_signed_in? %>-sidebar">
+<%= content_for(:sidebar) %>
+</aside>
+<% end %>
+
+<header id="headline" class="with-thin<%='ner' unless dj_signed_in? %>-sidebar">
+<% if content_for?(:back_link) %>
+  <div class="back-link">
+    <%= content_for(:back_link) %>
+  </div>
+<% end %>
+<% if content_for?(:headline) %>
+  <h2><%= content_for(:headline) %></h2>
+<% end %>
+<% if content_for?(:subtitle) %>
+  <p class="subtitle italic"><%= content_for(:subtitle) %></p>
+<% end %>
+</header>
+
+<article class="with-thin<%='ner' unless dj_signed_in? %>-sidebar">
+<%= yield %>
+</article>
+
+<% parent_layout 'application' %>

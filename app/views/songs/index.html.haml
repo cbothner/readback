@@ -11,7 +11,7 @@
       %p.with
         =with episode
 
-= render 'episodes/shownotes', episode: @episode
+= render 'episodes/shownotes', episode: @episode, longform: true
 
 - unless @songs.empty?
   %table

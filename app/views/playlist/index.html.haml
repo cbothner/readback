@@ -10,7 +10,8 @@
         =err
   = render 'songs/form' if on_fm_computer?
   %br
-  = render 'episodes/shownotes', episode: @on_air, editable: on_fm_computer?
+  - if on_fm_computer?
+    = render 'episodes/shownotes', episode: @on_air, editable: true
 
 %article.with-sidebar{class: ('scroll-up' if on_fm_computer?)}
   = render 'playlist'
