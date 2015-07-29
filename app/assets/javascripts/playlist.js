@@ -5,6 +5,7 @@ $(document).on("ready page:load", function() {
     $("[autofocus]").focus();
   }
   function showNowButton() {
+    $('h4.small-caps-title').animate({ width: '85%' }, { duration: 'fast', queue: false });
     $('#now-button').fadeIn('fast');
   }
 
@@ -22,6 +23,7 @@ $(document).on("ready page:load", function() {
   $('#now-button').on("click touchend", function() {
     event.preventDefault();
     $('html,body').animate({scrollTop:$(this.hash).offset().top}, 'fast', function() {
+      $('h4.small-caps-title').animate({ width: '100%' }, { duration: 'fast', queue: false });
       $('#now-button').hide();
       enableScroll();
     });

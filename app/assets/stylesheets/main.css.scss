@@ -11,6 +11,11 @@ body {
 }
 .dj-signed-in-container { padding-top: 2em; }
 
+@-webkit-keyframes hiding {
+  0% { top: -10em; }
+  30% { top: -1em; }
+  100% { top: -1em; }
+}
 @keyframes hiding {
   0% { top: -10em; }
   30% { top: -1em; }
@@ -161,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
 /* The Sass "context" map */
 $context-font: (
   showinfo: 0.85,
-  show-notes: 0.6,
+  show-notes: 0.7,
   dj-about: 0.8
 );
 $step-size-heading: 0.25;
@@ -170,12 +175,12 @@ $step-size-heading: 0.25;
 }
 @each $element, $value in $context-font {
   .#{$element} {
-    h1 { @include heading-size(7 * $value); }
-    h2 { @include heading-size(6 * $value); }
-    h3 { @include heading-size(5 * $value); }
-    h4 { @include heading-size(4 * $value); }
-    h5 { @include heading-size(3 * $value); }
-    h6 { @include heading-size(2 * $value); }
+    h1 { @include heading-size(6 * $value); }
+    h2 { @include heading-size(5 * $value); }
+    h3 { @include heading-size(4 * $value); }
+    h4 { @include heading-size(3 * $value); }
+    h5 { @include heading-size(2 * $value); }
+    h6 { @include heading-size(1 * $value); }
   }
 }
 .no-margin {margin: 0;}
@@ -254,6 +259,7 @@ label {
     display: inline-block;
     margin-right: 1em;
     color: #7f9932;
+    font-size: 0.9em;
   }
   p {
     margin: 0.5em 0;
