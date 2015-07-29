@@ -4,6 +4,10 @@
 - subtitle "Be a hero:"
 
 .sub-req-info
+  - if current_dj.can_delete?(@sub_request)
+    .show_delete{style: "padding: 3px"}
+      =link_to "[x]", @sub_request, method: :delete,
+        confirm_with: "Are you sure you want to delete this sub request?  If you do so, you are reaffirming your commitment to do radio at this time."
   %ul
     %li
       %span Show:&nbsp;
@@ -31,5 +35,16 @@
     %p.subtitle The Program Director has made this slot available to all WCBN DJs.
 
 .actions
-  = form_for @sub_request do |f|
-    - f.submit @fulfill_button_text
+  - unless current_dj == @episode.dj
+    = form_for @sub_request do |f|
+      - f.submit @fulfill_button_text
+  - if @sub_request.needs_sub_in_group?
+    - if current_dj.can_create?(SubRequest, for: @episode)
+      = form_for @sub_request do |f|
+        = f.hidden_field :status, value: 'needs_sub'
+        = f.submit "Open this slot to all DJs"
+  - elsif @sub_request.needs_sub? && !@episode.nighttime?
+    - if current_dj.has_role?(:superuser)
+      = form_for @sub_request do |f|
+        = f.hidden_field :status, value: 'needs_sub_including_nighttime_djs'
+        = f.submit "Open this slot to nighttime DJs as well."

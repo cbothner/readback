@@ -17,6 +17,7 @@
       =link_to episode_songs_path(ep), {class: %w(dj-recent-episode showinfo)} do
         %b=ep.show.unambiguous_name
         %p=ep.date_string
+    .rightalign= link_to "All Recent Shows".html_safe, dj_episodes_path(@dj)
 
 %header#headline.with-profile-pic
   %img.profile-pic.robot{src: "http://www.robohash.org/#{Digest::MD5.hexdigest(@dj.email)}?set=set3"}

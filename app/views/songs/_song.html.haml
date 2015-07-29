@@ -1,4 +1,4 @@
-- path = episode_song_path(song.episode, song)
+- path = song_path(song)
 - can_bip = dj_signed_in? && song.episode == @on_air && on_fm_computer?
 %td.width1
   - if can_bip

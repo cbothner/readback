@@ -4,10 +4,12 @@ class SubRequestAuthorizer < ApplicationAuthorizer
     user.active
   end
 
+  def self.updatable_by? (user)
+    user.active
+  end
+
   def updatable_by? (user)
     return true if user.has_role? :superuser
-
-    return false unless user.active
 
     unless resource.confirmed?
       unless resource.needs_sub_including_nighttime_djs?
@@ -19,7 +21,7 @@ class SubRequestAuthorizer < ApplicationAuthorizer
     return true if resource.needs_sub_including_nighttime_djs?
 
     unless user.allowed_to_do_daytime_radio?
-      return false unless resource.episode.beginning.hour.between?(0,6)
+      return false unless resource.episode.nighttime?
     end
 
     if resource.needs_sub_in_group?
@@ -33,6 +35,10 @@ class SubRequestAuthorizer < ApplicationAuthorizer
     return false unless user.active
     ep = options[:for]
     ep.dj == user || ep.show.dj == user || user.has_role?(:superuser)
+  end
+
+  def deletable_by?(user)
+    resource.episode.dj == user || user.has_role?(:superuser)
   end
 
 end

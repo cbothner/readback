@@ -1,10 +1,14 @@
 class EpisodesController < ApplicationController
   before_filter :authenticate_dj!, except: :show
   authorize_actions_for Episode, except: [:show, :index]
-  before_action :set_episode, only: [:show, :update, :request_sub]
+  before_action :set_episode, only: [:update]
 
-  #def index
-  #end
+  def index
+    @dj = Dj.includes(episodes: [show: [:dj, :semester]]).find(params[:dj_id])
+    episodes = @dj.episodes.order(beginning: :desc)
+    @future_episodes = episodes.reject(&:past?).reverse
+    @past_episodes_by_semester = (episodes - @future_episodes).group_by { |x| x.show.semester }
+  end
 
   # PATCH/PUT /episodes/1
   # PATCH/PUT /episodes/1.json

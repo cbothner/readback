@@ -1,9 +1,9 @@
 - title "Sub Board"
 - headline "The Sub Board"
 - disclaimer_needed = false
+- subtitle "#{link_to "Request a sub", dj_episodes_path(current_dj)} for your show.".html_safe
 
 - unless @requests_by_day.empty?
-  - subtitle "Be a hero: take one of these slots!"
 
   %table.sub-board
     %thead

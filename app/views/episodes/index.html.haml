@@ -1,0 +1,42 @@
+- title "#{@dj} — Recent Episodes"
+
+%header#headline.with-profile-pic
+  %img.profile-pic.robot{src: "http://www.robohash.org/#{Digest::MD5.hexdigest(@dj.email)}?set=set3"}
+  -#%img.profile-pic{src: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"}
+  %div
+    %h2="#{@dj}"
+    - if dj_signed_in? || @dj.real_name_is_public
+      %p.subtitle.italic
+        =@dj.name
+        =" (real name is #{"not " unless @dj.real_name_is_public}public)" if dj_signed_in?
+    %p.subtitle.dj-edit-link=link_to "go to profile", dj_path(@dj)
+
+%article
+  .dj-all-episodes
+    %h4 Upcoming Shows
+    - if current_dj == @dj
+      %p.instructions
+        You can request a substitute for a show by clicking the&nbsp;
+        %i.fa.fa-calendar-times-o
+        &nbsp;icon.
+    - @future_episodes.each do |ep|
+      .dj-episode
+        .showinfo
+          %b=ep.show.unambiguous_name
+          %p=ep.date_string
+        - if current_dj == @dj
+          .buttons
+            %p{title: "Request Sub"}
+              = link_to new_episode_sub_request_path(ep) do
+                %i.fa.fa-calendar-times-o
+  .dj-all-episodes
+    - @past_episodes_by_semester.each do |semester, episodes|
+      %h4= semester == Semester.current ? "Most Recent Shows" : semester.season
+      - episodes.each do |ep|
+        .dj-episode
+          .showinfo
+            %b=ep.show.unambiguous_name
+            %p=ep.date_string
+          .buttons
+            = link_to "[#{ep.songs.count}]",
+              episode_songs_path(ep)

@@ -11,15 +11,16 @@ Rails.application.routes.draw do
     get 'based_on/:model_id', action: :new, on: :new
   end
 
-  resources :episodes do
-    resources :songs
-    resources :sub_requests, only: [:new, :create]
+  resources :djs, shallow: true do
+    resources :episodes do
+      resources :songs
+      resources :sub_requests, only: [:new, :create]
+    end
   end
+
   resources :sub_requests, except: [:new, :create]
 
   resources :signoff_instances
-
-  resources :djs
 
   root 'playlist#index'
 

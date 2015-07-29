@@ -56,6 +56,10 @@ class Episode < ActiveRecord::Base
     dj || show.dj
   end
 
+  def nighttime?
+    beginning.hour.between?(0,5)
+  end
+
   def status_string
     case status
     when 'unassigned' then 'Unassigned'

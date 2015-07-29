@@ -58,15 +58,18 @@ class SubRequestsController < ApplicationController
       @episode.dj = current_dj
       @episode.status = :confirmed
       @sub_request.status = :confirmed
+      success_args = [@episode.show, notice: "You’ve signed up to cover for #{old_dj}!"]
+    else
+      @episode.status = params[:sub_request][:status].to_sym
+      @sub_request.status = params[:sub_request][:status].to_sym
+      success_args = [@sub_request, notice: "The slot has been opened to all DJs."]
     end
-    
     respond_to do |format|
       if ActiveRecord::Base.transaction do
-                                          @sub_request.save
-                                          @episode.save
-                                        end
-        format.html {redirect_to @episode.show,
-                     notice: "You’ve signed up to cover for #{old_dj}!"}
+        @sub_request.save
+        @episode.save
+      end
+      format.html {redirect_to *success_args}
       else
         format.html { render :show, notice: @sub_request.errors.full_messages }
       end
@@ -79,7 +82,7 @@ class SubRequestsController < ApplicationController
   end
 
   def set_sub_request
-    @sub_request = SubRequest.find(params[:id])
+    @sub_request = SubRequest.includes(episode: [:dj, :show]).find(params[:id])
     @episode = @sub_request.episode
   end
 
