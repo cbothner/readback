@@ -1,7 +1,7 @@
 class SubRequestsController < ApplicationController
   before_filter :authenticate_dj!
-  authorize_actions_for SubRequest
-  before_action :set_sub_request, only: [:show, :update, :delete]
+  authorize_actions_for SubRequest, except: [:new, :create]
+  before_action :set_sub_request, only: [:show, :update, :destroy]
 
   # GET /sub_requests
   def index
@@ -32,21 +32,29 @@ class SubRequestsController < ApplicationController
   end
 
   def new
-    @episode = Episode.find(sub_request_params[:episode_id])
+    @episode = Episode.find(params[:episode_id])
     @sub_request = @episode.sub_requests.build
+    if @episode.show.is_a? SpecialtyShow
+      @sub_request.group = @episode.show.rotating_hosts - [current_dj]
+    end
     authorize_action_for(@sub_request, for: @episode)
+    render layout: 'thin'
   end
 
   def create
-    @episode = Episode.find(sub_request_params[:episode_id])
+    @episode = Episode.find(params[:episode_id])
     @sub_request = @episode.sub_requests.build(sub_request_params)
     authorize_action_for(@sub_request, for: @episode)
 
+    @sub_request.group.reject! &:blank?
+    @sub_request.status = @sub_request.group.empty? ? :needs_sub : :needs_sub_in_group
+
     respond_to do |format|
       if @sub_request.save
-        format.html { redirect_to @episode.show, notice: 'Sub request placed.' }
+        @episode.status = @sub_request.status
+        format.html { redirect_to sub_requests_path, notice: 'Sub request placed.' }
       else
-        format.html { render :show }
+        format.html { render :new }
       end
     end
   end
@@ -69,10 +77,21 @@ class SubRequestsController < ApplicationController
         @sub_request.save
         @episode.save
       end
-      format.html {redirect_to *success_args}
+        format.html {redirect_to *success_args}
       else
         format.html { render :show, notice: @sub_request.errors.full_messages }
       end
+    end
+  end
+
+  def destroy
+    authorize_action_for(@sub_request)
+    @sub_request.episode.confirmed!
+    @sub_request.destroy
+    respond_to do |format|
+      format.html {
+        redirect_to dj_episodes_path(current_dj), notice: 'Sub request was successfully deleted.'
+      }
     end
   end
 
@@ -87,6 +106,6 @@ class SubRequestsController < ApplicationController
   end
 
   def sub_request_params
-    params.require(:sub_request).permit(:episode_id, :status, :reason, :group)
+    params.require(:sub_request).permit(:status, :reason, group: [])
   end
 end

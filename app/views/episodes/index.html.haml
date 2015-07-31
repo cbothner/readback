@@ -14,18 +14,27 @@
 %article
   .dj-all-episodes
     %h4 Upcoming Shows
-    - if current_dj == @dj
-      %p.instructions
+    %p.instructions
+      - if current_dj == @dj
         You can request a substitute for a show by clicking the&nbsp;
         %i.fa.fa-calendar-times-o
+        &nbsp;icon.
+      - if @future_episodes.map(&:sub_requests).flatten.reject(&:confirmed?).any?
+        Active sub requests are indicated by the&nbsp;
+        %i.fa.fa-exclamation-triangle
         &nbsp;icon.
     - @future_episodes.each do |ep|
       .dj-episode
         .showinfo
           %b=ep.show.unambiguous_name
           %p=ep.date_string
-        - if current_dj == @dj
-          .buttons
+        .buttons
+          - reqs = ep.sub_requests.reject(&:confirmed?)
+          - if reqs.any?
+            %p{title: "Go to active sub request"}
+              = link_to reqs.first do
+                %i.fa.fa-exclamation-triangle
+          - elsif current_dj == @dj
             %p{title: "Request Sub"}
               = link_to new_episode_sub_request_path(ep) do
                 %i.fa.fa-calendar-times-o

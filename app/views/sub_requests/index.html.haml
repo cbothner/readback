@@ -1,7 +1,7 @@
 - title "Sub Board"
 - headline "The Sub Board"
-- disclaimer_needed = false
-- subtitle "#{link_to "Request a sub", dj_episodes_path(current_dj)} for your show.".html_safe
+- disclaimers = {group: false, night: false}
+- subtitle "Be a hero: sub for a fellow DJ's show!"
 
 - unless @requests_by_day.empty?
 
@@ -25,12 +25,15 @@
                 .sub-req
                   %p.req-time= req.at.strftime '%l%P'
                   %p.req-name
-                    = link_to req do
+                    = link_to req,
+                      class: ("highlight" if req.needs_sub_in_group? && disclaimers[:group] = true) do
                       = req.episode.show.unambiguous_name
                     - if req.needs_sub_including_nighttime_djs?
                       *
-                      - disclaimer_needed = true
-  - if disclaimer_needed
+                      - disclaimers[:night] = true
+  - if disclaimers[:group]
+    - subtitle "&nbsp;&nbsp;&nbsp;<span class='highlight'>Highlighted</span> requests have been sent specifically to you.".html_safe
+  - if disclaimers[:night]
     .italic.subtitle *The Program Director has made this slot available to all WCBN DJs.
 
 - else
@@ -38,3 +41,4 @@
 
 - unless current_dj.allowed_to_do_daytime_radio? || current_dj.has_role?(:superuser)
   - subtitle "<br /> (As you have not completed one semester on WCBN, only nighttime requests are shown.)".html_safe
+- subtitle "<br />Or, #{link_to "request a sub", dj_episodes_path(current_dj)} for your own show.".html_safe

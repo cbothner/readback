@@ -1,0 +1,37 @@
+- title "Requesting a Sub for #{@episode.show.unambiguous_name}"
+- headline "Request a Sub"
+- back_link link_to "Back to index", sub_requests_path
+- subtitle "Confirm that the following details are correct."
+
+= form_for [@episode, @sub_request] do |f|
+  .sub-req-info
+    %ul
+      %li
+        %span Show:&nbsp;
+        %span= link_to @episode.show.unambiguous_name, @episode.show
+      %li
+        %span Date:&nbsp;
+        %span= @episode.date_string
+      %li
+        %span Time:&nbsp;
+        %span= @episode.just_time_string
+      %li
+        %span Current DJ:&nbsp;
+        %span= link_to @episode.dj.name, @episode.dj
+    .field
+      = f.label :reason
+      %p.instructions
+        Why do you need a sub?  Justify this request.
+      = f.text_area :reason, style: "height: 5em"
+    .field
+      = f.label :group, "Request Group"
+      %p.instructions
+        You have the option to limit this request to a small group of WCBN DJs.
+        If you choose anyone in the box below, only those people will be asked to
+        fulfill this request.  You will have the option to open this request to
+        the whole station at a later date, if needed.
+        %br
+        Leave this blank to ask the whole station.
+      = f.select :group, active_for_select(f.object.group), {}, multiple: true, tabindex: 22, class: 'chzn-select', data: {placeholder: "Choose DJs to whom you want to limit this request."}
+    .actions
+      = f.submit "Place the request"

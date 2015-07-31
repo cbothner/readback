@@ -15,7 +15,7 @@ class SpecialtyShow < ActiveRecord::Base
   validates_time :beginning, :ending
 
   def rotating_hosts
-    (djs + [coordinator]).uniq.sort_by(&:name)
+    (djs + [coordinator]).uniq.sort_by { |dj| dj.try(&:name) }
   end
 
   def default_status
