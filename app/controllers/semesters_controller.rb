@@ -52,13 +52,17 @@ class SemestersController < ApplicationController
 
         copies.each do |show_type, shows|
           shows.each do |show|
-            s = show_type.constantize.new(
-              show_type.constantize.find(show).attributes
-              .slice("dj_id", "name", "weekday", "beginning", "ending")
-            )
-            s.semester = @semester
-            if s.save
-              s.propagate
+            old = show_type.constantize.find(show)
+            new = show_type.constantize.new(old.attributes
+            .slice("dj_id", "name", "weekday", "beginning", "ending", "coordinator_id"))
+            new.semester = @semester
+            if new.save
+              if new.is_a? SpecialtyShow
+                old.djs.each do |o|
+                  new.djs << o
+                end
+              end
+              new.propagate
             else
               throw
             end
@@ -100,19 +104,21 @@ class SemestersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_semester
-      @semester = Semester.includes(freeform_shows: [:dj], specialty_shows: [:dj,:djs]).find(params[:id])
-      shows = @semester.freeform_shows + @semester.specialty_shows + @semester.talk_shows
+    def set_semester(variable_name = 'semester')
+      id = params[:id] || params.delete(:model_id)
+      var = Semester
+        .includes(freeform_shows: [:dj, :episodes],
+                  specialty_shows: [:dj, :djs, :episodes],
+                  talk_shows: [:dj, :episodes])
+        .find(id)
+      shows = var.freeform_shows + var.specialty_shows + var.talk_shows
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq
       @shows = shows.group_by{|x| x.sort_times(:beginning)[:sortable]}
+      self.instance_variable_set "@#{variable_name}", var
     end
 
     def set_model
-      @model = Semester.includes(freeform_shows: [:dj], specialty_shows: [:dj,:djs]).find_by_id(params.delete(:model_id))
-      @model ||= Semester.current
-      shows = @model.freeform_shows + @model.specialty_shows + @model.talk_shows
-      @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq
-      @shows = shows.group_by{|x| x.sort_times(:beginning)[:sortable]}
+      set_semester('model')
     end
 
     def semester_params

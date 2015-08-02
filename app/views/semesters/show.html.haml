@@ -22,11 +22,19 @@
     - ["", "Monday", "Tuesday", "Wednesday", "Thursday",
       "Friday", "Saturday", "Sunday"].each do |day|
       %td=day
+  - weekday_rowskip_countdown = Hash.new(0)
   - @start_times.each do |time|
     %tr
       %th=time[:printable]
       - 1.upto 7 do |i|
-        - s = @shows[time[:sortable]].select{|x| x.weekday == i % 7}
-        - unless s.empty?
-          %td.show{rowspan: rowspan(time, s.first.sort_times(:ending))}
-            = render s
+        - if weekday_rowskip_countdown[i] == 0
+          - s = @shows[time[:sortable]].select{|x| x.weekday == i % 7}
+          - unless s.empty?
+            - rowspan = rowspan(time, s.first.sort_times(:ending))
+            - weekday_rowskip_countdown[i] = rowspan - 1
+            %td.show{rowspan: rowspan}
+              = render s
+          - else  # no show at this time
+            %td
+        - else
+          - weekday_rowskip_countdown[i] -= 1

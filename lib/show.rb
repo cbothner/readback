@@ -2,7 +2,9 @@ module Show
   UNIMPORTANT_DATE = Time.zone.parse "January 23, 1972"
 
   def most_recent_episode
-    episodes.where("beginning < ?", Time.zone.now).order(beginning: :desc).first
+    #episodes.where("beginning < ?", Time.zone.now).order(beginning: :desc).first
+    episodes.select { |ep| ep.beginning < Time.zone.now }
+      .sort_by(&:beginning).first
   end
 
   def propagate
