@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
+gem 'rails_12factor'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
@@ -87,3 +88,5 @@ group :test do
   gem 'faker'
   gem 'shoulda-matchers'
 end
+
+ruby "2.2.2"
