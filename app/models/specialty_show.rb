@@ -6,8 +6,8 @@ class SpecialtyShow < ActiveRecord::Base
 
   belongs_to :semester
   belongs_to :dj, class_name: "Dj", foreign_key: "coordinator_id"
-  has_and_belongs_to_many :djs
-  has_many :episodes, as: :show
+  has_and_belongs_to_many :djs, dependent: :delete_all
+  has_many :episodes, as: :show, dependent: :destroy
 
   alias_attribute :coordinator, :dj
 

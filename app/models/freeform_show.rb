@@ -6,7 +6,7 @@ class FreeformShow < ActiveRecord::Base
 
   belongs_to :semester
   belongs_to :dj
-  has_many :episodes, as: :show
+  has_many :episodes, as: :show, dependent: :destroy
 
   validates :name, :dj, :weekday, presence: true
   validates_time :beginning, :ending

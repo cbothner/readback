@@ -8,8 +8,8 @@ class Episode < ActiveRecord::Base
 
   belongs_to :show, polymorphic: true
   belongs_to :dj
-  has_many :songs
-  has_many :sub_requests
+  has_many :songs, dependent: :restrict_with_exception
+  has_many :sub_requests, dependent: :destroy
 
   def self.on_air
     where(beginning: (Time.zone.now - 6.hours)..Time.zone.now).order(:beginning).last
