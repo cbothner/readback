@@ -121,7 +121,8 @@ article {
   color: #FFF;
   text-align: center;
 }
-.alert {
+.alert,
+#error_explanation{
   padding: 0.3em 2.5em;
   margin: 0.5em 0;
   border: 1px solid #c0392b;
@@ -129,6 +130,17 @@ article {
   font-weight: 900;
   color: #FFF;
   text-align: center;
+  p {
+    margin: 0;
+  }
+  h2 {
+    color: #FFF;
+    font-size: 1em;
+  }
+  ul {
+    margin: 0;
+    li { text-align: left }
+  }
 }
 
 .sidebar {

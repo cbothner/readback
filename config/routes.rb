@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   devise_for :playlist_editors
-  devise_for :djs
+  devise_for :djs, controllers: {
+    passwords: 'djs/passwords'
+  }
 
   resources :semesters, shallow: true do
     resources :freeform_shows

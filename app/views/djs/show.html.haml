@@ -28,8 +28,12 @@
       %p.subtitle.italic
         =@dj.name
         =" (real name is #{"not " unless @dj.real_name_is_public}public)" if dj_signed_in?
-    - if dj_signed_in? && @dj.updatable_by?(current_dj)
-      %p.subtitle.dj-edit-link=link_to "edit profile", edit_dj_path(@dj)
+    %p.subtitle.dj-edit-link
+      - if dj_signed_in? && @dj.updatable_by?(current_dj)
+        =link_to "edit profile", edit_dj_path(@dj)
+      - if current_dj == @dj
+        •
+        =link_to "change password", edit_dj_registration_path
 
 %aside.thin-sidebar
   = content_for(:dj_activity) unless @dj.about.blank?
