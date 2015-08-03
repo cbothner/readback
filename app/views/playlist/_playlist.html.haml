@@ -1,10 +1,10 @@
 %table.playlist
-  - unless !dj_signed_in? || (defined?(iframe) && iframe)
+  - unless !on_fm_computer? || (defined?(iframe) && iframe)
     %thead
     - @future_items.each do |item|
       %tr.grey
         =render item
-    %tr#now.grey
+    %tr#now.grey{class: "dj-signed-#{dj_signed_in? ? "in" : "out"}-now"}
       %td{colspan: 6}
         ⇧
         %span Next up on WCBN

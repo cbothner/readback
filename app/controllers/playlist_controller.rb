@@ -16,7 +16,7 @@ class PlaylistController < ApplicationController
       end
       items += [@on_air] 
     end
-    items += signoff_instances if dj_signed_in?  # && ON FM COMPUTER
+    items += signoff_instances if playlist_editor_signed_in?
 
     items.sort_by!(&:at).reverse!
     @past_items = items.select{|i| i.at <= Time.zone.now }

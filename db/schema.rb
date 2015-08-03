@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720213244) do
+ActiveRecord::Schema.define(version: 20150720213245) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "djs", force: :cascade do |t|
     t.string   "name"
@@ -53,22 +56,22 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.text     "lists"
   end
 
-  add_index "djs", ["email"], name: "index_djs_on_email", unique: true
-  add_index "djs", ["reset_password_token"], name: "index_djs_on_reset_password_token", unique: true
+  add_index "djs", ["email"], name: "index_djs_on_email", unique: true, using: :btree
+  add_index "djs", ["reset_password_token"], name: "index_djs_on_reset_password_token", unique: true, using: :btree
 
   create_table "djs_roles", id: false, force: :cascade do |t|
     t.integer "dj_id"
     t.integer "role_id"
   end
 
-  add_index "djs_roles", ["dj_id", "role_id"], name: "index_djs_roles_on_dj_id_and_role_id"
+  add_index "djs_roles", ["dj_id", "role_id"], name: "index_djs_roles_on_dj_id_and_role_id", using: :btree
 
   create_table "djs_specialty_shows", id: false, force: :cascade do |t|
     t.integer "dj_id",             null: false
     t.integer "specialty_show_id", null: false
   end
 
-  add_index "djs_specialty_shows", ["specialty_show_id", "dj_id"], name: "index_djs_specialty_shows_on_specialty_show_id_and_dj_id", unique: true
+  add_index "djs_specialty_shows", ["specialty_show_id", "dj_id"], name: "index_djs_specialty_shows_on_specialty_show_id_and_dj_id", unique: true, using: :btree
 
   create_table "episodes", force: :cascade do |t|
     t.integer  "show_id"
@@ -84,8 +87,8 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.string   "sub_request_group"
   end
 
-  add_index "episodes", ["dj_id"], name: "index_episodes_on_dj_id"
-  add_index "episodes", ["show_type", "show_id"], name: "index_episodes_on_show_type_and_show_id"
+  add_index "episodes", ["dj_id"], name: "index_episodes_on_dj_id", using: :btree
+  add_index "episodes", ["show_type", "show_id"], name: "index_episodes_on_show_type_and_show_id", using: :btree
 
   create_table "freeform_shows", force: :cascade do |t|
     t.integer  "semester_id"
@@ -98,8 +101,26 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "freeform_shows", ["dj_id"], name: "index_freeform_shows_on_dj_id"
-  add_index "freeform_shows", ["semester_id"], name: "index_freeform_shows_on_semester_id"
+  add_index "freeform_shows", ["dj_id"], name: "index_freeform_shows_on_dj_id", using: :btree
+  add_index "freeform_shows", ["semester_id"], name: "index_freeform_shows_on_semester_id", using: :btree
+
+  create_table "playlist_editors", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "playlist_editors", ["email"], name: "index_playlist_editors_on_email", unique: true, using: :btree
+  add_index "playlist_editors", ["reset_password_token"], name: "index_playlist_editors_on_reset_password_token", unique: true, using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -109,8 +130,8 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "semesters", force: :cascade do |t|
     t.datetime "beginning"
@@ -128,7 +149,7 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "signoff_instances", ["signoff_id"], name: "index_signoff_instances_on_signoff_id"
+  add_index "signoff_instances", ["signoff_id"], name: "index_signoff_instances_on_signoff_id", using: :btree
 
   create_table "signoffs", force: :cascade do |t|
     t.string   "on"
@@ -150,7 +171,7 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.integer  "episode_id"
   end
 
-  add_index "songs", ["episode_id"], name: "index_songs_on_episode_id"
+  add_index "songs", ["episode_id"], name: "index_songs_on_episode_id", using: :btree
 
   create_table "specialty_shows", force: :cascade do |t|
     t.integer  "semester_id"
@@ -163,8 +184,8 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.datetime "updated_at",     null: false
   end
 
-  add_index "specialty_shows", ["coordinator_id"], name: "index_specialty_shows_on_coordinator_id"
-  add_index "specialty_shows", ["semester_id"], name: "index_specialty_shows_on_semester_id"
+  add_index "specialty_shows", ["coordinator_id"], name: "index_specialty_shows_on_coordinator_id", using: :btree
+  add_index "specialty_shows", ["semester_id"], name: "index_specialty_shows_on_semester_id", using: :btree
 
   create_table "sub_requests", force: :cascade do |t|
     t.integer  "episode_id"
@@ -175,7 +196,7 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "sub_requests", ["episode_id"], name: "index_sub_requests_on_episode_id"
+  add_index "sub_requests", ["episode_id"], name: "index_sub_requests_on_episode_id", using: :btree
 
   create_table "talk_shows", force: :cascade do |t|
     t.integer  "semester_id"
@@ -188,7 +209,7 @@ ActiveRecord::Schema.define(version: 20150720213244) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "talk_shows", ["dj_id"], name: "index_talk_shows_on_dj_id"
-  add_index "talk_shows", ["semester_id"], name: "index_talk_shows_on_semester_id"
+  add_index "talk_shows", ["dj_id"], name: "index_talk_shows_on_dj_id", using: :btree
+  add_index "talk_shows", ["semester_id"], name: "index_talk_shows_on_semester_id", using: :btree
 
 end

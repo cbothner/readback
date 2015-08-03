@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :playlist_editors
   devise_for :djs
 
   resources :semesters, shallow: true do

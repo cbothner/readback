@@ -27,6 +27,6 @@ module ApplicationHelper
   end
   
   def on_fm_computer?
-    dj_signed_in?  #TODO
+    playlist_editor_signed_in?
   end
 end
