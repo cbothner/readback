@@ -4,7 +4,7 @@ module Show
   def most_recent_episode
     #episodes.where("beginning < ?", Time.zone.now).order(beginning: :desc).first
     episodes.select { |ep| ep.beginning < Time.zone.now }
-      .sort_by(&:beginning).first
+      .sort_by(&:beginning).last
   end
 
   def propagate

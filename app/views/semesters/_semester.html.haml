@@ -3,17 +3,22 @@
     - ["", "Monday", "Tuesday", "Wednesday", "Thursday",
       "Friday", "Saturday", "Sunday"].each do |day|
       %td=day
+  - weekday_rowskip_countdown = Hash.new(0)
   - @start_times.each do |time|
     %tr
       %th=time[:printable]
       - 1.upto 7 do |i|
-        - s = @shows[time[:sortable]].select{|x| x.weekday == i % 7}
-        - if s.empty?
-          %td
-        -else
-          - s = s.first
-          %td.show-non-rowskip{data: {show_type: s.class, show_id: s.id}}
-            - if current_page? edit_semester_path(semester)
-              .show_delete=link_to "[x]", s, method: :delete, 
-                confirm_with: "Are you sure you want to delete this show?"
-            = render s, locals: {no_links: defined?(locals) && locals[:no_links]}
+        - if weekday_rowskip_countdown[i] == 0
+          - s = @shows[time[:sortable]].select{|x| x.weekday == i % 7}.first
+          - unless s.nil?
+            - rowspan = rowspan(time, s.sort_times(:ending))
+            - weekday_rowskip_countdown[i] = rowspan - 1
+            %td.show{data: {show_type: s.class, show_id: s.id}, rowspan: rowspan}
+              - if current_page? edit_semester_path(semester)
+                .show_delete=link_to "[x]", s, method: :delete, 
+                  confirm_with: "Are you sure you want to delete this show?"
+              = render s, locals: locals
+          - else  # no show at this time
+            %td.no-show
+        - else
+          - weekday_rowskip_countdown[i] -= 1

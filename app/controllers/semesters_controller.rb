@@ -108,8 +108,8 @@ class SemestersController < ApplicationController
       id = params[:id] || params.delete(:model_id)
       var = Semester
         .includes(freeform_shows: [:dj, :episodes],
-                  specialty_shows: [:dj, :djs, :episodes],
-                  talk_shows: [:dj, :episodes])
+                  specialty_shows: [:dj, :djs],
+                  talk_shows: [:episodes])
         .find(id)
       shows = var.freeform_shows + var.specialty_shows + var.talk_shows
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq

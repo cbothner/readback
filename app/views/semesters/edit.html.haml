@@ -16,7 +16,7 @@
       %li
         %a{href: "#tab-specialty"} Specialty
       %li
-        %a{href: "#tab-talk"} Talk Show
+        %a{href: "#tab-talk"} Talk
     #tab-freeform
       = render "freeform_shows/form"
     #tab-specialty
@@ -25,4 +25,4 @@
       = render "talk_shows/form"
 
 
-= render @semester
+= render @semester, locals: {no_links: false}

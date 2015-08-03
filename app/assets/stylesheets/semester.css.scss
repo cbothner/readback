@@ -7,22 +7,23 @@ table.schedule {
     min-width: 4em;
     width: 4em;
     padding-right: 0.5em;
+    margin-top: -0.3em;
   }
   td.show {
     width: 7em;
     border: 1px solid #BBB;
     padding: 0.2em;
   }
-  td.show-non-rowskip {
+  td.no-show {
     width: 7em;
-    border-top: 5px solid #DDD;
+    border: 1px solid #EEE;
     padding: 0.2em;
   }
 }
 
 .ui-selectee {cursor: pointer}
-table.schedule td.ui-selected { border-top: 5px solid #e67e22 }
-table.schedule td.ui-selecting { border-top: 5px solid #ffcd02 }
+table.schedule td.ui-selected { background-color: #EBFFE8 }
+table.schedule td.ui-selecting { background-color: #FFF9E1 }
 
 .show_name { font-style: italic; }
 .show_with { font-size: 85%; }
