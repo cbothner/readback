@@ -1,0 +1,87 @@
+- title "Trainee — #{@trainee.name}"
+- headline "#{@trainee.name}"
+- subtitle "DJ-in-training"
+- back_link link_to 'All Trainees', trainees_path
+
+- content_for :sidebar do
+  %h3 Actions
+  - if @trainee.demotape.blank?
+    = form_for @trainee do |f|
+      .field.padtop
+        = f.label :demotape, "Accept demo tape"
+        %p.instructions
+          This message will be emailed to the trainee along with instructions
+          for signing up for stage-two sessions and apprenticeships.
+        = f.text_area :demotape, style: "height: 7em"
+      .actions
+        = f.submit "Accept Demo Tape",
+          data: {confirm_with: "Are you sure?", disable_with: "Saving..."}
+  - if current_dj.can_create?(Dj) && !@trainee.demotape.blank?
+    = form_for [Trainee, Dj.new] do |f|
+      = label_tag "Graduate Trainee"
+      %p.instructions
+        Record that this trainee has passed the broadcaster’s exam, create a
+        full DJ account for this trainee, and allow them to begin subbing for
+        nighttime shows.  The trainee will receive an email to that effect.
+      .actions
+        = f.submit "Graduate Trainee",
+          data: {confirm_with: "Are you sure? This action cannot be undone.",
+                 disable_with: "Saving..."}
+  - if current_dj.can_delete?(@trainee)
+    = form_for @trainee do |f|
+      .padtop.margintop
+        = label_tag "Discontinue this person’s training"
+        %p.instructions
+          This trainee will not be able to access their account, and will
+          receive no further reminder emails.  They will
+          %strong not
+          be automatically
+          informed.
+      .actions
+        = f.submit "Discontinue training",
+          data: {confirm_with: "Are you sure? This action cannot be undone.",
+                 disable_with: "Saving..."}
+
+.trainee{data: {interests: @trainee.interests}}
+  .trainee-wide
+    .dj-info
+      %ul
+        %li
+          Attended Stage 1: 
+          = @trainee.created_at.to_date
+        %li
+          Reminder Emails:
+          = @trainee.sent_email
+        %li
+          UM Affiliation:&nbsp;
+          = @trainee.um_dept
+          = Person::AFFILIATION_NAMES[@trainee.um_affiliation]
+        - if @trainee.um_affiliated?
+          %li
+            UMID:
+            = @trainee.um_id
+        %br
+        %li
+          Phone:
+          = @trainee.phone
+        %li
+          Email:
+          = link_to @trainee.email, "mailto://#{@trainee.email}"
+    .interests.grey="Interests: #{@trainee.interests}"
+    .longform
+      Referral:
+      %blockquote=@trainee.referral
+    .longform.grey.padtop
+      Experience:
+      %blockquote=@trainee.experience
+    - unless @trainee.um_affiliated?
+      .longform.padtop
+        Personal Statement:
+        %blockquote=@trainee.statement
+  .trainee-thin.padleft
+    .dj-recent-episodes
+      %h4 Apprenticeships
+      - @trainee.episodes.each do |ep|
+        =link_to episode_songs_path(ep), {class: %w(dj-recent-episode showinfo)} do
+          %b=ep.show.unambiguous_name
+          %p=ep.date_string

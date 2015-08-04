@@ -14,14 +14,15 @@ Rails.application.routes.draw do
     get 'based_on/:model_id', action: :new, on: :new
   end
 
-  resources :djs, shallow: true do
-    resources :episodes do
-      resources :songs
-      resources :sub_requests, only: [:new, :create]
+  resources :trainees, shallow: true do 
+    resources :djs, except: [:index, :new], shallow: true do
+      resources :episodes do
+        resources :songs
+        resources :sub_requests, only: [:new, :create]
+      end
     end
   end
-
-  resources :trainees
+  resources :djs, only: [:index]
 
   resources :sub_requests, except: [:new, :create]
 

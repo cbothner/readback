@@ -3,6 +3,8 @@ class Trainee < ActiveRecord::Base
 
   include Authority::Abilities
 
+  validates :name, :phone, :email, presence: true
+
   with_options if: :um_affiliated? do |dj|
     dj.validates :umid, :um_dept, presence: true
     dj.validates :umid, numericality: {only_integer: true}

@@ -37,14 +37,14 @@
 .actions
   - unless current_dj == @episode.dj
     = form_for @sub_request do |f|
-      - f.submit @fulfill_button_text
+      - f.submit @fulfill_button_text, data: {disable_with: "Saving..."}
   - if @sub_request.needs_sub_in_group?
     - if current_dj.can_create?(SubRequest, for: @episode)
       = form_for @sub_request do |f|
         = f.hidden_field :status, value: 'needs_sub'
-        = f.submit "Open this slot to all DJs"
+        = f.submit "Open this slot to all DJs", data: {disable_with: "Saving..."}
   - elsif @sub_request.needs_sub? && !@episode.nighttime?
     - if current_dj.has_role?(:superuser)
       = form_for @sub_request do |f|
         = f.hidden_field :status, value: 'needs_sub_including_nighttime_djs'
-        = f.submit "Open this slot to nighttime DJs as well."
+        = f.submit "Open this slot to nighttime DJs as well.", data: {disable_with: "Saving..."}

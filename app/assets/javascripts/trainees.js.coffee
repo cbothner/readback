@@ -7,6 +7,7 @@ matches = (el, words) ->
 
 $(document).on "ready page:load", ->
 
+  $(document).off 'click tap', '.interest-link'
   $(document).on "click tap", ".interest-link", ->
     traineeInterests = $("#trainee_interests")
     interests = traineeInterests.val()

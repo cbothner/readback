@@ -2,29 +2,27 @@
   position: absolute;
   width: inherit;
 }
-.trainee {
+.trainee{
   margin: 0;
   margin-top: 0.75em;
   width: 100%;
-  .trainee-survey {
-    float: left;
-    vertical-align: middle;
-    width: 60%;
-  }
-  .trainee-demographics {
-    @extend .trainee-survey;
-
-    max-width: 30%;
-  }
   .buttons {
     padding-left: 1em;
     float: none;
     display: block;
   }
 }
+.trainee-wide {
+  float: left;
+  vertical-align: middle;
+  width: 60%;
+}
+.trainee-thin {
+  @extend .trainee-wide;
+  max-width: 30%;
+}
 .inline{ display: inline }
 .grey { color: #777 }
-.small { font-size: 90% }
 .smaller {
   font-size: 86%;
   position: relative;
@@ -33,7 +31,10 @@
 .green { color: #8fb913 }
 .interests {
   font-size: 80%;
-  white-space: nowrap;
   clear: both;
   margin-bottom: 0.75em;
 }
+.nowrap { white-space: nowrap; }
+.padtop{ padding-top: 0.5em; }
+.margintop { margin-top: 1em; }
+.padleft{ padding-left: 1em; }

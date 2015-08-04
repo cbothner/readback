@@ -1,3 +1,4 @@
+- title "Trainees"
 - headline "DJs In Training"
 - subtitle "The &nbsp;<i class='fa fa-headphones'></i>&nbsp; icon indicates that a trainee’s demo tape has been approved.<br />The circled number indicates the amount of on-air training they’ve had: stage two and apprenticeships.".html_safe
 - back_link link_to 'New Trainee', new_trainee_path
@@ -18,12 +19,11 @@
 -@trainees.each do |trainee|
   .trainee{data: {interests: trainee.interests}}
     .small.grey="#{trainee.created_at.to_date} — #{trainee.sent_email}"
-    .trainee-demographics
+    .trainee-thin
       %h3.name.inline=link_to trainee.name, trainee
       - unless trainee.demotape.blank?
         %span{title: "Demo Tape Approved"}
-          = link_to :back do
-            %i.fa.fa-headphones.green
+          %i.fa.fa-headphones.green
       %span.smaller.grey
         =circled_number(trainee.episodes.count) if trainee.episodes.count.between?(1, 20)
       %br
@@ -33,8 +33,8 @@
       %br
       .inline=trainee.phone
       .inline=' — '+trainee.email
-    .trainee-survey
+    .trainee-wide
       .small='Referral: '+trainee.referral
       .small.grey='Experience: '+trainee.experience
-    .interests.grey="Interests: #{trainee.interests}"
+    .interests.grey.nowrap="Interests: #{trainee.interests}"
 .hidden-trainees.subtitle.italic

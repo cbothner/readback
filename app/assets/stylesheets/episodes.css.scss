@@ -36,11 +36,12 @@
       }
       blockquote {
         clear: left;
-        margin: 0 1em 0 2em;
       }
     }
   }
 }
+
+blockquote {margin: 0 1em 0 2em; }
 
 .edit_sub_request {
   margin-bottom: 0.5em;
