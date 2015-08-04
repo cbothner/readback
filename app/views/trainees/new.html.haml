@@ -3,12 +3,12 @@
 - subtitle "Please register as a new WCBN DJ-in-training."
 
 .dj-form-container
-  = form_for(@dj) do |f|
+  = form_for(@trainee) do |f|
     -if flash[:notice]
       .notice=flash[:notice]
-    -if @dj.errors.any? 
+    -if @trainee.errors.any? 
       .alert
-        - @dj.errors.full_messages.each do |msg|
+        - @trainee.errors.full_messages.each do |msg|
           %p= msg
     .field
       =f.label :name 
@@ -34,7 +34,7 @@
           ['U-M Faculty or Staff', 'faculty'],
           ['U-M Alumnus/a', 'alumnus'],
           ['Community Member', 'community']],
-        @dj.um_affiliation) 
+        @trainee.um_affiliation) 
     .field.field-ending
       = f.label :um_dept, "What school/department, if applicable?" 
       %br
@@ -53,13 +53,12 @@
       %p.instructions
         What aspect of radio are you most interested in doing? Choose as many as apply.
       .instructions
-        = interest_links ["Freeform Music Show", "Talkshow", "Sports Radio"]
-        %br
-        = interest_links ["Development", "Engineering", "Events", "Publicity", "Music Review"]
-        %br
-        = interest_links ["Social Media", "Website", "Carts", "Archiving/Library Management"]
+        = interest_links ["Freeform Music Show", "Talk Show", "Sports Radio",
+                          "Development", "Engineering", "Events", "Publicity",
+                          "Music Review", "Social Media", "Website",
+                          "Producing Recorded Announcements", "Library Management"]
       = f.text_area :interests 
-    .field{ class: ('hidden' unless needs_statement @dj) }
+    .field{ class: ('hidden' unless needs_statement @trainee) }
       = f.label :statement, "Community Volunteer's Personal Statement"
       %br
       %p.instructions
@@ -74,45 +73,5 @@
         off-air work at the station.  Do you have the time for this kind of
         commitment?  What would your contribution be?
       = f.text_area :statement, class: "tall"
-    -#- if @trainers_view 
-      -#.field
-        -#= f.label :stage1, 'Stage One Training'
-        -#%br
-        -#= f.text_field :stage1 
-      -#.field
-        -#= f.label :demotape, 'Demo Tape Approval'
-        -#= approval_button 'demotape'
-        -#%br
-        -#= f.text_field :demotape 
-      -#.field
-        -#= f.label :stage2, 'Stage Two Training'
-        -#= approval_button 'stage2'
-        -#%br
-        -#= f.text_field :stage2 
-      -#.field
-        -#= f.label :apprenticeship_freeform1, 'Freeform Apprenticeship No. 1'
-        -#= approval_button 'apprenticeship_freeform1'
-        -#%br
-        -#= f.text_field :apprenticeship_freeform1 
-      -#.field
-        -#= f.label :apprenticeship_freeform2, 'Freeform Apprenticeship No. 2'
-        -#= approval_button 'apprenticeship_freeform2'
-        -#%br
-        -#= f.text_field :apprenticeship_freeform2 
-      -#.field
-        -#= f.label :apprenticeship_specialty1, 'Specialty Apprenticeship No. 1'
-        -#= approval_button 'apprenticeship_specialty1'
-        -#%br
-        -#= f.text_field :apprenticeship_specialty1 
-      -#.field
-        -#= f.label :apprenticeship_specialty2, 'Specialty Apprenticeship No. 2'
-        -#= approval_button 'apprenticeship_specialty2'
-        -#%br
-        -#= f.text_field :apprenticeship_specialty2 
-      -#.field
-        -#= f.label :broadcasters_exam, 'Broadcaster\'s Exam Passed'
-        -#= approval_button 'broadcasters_exam'
-        -#%br
-        -#= f.text_field :broadcasters_exam 
     .actions
       = f.submit "Submit", data: {disable_with: "Saving..."}

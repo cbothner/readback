@@ -10,13 +10,16 @@ $(document).on("ready page:load", function() {
   }
 
   function enableScroll() {
-    $(window).scroll(function(){
-      var diff = Math.abs($(window).scrollTop() - $("#now").offset().top);
-      if (diff > 100) {
-        showNowButton();
-        $(window).off("scroll")
-      }
-    });
+    now = $("#now");
+    if (now.offset()) {
+      $(window).scroll(function(){
+        var diff = Math.abs($(window).scrollTop() - now.offset().top);
+        if (diff > 100) {
+          showNowButton();
+          $(window).off("scroll")
+        }
+      });
+    }
   }
   enableScroll();
 

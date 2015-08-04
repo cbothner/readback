@@ -21,6 +21,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :trainees
+
   resources :sub_requests, except: [:new, :create]
 
   resources :signoff_instances

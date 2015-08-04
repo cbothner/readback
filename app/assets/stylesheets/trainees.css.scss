@@ -1,0 +1,39 @@
+.absolute{
+  position: absolute;
+  width: inherit;
+}
+.trainee {
+  margin: 0;
+  margin-top: 0.75em;
+  width: 100%;
+  .trainee-survey {
+    float: left;
+    vertical-align: middle;
+    width: 60%;
+  }
+  .trainee-demographics {
+    @extend .trainee-survey;
+
+    max-width: 30%;
+  }
+  .buttons {
+    padding-left: 1em;
+    float: none;
+    display: block;
+  }
+}
+.inline{ display: inline }
+.grey { color: #777 }
+.small { font-size: 90% }
+.smaller {
+  font-size: 86%;
+  position: relative;
+  top: -1px;
+}
+.green { color: #8fb913 }
+.interests {
+  font-size: 80%;
+  white-space: nowrap;
+  clear: both;
+  margin-bottom: 0.75em;
+}

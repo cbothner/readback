@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720213245) do
+ActiveRecord::Schema.define(version: 20150720213247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,31 +19,18 @@ ActiveRecord::Schema.define(version: 20150720213245) do
   create_table "djs", force: :cascade do |t|
     t.string   "name"
     t.string   "phone"
-    t.string   "email",                     default: "", null: false
+    t.string   "email",                  default: "", null: false
     t.string   "um_affiliation"
     t.string   "um_dept"
     t.integer  "umid"
-    t.string   "experience"
-    t.string   "referral"
-    t.string   "interests"
-    t.text     "statement"
-    t.string   "stage1"
-    t.string   "demotape"
-    t.string   "stage2"
-    t.string   "apprenticeship_freeform1"
-    t.string   "apprenticeship_freeform2"
-    t.string   "apprenticeship_specialty1"
-    t.string   "apprenticeship_specialty2"
-    t.string   "broadcasters_exam"
-    t.integer  "most_recent_email"
     t.boolean  "active"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.string   "encrypted_password",        default: "", null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",             default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -85,10 +72,12 @@ ActiveRecord::Schema.define(version: 20150720213245) do
     t.datetime "updated_at",                          null: false
     t.string   "sub_request_information"
     t.string   "sub_request_group"
+    t.integer  "trainee_id"
   end
 
   add_index "episodes", ["dj_id"], name: "index_episodes_on_dj_id", using: :btree
   add_index "episodes", ["show_type", "show_id"], name: "index_episodes_on_show_type_and_show_id", using: :btree
+  add_index "episodes", ["trainee_id"], name: "index_episodes_on_trainee_id", using: :btree
 
   create_table "freeform_shows", force: :cascade do |t|
     t.integer  "semester_id"
@@ -212,4 +201,28 @@ ActiveRecord::Schema.define(version: 20150720213245) do
   add_index "talk_shows", ["dj_id"], name: "index_talk_shows_on_dj_id", using: :btree
   add_index "talk_shows", ["semester_id"], name: "index_talk_shows_on_semester_id", using: :btree
 
+  create_table "trainees", force: :cascade do |t|
+    t.string   "name"
+    t.string   "phone"
+    t.string   "email"
+    t.string   "um_affiliation"
+    t.string   "um_dept"
+    t.integer  "umid"
+    t.string   "experience"
+    t.string   "referral"
+    t.string   "interests"
+    t.text     "statement"
+    t.string   "demotape"
+    t.string   "stage2"
+    t.string   "apprenticeships"
+    t.string   "broadcasters_exam"
+    t.integer  "most_recent_email"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "dj_id"
+  end
+
+  add_index "trainees", ["dj_id"], name: "index_trainees_on_dj_id", using: :btree
+
+  add_foreign_key "trainees", "djs"
 end

@@ -8,6 +8,7 @@ class Episode < ActiveRecord::Base
 
   belongs_to :show, polymorphic: true
   belongs_to :dj
+  belongs_to :trainee
   has_many :songs, dependent: :restrict_with_exception
   has_many :sub_requests, dependent: :destroy
 

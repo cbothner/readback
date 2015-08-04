@@ -47,7 +47,7 @@
             %li
               UM Affiliation:&nbsp;
               = @dj.um_dept
-              = Dj::AFFILIATION_NAMES[@dj.um_affiliation]
+              = Person::AFFILIATION_NAMES[@dj.um_affiliation]
             - if @dj.um_affiliated?
               %li
                 UMID:

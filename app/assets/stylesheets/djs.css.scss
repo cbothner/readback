@@ -209,10 +209,10 @@ a.dj-recent-episode:first-child {
   width: 13em;
   float: left;
   display: table;
-  .showinfo, .buttons {
-    display: table-cell;
-    vertical-align: middle;
-  }
+}
+.dj-episode .showinfo, .buttons {
+  display: table-cell;
+  vertical-align: middle;
 }
 .buttons {
   b, p {margin: 0}
@@ -239,19 +239,19 @@ a.dj-recent-episode:first-child {
 .dj-form-container {
   width: 30em;
   margin: 0;
-
-  input.interest-link {
-    width: auto;
-    margin-right: 0.4em;
-    margin-bottom: 0.4em;
-  }
 }
-  textarea{
-    height: 3em;
-  }
-  textarea.tall{
-    height: 10em;
-  }
+
+.instructions input.interest-link {
+  width: auto !important;
+  margin-right: 0.4em !important;
+  margin-bottom: 0.4em !important;
+}
+textarea{
+  height: 3em;
+}
+textarea.tall{
+  height: 10em;
+}
 .hidden{ display:none; }
 
 .djs-container {
