@@ -5,7 +5,7 @@ class TraineesController < ApplicationController
   # GET /trainees
   # GET /trainees.json
   def index
-    @trainees = Trainee.all.reject{|t| t.broadcasters_exam.accepted?}
+    @trainees = Trainee.where(disqualified: false).reject{|t| t.broadcasters_exam.accepted?}
       .sort_by { |t| sortable(t) }.reverse
   end
 
@@ -79,7 +79,8 @@ class TraineesController < ApplicationController
     def trainee_params
       params.require(:trainee).permit(:name, :phone, :email, :umid,
                                      :um_affiliation, :um_dept, :experience,
-                                     :referral, :interests, :statement)
+                                     :referral, :interests, :statement,
+                                     :disqualified)
     end
 
     def sortable(t)
