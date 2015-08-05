@@ -5,6 +5,7 @@ module ApplicationHelper
   end
 
   def lesc(text)
+    text ||= ''
     [['“', '``'], ['”', "''"], ['‘', '`'], ['’', "'"]].each do |a, b|
       text.sub! a, b
     end

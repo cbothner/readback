@@ -11,6 +11,7 @@
 \usepackage{textpos}
 
 \usepackage{longtable}
+\usepackage{tabulary}
 \usepackage{booktabs}
 
 
@@ -19,27 +20,30 @@
 \begin{center}
 
 \textbf{WCBN Volunteer Roster}\\
-\emph{Current as of <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>}
+\emph{Current as of <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>}\\
+{\footnotesize U--M Affiliation Key: S.\@ = Student --- A.\@ = Alumnus/a --- F./S.\@ =
+Faculty/Staff --- C.\@ A.\@ = Community Advisor}
 
-\begin{longtable}{llll}
+\begin{longtable}{lllll}
 \toprule
-\textsc{Name} & \textsc{Email} & \textsc{Affiliation} & \textsc{Roles}\\
+\textsc{Name} & \textsc{Phone} & \textsc{Email} & \textsc{U-M} & \textsc{Roles}\\
 \midrule
 \endfirsthead
-\multicolumn{4}{c}%
-  {WCBN Volunteer Roster -- <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>} \\\\
+\multicolumn{5}{c}%
+  {WCBN Volunteer Roster --- <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>} \\\\
 \toprule
-\textsc{Name} & \textsc{Affiliation} & \textsc{Email}\\
+\textsc{Name} & \textsc{Phone} & \textsc{Email} & \textsc{U-M} & \textsc{Roles}\\
 \midrule
 \endhead
-\midrule \multicolumn{4}{r}{\textit{Continued on next page}} \\
+\midrule \multicolumn{5}{r}{\textit{Continued on next page}} \\
 \endfoot
 \endlastfoot
 <% @djs.each do |dj| %>
-  <%= lesc(dj.name) %> &
-  \texttt{<%= lesc(dj.email) %>} &
-  <%=lesc(dj.um_affiliation.capitalize) %> &
-  <%=lesc(dj.roles.sort * ', ') %>
+  <%= lesc dj.name %> &
+  <%= lesc dj.phone %> &
+  \texttt{<%= lesc dj.email %>} &
+  <%=abbr dj.um_affiliation %> &
+  <%=lesc roles_for_roster(dj) %>
   \\
 <% end %>
 \bottomrule

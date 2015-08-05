@@ -18,4 +18,29 @@ module DjsHelper
     puts "selected = #{selected}"
     options_from_collection_for_select(active_djs, :id, :name, selected)
   end
+
+  def abbr(affil)
+    case affil
+    when 'community' then 'C.\@ A.'
+    when 'student' then 'S.'
+    when 'faculty' then 'F./S.'
+    when 'alumni' then 'A.'
+    end
+  end
+
+  def roles_for_roster(dj)
+    current_semester_shows = dj.shows.select{ |x| x.semester == Semester.current }
+    if current_semester_shows.empty?
+      "Sub Only"
+    else
+      types = current_semester_shows
+        .map {|x| x.class.name.underscore.humanize.titlecase}
+        .uniq
+      if types.length > 1
+        (types.map{ |x| x.split(' ').first } * ', ') + ' Shows'
+      else
+        types.first
+      end
+    end
+  end
 end

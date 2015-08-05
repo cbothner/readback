@@ -12,6 +12,13 @@ class DjsController < ApplicationController
     non_trainees = (djs - @trainees).sort_by(&:name)
     @active_djs = non_trainees.select{ |dj| dj.semesters_count > 0 }
     @trained = (non_trainees - @active_djs)
+
+    respond_to do |format|
+      format.html
+      format.pdf {
+        @djs = (@active_djs + @trained).sort_by(&:name)
+      }
+    end
   end
 
   # GET /djs/1
