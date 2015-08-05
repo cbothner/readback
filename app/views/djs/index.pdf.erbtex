@@ -2,7 +2,6 @@
 \documentclass[10pt, letterpaper]{article}
 
 \usepackage[margin=1cm, bottom=2cm]{geometry}
-\usepackage{fourier}
 
 \usepackage{longtable}
 \usepackage{booktabs}
