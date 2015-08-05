@@ -1,2 +1,2 @@
 https://github.com/heroku/heroku-buildpack-ruby.git
-git://github.com/Thermondo/heroku-buildpack-tex.git
+git://github.com/mezis/heroku-buildpack-tex.git
