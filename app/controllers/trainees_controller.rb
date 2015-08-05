@@ -5,13 +5,26 @@ class TraineesController < ApplicationController
   # GET /trainees
   # GET /trainees.json
   def index
-    @trainees = Trainee.where(disqualified: false).reject{|t| t.broadcasters_exam.accepted?}
-      .sort_by { |t| sortable(t) }.reverse
+    @trainees = Trainee.includes(:episodes).where(disqualified: false)
+      .reject { |t| t.broadcasters_exam.accepted? }
+      .sort_by { |t| sortable(t) }
+      .reverse
   end
 
   # GET /trainees/1
   # GET /trainees/1.json
   def show
+    episodes = @trainee.episodes
+    @apprenticeships = Hash.new
+    sched = episodes.reject(&:past?)
+    happened = (episodes - sched)
+      .reject {|e| e.shadowed == false}
+      .sort_by(&:beginning)
+    @apprenticeships[:stage_two_training] = happened.empty? ? [] : [happened.shift]
+    @apprenticeships[:freeform_apprenticeships] = happened
+      .select{ |ep| ep.show.is_a? FreeformShow }
+    @apprenticeships[:specialty_apprenticeships] = happened.select{ |ep| ep.show.is_a? SpecialtyShow }
+    @apprenticeships[:scheduled_apprenticeships] = sched  # this is last for order in the view
   end
 
   # GET /trainees/new
@@ -43,10 +56,11 @@ class TraineesController < ApplicationController
   # PATCH/PUT /trainees/1.json
   def update
     if params[:trainee].include? :demotape
-      @trainee.demotape = Trainee::Acceptance.new(
-        timestamp: Time.zone.now, dj_id: current_dj.id,
-        message: params[:trainee][:demotape])
+      @trainee.demotape = Trainee::Acceptance.new(Time.zone.now, current_dj.id,
+                                                  params[:trainee][:demotape])
     end
+
+    byebug
 
     respond_to do |format|
       if @trainee.update(trainee_params)
@@ -72,7 +86,7 @@ class TraineesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trainee
-      @trainee = Trainee.find(params[:id])
+      @trainee = Trainee.includes(episodes: [:show]).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -41,6 +41,8 @@
 
 %article.with-thin-sidebar.with-right-sidebar
   %section
+    - if @dj.trainee && dj_signed_in? && current_dj.can_read?(@dj.trainee)
+      .rightalign.minustop= link_to "Training History", @dj.trainee
     - unless !dj_signed_in? && @dj.website.blank? && @dj.public_email.blank?
       .dj-info
         %ul

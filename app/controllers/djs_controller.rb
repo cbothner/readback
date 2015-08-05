@@ -42,9 +42,8 @@ class DjsController < ApplicationController
 
     respond_to do |format|
       if @dj.save
-        trainee.broadcasters_exam = Trainee::Acceptance.new(
-          timestamp: Time.zone.now, dj_id: current_dj.id
-        )
+        trainee.broadcasters_exam = Trainee::Acceptance.new(Time.zone.now,
+                                                            current_dj.id, "")
         trainee.save
         flash[:notice] = 'Got it! Welcome to WCBN'
         format.html { redirect_to @dj, notice: "#{@dj.name} is now a WCBN DJ." }

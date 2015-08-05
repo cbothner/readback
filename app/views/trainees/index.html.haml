@@ -30,7 +30,8 @@
         %span{title: "Demo Tape Approved"}
           %i.fa.fa-headphones.green
       %span.smaller.grey
-        =circled_number(trainee.episodes.count) if trainee.episodes.count.between?(1, 20)
+        - episodes_shadowed = trainee.episodes.select(&:past?)
+        = circled_number(episodes_shadowed.count) if episodes_shadowed.count.between?(1, 20)
       %br
       .inline= trainee.um_dept
       .inline=Person::AFFILIATION_NAMES[trainee.um_affiliation]

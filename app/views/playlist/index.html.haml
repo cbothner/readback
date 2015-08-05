@@ -4,10 +4,6 @@
   %a#now-button{href: "#now"}
     %span now
   = render 'episodes/upcoming_episodes'
-  - if flash[:alert]
-    .alert
-      - Array(flash[:alert]).each do |err|
-        =err
   = render 'songs/form' if on_fm_computer?
   %br
   - if on_fm_computer?

@@ -12,6 +12,8 @@ class Dj < ActiveRecord::Base
   has_many :talk_shows
 
   has_many :episodes
+
+  has_one :trainee
   
   serialize :roles, Array
 
