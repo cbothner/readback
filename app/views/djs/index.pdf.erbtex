@@ -4,14 +4,7 @@
 \usepackage[cm]{fullpage}
 \usepackage{fourier}
 
-\usepackage{graphics}
-\graphicspath{ {../../../app/assets/images/} }
-\usepackage{tikz}
-\usetikzlibrary{calc}
-\usepackage{textpos}
-
 \usepackage{longtable}
-\usepackage{tabulary}
 \usepackage{booktabs}
 
 
@@ -21,7 +14,7 @@
 
 \textbf{WCBN Volunteer Roster}\\
 \emph{Current as of <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>}\\
-{\footnotesize U--M Affiliation Key: S.\@ = Student --- A.\@ = Alumnus/a --- F./S.\@ =
+{\footnotesize U-M Affiliation Key: S.\@ = Student --- A.\@ = Alumnus/a --- F./S.\@ =
 Faculty/Staff --- C.\@ A.\@ = Community Advisor}
 
 \begin{longtable}{lllll}
