@@ -1,7 +1,7 @@
 - title "Trainees"
 - headline "DJs In Training"
 - subtitle "The &nbsp;<i class='fa fa-headphones'></i>&nbsp; icon indicates that a trainee’s demo tape has been approved.<br />The circled number indicates the amount of on-air training they’ve had: stage two and apprenticeships.".html_safe
-- back_link link_to 'New Trainee', new_trainee_path
+- back_link link_to 'Add New Trainee', new_trainee_path
 
 - content_for :sidebar do
   .absolute
@@ -16,7 +16,12 @@
                         "Producing Recorded Announcements", "Library Management"]
     %textarea#trainee_interests{type: "text"}
 
--@trainees.each do |trainee|
+.rightalign.minustop
+  - if params[:sort] == 'progress'
+    = link_to "show most recent", {sort: 'recent'}
+  - else
+    = link_to "show most progressed", {sort: 'progress'}
+- @trainees.each do |trainee|
   .trainee{data: {interests: trainee.interests}}
     .small.grey="#{trainee.created_at.to_date} — #{trainee.sent_email}"
     .trainee-thin

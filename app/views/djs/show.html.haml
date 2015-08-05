@@ -3,21 +3,22 @@
 -# DJ Activity is in the sidebar if the dj has about text written, and in the
 -# main body if not.
 - content_for :dj_activity do
-  .dj-shows
-    - @shows.each do |name, shows|
-      %h4=name
-      %ul
-        - shows.each do |show|
-          %li
-            =link_to "#{show.semester.season}", show
-            =raw show.time_string
-  .dj-recent-episodes
-    %h4 Most Recent Shows
-    - @recent_episodes.each do |ep|
-      =link_to episode_songs_path(ep), {class: %w(dj-recent-episode showinfo)} do
-        %b=ep.show.unambiguous_name
-        %p=ep.date_string
-    .rightalign= link_to "All Recent Shows".html_safe, dj_episodes_path(@dj)
+  - unless @shows.empty? && @recent_episodes.empty?
+    .dj-shows
+      - @shows.each do |name, shows|
+        %h4=name
+        %ul
+          - shows.each do |show|
+            %li
+              =link_to "#{show.semester.season}", show
+              =raw show.time_string
+    .dj-recent-episodes
+      %h4 Most Recent Shows
+      - @recent_episodes.each do |ep|
+        =link_to episode_songs_path(ep), {class: %w(dj-recent-episode showinfo)} do
+          %b=ep.show.unambiguous_name
+          %p=ep.date_string
+      .rightalign= link_to "All Recent Shows".html_safe, dj_episodes_path(@dj)
 
 %header#headline.with-profile-pic
   %img.profile-pic.robot{src: "http://www.robohash.org/#{Digest::MD5.hexdigest(@dj.email)}?set=set3"}
@@ -67,12 +68,14 @@
             %li
               = "#{"Public " if dj_signed_in?}Email:"
               = link_to @dj.public_email, "mailto://#{@dj.public_email}"
+    .dj-about
+      - unless @dj.about.blank?
+        = markdown @dj.about
+      - else
+        %span.italic This DJ has not written a bio.
     - if @dj.about.blank?
       %div
         = content_for(:dj_activity)
-    - unless @dj.about.blank?
-      .dj-about
-        = markdown @dj.about
 
   - unless @dj.lists.blank?
     %aside.right-sidebar
