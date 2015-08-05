@@ -5,7 +5,8 @@ class TraineesController < ApplicationController
   # GET /trainees
   # GET /trainees.json
   def index
-    @trainees = Trainee.all
+    @trainees = Trainee.all.reject{|t| t.broadcasters_exam.accepted?}
+      .sort_by { |t| sortable(t) }.reverse
   end
 
   # GET /trainees/1
@@ -41,6 +42,12 @@ class TraineesController < ApplicationController
   # PATCH/PUT /trainees/1
   # PATCH/PUT /trainees/1.json
   def update
+    if params[:trainee].include? :demotape
+      @trainee.demotape = Trainee::Acceptance.new(
+        timestamp: Time.zone.now, dj_id: current_dj.id,
+        message: params[:trainee][:demotape])
+    end
+
     respond_to do |format|
       if @trainee.update(trainee_params)
         format.html { redirect_to @trainee, notice: 'Trainee was successfully updated.' }
@@ -73,5 +80,15 @@ class TraineesController < ApplicationController
       params.require(:trainee).permit(:name, :phone, :email, :umid,
                                      :um_affiliation, :um_dept, :experience,
                                      :referral, :interests, :statement)
+    end
+
+    def sortable(t)
+      if params[:sort] == "progress"
+        # t.volunteer_hours +
+        (t.demotape.accepted? ? 10 : 0) +
+          (100 * t.episodes.count)
+      else
+        t.created_at
+      end
     end
 end

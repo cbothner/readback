@@ -36,16 +36,21 @@ class DjsController < ApplicationController
   # POST /djs
   # POST /djs.json
   def create
-    @dj = Dj.new(dj_params)
-    @dj.stage1 = "#{Date.today.to_date}"
+    trainee = Trainee.find(params[:trainee_id])
+    @dj = Dj.new trainee.attributes.slice(*(Dj.column_names - ['id']))
+    @dj.password ||= "#{trainee.created_at}"
 
     respond_to do |format|
       if @dj.save
+        trainee.broadcasters_exam = Trainee::Acceptance.new(
+          timestamp: Time.zone.now, dj_id: current_dj.id
+        )
+        trainee.save
         flash[:notice] = 'Got it! Welcome to WCBN'
-        format.html { redirect_to action: 'new' }
+        format.html { redirect_to @dj, notice: "#{@dj.name} is now a WCBN DJ." }
         format.json { render :show, status: :created, location: @dj }
       else
-        format.html { render :new }
+        format.html { render :edit }
         format.json { render json: @dj.errors, status: :unprocessable_entity }
       end
     end

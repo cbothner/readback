@@ -1,4 +1,12 @@
 class Trainee < ActiveRecord::Base
+  Acceptance = Struct.new(:timestamp, :dj_id, :message) do
+    def accepted?
+      !timestamp.nil?
+    end
+  end
+  serialize :demotape, Acceptance
+  serialize :broadcasters_exam, Acceptance
+
   include Person
 
   include Authority::Abilities

@@ -21,7 +21,7 @@
     .small.grey="#{trainee.created_at.to_date} — #{trainee.sent_email}"
     .trainee-thin
       %h3.name.inline=link_to trainee.name, trainee
-      - unless trainee.demotape.blank?
+      - if trainee.demotape.accepted?
         %span{title: "Demo Tape Approved"}
           %i.fa.fa-headphones.green
       %span.smaller.grey

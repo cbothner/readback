@@ -5,7 +5,7 @@
 
 - content_for :sidebar do
   %h3 Actions
-  - if @trainee.demotape.blank?
+  - unless @trainee.demotape.accepted?
     = form_for @trainee do |f|
       .field.padtop
         = f.label :demotape, "Accept demo tape"
@@ -16,8 +16,8 @@
       .actions
         = f.submit "Accept Demo Tape",
           data: {confirm_with: "Are you sure?", disable_with: "Saving..."}
-  - if current_dj.can_create?(Dj) && !@trainee.demotape.blank?
-    = form_for [Trainee, Dj.new] do |f|
+  - if current_dj.can_create?(Dj) && @trainee.demotape.accepted?
+    = form_for [@trainee, Dj.new] do |f|
       = label_tag "Graduate Trainee"
       %p.instructions
         Record that this trainee has passed the broadcaster’s exam, create a
