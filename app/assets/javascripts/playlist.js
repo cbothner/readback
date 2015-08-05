@@ -39,4 +39,8 @@ $(document).on("ready page:load", function() {
     debugger;
   });
 
+  $("#trainee-attendance-hdr").on("click touchend", function() {
+    $("#trainee-attendance").slideToggle("fast");
+  });
+
 });

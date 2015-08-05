@@ -1,5 +1,5 @@
 class EpisodesController < ApplicationController
-  before_filter :authenticate_dj!, except: :show
+  before_filter :authenticate!, except: :show
   authorize_actions_for Episode, except: [:show, :index]
   before_action :set_episode, only: [:update]
 
@@ -17,7 +17,14 @@ class EpisodesController < ApplicationController
     @episode.status = :confirmed
     respond_to do |format|
       if @episode.update(episode_params)
-        format.html { redirect_to @episode, notice: 'Episode was successfully updated.' }
+        format.html do
+          path = if params[:episode].include?(:shadowed)
+                   root_path 
+                 else 
+                   episode_songs_path(@episode)
+                 end
+          redirect_to path, notice: 'Episode was successfully updated.'
+        end
         format.json { respond_with_bip @episode }
       else
         format.html { render :edit }
@@ -34,6 +41,14 @@ class EpisodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def episode_params
-      params.require(:episode).permit(:dj_id, :notes)
+      params.require(:episode).permit(:dj_id, :notes, :shadowed)
+    end
+
+    def authenticate!
+      if playlist_editor_signed_in?
+        authenticate_playlist_editor!
+      else
+        authenticate_dj!
+      end
     end
 end

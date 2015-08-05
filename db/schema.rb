@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720213247) do
+ActiveRecord::Schema.define(version: 20150720213249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20150720213247) do
     t.string   "sub_request_information"
     t.string   "sub_request_group"
     t.integer  "trainee_id"
+    t.boolean  "shadowed"
   end
 
   add_index "episodes", ["dj_id"], name: "index_episodes_on_dj_id", using: :btree
@@ -217,9 +218,10 @@ ActiveRecord::Schema.define(version: 20150720213247) do
     t.string   "apprenticeships"
     t.string   "broadcasters_exam"
     t.integer  "most_recent_email"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "dj_id"
+    t.boolean  "disqualified",      default: false, null: false
   end
 
   add_index "trainees", ["dj_id"], name: "index_trainees_on_dj_id", using: :btree
