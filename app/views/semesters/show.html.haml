@@ -7,14 +7,15 @@
   %h4.no-margin All Schedules
   %ul.semesters
     - @semesters.each do |semester|
-      %li{class: ("arrow" if semester == Semester.current)}
-        %span{class: ("highlight" if semester == @semester)}
-          =(semester == Semester.current ? "&rarr; ".html_safe : "".html_safe)
-          =link_to("#{semester.season}", semester)
-        - if dj_signed_in? && current_dj.can_create?(Semester)
-          .copy
-            [
-            =link_to("copy", "/semesters/new/based_on/#{semester.id}")
-            ]
+      - if (current_dj || Dj.new).can_read?(semester)
+        %li{class: ("arrow" if semester == Semester.current)}
+          %span{class: ("highlight" if semester == @semester)}
+            =(semester == Semester.current ? "&rarr; ".html_safe : "".html_safe)
+            =link_to("#{semester.season}", semester)
+          - if dj_signed_in? && current_dj.can_create?(Semester)
+            .copy
+              [
+              =link_to("copy", "/semesters/new/based_on/#{semester.id}")
+              ]
 
 = render @semester, locals: {no_links: false}

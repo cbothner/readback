@@ -1,6 +1,6 @@
 class SemestersController < ApplicationController
-  authorize_actions_for Semester, except: :show
   before_filter :authenticate_dj!, except: :show
+  authorize_actions_for Semester, except: :show
 
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
   before_action :set_model, only: [:new, :create]

@@ -29,4 +29,8 @@ class Semester < ActiveRecord::Base
     ending.strftime "%B %-d, %Y"
   end
 
+  def future?
+    Time.zone.now < beginning
+  end
+
 end
