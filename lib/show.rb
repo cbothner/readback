@@ -14,6 +14,7 @@ module Show
       d = d.in_time_zone
       bbb = d.change(beginning.hms)
       eee = d.change(ending.hms)
+      eee += 1.day if bbb > eee
       if episodes.starts_on_day(d).nil?
         ep = episodes.create(beginning: bbb, ending: eee, status: default_status, dj: dj )
       end
