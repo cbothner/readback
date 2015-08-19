@@ -26,7 +26,8 @@ Rails.application.routes.draw do
 
   resources :sub_requests, except: [:new, :create]
 
-  resources :signoff_instances
+  resources :signoffs
+  resources :signoff_instances, only: [:index, :update]
 
   root 'playlist#index'
 

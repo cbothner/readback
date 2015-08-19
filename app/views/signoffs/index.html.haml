@@ -1,0 +1,21 @@
+- title "Signoffs"
+- headline "Signoffs on Log Items"
+
+- content_for :sidebar do
+  = render 'form'
+
+%table.signoffs
+  %thead
+    %td.signoff-on Signoff
+    %td.signoff-times Times
+  - @signoffs.each do |signoff|
+    %tr.signoff
+      %td.signoff-on= signoff.on
+      %td.signoff-times
+        - if signoff.random
+          Randomly with an interval of 
+          = signoff.random_interval.inspect
+        - else
+          = signoff.times.to_s
+      %td.buttons
+        [edit]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720213249) do
+ActiveRecord::Schema.define(version: 20150812133544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,8 +144,10 @@ ActiveRecord::Schema.define(version: 20150720213249) do
   create_table "signoffs", force: :cascade do |t|
     t.string   "on"
     t.text     "times"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.text     "random_interval"
+    t.boolean  "random",          default: false
   end
 
   create_table "songs", force: :cascade do |t|

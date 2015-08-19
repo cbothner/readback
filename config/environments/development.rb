@@ -47,12 +47,22 @@ Rails.application.configure do
   end
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'wcbn.org',
+    user_name:            ENV['readback_gmail_user'],
+    password:             ENV['readback_gmail_pass'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 
 end
 
 Time.class_eval do
-  def self.now
-    new(2015, 7, 20, 17, 29, 59, "-04:00")
-    #new + 10135078.185059
-  end
+  #def self.now
+    #new(2015, 7, 20, 17, 29, 59, "-04:00")
+    ##new + 10135078.185059
+  #end
 end

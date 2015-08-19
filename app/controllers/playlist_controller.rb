@@ -14,7 +14,7 @@ class PlaylistController < ApplicationController
       def @on_air.at
         Time.zone.now
       end
-      items += [@on_air] 
+      items += [@on_air]
     end
     items += signoff_instances if playlist_editor_signed_in?
 

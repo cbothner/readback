@@ -362,3 +362,9 @@ optgroup::-moz-focus-inner {
 .ie6_input_disabled {
   background: #eeeeee;
 }
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 1em 0;
+}

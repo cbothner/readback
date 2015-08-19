@@ -2,7 +2,11 @@ body {
   font-family: 'Alegreya Sans', sans-serif;
   font-size: 12pt;
   font-weight: 500;
-  overflow-x: hidden
+  overflow-x: hidden;
+  -webkit-transition: all 1s ease-in-out;
+  -moz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  transition: all 1s ease-in-out;
 }
 .container {
   width: 90%;

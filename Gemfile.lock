@@ -103,6 +103,7 @@ GEM
       tilt
     hitimes (1.2.2)
     i18n (0.7.0)
+    ice_cube (0.13.0)
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -268,6 +269,7 @@ DEPENDENCIES
   guard
   guard-rspec
   haml
+  ice_cube
   jbuilder (~> 2.0)
   jc-validates_timeliness
   jquery-rails
