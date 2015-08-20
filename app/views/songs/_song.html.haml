@@ -1,5 +1,5 @@
 - path = song_path(song)
-- can_bip = dj_signed_in? && song.episode == @on_air && on_fm_computer?
+- can_bip = song.episode == @on_air && on_fm_computer?
 %td.width1
   - if can_bip
     .delete-song=link_to '[x]', path, method: :delete, data: {confirm: "Are you sure you want to delete this song?"}
