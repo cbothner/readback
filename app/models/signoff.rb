@@ -1,10 +1,10 @@
 class Signoff < ActiveRecord::Base
-  serialize :times, IceCube::Schedule
   serialize :random_interval
 
   has_many :signoff_instances
 
   include Authority::Abilities
+  include Recurring
 
   validates :on, presence: true
   validates :times, presence: true, unless: :random
@@ -22,14 +22,6 @@ class Signoff < ActiveRecord::Base
     end
   end
 
-
-  def propagate(from = Time.zone.now, til = Semester.maximum(:ending))
-    enumerator(from, til).each do |t|
-      break if t > til
-      signoff_instances.create( on: on, at: t )
-    end
-  end
-
   private
   def enumerator(from = Time.zone.now, til = Semester.maximum(:ending))
     if random
@@ -41,8 +33,12 @@ class Signoff < ActiveRecord::Base
         end
       end
     else
-      times.remaining_occurrences_enumerator(from)
+      super
     end
+  end
+
+  def instance_params(t)
+    {on: on, at: t}
   end
 
 end

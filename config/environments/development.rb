@@ -60,9 +60,9 @@ Rails.application.configure do
 
 end
 
-Time.class_eval do
-  def self.now
-    new(2015, 7, 20, 17, 29, 59, "-04:00")
-    #new + 10135078.185059
-  end
-end
+#Time.class_eval do
+  #def self.now
+    #new(2015, 7, 20, 17, 29, 59, "-04:00")
+    ##new + 10135078.185059
+  #end
+#end

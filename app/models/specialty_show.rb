@@ -1,18 +1,10 @@
 class SpecialtyShow < ActiveRecord::Base
   include Show
 
-  include Authority::Abilities
-  self.authorizer_name = 'OwnedModelAuthorizer'
-
-  belongs_to :semester
   belongs_to :dj, class_name: "Dj", foreign_key: "coordinator_id"
   has_and_belongs_to_many :djs, dependent: :delete_all
-  has_many :episodes, as: :show, dependent: :destroy
 
   alias_attribute :coordinator, :dj
-
-  validates :name, :weekday, presence: true
-  validates_time :beginning, :ending
 
   def rotating_hosts
     (djs + [coordinator]).uniq.sort_by { |dj| dj.try(&:name) }

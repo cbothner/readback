@@ -1,15 +1,8 @@
 class FreeformShow < ActiveRecord::Base
   include Show
 
-  include Authority::Abilities
-  self.authorizer_name = 'OwnedModelAuthorizer'
-
-  belongs_to :semester
   belongs_to :dj
-  has_many :episodes, as: :show, dependent: :destroy
-
-  validates :name, :dj, :weekday, presence: true
-  validates_time :beginning, :ending
+  validates :dj, presence: true
 
   def default_status
     :normal
