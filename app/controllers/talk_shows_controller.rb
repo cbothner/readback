@@ -33,14 +33,12 @@ class TalkShowsController < ApplicationController
   # POST /talk_shows.json
   def create
     @talk_show = TalkShow.new(talk_show_params)
-    unless params[:talk_show][:dj_id].blank?
-      @talk_show.dj = Dj.find(params[:talk_show][:dj_id])
-    end
+    @talk_show.dj = Dj.find(params[:talk_show][:dj_id]) unless params[:talk_show][:dj_id].blank?
     @talk_show.semester = Semester.find(params[:semester_id])
+    @talk_show.set_times_conditionally_from_params params[:talk_show]
 
     respond_to do |format|
       if @talk_show.save
-        @talk_show.propagate
         format.html { redirect_to edit_semester_path(@talk_show.semester, anchor: "tab-talk") }
       else
         format.html do
@@ -56,6 +54,10 @@ class TalkShowsController < ApplicationController
   # PATCH/PUT /talk_shows/1.json
   def update
     authorize_action_for @talk_show
+
+    @talk_show.dj = Dj.find(params[:talk_show][:dj_id]) unless params[:talk_show][:dj_id].blank?
+    @talk_show.set_times_conditionally_from_params params[:talk_show]
+
     respond_to do |format|
       if @talk_show.update(talk_show_params)
         format.html { redirect_to @talk_show, notice: 'Talk show was successfully updated.' }
@@ -81,6 +83,6 @@ class TalkShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_talk_show
       @talk_show = TalkShow.find(params[:id])
-      @episodes = @talk_show.episodes
+      @episodes = @talk_show.episodes.sort_by(&:beginning)
     end
 end

@@ -34,20 +34,20 @@ class SpecialtyShowsController < ApplicationController
   def create
     coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
     djs = Dj.find(params[:specialty_show].delete(:djs).reject(&:blank?))
+
     @specialty_show = SpecialtyShow.new(specialty_show_params)
     @specialty_show.coordinator = coordinator
+    @specialty_show.djs = djs
     @specialty_show.semester = Semester.find(params[:semester_id])
+    @specialty_show.set_times_conditionally_from_params params[:specialty_show]
 
     respond_to do |format|
       if @specialty_show.save
-        @specialty_show.djs = djs
-        @specialty_show.propagate
-        @specialty_show.deal
         format.html do
-          session[:specialty_show] = {
-            weekday: @specialty_show.weekday,
-            beginning: @specialty_show.ending
-          }
+          #session[:specialty_show] = {
+            #weekday: @specialty_show.weekday,
+            #beginning: @specialty_show.ending
+          #}
           redirect_to edit_semester_path(@specialty_show.semester, anchor: "tab-specialty")
         end
       else
@@ -64,8 +64,11 @@ class SpecialtyShowsController < ApplicationController
   # PATCH/PUT /specialty_shows/1.json
   def update
     authorize_action_for @specialty_show
+
     @specialty_show.coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
     @specialty_show.djs = Dj.find(params[:specialty_show].delete(:djs).reject(&:blank?))
+    @specialty_show.set_times_conditionally_from_params params[:specialty_show]
+
     respond_to do |format|
       if @specialty_show.update(specialty_show_params)
         format.html { redirect_to @specialty_show, notice: 'Specialty show was successfully updated.' }
@@ -103,7 +106,7 @@ class SpecialtyShowsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_specialty_show
       @specialty_show = SpecialtyShow.includes(episodes: [:dj]).find(params[:id])
-      @episodes = @specialty_show.episodes
+      @episodes = @specialty_show.episodes.sort_by(&:beginning)
     end
 
     def specialty_show_params

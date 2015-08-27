@@ -54,6 +54,7 @@ GEM
       columnize (= 0.9.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    chronic (0.10.2)
     coderay (1.1.0)
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
@@ -262,6 +263,7 @@ DEPENDENCIES
   best_in_place (~> 3.0.1)
   bullet
   byebug
+  chronic
   coffee-rails (~> 4.1.0)
   devise
   factory_girl_rails

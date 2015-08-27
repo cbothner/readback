@@ -33,17 +33,18 @@ class FreeformShowsController < ApplicationController
   # POST /freeform_shows.json
   def create
     @freeform_show = FreeformShow.new(freeform_show_params)
-    @freeform_show.dj = Dj.find(params[:freeform_show][:dj_id])
-    @freeform_show.semester = Semester.find(params[:semester_id])
+    @freeform_show.dj_id = params[:freeform_show][:dj_id]
+    @freeform_show.semester_id = params[:semester_id]
+
+    @freeform_show.set_times_conditionally_from_params params[:freeform_show]
 
     respond_to do |format|
       if @freeform_show.save
-        @freeform_show.propagate
         format.html do
-          session[:freeform_show] = {
-            weekday: @freeform_show.weekday,
-            beginning: @freeform_show.ending
-          }
+          #session[:freeform_show] = {
+            #weekday: @freeform_show.weekday,
+            #beginning: @freeform_show.ending
+          #}
           redirect_to edit_semester_path(@freeform_show.semester)
         end
       else
@@ -60,12 +61,12 @@ class FreeformShowsController < ApplicationController
   # PATCH/PUT /freeform_shows/1.json
   def update
     authorize_action_for @freeform_show
+
+    @freeform_show.dj_id = params[:freeform_show][:dj_id]
+    @freeform_show.set_times_conditionally_from_params params[:freeform_show]
+
     respond_to do |format|
       if @freeform_show.update(freeform_show_params)
-        # In case the show DJ was changed...
-        @freeform_show.episodes.select(&:normal?).each do |ep|
-          ep.dj = @freeform_show.dj
-        end
         format.html { redirect_to @freeform_show, notice: 'Freeform show was successfully updated.' }
         format.json { render :show, status: :ok, location: @freeform_show }
       else

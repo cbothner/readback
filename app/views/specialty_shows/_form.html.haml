@@ -21,7 +21,7 @@
     = f.label :beginning, 'Start'
     = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 24
   .field.field-ending
-    = f.label :ending, 'End'
-    = f.time_field :ending, value: format_time(f.object.ending), tabindex: 25
+    = f.label :duration, raw('Duration&nbsp;(hrs)')
+    = f.number_field :duration, step: 0.1, tabindex: 14
   .actions
     = f.submit 'Save specialty show', data: { disable_with: 'Saving...' }, tabindex: 26

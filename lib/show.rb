@@ -8,34 +8,43 @@ module Show
     include Authority::Abilities
     self.authorizer_name = 'OwnedModelAuthorizer'
     
-    validates :name, presence: true
+    validates :name, :times, :duration, presence: true
+
+    after_create :propagate
+    after_update :propagate_if_changed
   end
 
   include Recurring
+
+  def propagate_if_changed
+    byebug
+    if times_changed? || duration_changed?
+      episodes.reject(&:past?).each(&:destroy)
+      propagate
+    elsif dj_id_changed?
+      episodes.normal.each do |ep|
+        ep.update_attributes(dj_id: dj_id)
+      end
+    end
+  end
 
   def most_recent_episode
     episodes.select { |ep| ep.beginning < Time.zone.now }
       .sort_by(&:beginning).last
   end
 
-  #def propagate
-    #offset = (0..5).include?(beginning.hour) ? 1 : 0
-    #days = semester.range.to_enum.select { |x| (x - offset.days).wday == self.weekday }
-    #days.each do |d|
-      #d = d.in_time_zone
-      #bbb = d.change(beginning.hms)
-      #eee = d.change(ending.hms)
-      #eee += 1.day if bbb > eee
-      #if episodes.starts_on_day(d).nil?
-        #ep = episodes.create(beginning: bbb, ending: eee, status: default_status, dj: dj )
-      #end
-    #end
-    #self
-  #end
+  def set_times_conditionally_from_params(params)
+    wd = params[:weekday].to_i
+    bg = Time.zone.parse params[:beginning]
+    unless self.times && wd == self.times.first.wday &&
+        bg.hour == self.times.first.hour && bg.min == self.times.first.min
+      set_times weekday: wd, hour: bg.hour, minute: bg.min
+    end
+  end
 
   def set_times(weekday:, hour:, minute:)
-    times = IceCube::Schedule.new(semester.beginning)
-    times.add_recurrence_rule(
+    self.times = IceCube::Schedule.new(semester.beginning)
+    self.times.add_recurrence_rule(
       IceCube::Rule
       .weekly
       .day(weekday)
@@ -63,14 +72,16 @@ module Show
   end
 
   def beginning
-    times.first
+    times.try :first
   end
   
   def ending
+    return nil unless beginning
     beginning + duration.hours
   end
 
   def weekday
+    return 0 unless times
     (times.first.wday - ( (0...6).include?(beginning.hour) ? 1 : 0 )) % 7
   end
 
