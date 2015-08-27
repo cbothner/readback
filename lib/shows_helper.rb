@@ -1,8 +1,9 @@
 module ShowsHelper
   def link_to_most_recent_episode(show)
-    return link_to(show.name, show) if dj_signed_in? && current_dj.can_update?(Semester)
     if show.most_recent_episode
       link_to show.name, episode_songs_path(show.most_recent_episode)
+    elsif dj_signed_in?
+      link_to(show.name, show)
     else
       show.name
     end
