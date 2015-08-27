@@ -17,7 +17,6 @@ module Show
   include Recurring
 
   def propagate_if_changed
-    byebug
     if times_changed? || duration_changed?
       episodes.reject(&:past?).each(&:destroy)
       propagate
