@@ -9,7 +9,6 @@ if defined?(ActionMailer)
 
     def reset_password_instructions(record, token, opts={})
       @token = token
-      byebug
       if record.is_a?(Dj) && record.sign_in_count == 0
         @dj = record
         mail to: @dj.email, subject: "Your Readback account has been created!",

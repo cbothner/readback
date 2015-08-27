@@ -60,8 +60,6 @@ class TraineesController < ApplicationController
                                                   params[:trainee][:demotape])
     end
 
-    byebug
-
     respond_to do |format|
       if @trainee.update(trainee_params)
         format.html { redirect_to @trainee, notice: 'Trainee was successfully updated.' }
