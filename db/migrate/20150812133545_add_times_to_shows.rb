@@ -6,10 +6,10 @@ class AddTimesToShows < ActiveRecord::Migration
         t.decimal :duration
       end
       show_type.to_s.classify.constantize.all.each do |show|
-        wday = ( show.weekday + ( (0...6).include?(show.beginning.hour) ? 1 : 0) )  % 7
-        hour = show.beginning.hour
-        minute = show.beginning.min
-        duration = (show.ending - show.beginning) / 60 / 60
+        wday = ( show[:weekday] + ( (0...6).include?(show[:beginning].hour) ? 1 : 0) )  % 7
+        hour = show[:beginning].hour
+        minute = show[:beginning].min
+        duration = (show[:ending] - show[:beginning]) / 60 / 60
 
         show.times = IceCube::Schedule.new(show.semester.beginning)
         show.times.add_recurrence_rule(
