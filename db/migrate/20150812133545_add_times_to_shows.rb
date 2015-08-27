@@ -11,16 +11,16 @@ class AddTimesToShows < ActiveRecord::Migration
         minute = show[:beginning].min
         duration = (show[:ending] - show[:beginning]) / 60 / 60
 
-        show.times = IceCube::Schedule.new(show.semester.beginning)
-        show.times.add_recurrence_rule(
+        times = IceCube::Schedule.new(show.semester.beginning)
+        times.add_recurrence_rule(
           IceCube::Rule.weekly
           .day(wday)
           .hour_of_day(hour)
           .minute_of_hour(minute)
           .until(show.semester.ending)
         )
-        show.duration = duration
-        show.save
+        show.update_columns(times: times)
+        show.update_columns(duration: duration)
       end
     end
   end
