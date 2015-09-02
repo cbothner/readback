@@ -10,14 +10,24 @@ module Show
     
     validates :name, :times, :duration, presence: true
 
+    validate :show_does_not_conflict_with_any_other
     after_create :propagate
     after_update :propagate_if_changed
   end
 
   include Recurring
 
+  def show_does_not_conflict_with_any_other
+    return nil if times.recurrence_rules.empty?
+    conflicts = (semester.shows - [self])
+      .select { |x| times.conflicts_with? x.times }
+    if conflicts.any?
+      errors.add(:time, " conflict with #{conflicts.map(&:unambiguous_name).to_sentence}.")
+    end
+  end
+
   def propagate_if_changed
-    if times_changed? || duration_changed?
+    if times_changed?
       episodes.reject(&:past?).each(&:destroy)
       propagate
     elsif dj_id_changed?
@@ -27,30 +37,33 @@ module Show
     end
   end
 
-  def most_recent_episode
-    episodes.select { |ep| ep.beginning < Time.zone.now }
-      .sort_by(&:beginning).last
-  end
-
   def set_times_conditionally_from_params(params)
-    wd = params[:weekday].to_i
+    duration = params[:duration].to_f.hours
     bg = Time.zone.parse params[:beginning]
+    wd = (params[:weekday].to_i + weekday_offset(bg.hour)) % 7
     unless self.times && wd == self.times.first.wday &&
-        bg.hour == self.times.first.hour && bg.min == self.times.first.min
-      set_times weekday: wd, hour: bg.hour, minute: bg.min
+        bg.hour == self.times.first.hour && bg.min == self.times.first.min &&
+        duration == self.times.duration
+      set_times weekday: wd, hour: bg.hour, minute: bg.min, duration: duration
     end
   end
 
-  def set_times(weekday:, hour:, minute:)
-    self.times = IceCube::Schedule.new(semester.beginning)
+  def set_times(weekday:, hour:, minute:, duration:, sem: semester)
+    self.times = IceCube::Schedule.new(sem.beginning)
+    self.times.duration = duration
     self.times.add_recurrence_rule(
       IceCube::Rule
       .weekly
       .day(weekday)
       .hour_of_day(hour)
       .minute_of_hour(minute)
-      .until(semester.ending)
+      .until(sem.ending)
     )
+  end
+
+  def most_recent_episode
+    episodes.select { |ep| ep.beginning < Time.zone.now }
+      .sort_by(&:beginning).last
   end
 
   def unambiguous_name
@@ -71,20 +84,31 @@ module Show
   end
 
   def beginning
-    times.try :first
+    times.first  unless times.nil? || times.recurrence_rules.empty?
   end
   
   def ending
-    return nil unless beginning
-    beginning + duration.hours
+    beginning + duration.hours  if beginning
   end
 
   def weekday
-    return 0 unless times
-    (times.first.wday - ( (0...6).include?(beginning.hour) ? 1 : 0 )) % 7
+    unless times.nil? || times.recurrence_rules.empty?
+      (times.first.wday - weekday_offset) % 7
+    else
+      -1
+    end
+  end
+
+  def duration
+    (times.duration / 60.0 / 60.0) rescue nil
   end
 
   private
+  def weekday_offset(hour = beginning.hour)
+    return 1 if (0...6).include? hour
+    0
+  end
+
   def instance_collection_name
     "episodes"
   end

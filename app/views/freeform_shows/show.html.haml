@@ -17,7 +17,10 @@
 %h3 Episodes
 - @episodes.each do |episode|
   .showinfo.tiled
-    %p=episode.date_string
+    %p
+      = episode.date_string
+      %br
+      = episode.just_time_string
     -if episode.past?
       %p.show-instance-links
         =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",

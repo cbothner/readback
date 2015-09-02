@@ -5,6 +5,9 @@ class Semester < ActiveRecord::Base
   validates :beginning, :ending, presence: true
   include Authority::Abilities
 
+  #after_update :propagate_beginning_change, if: :beginning_changed?
+  #after_update :propagate_ending_change, if: :ending_changed?
+
   def self.current
     where("beginning < ?", Time.zone.now).order(beginning: :desc).first
   end
@@ -32,5 +35,72 @@ class Semester < ActiveRecord::Base
   def future?
     Time.zone.now < beginning
   end
+
+  def shows
+    freeform_shows + specialty_shows + talk_shows
+  end
+
+  def clone_shows(show_type:, ids:)
+    ids.each do |id|
+      old = show_type.camelize.singularize.constantize.find(id)
+
+      new = old.class.new(
+        old.attributes.slice *%w(name weekday dj_id coordinator_id )
+      )
+      new.semester = self
+
+      times_params = { weekday: old.times.first.wday,
+                       hour: old.times.first.hour, minute: old.times.first.min,
+                       duration: old.times.duration }
+      new.set_times times_params
+
+      if new.save  # Callback propagates
+        old.djs.each {|o| new.djs << o} if new.is_a? SpecialtyShow
+      else
+        raise "Clone Error"
+      end
+
+    end
+  end
+
+  #def fix_beginning_and_ending(from, til)
+    #from = from.change(hour: 6, minute: 0, second: 0)
+    #til = til.change(hour: 5, minute: 59, second: 59)
+    #from, til = til, from if from > til
+    #[from, til]
+  #end
+
+  #def propagate_shows_between_dates(from, til)
+    #byebug
+    #from, til = fix_beginning_and_ending from, til
+    #from = [from, Time.zone.now].max
+    #til = [til, Time.zone.now].max
+    #ss = shows
+    #ss.each {|x| x.propagate from, til}
+  #end
+
+  #def delete_shows_between_dates(from, til)
+    #from, til = fix_beginning_and_ending from, til
+    #shows.map(&:episodes).flatten.select { |x| x.beginning.between? from, til }
+      #.reject(&:past?).each &:destroy
+  #end
+
+  #def propagate_beginning_change
+    #byebug
+    #if beginning_was < beginning  # beginning moved later
+      #delete_shows_between_dates beginning_was, beginning
+    #elsif beginning < beginning_was  # beginning moved earlier
+      #propagate_shows_between_dates beginning, beginning_was
+    #end
+  #end
+
+  #def propagate_ending_change
+    #byebug
+    #if ending < ending_was  # ending moved earlier
+      #delete_shows_between_dates ending, ending_was
+    #elsif ending_was < ending  # ending moved later
+      #propagate_shows_between_dates ending, ending_was
+    #end
+  #end
 
 end

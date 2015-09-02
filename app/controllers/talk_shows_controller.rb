@@ -1,13 +1,6 @@
 class TalkShowsController < ApplicationController
   include ShowsController
 
-  authorize_actions_for TalkShow, except: :show
-
-  before_action :set_talk_show, only: [:show, :edit, :update, :destroy]
-  before_action :define_params_method, only: [:create, :update]
-
-  layout "headline"
-
   # GET /talk_shows
   # GET /talk_shows.json
   def index
@@ -63,7 +56,7 @@ class TalkShowsController < ApplicationController
         format.html { redirect_to @talk_show, notice: 'Talk show was successfully updated.' }
         format.json { render :show, status: :ok, location: @talk_show }
       else
-        format.html { render :edit }
+        format.html { render :show }
         format.json { render json: @talk_show.errors, status: :unprocessable_entity }
       end
     end
@@ -78,11 +71,4 @@ class TalkShowsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_talk_show
-      @talk_show = TalkShow.find(params[:id])
-      @episodes = @talk_show.episodes.sort_by(&:beginning)
-    end
 end

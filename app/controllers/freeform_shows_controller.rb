@@ -1,13 +1,6 @@
 class FreeformShowsController < ApplicationController
   include ShowsController
 
-  authorize_actions_for FreeformShow, except: :show
-
-  before_action :set_freeform_show, only: [:show, :edit, :update, :destroy]
-  before_action :define_params_method, only: [:create, :update]
-
-  layout "headline"
-
   # GET /freeform_shows
   # GET /freeform_shows.json
   def index
@@ -70,7 +63,7 @@ class FreeformShowsController < ApplicationController
         format.html { redirect_to @freeform_show, notice: 'Freeform show was successfully updated.' }
         format.json { render :show, status: :ok, location: @freeform_show }
       else
-        format.html { render :edit }
+        format.html { render :show }
         format.json { render json: @freeform_show.errors, status: :unprocessable_entity }
       end
     end
@@ -87,9 +80,7 @@ class FreeformShowsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_freeform_show
-      @freeform_show = FreeformShow.includes(episodes: [:dj, show: [:dj]]).find(params[:id])
-      @episodes = @freeform_show.episodes.sort_by(&:beginning)
+    def active_record_find_includes
+      { episodes: [:dj, show: [:dj]] }
     end
 end

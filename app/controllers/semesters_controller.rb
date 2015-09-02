@@ -4,6 +4,7 @@ class SemestersController < ApplicationController
 
   before_action :set_semester, only: [:show, :edit, :update, :destroy]
   before_action :set_model, only: [:new, :create]
+
   layout "headline"
 
   # GET /semesters
@@ -36,7 +37,7 @@ class SemestersController < ApplicationController
   # POST /semesters
   # POST /semesters.json
   def create
-    copies = JSON.parse params.delete(:shows_to_copy)
+    show_types_to_copy = JSON.parse params.delete(:shows_to_copy)
 
     params[:semester][:beginning] = Time.zone.parse(params[:semester][:beginning])
       .change(hour: 6).beginning_of_hour
@@ -46,26 +47,7 @@ class SemestersController < ApplicationController
 
     respond_to do |format|
       if @semester.save
-
-        copies.each do |show_type, shows|
-          shows.each do |show|
-            old = show_type.constantize.find(show)
-            new = show_type.constantize.new(old.attributes
-            .slice("dj_id", "name", "weekday", "beginning", "ending", "coordinator_id"))
-            new.semester = @semester
-            if new.save
-              if new.is_a? SpecialtyShow
-                old.djs.each do |o|
-                  new.djs << o
-                end
-              end
-              new.propagate
-            else
-              throw
-            end
-          end
-        end
-
+        show_types_to_copy.each { |type, ids| @semester.clone_shows show_type: type, ids: ids }
         format.html { redirect_to edit_semester_path @semester }
         format.json { render :show, status: :created, location: @semester }
       else

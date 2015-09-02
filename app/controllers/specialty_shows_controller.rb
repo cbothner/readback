@@ -1,13 +1,6 @@
 class SpecialtyShowsController < ApplicationController
   include ShowsController
 
-  authorize_actions_for SpecialtyShow, except: :show
-
-  before_action :set_specialty_show, only: [:show, :edit, :update, :destroy, :deal]
-  before_action :define_params_method, only: [:create, :update]
-
-  layout "headline"
-
   # GET /specialty_shows
   # GET /specialty_shows.json
   def index
@@ -74,7 +67,7 @@ class SpecialtyShowsController < ApplicationController
         format.html { redirect_to @specialty_show, notice: 'Specialty show was successfully updated.' }
         format.json { render :show, status: :ok, location: @specialty_show }
       else
-        format.html { render :edit }
+        format.html { render :show }
         format.json { render json: @specialty_show.errors, status: :unprocessable_entity }
       end
     end
@@ -103,14 +96,11 @@ class SpecialtyShowsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_specialty_show
-      @specialty_show = SpecialtyShow.includes(episodes: [:dj]).find(params[:id])
-      @episodes = @specialty_show.episodes.sort_by(&:beginning)
+    def active_record_find_includes
+      { episodes: [:dj] }
     end
 
     def specialty_show_params
-      params.require(:specialty_show).permit(:name, :coordinator_id, :weekday,
-                                             :ending, :beginning, :djs)
+      params.require(:specialty_show).permit(:name, :coordinator_id, :djs)
     end
 end
