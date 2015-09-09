@@ -37,7 +37,9 @@ class Semester < ActiveRecord::Base
   end
 
   def shows
-    freeform_shows + specialty_shows + talk_shows
+    freeform_shows.where.not(times: nil) +
+      specialty_shows.where.not(times: nil) +
+      talk_shows.where.not(times: nil)
   end
 
   def clone_shows(show_type:, ids:)

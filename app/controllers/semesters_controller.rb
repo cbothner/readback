@@ -91,6 +91,7 @@ class SemestersController < ApplicationController
                   talk_shows: [:episodes])
         .find(id)
       shows = var.freeform_shows + var.specialty_shows + var.talk_shows
+      shows.reject! {|x| x.times.nil? }
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq
       @shows = shows.group_by{|x| x.sort_times(:beginning)[:sortable]}
       self.instance_variable_set "@#{variable_name}", var

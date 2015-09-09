@@ -8,7 +8,7 @@ module Show
     include Authority::Abilities
     self.authorizer_name = 'OwnedModelAuthorizer'
     
-    validates :name, :times, :duration, presence: true
+    validates :name, :duration, presence: true
 
     validate :show_does_not_conflict_with_any_other
     after_create :propagate
@@ -18,7 +18,7 @@ module Show
   include Recurring
 
   def show_does_not_conflict_with_any_other
-    return nil if times.recurrence_rules.empty?
+    return nil if times && times.recurrence_rules.empty?
     conflicts = (semester.shows - [self])
       .select { |x| times.conflicts_with? x.times }
     if conflicts.any?
@@ -79,6 +79,7 @@ module Show
   end
 
   def sort_times t
+    return nil if times.nil?
     {sortable: ((send(t) - 6.hours).seconds_since_midnight),
      printable: (send(t).strftime '%l:%M %P')}
   end
@@ -101,6 +102,16 @@ module Show
 
   def duration
     (times.duration / 60.0 / 60.0) rescue nil
+  end
+
+  def destroy
+    byebug
+    if episodes.select(&:past?).any?
+      episodes.reject(&:past?).each &:destroy
+      update_columns times: nil
+    else
+      super
+    end
   end
 
   private
