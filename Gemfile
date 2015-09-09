@@ -32,6 +32,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'rails-latex'
 # For markdown interpretation in show notes
 gem 'redcarpet'
+# For so I only have to write the emails once.
+gem 'maildown'
 
 
 ##############

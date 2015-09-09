@@ -28,6 +28,10 @@ class Dj < ActiveRecord::Base
     dj_name.blank? ? first_name : dj_name
   end
 
+  def name_and_email
+    "#{name} <#{email}>"
+  end
+
   # TODO: Refactor to able_to_do_daytime_radio?
   def allowed_to_do_daytime_radio?
     semesters_count > 1 || has_role?(:grandfathered_in)
@@ -39,6 +43,10 @@ class Dj < ActiveRecord::Base
 
   def website_name
     URI(website || (return nil)).host.sub('www.','')
+  end
+
+  def has_custom_picture?
+    true
   end
 
 end

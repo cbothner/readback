@@ -14,4 +14,12 @@ class SubRequest < ActiveRecord::Base
     group.include? user.id
   end
 
+  def requested_djs
+    group.map { |x| Dj.find x }
+  end
+
+  def for
+    "for #{episode.show.name} on #{episode.date_string}"
+  end
+
 end

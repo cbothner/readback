@@ -43,8 +43,9 @@ class Episode < ActiveRecord::Base
     "#{beginning.strftime("%A, %B %-d, %Y")}".html_safe
   end
 
-  def just_time_string
-    "#{beginning.strftime("%l:%M")} &ndash; #{ending.strftime("%l:%M%P")}"
+  def just_time_string(html: true)
+    dash = html ? ' &ndash; '.html_safe : ' -- '
+    "#{beginning.strftime("%l:%M")}#{dash}#{ending.strftime("%l:%M%P")}"
       .html_safe
   end
 

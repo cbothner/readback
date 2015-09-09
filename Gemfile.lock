@@ -117,6 +117,7 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.2)
+    kramdown (1.8.0)
     listen (2.10.0)
       celluloid (~> 0.16.0)
       rb-fsevent (>= 0.9.3)
@@ -126,6 +127,9 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    maildown (1.0.4)
+      kramdown
+      rails (>= 4.0.0)
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.2)
@@ -276,6 +280,7 @@ DEPENDENCIES
   jc-validates_timeliness
   jquery-rails
   jquery-ui-rails
+  maildown
   pg
   puma
   rails (= 4.2.0)
