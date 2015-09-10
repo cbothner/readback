@@ -1,13 +1,18 @@
 class EpisodesController < ApplicationController
   before_filter :authenticate!, except: :show
   authorize_actions_for Episode, except: [:show, :index]
-  before_action :set_episode, only: [:update]
+  before_action :set_episode, only: [:edit, :update]
 
   def index
     @dj = Dj.includes(episodes: [:sub_requests, show: [:dj, :semester]]).find(params[:dj_id])
     episodes = @dj.episodes.order(beginning: :desc).reject { |x| x.show.semester.future? }
     @future_episodes = episodes.reject(&:past?).reverse
     @past_episodes_by_semester = (episodes - @future_episodes).group_by { |x| x.show.semester }
+  end
+
+  def edit
+    authorize_action_for @episode
+    render layout: 'headline'
   end
 
   # PATCH/PUT /episodes/1

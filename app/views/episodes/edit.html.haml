@@ -1,0 +1,9 @@
+- title "Editing Show Notes: #{@episode.show.unambiguous_name}"
+- headline "Editing Show Notes: #{@episode.show.unambiguous_name}"
+- subtitle raw "#{with @episode} on #{@episode.date_string}"
+
+= form_for @episode do |f|
+  .field
+    = f.text_area :notes, style: "height: 40em"
+  .actions
+    = f.submit "Save show notes", data: {disable_with: "Saving..."}
