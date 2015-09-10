@@ -11,7 +11,7 @@
           - shows.each do |show|
             %li
               =link_to "#{show.semester.season}", show
-              =raw show.time_string
+              =raw show.time_string rescue raw "&nbsp;(cancelled)"
     .dj-recent-episodes
       %h4 Most Recent Shows
       - @recent_episodes.each do |ep|
@@ -21,8 +21,7 @@
       .rightalign= link_to "All Recent Shows".html_safe, dj_episodes_path(@dj)
 
 %header#headline.with-profile-pic
-  %img.profile-pic.robot{src: "http://www.robohash.org/#{Digest::MD5.hexdigest(@dj.email)}?set=set3"}
-  -#%img.profile-pic{src: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"}
+  =profile_picture @dj
   %div
     %h2="#{@dj}"
     - if dj_signed_in? || @dj.real_name_is_public

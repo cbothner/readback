@@ -1,7 +1,7 @@
 - title "#{@dj} — Recent Episodes"
 
 %header#headline.with-profile-pic
-  %img.profile-pic.robot{src: "http://www.robohash.org/#{Digest::MD5.hexdigest(@dj.email)}?set=set3"}
+  = profile_picture @dj
   -#%img.profile-pic{src: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"}
   %div
     %h2="#{@dj}"

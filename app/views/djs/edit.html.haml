@@ -3,8 +3,7 @@
 = form_for(@dj) do |f|
 
   %header#headline.with-profile-pic
-    %img.profile-pic.robot{src: "http://www.robohash.org/#{Digest::MD5.hexdigest(@dj.email)}?set=set3"}
-    -#%img.profile-pic{src: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"}
+    = profile_picture @dj
     %div
       %p.linear-field
         = f.label :dj_name, "DJ Name"

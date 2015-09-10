@@ -46,7 +46,7 @@ class Dj < ActiveRecord::Base
   end
 
   def has_custom_picture?
-    true
+    false
   end
 
 end

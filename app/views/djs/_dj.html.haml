@@ -1,7 +1,7 @@
 =link_to dj do
   .dj.with-profile-pic
     %div
-      %img.profile-pic.robot{src: "http://www.robohash.org/#{Digest::MD5.hexdigest(dj.email)}?set=set3"}
+      = profile_picture dj
     %div
       %p
         %span#dj-name="#{dj}"

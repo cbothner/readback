@@ -43,4 +43,11 @@ module DjsHelper
       end
     end
   end
+
+  def profile_picture(dj)
+    url = "http://www.robohash.org/#{Digest::MD5.hexdigest(dj.email)}?set=set3"
+    #url = "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"
+    content_tag :img, nil, class: ["profile-pic", ('robot' unless dj.has_custom_picture?)], src: url
+  end
+
 end
