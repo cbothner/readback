@@ -20,7 +20,7 @@ $(document).on 'ready page:load', ->
   $('#now-button').on 'click touchend', ->
     event.preventDefault()
     $('html, body').animate {scrollTop: $(this.hash).offset().top}, 'fast', ->
-      $('h4.small-caps.title').animate {width: '100%'}, {duration: 'fast', queue: off}
+      $('h4.small-caps-title').animate {width: '100%'}, {duration: 'fast', queue: off}
       $('#now-button').hide()
       enableScroll()
 
