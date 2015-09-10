@@ -26,7 +26,12 @@ table.schedule td.ui-selected { background-color: #EBFFE8 }
 table.schedule td.ui-selecting { background-color: #FFF9E1 }
 
 .show_name { font-style: italic; }
-.show_with { font-size: 85%; }
+.show_with {
+  font-size: 85%;
+  a {
+    color: #3483b9;
+  }
+}
 .show_delete {
   float: right;
   a { color: #e74c3c; }
