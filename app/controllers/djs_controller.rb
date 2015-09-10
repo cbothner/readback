@@ -24,7 +24,8 @@ class DjsController < ApplicationController
   # GET /djs/1
   # GET /djs/1.json
   def show
-    @shows = @dj.shows.group_by(&:unambiguous_name)
+    @shows = @dj.shows.reject {|x| x.semester.future?}
+      .group_by(&:unambiguous_name)
     @recent_episodes = @dj.episodes.where("beginning < ?", Time.zone.now)
       .order(beginning: :desc).first(5)
   end

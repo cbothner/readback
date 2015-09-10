@@ -4,8 +4,8 @@ class EpisodesController < ApplicationController
   before_action :set_episode, only: [:update]
 
   def index
-    @dj = Dj.includes(episodes: [show: [:dj, :semester]]).find(params[:dj_id])
-    episodes = @dj.episodes.order(beginning: :desc)
+    @dj = Dj.includes(episodes: [:sub_requests, show: [:dj, :semester]]).find(params[:dj_id])
+    episodes = @dj.episodes.order(beginning: :desc).reject { |x| x.show.semester.future? }
     @future_episodes = episodes.reject(&:past?).reverse
     @past_episodes_by_semester = (episodes - @future_episodes).group_by { |x| x.show.semester }
   end
