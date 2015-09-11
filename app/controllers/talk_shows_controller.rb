@@ -67,7 +67,7 @@ class TalkShowsController < ApplicationController
   def destroy
     @talk_show.destroy
     respond_to do |format|
-      format.html { redirect_to talk_shows_url, notice: 'Talk show was successfully destroyed.' }
+      format.html { redirect_to edit_semester_path(@talk_show.semester), notice: 'Talk show was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

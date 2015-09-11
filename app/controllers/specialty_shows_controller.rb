@@ -78,7 +78,7 @@ class SpecialtyShowsController < ApplicationController
   def destroy
     @specialty_show.destroy
     respond_to do |format|
-      format.html { redirect_to specialty_shows_url, notice: 'Specialty show was successfully destroyed.' }
+      format.html { redirect_to edit_semester_path(@specialty_show.semester), notice: 'Specialty show was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -74,7 +74,7 @@ class FreeformShowsController < ApplicationController
   def destroy
     @freeform_show.destroy
     respond_to do |format|
-      format.html { redirect_to freeform_shows_url, notice: 'Freeform show was successfully destroyed.' }
+      format.html { redirect_to edit_semester_path(@freeform_show.semester), notice: 'Freeform show was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
