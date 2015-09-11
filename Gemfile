@@ -92,6 +92,9 @@ group :development, :test do
   gem 'guard-rspec', require: false
 end
 
+# To make console access better in development and on the production server
+gem 'table_print'
+
 
 ###########
 # Testing #
