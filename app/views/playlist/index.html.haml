@@ -1,16 +1,19 @@
 - title "Playlist Input"
 
 %aside.sidebar{class: ("sidebar-fixed" if on_fm_computer?)}
-  %a#now-button{href: "#now"}
-    %span now
-  = render 'episodes/upcoming_episodes'
-  = render 'songs/form' if on_fm_computer?
-  %br
-  - if on_fm_computer?
-    = render 'episodes/shownotes', episode: @on_air, editable: true
-    = link_to "PlaylistEditorSession#destroy", destroy_playlist_editor_session_path, method: :delete
+  - if @on_air
+    %a#now-button{href: "#now"}
+      %span now
+    = render 'episodes/upcoming_episodes'
+    = render 'songs/form' if on_fm_computer?
+    %br
+    - if on_fm_computer?
+      = render 'episodes/shownotes', episode: @on_air, editable: true
+      = link_to "PlaylistEditorSession#destroy", destroy_playlist_editor_session_path, method: :delete
+    - else
+      = link_to "PlaylistEditorSession#create", new_playlist_editor_session_path
   - else
-    = link_to "PlaylistEditorSession#create", new_playlist_editor_session_path
+    %p.alert Readback is configured incorrectly.  There is no show currently scheduled.
 
 %article.with-sidebar{class: ('scroll-up' if on_fm_computer?)}
   = render 'playlist'
