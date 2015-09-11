@@ -12,32 +12,34 @@
     %p.subtitle.dj-edit-link=link_to "go to profile", dj_path(@dj)
 
 %article
-  .dj-all-episodes
-    %h4 Upcoming Shows
-    %p.instructions
-      - if current_dj == @dj
-        You can request a substitute for a show by clicking the&nbsp;
-        %i.fa.fa-calendar-times-o
-        &nbsp;icon.
-      - if @future_episodes.map(&:sub_requests).flatten.reject(&:confirmed?).any?
-        Active sub requests are indicated by the&nbsp;
-        %i.fa.fa-exclamation-triangle
-        &nbsp;icon.
-    - @future_episodes.each do |ep|
-      .dj-episode
-        .showinfo
-          %b=ep.show.unambiguous_name
-          %p=ep.date_string
-        .buttons
-          - reqs = ep.sub_requests.reject(&:confirmed?)
-          - if reqs.any?
-            %p{title: "Go to active sub request"}
-              = link_to reqs.first do
-                %i.fa.fa-exclamation-triangle
-          - elsif current_dj == @dj
-            %p{title: "Request Sub"}
-              = link_to new_episode_sub_request_path(ep) do
-                %i.fa.fa-calendar-times-o
+  -if dj_signed_in? && @future_episodes.any?
+    .dj-all-episodes
+      %h4 Upcoming Shows
+      %p.instructions
+        - if current_dj == @dj
+          You can request a substitute for a show by clicking the&nbsp;
+          %i.fa.fa-calendar-times-o
+          &nbsp;icon.
+        - if @future_episodes.map(&:sub_requests).flatten.reject(&:confirmed?).any?
+          Active sub requests are indicated by the&nbsp;
+          %i.fa.fa-exclamation-triangle
+          &nbsp;icon.
+      - @future_episodes.each do |ep|
+        .dj-episode
+          .showinfo
+            %b=ep.show.unambiguous_name
+            %p=ep.date_string
+          .buttons
+            - reqs = ep.sub_requests.reject(&:confirmed?)
+            - if reqs.any?
+              %p{title: "Go to active sub request"}
+                = link_to reqs.first do
+                  %i.fa.fa-exclamation-triangle
+            - elsif current_dj == @dj
+              %p{title: "Request Sub"}
+                = link_to new_episode_sub_request_path(ep) do
+                  %i.fa.fa-calendar-times-o
+
   .dj-all-episodes
     - @past_episodes_by_semester.each do |semester, episodes|
       %h4= semester == Semester.current ? "Most Recent Shows" : semester.season

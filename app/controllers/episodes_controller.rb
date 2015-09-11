@@ -1,6 +1,6 @@
 class EpisodesController < ApplicationController
-  before_filter :authenticate!, except: :show
-  authorize_actions_for Episode, except: [:show, :index]
+  before_filter :authenticate!, except: [:index, :show]
+  authorize_actions_for Episode, except: [:index, :show]
   before_action :set_episode, only: [:edit, :update]
 
   def index
