@@ -36,7 +36,7 @@ class Episode < ActiveRecord::Base
   end
 
   def subbed_for?
-    confirmed? || ((needs_sub? || needs_sub_including_nighttime_djs?) && (dj != show.dj))
+    (confirmed? || needs_sub? || needs_sub_including_nighttime_djs?) && dj != show.dj
   end
 
   def date_string
