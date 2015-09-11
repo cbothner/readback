@@ -105,7 +105,6 @@ module Show
   end
 
   def destroy
-    byebug
     if episodes.select(&:past?).any?
       episodes.reject(&:past?).each &:destroy
       update_columns times: nil
