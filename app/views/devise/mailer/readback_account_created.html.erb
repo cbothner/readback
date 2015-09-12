@@ -24,3 +24,14 @@ a few minutes looking over the information on your profile.
 If you have any questions about this new system, please contact <a
   href="mailto:dd@wcbn.org">Cameron</a>.
 </p>
+<%#Hello, **DJ** <%= @dj %>!%>
+
+<%#With that, you’re done with your training: you’re now a WCBN DJ!%>
+
+<%#You’ve probably already spoken to [the Programming Director](mailto:pd@wcbn.org) about when you’ll be able to get your own show, but as of today you can start subbing for nighttime slots.%>
+
+<%#This email is sent by WCBN's Readback system, which you’ll use to record what songs you play, take and place sub requests, and tell your listeners a little about yourself!%>
+
+<%#To activate your account, visit the following link, choose a password, and spend a few minutes looking over the information on your profile.%>
+
+<%#[Choose my password](<%=edit_password_url(@dj, reset_password_token: @token) %>)%>

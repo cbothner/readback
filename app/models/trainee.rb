@@ -31,4 +31,10 @@ class Trainee < ActiveRecord::Base
     end
   end
 
+  def mark_graduated(approved_by:, associated_dj_instance:)
+    broadcasters_exam = Trainee::Acceptance.new(Time.zone.now, approved_by.id)
+    dj = associated_dj_instance
+    save
+  end
+
 end

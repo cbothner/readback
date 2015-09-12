@@ -50,9 +50,9 @@ class DjsController < ApplicationController
 
     respond_to do |format|
       if @dj.save
-        trainee.broadcasters_exam = Trainee::Acceptance.new(Time.zone.now,
-                                                            current_dj.id, "")
-        trainee.save
+        trainee.mark_graduated approved_by: current_dj, associated_dj_instance: @dj
+        @dj.send_reset_password_instructions
+
         flash[:notice] = 'Got it! Welcome to WCBN'
         format.html { redirect_to @dj, notice: "#{@dj.name} is now a WCBN DJ." }
         format.json { render :show, status: :created, location: @dj }
