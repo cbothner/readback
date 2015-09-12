@@ -20,7 +20,6 @@
           %td{class: ('active' unless day_in_past)}
             - unless day_in_past
               %p.req-day= day.strftime(format)
-
               - if reqs = @requests_by_day[day]
                 - reqs.sort_by(&:at).each do |req|
                   .sub-req

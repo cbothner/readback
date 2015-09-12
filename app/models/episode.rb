@@ -35,6 +35,10 @@ class Episode < ActiveRecord::Base
     beginning..ending
   end
 
+  def reminder_email_time
+    (beginning - 1.day).at_beginning_of_day
+  end
+
   def subbed_for?
     (confirmed? || needs_sub? || needs_sub_including_nighttime_djs?) && dj != show.dj
   end

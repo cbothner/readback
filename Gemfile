@@ -15,6 +15,10 @@ gem 'puma'
 gem 'chronic'
 # What are recurring times?!
 gem 'ice_cube'
+# Scheduling!
+gem 'resque'
+gem 'resque_mailer'
+gem 'resque-scheduler'
 
 
 #####################
@@ -90,6 +94,9 @@ group :development, :test do
   gem 'thor', '0.19.1'
   gem 'guard'
   gem 'guard-rspec', require: false
+
+  # Preview emails!
+  gem 'letter_opener'
 end
 
 # To make console access better in development and on the production server
