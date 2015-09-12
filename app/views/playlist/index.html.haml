@@ -9,9 +9,6 @@
     %br
     - if on_fm_computer?
       = render 'episodes/shownotes', episode: @on_air, editable: true
-      = link_to "PlaylistEditorSession#destroy", destroy_playlist_editor_session_path, method: :delete
-    - else
-      = link_to "PlaylistEditorSession#create", new_playlist_editor_session_path
 
 %article.with-sidebar{class: ('scroll-up' if on_fm_computer?)}
   - if @on_air
