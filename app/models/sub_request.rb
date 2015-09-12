@@ -10,8 +10,8 @@ class SubRequest < ActiveRecord::Base
     episode.at
   end
 
-  def can_be_fulfilled_by_user(user)
-    group.include? user.id
+  def can_be_fulfilled_by?(user)
+    group.include? user.id.to_s
   end
 
   def requested_djs

@@ -25,7 +25,7 @@ class SubRequestAuthorizer < ApplicationAuthorizer
     end
 
     if resource.needs_sub_in_group?
-      return false unless resource.group.include? user.id
+      return false unless resource.can_be_fulfilled_by? user
     end
 
     true

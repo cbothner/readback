@@ -6,7 +6,8 @@ class SubRequestsController < ApplicationController
   # GET /sub_requests
   def index
     sub_requests = SubRequest.where(status: (0..2))
-      .includes( episode: [show: [:dj]] )
+      .includes( episode: [show: [:dj, :semester]] )
+      .reject {|req| req.episode.past?}
       .select {|req| req.updatable_by?(current_dj)}
 
     @requests_by_day = sub_requests.group_by do
@@ -17,7 +18,7 @@ class SubRequestsController < ApplicationController
       start_of_week = Time.zone.now.at_beginning_of_day.at_beginning_of_week
       max = sub_requests.max_by(&:at).at.at_beginning_of_day
       @weeks = []
-      while start_of_week < max do
+      while start_of_week <= max do
         @weeks << start_of_week
         start_of_week +=  7.days
       end
