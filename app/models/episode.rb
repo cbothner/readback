@@ -36,7 +36,8 @@ class Episode < ActiveRecord::Base
   end
 
   def reminder_email_time
-    (beginning - 1.day).at_beginning_of_day
+    number_of_days_before = (0...6).include?(beginning.hour) ? 2 : 1
+    (beginning - number_of_days_before.days).at_beginning_of_day + 9.hours
   end
 
   def subbed_for?
