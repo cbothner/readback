@@ -28,10 +28,6 @@ class Dj < ActiveRecord::Base
     dj_name.blank? ? first_name : dj_name
   end
 
-  def name_and_email
-    "#{name} <#{email}>"
-  end
-
   # TODO: Refactor to able_to_do_daytime_radio?
   def allowed_to_do_daytime_radio?
     semesters_count > 1 || has_role?(:grandfathered_in)

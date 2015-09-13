@@ -19,4 +19,12 @@ module Person
     name.split(' ').first
   end
 
+  def name_and_email
+    "#{name} <#{email}>"
+  end
+
+  def to_s
+    first_name
+  end
+
 end

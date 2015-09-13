@@ -23,6 +23,8 @@ class Trainee < ActiveRecord::Base
 
   has_many :episodes
 
+  after_commit :schedule_emails, on: [:create]
+
   def sent_email
     if most_recent_email.to_i == 0
       "Never emailed."
@@ -35,6 +37,13 @@ class Trainee < ActiveRecord::Base
     broadcasters_exam = Trainee::Acceptance.new(Time.zone.now, approved_by.id)
     dj = associated_dj_instance
     save
+  end
+
+  def schedule_emails
+    TraineeMailer.meeting_minutes.deliver_in 1.day
+    TraineeMailer.demo_tape_tips.deliver_in 1.week
+    TraineeMailer.check_in.deliver_in 1.month
+    TraineeMailer.reminder.deliver_in 3.months
   end
 
 end
