@@ -8,7 +8,7 @@ class SubRequest < ActiveRecord::Base
 
   after_create :send_emails, :schedule_unfulfilled_email
   after_update :send_emails, :schedule_reminder_email
-  before_destroy :unschedule_emails
+  #before_destroy :unschedule_emails
 
   def send_emails
     case status.to_sym
