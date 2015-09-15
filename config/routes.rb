@@ -1,3 +1,7 @@
+require "resque"
+require 'resque-scheduler'
+require 'resque/scheduler/server'
+
 Rails.application.routes.draw do
 
   devise_for :playlist_editors
@@ -31,6 +35,10 @@ Rails.application.routes.draw do
 
   resources :signoffs
   resources :signoff_instances, only: [:index, :update]
+
+  authenticate :dj do
+    mount Resque::Server.new => "/resque_web"
+  end
 
   root 'playlist#index'
 

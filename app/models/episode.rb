@@ -49,9 +49,9 @@ class Episode < ActiveRecord::Base
   end
 
   def just_time_string(html: true)
-    dash = html ? ' &ndash; '.html_safe : ' -- '
+    dash = html ? '–'.html_safe : ' -- '
     "#{beginning.strftime("%l:%M")}#{dash}#{ending.strftime("%l:%M%P")}"
-      .html_safe
+      .html_safe.gsub ' ', ''
   end
 
   def time_string
