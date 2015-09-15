@@ -16,13 +16,16 @@ Rails.application.routes.draw do
 
   resources :trainees, shallow: true do 
     resources :djs, except: [:index, :new], shallow: true do
-      resources :episodes do
+      resources :episodes, except: [:show] do
         resources :songs
         resources :sub_requests, only: [:new, :create]
       end
     end
   end
   resources :djs, only: [:index]
+  resources :episodes, only: [] do
+    get :on_and_upcoming, on: :collection
+  end
 
   resources :sub_requests, except: [:new, :create]
 
