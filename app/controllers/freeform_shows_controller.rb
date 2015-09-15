@@ -55,7 +55,9 @@ class FreeformShowsController < ApplicationController
   def update
     authorize_action_for @freeform_show
 
-    @freeform_show.dj_id = params[:freeform_show][:dj_id]
+    unless params[:freeform_show][:dj_id].nil?
+      @freeform_show.dj_id = params[:freeform_show][:dj_id]
+    end
     @freeform_show.set_times_conditionally_from_params params[:freeform_show]
 
     respond_to do |format|

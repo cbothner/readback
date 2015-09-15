@@ -40,6 +40,7 @@ module Show
   end
 
   def set_times_conditionally_from_params(params)
+    return nil if params[:beginning].nil? || params[:duration].nil? || params[:weekday].nil?
     duration = params[:duration].to_f.hours
     bg = Time.zone.parse params[:beginning]
     wd = (params[:weekday].to_i + weekday_offset(bg.hour)) % 7
