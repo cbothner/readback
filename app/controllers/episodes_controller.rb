@@ -44,6 +44,9 @@ class EpisodesController < ApplicationController
     @future_items = Episode.includes(:dj, show: [:dj])
       .where(beginning: Time.zone.now..10.hours.since)
       .order(beginning: :desc)
+
+    fresh_when last_modified: @on_air.beginning, public: true
+
     respond_to do |format|
       format.html do
         render layout: 'iframe'
