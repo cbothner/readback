@@ -3,7 +3,6 @@ class PlaylistController < ApplicationController
     response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://wcbn.org"
     iframe = params[:from] == 'iframe'
 
-    byebug
     songs = Song.includes(:episode).where(at: 6.hours.ago..Time.zone.now)
     past_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
       .where(ending: 6.hours.ago..Time.zone.now)
