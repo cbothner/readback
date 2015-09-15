@@ -5,7 +5,7 @@
     = render @on_air
   - else
     %p.alert There is no show currently scheduled.
-  - unless on_fm_computer?
+  - if !on_fm_computer? || @standalone
     = render('episodes/shownotes', episode: @on_air) if @on_air
     %h4.small-caps-title Up Next:
     - upcoming_episodes = @future_items.select {|e| e.is_a? Episode}.reverse

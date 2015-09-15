@@ -39,11 +39,11 @@ class EpisodesController < ApplicationController
   end
 
   def on_and_upcoming
-    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://wcbn.org"
+    @standalone = true
     @on_air = Episode.on_air
     @future_items = Episode.includes(:dj, show: [:dj])
       .where(beginning: Time.zone.now..10.hours.since)
-      .order beginning: :desc
+      .order(beginning: :desc)
     respond_to do |format|
       format.html do
         render layout: 'iframe'
