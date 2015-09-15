@@ -31,8 +31,6 @@ class PlaylistController < ApplicationController
     @song ||= Song.new
     @song.episode ||= @on_air
 
-    fresh_when last_modified: Song.last.updated_at, public: true
-
     if iframe
       render 'iframe', layout: 'iframe' and return
     end
