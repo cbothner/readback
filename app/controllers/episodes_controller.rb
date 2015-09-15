@@ -45,11 +45,17 @@ class EpisodesController < ApplicationController
       .where(beginning: Time.zone.now..10.hours.since)
       .order(beginning: :desc)
 
+    # For Tony's scraper
+    @escaped_show_name = Rack::Utils.escape("#{@on_air.show.name} with #{@on_air.dj}") if params[:escaped_show_name]
+
     respond_to do |format|
       format.html do
         render layout: 'iframe'
       end
-      format.json
+      format.json do
+        render(text: @escaped_show_name)&& return if @escaped_show_name
+        render
+      end
     end
 
     fresh_when last_modified: @on_air.beginning, public: true
