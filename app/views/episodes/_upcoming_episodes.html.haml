@@ -1,3 +1,4 @@
+- limit ||= nil
 .on-and-upcoming
   %h4.small-caps-title On Air:
   - if @on_air
@@ -7,5 +8,7 @@
   - unless on_fm_computer?
     = render('episodes/shownotes', episode: @on_air) if @on_air
     %h4.small-caps-title Up Next:
-    - @future_items.select {|e| e.is_a? Episode}.reverse.each do |ep|
+    - upcoming_episodes = @future_items.select {|e| e.is_a? Episode}.reverse
+    - upcoming_episodes = upcoming_episodes.take(limit) if limit
+    - upcoming_episodes.each do |ep|
       = render ep

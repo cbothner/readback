@@ -42,7 +42,8 @@ class EpisodesController < ApplicationController
     response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://wcbn.org"
     @on_air = Episode.on_air
     @future_items = Episode.includes(:dj, show: [:dj])
-      .where "(beginning BETWEEN '#{Time.zone.now.utc}' AND '#{4.hours.since.utc}')"
+      .where(beginning: Time.zone.now..10.hours.since)
+      .order beginning: :desc
     render layout: 'iframe'
   end
 
