@@ -18,6 +18,7 @@ class Dj < ActiveRecord::Base
   serialize :roles, Array
 
   validates :name, :phone, :email, presence: true
+  validates :website, format: {with: /(\Ahttp|\A\Z)/, message: "must start with “http://”"}
 
   def semesters_count
     (freeform_shows.map(&:semester) + specialty_shows.map(&:semester))
@@ -38,7 +39,7 @@ class Dj < ActiveRecord::Base
   end
 
   def website_name
-    URI(website || (return nil)).host.sub('www.','')
+    URI::parse(website || (return nil)).host.sub('www.','')
   end
 
   def has_custom_picture?
