@@ -48,6 +48,8 @@ class SemestersController < ApplicationController
     respond_to do |format|
       if @semester.save
         show_types_to_copy.each { |type, ids| @semester.clone_shows show_type: type, ids: ids }
+        Signoff.propagate_all(@semester.beginning, @semester.ending)
+
         format.html { redirect_to edit_semester_path @semester }
         format.json { render :show, status: :created, location: @semester }
       else
@@ -91,7 +93,7 @@ class SemestersController < ApplicationController
                   talk_shows: [:episodes])
         .find(id)
       shows = var.freeform_shows + var.specialty_shows + var.talk_shows
-      shows.reject! {|x| x.times.nil? }
+      shows.reject! {|x| x.beginning.nil? }
       @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq
       @shows = shows.group_by{|x| x.sort_times(:beginning)[:sortable]}
       self.instance_variable_set "@#{variable_name}", var
