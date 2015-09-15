@@ -97,7 +97,7 @@
       .longform
         %span.green Demo Tape Accepted
         by
-        = Dj.find(@trainee.demotape.dj_id).name
+        = @trainee.demotape.accepting_dj
         = "(#{@trainee.demotape.timestamp.to_date})"
         %blockquote=@trainee.demotape.message
       - if @trainee.broadcasters_exam.accepted?
@@ -105,7 +105,7 @@
           = succeed '.' do
             %span.green Broadcaster’s Exam Passed
           Witnessed by
-          = Dj.find(@trainee.broadcasters_exam.dj_id).name
+          = @trainee.broadcasters_exam.accepting_dj
           = "(#{@trainee.broadcasters_exam.timestamp.to_date})"
 
   .trainee-thin.padleft

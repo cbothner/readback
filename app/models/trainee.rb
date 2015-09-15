@@ -3,6 +3,9 @@ class Trainee < ActiveRecord::Base
     def accepted?
       !timestamp.nil?
     end
+    def accepting_dj
+      Dj.find(dj_id).name rescue "a training coordinator"
+    end
   end
   serialize :demotape, Acceptance
   serialize :broadcasters_exam, Acceptance
