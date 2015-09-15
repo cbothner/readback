@@ -12,6 +12,6 @@ class Song < ActiveRecord::Base
   end
 
   def metadata_string
-    "WCBN-FM: “#{name}” by #{artist} – on #{episode.show.name} with #{episode.dj}"
+    "WCBN-FM: “#{name}”#{" by #{artist}" unless artist.blank?} – on #{episode.show.name} with #{episode.dj}"
   end
 end
