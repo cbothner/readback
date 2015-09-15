@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20150827232626) do
     t.datetime "updated_at",                      null: false
     t.datetime "until"
     t.integer  "status"
-    t.text     "random_interval"
+    t.integer  "random_interval"
     t.boolean  "random",          default: false
   end
 

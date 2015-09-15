@@ -14,7 +14,8 @@
       %td.signoff-times
         - if signoff.random
           Randomly with an interval of 
-          = signoff.random_interval.inspect
+          = signoff.random_interval
+          days
         - else
           = signoff.times.to_s
       %td.buttons

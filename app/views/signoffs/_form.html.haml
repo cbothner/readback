@@ -21,14 +21,11 @@
     = f.check_box :random
   %fieldset.signoff-random{class: ('hidden' unless @signoff.random)}
     .field
-      = f.label :random_interval
+      = f.label :random_interval, "Random Interval (days)"
       %p.instructions
         The signoff will be set at random times once within this duration.  The
         difference between any two signoffs will not be consistent, and could be
         as great as almost twice the duration.
-      %p.instructions
-        State the duration as a number followed by units of days, weeks, months,
-        or years. E.g. “1 week” for weekly EAS tests.
       = f.text_field :random_interval
   %fieldset.signoff-scheduled{class: ('hidden' if @signoff.random)}
     .field
