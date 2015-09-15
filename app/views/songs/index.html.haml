@@ -27,11 +27,4 @@
       %td Year
     - @songs.each do |song|
       %tr
-        %td.thin.time-col=song.at.getlocal.strftime '%l:%M %p'
-        %td=song.artist
-        %td<
-          ="“#{song.name}”"
-          %span.thin.accent=' (by request)' if song.request
-        %td.italic=song.album
-        %td.thin=song.label
-        %td.thin.lnum= song.year
+        = render song
