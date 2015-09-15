@@ -2,6 +2,8 @@ if defined?(ActionMailer)
   class Devise::Mailer < Devise.parent_mailer.constantize
     include Devise::Mailers::Helpers
 
+  default from: 'WCBN-FM Ann Arbor <radio@wcbn.org>'
+
     def confirmation_instructions(record, token, opts={})
       @token = token
       devise_mail(record, :confirmation_instructions, opts)
