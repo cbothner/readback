@@ -26,7 +26,7 @@
 %h3 Episodes
 .episodes
   - @episodes.each do |episode|
-    .showinfo.tiled{class: ["episode#{'-past' if episode.past? }", "episode-#{episode.status}"], data: ({episode_path: episode_path(episode)} if dj_can_update_show)}
+    .showinfo.tiled{class: ["episode#{'-past' if episode.past? && !episode.unassigned? }", "episode-#{episode.status}"], data: ({episode_path: episode_path(episode)} if dj_can_update_show)}
       %p=episode.date_string
       -if episode.past?
         %p.show-instance-links
