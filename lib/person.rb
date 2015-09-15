@@ -7,13 +7,6 @@ module Person
   AFFILIATION_NAMES = {'student' => "Student", 'alumni' => "Alumni",
                        'faculty' => "Faculty/Staff", 'community' => "Community Advisor"}
 
-  included do
-  with_options if: :um_affiliated? do |dj|
-    dj.validates :umid, :um_dept, presence: true
-    validates_format_of :umid, with: /\A[0-9]{8}\Z/
-  end
-  end
-
   def um_affiliated?
     AFFILIATED_UM_AFFILIATIONS.include? um_affiliation
   end

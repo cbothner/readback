@@ -11,6 +11,11 @@ class Trainee < ActiveRecord::Base
 
   include Authority::Abilities
 
+  with_options if: :um_affiliated? do |dj|
+    dj.validates :umid, :um_dept, presence: true
+    #dj.validates :umid, format: {with: /\A[0-9]{8}\Z/}
+  end
+
   validates :name, :phone, :email, presence: true
 
   belongs_to :dj
