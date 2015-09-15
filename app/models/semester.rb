@@ -9,7 +9,7 @@ class Semester < ActiveRecord::Base
   #after_update :propagate_ending_change, if: :ending_changed?
 
   def self.current
-    where("beginning < ?", Time.zone.now).order(beginning: :desc).first
+    where("beginning < ?", Time.zone.now).order(beginning: :desc).first || last
   end
 
   def range
