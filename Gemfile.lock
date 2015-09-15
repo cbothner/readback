@@ -65,6 +65,7 @@ GEM
       execjs
     coffee-script-source (1.9.1.1)
     columnize (0.9.0)
+    dalli (2.7.4)
     debug_inspector (0.0.2)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -118,6 +119,7 @@ GEM
     jquery-ui-rails (5.0.3)
       railties (>= 3.2.16)
     json (1.8.2)
+    kgio (2.10.0)
     kramdown (1.8.0)
     launchy (2.4.3)
       addressable (~> 2.3)
@@ -135,6 +137,7 @@ GEM
     maildown (1.0.4)
       kramdown
       rails (>= 4.0.0)
+    memcachier (0.0.2)
     method_source (0.8.2)
     mime-types (2.4.3)
     mini_portile (0.6.2)
@@ -155,6 +158,8 @@ GEM
       slop (~> 3.4)
     puma (2.12.2)
     rack (1.6.4)
+    rack-cache (1.2)
+      rack (>= 0.4)
     rack-protection (1.5.3)
       rack
     rack-test (0.6.3)
@@ -301,6 +306,7 @@ DEPENDENCIES
   byebug
   chronic
   coffee-rails (~> 4.1.0)
+  dalli
   devise
   factory_girl_rails
   faker
@@ -312,10 +318,13 @@ DEPENDENCIES
   jc-validates_timeliness
   jquery-rails
   jquery-ui-rails
+  kgio
   letter_opener
   maildown
+  memcachier
   pg
   puma
+  rack-cache
   rails (= 4.2.0)
   rails-latex
   rails_12factor

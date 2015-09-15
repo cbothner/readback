@@ -19,6 +19,10 @@ gem 'ice_cube'
 gem 'resque'
 gem 'resque_mailer'
 gem 'resque-scheduler'
+# Cache
+gem 'rack-cache'
+gem 'dalli'
+gem 'kgio'
 
 
 #####################
@@ -68,6 +72,10 @@ gem 'devise'
 gem 'authority'
 gem 'rolify'
 
+
+group :production do
+  gem "memcachier"
+end
 
 ###############
 # Development #
