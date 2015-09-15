@@ -7,7 +7,7 @@ class CreateTrainees < ActiveRecord::Migration
       t.string  :email
       t.string  :um_affiliation
       t.string  :um_dept
-      t.integer :umid
+      t.string :umid
 
       # Onboarding Questions
       t.string  :experience

@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20150827232626) do
     t.string   "email",                  default: "", null: false
     t.string   "um_affiliation"
     t.string   "um_dept"
-    t.integer  "umid"
+    t.string   "umid"
     t.boolean  "active"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
@@ -206,7 +206,7 @@ ActiveRecord::Schema.define(version: 20150827232626) do
     t.string   "email"
     t.string   "um_affiliation"
     t.string   "um_dept"
-    t.integer  "umid"
+    t.string  "umid"
     t.string   "experience"
     t.string   "referral"
     t.string   "interests"

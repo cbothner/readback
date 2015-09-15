@@ -15,10 +15,6 @@ class Trainee < ActiveRecord::Base
 
   belongs_to :dj
 
-  with_options if: :um_affiliated? do |dj|
-    dj.validates :umid, :um_dept, presence: true
-    dj.validates :umid, numericality: {only_integer: true}
-  end
   validates :statement, presence: true, unless: :um_affiliated?
 
   has_many :episodes
