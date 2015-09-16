@@ -3,7 +3,9 @@
 %td.width1
   - if can_bip
     .delete-song=link_to '[x]', path, method: :delete, data: {confirm: "Are you sure you want to delete this song?"}
-  .thin.time-col=song.at.strftime '%l:%M %P'
+  -#.thin.time-col=song.at.strftime '%l:%M %P'
+  .thin.time-col
+    =best_in_place_if can_bip, song, :at, inner_class: "bip-sized", url: path, display_with: ->(x) {just_time x}, value: just_time(song.at), class: "sortable-at"
 %td.width3=best_in_place_if can_bip, song, :artist, inner_class: "bip-sized", url: path
 %td.width4<
   =best_in_place_if can_bip, song, :name, display_with: lambda {|str| '“' + str + '”' }, inner_class: "bip-sized", url: path

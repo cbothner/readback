@@ -1,5 +1,9 @@
 class Song < ActiveRecord::Base
   validates :name, :episode_id, presence: true
+  validates_datetime :at,
+    on_or_after: ->(t){ t.episode.beginning },
+    before: ->(t){ Time.zone.now }
+
   belongs_to :episode
 
   after_create :post_information_to_icecast

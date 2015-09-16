@@ -31,3 +31,30 @@ $(document).on 'ready page:load', ->
 
   $('#trainee-attendance-hdr').on 'click touchend', ->
     $('#trainee-attendance').slideToggle 'fast'
+
+#$sortItems = (tbody) ->
+  #items = tbody.find '#tr'
+  #items.sort (a,b) ->
+    #a = a.find('.sortable-at').text
+    #b = b.find('.sortable-at').text
+    #if(a > b)
+      #return 1
+    #if(a < b)
+      #return -1
+    #return 0
+  #tbody.append items
+
+  $('.best_in_place').bind "ajax:success", ->
+    $show = $(this).closest 'tbody'
+    $showItems = $show.children 'tr'
+
+    $showItems.sort (a,b) ->
+      a = $(a).find('.sortable-at').text()
+      b = $(b).find('.sortable-at').text()
+      if(a < b)
+        return 1
+      if(a > b)
+        return -1
+      return 0
+
+    $showItems.detach().appendTo $show

@@ -5,4 +5,9 @@
   .setbreak
     %span
       setbreak
-      = '(' + setbreak.at.strftime('%-l:%M %P') + ')' if on_fm_computer?
+      -#= if on_fm_computer?
+        -#= best_in_place_if can_bip, setbreak, :at, display_with: ->(str){'(' + just_time(setbreak.at) + ')'}, class: "sortable-at", inner_class: 'bip-sized', value: just_time(setbreak.at)
+      - if on_fm_computer?
+        = surround '(', ')' do
+          %span.sortable-at<
+            = setbreak.at.strftime('%-l:%M %P')
