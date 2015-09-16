@@ -59,7 +59,9 @@
       = f.label :about, "Your Bio"
       %div
         %p.instructions
-          You can use markdown...
+          You can use 
+          = link_to "Markdown", "http://daringfireball.net/projects/markdown/syntax", target: "_blank"
+          for formatting.
         = f.text_area :about, class: "dj-about-textarea monospace"
     %aside.right-sidebar
       = f.label :lists, "Your Picks"
