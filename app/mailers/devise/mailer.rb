@@ -13,7 +13,7 @@ if defined?(ActionMailer)
       @token = token
       if record.is_a?(Dj) && record.sign_in_count == 0
         @dj = record
-        mail to: @dj.email, subject: "Your Readback account has been created!",
+        mail to: @dj.name_and_email, subject: "Your Readback account has been created!",
           template_name: 'readback_account_created'
       else
         devise_mail(record, :reset_password_instructions, opts)
