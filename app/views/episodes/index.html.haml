@@ -35,7 +35,7 @@
               %p{title: "Go to active sub request"}
                 = link_to reqs.first do
                   %i.fa.fa-exclamation-triangle
-            - elsif current_dj == @dj
+            - elsif current_dj.can_create? SubRequest, for: ep
               %p{title: "Request Sub"}
                 = link_to new_episode_sub_request_path(ep) do
                   %i.fa.fa-calendar-times-o

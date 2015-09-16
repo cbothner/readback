@@ -12,12 +12,12 @@ class SubRequest < ActiveRecord::Base
 
   def send_emails
     case status.to_sym
-    when :needs_sub then SubRequestMailer.request_of_all(id).deliver
-    when :needs_sub_in_group then SubRequestMailer.request_of_group(id).deliver
+    when :needs_sub then SubRequestMailer.request_of_all(id).deliver!
+    when :needs_sub_in_group then SubRequestMailer.request_of_group(id).deliver!
   # when :needs_sub_including_nighttime_djs
       # SubRequestMailer.request_incl_nighttime id
     when :confirmed 
-      SubRequestMailer.fulfilled(id, asking_dj_id: episode.dj_id_was).deliver
+      SubRequestMailer.fulfilled(id, asking_dj_id: episode.dj_id_was).deliver!
     end
   end
 
