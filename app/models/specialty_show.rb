@@ -14,6 +14,10 @@ class SpecialtyShow < ActiveRecord::Base
     :unassigned
   end
 
+  def dj_id_changed?
+    coordinator_id_changed?
+  end
+
   def deal
     hosts = rotating_hosts
     # modify only unassigned or unconfirmed episodes
