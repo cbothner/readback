@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150827232626) do
+ActiveRecord::Schema.define(version: 20150916152549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,18 +19,18 @@ ActiveRecord::Schema.define(version: 20150827232626) do
   create_table "djs", force: :cascade do |t|
     t.string   "name"
     t.string   "phone"
-    t.string   "email",                  default: "",  null: false
+    t.string   "email",                  default: "",   null: false
     t.string   "um_affiliation"
     t.string   "um_dept"
     t.string   "umid"
     t.boolean  "active",                 default: true
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-    t.string   "encrypted_password",     default: "",  null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "encrypted_password",     default: "",   null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,   null: false
+    t.integer  "sign_in_count",          default: 0,    null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150827232626) do
     t.boolean  "shadowed"
   end
 
+  add_index "episodes", ["beginning"], name: "index_episodes_on_beginning", using: :btree
   add_index "episodes", ["dj_id"], name: "index_episodes_on_dj_id", using: :btree
   add_index "episodes", ["show_type", "show_id"], name: "index_episodes_on_show_type_and_show_id", using: :btree
   add_index "episodes", ["trainee_id"], name: "index_episodes_on_trainee_id", using: :btree
@@ -128,6 +129,15 @@ ActiveRecord::Schema.define(version: 20150827232626) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "setbreaks", force: :cascade do |t|
+    t.datetime "at"
+    t.integer  "episode_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "setbreaks", ["at"], name: "index_setbreaks_on_at", using: :btree
+
   create_table "signoff_instances", force: :cascade do |t|
     t.string   "on"
     t.string   "signed"
@@ -137,6 +147,7 @@ ActiveRecord::Schema.define(version: 20150827232626) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "signoff_instances", ["at"], name: "index_signoff_instances_on_at", using: :btree
   add_index "signoff_instances", ["signoff_id"], name: "index_signoff_instances_on_signoff_id", using: :btree
 
   create_table "signoffs", force: :cascade do |t|
@@ -163,6 +174,7 @@ ActiveRecord::Schema.define(version: 20150827232626) do
     t.integer  "episode_id"
   end
 
+  add_index "songs", ["at"], name: "index_songs_on_at", using: :btree
   add_index "songs", ["episode_id"], name: "index_songs_on_episode_id", using: :btree
 
   create_table "specialty_shows", force: :cascade do |t|
