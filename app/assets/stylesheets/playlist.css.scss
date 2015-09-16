@@ -100,3 +100,37 @@ td {
   }
   display: none;
 }
+
+.setbreak {
+  color: #999;
+  text-align: center;
+  font-family: 'Alegreya Sans SC';
+  letter-spacing: 3pt;
+  overflow: hidden;
+  white-space: nowrap; 
+  .delete-song { letter-spacing: 0; }
+}
+.setbreak > span {
+  position: relative;
+  display: inline-block;
+}
+
+.setbreak > span:before,
+.setbreak > span:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 9999px;
+  height: 1px;
+  background: #999;
+}
+
+.setbreak > span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+
+.setbreak > span:after {
+  left: 100%;
+  margin-left: 15px;
+}

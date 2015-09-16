@@ -1,0 +1,8 @@
+- can_bip = setbreak.episode == @on_air && on_fm_computer?
+%td{colspan: 6}
+  - if can_bip
+    .delete-song=link_to '[x]', setbreak, method: :delete, data: {confirm: "Are you sure you want to delete this song?"}
+  .setbreak
+    %span
+      setbreak
+      = '(' + setbreak.at.strftime('%-l:%M %P') + ')' if on_fm_computer?

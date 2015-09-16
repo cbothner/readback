@@ -6,6 +6,7 @@
       %span now
     = render 'episodes/upcoming_episodes'
     = render 'songs/form' if on_fm_computer?
+    = render 'setbreaks/form' if on_fm_computer?
     %br
     - if on_fm_computer?
       = render 'episodes/shownotes', episode: @on_air, editable: true

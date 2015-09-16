@@ -8,4 +8,8 @@ module SongsHelper
       ).render
     end
   end
+
+  def just_time(time)
+    time.strftime "%-l:%M %P"
+  end
 end

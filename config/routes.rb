@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   resources :signoffs
   resources :signoff_instances, only: [:index, :update]
 
+  resources :setbreaks, only: [:update, :create, :destroy]
+
   authenticate :dj do
     mount Resque::Server.new => "/resque_web"
   end
