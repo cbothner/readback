@@ -1,10 +1,20 @@
+- content_for :host do
+  %h3 Your Host
+  .rotating-hosts
+    .tiled.rotating-host
+      =render @talk_show.dj
 - title "#{@talk_show.name}"
 - headline "#{@talk_show.name}"
 - back_link link_to "Back to Schedule", semester_path(@talk_show.semester)
 - if dj_signed_in? && current_dj.can_update?(@talk_show)
   = content_for :sidebar do
-    =render 'form'
+    - if dj_signed_in? && current_dj.can_update?(@talk_show)
+      =render 'form'
+    - else
+      =content_for :host
 
+- if dj_signed_in? && current_dj.can_update?(@talk_show)
+  =content_for :host
 %h3 Episodes
 - @episodes.each do |episode|
   .showinfo.tiled
@@ -13,3 +23,6 @@
         =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
           episode
     %p=episode.date_string
+    %p.with
+      =with episode, short: true if episode.subbed_for?
+      &nbsp;
