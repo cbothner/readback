@@ -13,6 +13,7 @@ module Person
 
   def um_id
     s = umid
+    s ||= ''
     "#{s[0..3]}&nbsp;#{s[4..7]}".html_safe
   end
 

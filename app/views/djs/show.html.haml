@@ -50,7 +50,7 @@
               UM Affiliation:&nbsp;
               = @dj.um_dept
               = Person::AFFILIATION_NAMES[@dj.um_affiliation]
-            - if @dj.um_affiliated?
+            - if @dj.um_affiliated? && current_dj.has_role :superuser
               %li
                 UMID:
                 = @dj.um_id
