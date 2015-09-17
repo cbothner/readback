@@ -4,7 +4,7 @@ module ShowsController
   included do 
 
     authorize_actions_for controller_name.singularize.camelize.constantize, except: :show
-    before_action :set_instance_variable, only: [:show, :update, :destroy]
+    before_action :set_instance_variable, only: [:show, :update, :destroy, :deal]
     before_action :define_params_method, only: [:create, :update]
     layout "headline"
 
