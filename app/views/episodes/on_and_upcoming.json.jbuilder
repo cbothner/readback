@@ -1,6 +1,6 @@
 json.css  stylesheet_url 'application', media: 'all'
 
-json.html render partial: "upcoming_episodes", formats: [:html], locals: {limit: 3}
+json.html (render partial: "upcoming_episodes", formats: [:html], locals: {limit: 3}).gsub "href=\"/", "href=\"http://wcbn-readback.herokuapp.com/"
 
 json.show do
   json.name @on_air.show.unambiguous_name
