@@ -1,50 +1,55 @@
 - title "Sub Request for #{@episode.show.unambiguous_name}"
-- headline "#{@episode.dj} Needs a Sub"
+- unless @sub_request.confirmed?
+  - headline "#{@episode.dj} Needs a Sub"
+  - subtitle "Be a hero:"
+
+  .sub-req-info
+    - if current_dj.can_delete?(@sub_request)
+      .show_delete{style: "padding: 3px"}
+        =link_to "[x]", @sub_request, method: :delete,
+          confirm_with: "Are you sure you want to delete this sub request?  If you do so, you are reaffirming your commitment to do radio at this time."
+    %ul
+      %li
+        %span Show:&nbsp;
+        %span= link_to @episode.show.unambiguous_name, @episode.show
+      %li
+        %span Date:&nbsp;
+        %span= @episode.date_string
+      %li
+        %span Time:&nbsp;
+        %span= @episode.just_time_string
+      %li
+        %span Current DJ:&nbsp;
+        %span= link_to @episode.dj.name, @episode.dj
+      %li
+        %span Reason:
+        %blockquote= "“#{@sub_request.reason}”"
+    - case @sub_request.status
+    - when 'needs_sub_in_group'
+      %p.subtitle
+        This request has been sent only to:
+        %br
+        = raw @sub_request.group.map {|x| Dj.find(x)}.map {|dj| link_to dj.name,
+          dj}.to_sentence + '.'
+    - when 'needs_sub_including_nighttime_djs'
+      %p.subtitle The Program Director has made this slot available to all WCBN DJs.
+
+  .actions
+    - unless current_dj == @episode.dj
+      = form_for @sub_request do |f|
+        - f.submit @fulfill_button_text, data: {disable_with: "Saving..."}
+    - if @sub_request.needs_sub_in_group?
+      - if current_dj.can_create?(SubRequest, for: @episode)
+        = form_for @sub_request do |f|
+          = f.hidden_field :status, value: 'needs_sub'
+          = f.submit "Open this slot to all DJs", data: {disable_with: "Saving..."}
+    - elsif @sub_request.needs_sub? && !@episode.nighttime?
+      - if current_dj.has_role?(:superuser)
+        = form_for @sub_request do |f|
+          = f.hidden_field :status, value: 'needs_sub_including_nighttime_djs'
+          = f.submit "Open this slot to nighttime DJs as well.", data: {disable_with: "Saving..."}
+
+- else
+  - headline "This sub request has been taken!"
+  - subtitle "Thanks for going for it, anyway. "
 - back_link link_to "Back to Sub Board", sub_requests_path
-- subtitle "Be a hero:"
-
-.sub-req-info
-  - if current_dj.can_delete?(@sub_request)
-    .show_delete{style: "padding: 3px"}
-      =link_to "[x]", @sub_request, method: :delete,
-        confirm_with: "Are you sure you want to delete this sub request?  If you do so, you are reaffirming your commitment to do radio at this time."
-  %ul
-    %li
-      %span Show:&nbsp;
-      %span= link_to @episode.show.unambiguous_name, @episode.show
-    %li
-      %span Date:&nbsp;
-      %span= @episode.date_string
-    %li
-      %span Time:&nbsp;
-      %span= @episode.just_time_string
-    %li
-      %span Current DJ:&nbsp;
-      %span= link_to @episode.dj.name, @episode.dj
-    %li
-      %span Reason:
-      %blockquote= "“#{@sub_request.reason}”"
-  - case @sub_request.status
-  - when 'needs_sub_in_group'
-    %p.subtitle
-      This request has been sent only to:
-      %br
-      = raw @sub_request.group.map {|x| Dj.find(x)}.map {|dj| link_to dj.name,
-        dj}.to_sentence + '.'
-  - when 'needs_sub_including_nighttime_djs'
-    %p.subtitle The Program Director has made this slot available to all WCBN DJs.
-
-.actions
-  - unless current_dj == @episode.dj
-    = form_for @sub_request do |f|
-      - f.submit @fulfill_button_text, data: {disable_with: "Saving..."}
-  - if @sub_request.needs_sub_in_group?
-    - if current_dj.can_create?(SubRequest, for: @episode)
-      = form_for @sub_request do |f|
-        = f.hidden_field :status, value: 'needs_sub'
-        = f.submit "Open this slot to all DJs", data: {disable_with: "Saving..."}
-  - elsif @sub_request.needs_sub? && !@episode.nighttime?
-    - if current_dj.has_role?(:superuser)
-      = form_for @sub_request do |f|
-        = f.hidden_field :status, value: 'needs_sub_including_nighttime_djs'
-        = f.submit "Open this slot to nighttime DJs as well.", data: {disable_with: "Saving..."}
