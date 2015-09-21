@@ -6,4 +6,8 @@
     -# TODO: check if the user has permissions to edit this show! If not, it's as follows
     -#= link_to_most_recent_episode specialty_show
 
-.show_with="#{specialty_show.rotating_hosts.count} #{"DJ".pluralize(specialty_show.rotating_hosts.count)} in rotation"
+.show_with
+  -if specialty_show.rotating_hosts.count == 1
+    = "with #{specialty_show.dj}"
+  - else
+    ="#{specialty_show.rotating_hosts.count} #{"DJ".pluralize(specialty_show.rotating_hosts.count)} in rotation"

@@ -11,7 +11,7 @@ module EpisodesHelper
       wcbn_pa = "a WCBN public affairs show" unless short
       your_or_guest = ep.subbed_for? ? "guest" : "your"
       with = "with #{your_or_guest} host, #{dj_name}" unless ep.show.dj.nil?
-      raw wcbn_pa + with
+      raw wcbn_pa + " " + with
     end
   end
 end

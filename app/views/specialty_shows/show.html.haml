@@ -31,5 +31,5 @@
       -if episode.past?
         %p.show-instance-links
           =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
-            episode
+            episode_songs_path(episode)
       %p.with=episode.status_string
