@@ -17,7 +17,7 @@ class SubRequest < ActiveRecord::Base
   # when :needs_sub_including_nighttime_djs
       # SubRequestMailer.request_incl_nighttime id
     when :confirmed 
-      SubRequestMailer.fulfilled(id, asking_dj_id: episode.dj_id_was).deliver!
+      SubRequestMailer.fulfilled(id, fulfilling_dj_id: episode.dj_id,  asking_dj_id: episode.show.dj.id ).deliver!
     end
   end
 

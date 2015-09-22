@@ -75,8 +75,8 @@ class SubRequestsController < ApplicationController
     end
     respond_to do |format|
       if ActiveRecord::Base.transaction do
-        @sub_request.save
         @episode.save
+        @sub_request.save
       end
         format.html {redirect_to *success_args}
       else

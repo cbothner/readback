@@ -22,7 +22,7 @@ class SubRequestMailer < ApplicationMailer
       subject: "#{@sub_request.episode.dj} needs a sub #{@sub_request.for}!"
   end
 
-  def fulfilled(sub_request_id, asking_dj_id: nil)
+  def fulfilled(sub_request_id, fulfilling_dj_id: nil, asking_dj_id: nil)
     @sub_request = SubRequest.find sub_request_id
     @fulfilling_dj = @sub_request.episode.dj
     @asking_dj = if asking_dj_id.nil?
