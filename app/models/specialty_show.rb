@@ -7,7 +7,7 @@ class SpecialtyShow < ActiveRecord::Base
   alias_attribute :coordinator, :dj
 
   def rotating_hosts
-    (djs + [coordinator]).uniq.sort_by { |dj| dj.try(&:name) }
+    ([coordinator] + djs.sort_by { |dj| dj.try(&:name) }).uniq
   end
 
   def default_status
