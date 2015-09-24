@@ -10,6 +10,7 @@ class Episode < ActiveRecord::Base
   belongs_to :trainee
   has_many :songs, dependent: :restrict_with_exception
   has_many :sub_requests, dependent: :destroy
+  has_many :setbreaks, dependent: :destroy
 
   def self.on_air
     where(beginning: (Time.zone.now - 6.hours)..Time.zone.now).order(:beginning).last
