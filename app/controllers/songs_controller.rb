@@ -10,6 +10,7 @@ class SongsController < ApplicationController
     #@songs = Song.all.sort_by(&:at).reverse
     @songs = @episode.songs
     @songs += @episode.setbreaks
+    @songs = @songs.sort_by(&:at)
   end
 
   # POST /songs
