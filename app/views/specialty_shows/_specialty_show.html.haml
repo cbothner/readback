@@ -8,6 +8,6 @@
 
 .show_with
   -if specialty_show.rotating_hosts.count == 1
-    = "with #{specialty_show.dj}"
+    = raw "with #{link_to(specialty_show.dj, specialty_show.dj)}"
   - else
     ="#{specialty_show.rotating_hosts.count} #{"DJ".pluralize(specialty_show.rotating_hosts.count)} in rotation"
