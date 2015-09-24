@@ -4,7 +4,7 @@ module Person
   AFFILIATED_UM_AFFILIATIONS = %w(student alumni faculty)
   UNAFFILIATED_UM_AFFILIATIONS = %w(community)
   UM_AFFILIATIONS = AFFILIATED_UM_AFFILIATIONS + UNAFFILIATED_UM_AFFILIATIONS
-  AFFILIATION_NAMES = {'student' => "Student", 'alumni' => "Alumni",
+  AFFILIATION_NAMES = {'student' => "Student", 'alumnus' => "Alumni",
                        'faculty' => "Faculty/Staff", 'community' => "Community Advisor"}
 
   def um_affiliated?
