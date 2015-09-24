@@ -20,6 +20,11 @@ class Dj < ActiveRecord::Base
   validates :name, :phone, :email, presence: true
   validates :website, format: {with: /(\Ahttp|\A\Z)/, message: "must start with “http://”"}
 
+  with_options if: :um_affiliated? do |dj|
+    dj.validates :umid, :um_dept, presence: true
+    #dj.validates :umid, format: {with: /\A[0-9]{8}\Z/}
+  end
+
   def semesters_count
     (freeform_shows.map(&:semester) + specialty_shows.map(&:semester))
       .uniq.count
