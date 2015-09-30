@@ -18,4 +18,5 @@
               =link_to("copy", "/semesters/new/based_on/#{semester.id}")
               ]
 
-= render @semester, locals: {no_links: false}
+- cache cache_key_for_semester(@semester) do
+  = render @semester, locals: {no_links: false}
