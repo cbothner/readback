@@ -21,6 +21,8 @@
 //= require best_in_place
 //= require_tree .
 
+Turbolinks.enableProgressBar();
+
 $(document).on("ready page:load", function() {
 
   jQuery(".best_in_place").best_in_place();  
