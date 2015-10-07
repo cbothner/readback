@@ -3,9 +3,6 @@ class PlaylistController < ApplicationController
   HOW_FAR_BACK = 6.hours
 
   def index
-    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://wcbn.org"
-    iframe = params[:from] == 'iframe'
-
     songs = Song.includes(:episode).where(at: 6.hours.ago..Time.zone.now)
 
     setbreaks = Setbreak.where at: HOW_FAR_BACK.ago..Time.zone.now
@@ -18,17 +15,13 @@ class PlaylistController < ApplicationController
     episodes = past_episodes + future_episodes
     episodes -= [@on_air]
 
-    signoff_instances = SignoffInstance.where(at: HOW_FAR_BACK.ago..HOW_FAR_FORWARD.since)
-
 
     items = songs + episodes + setbreaks
-    if iframe
-      def @on_air.at
-        Time.zone.now
-      end
-      items += [@on_air]
+
+    if playlist_editor_signed_in?
+      signoff_instances = SignoffInstance.where(at: HOW_FAR_BACK.ago..HOW_FAR_FORWARD.since)
+      items += signoff_instances
     end
-    items += signoff_instances if playlist_editor_signed_in?
 
     items.sort_by!(&:at).reverse!
     @past_items = items.select{|i| i.at <= Time.zone.now }
@@ -38,9 +31,5 @@ class PlaylistController < ApplicationController
     @song = Song.new(session.delete(:song))
     @song ||= Song.new
     @song.episode ||= @on_air
-
-    if iframe
-      render 'iframe', layout: 'iframe' and return
-    end
   end
 end
