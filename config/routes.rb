@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     mount Resque::Server.new => "/resque_web"
   end
 
+  resources :playlist, only: [:index]
   root 'playlist#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -8,13 +8,12 @@ class PlaylistController < ApplicationController
     setbreaks = Setbreak.where at: HOW_FAR_BACK.ago..Time.zone.now
 
     past_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
-      .where(ending: HOW_FAR_BACK.ago..Time.zone.now)
-    future_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
-      .where(beginning: Time.zone.now..HOW_FAR_FORWARD.since)
+      .where(ending: HOW_FAR_BACK.ago..Time.zone.now).order(ending: :desc)
+    @future_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
+      .where(beginning: Time.zone.now..HOW_FAR_FORWARD.since).order(beginning: :asc)
     @on_air = Episode.on_air
-    episodes = past_episodes + future_episodes
+    episodes = past_episodes + @future_episodes
     episodes -= [@on_air]
-
 
     items = songs + episodes + setbreaks
 
