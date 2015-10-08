@@ -27,6 +27,6 @@ class SignoffInstancesController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def signoff_instance_params
-      params.require(:signoff_instance).permit(:signed)
+      params.require(:signoff_instance).permit(:signed, :cart_name)
     end
 end

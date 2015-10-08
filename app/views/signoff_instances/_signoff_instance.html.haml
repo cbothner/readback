@@ -8,6 +8,15 @@
     = form_for signoff_instance do |f|
       = f.label :signed
       = f.text_field :signed, placeholder: "Type your full name", autocomplete: "off"
+      - if signoff_instance.with_cart_name
+        = f.text_field :cart_name, placeholder: "Cart name"
       = f.submit 'Sign off', data: { disable_with: 'Saving...' }
   - else
-    %span.signed="#{signoff_instance.on}: #{signoff_instance.signed}"
+    %span.signed
+      = succeed ':' do
+        = signoff_instance.on
+      = signoff_instance.signed
+      - unless signoff_instance.cart_name.blank?
+        %i
+          = surround '(', ')' do
+            = signoff_instance.cart_name

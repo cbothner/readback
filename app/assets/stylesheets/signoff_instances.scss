@@ -5,11 +5,11 @@
     display: block;
     float: left;
     padding-top: 3px;
-    padding-right: 0.5em;
   }
 
   input {
-    width: 20em;
+    width: 15em;
+    margin-left: 0.5em;
   }
 
   input[type="submit"] {
@@ -25,5 +25,6 @@
 }
 
 .signed {
-  color: #999
+  color: #999;
+  font-weight: 400;
 }
