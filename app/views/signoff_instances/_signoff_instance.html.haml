@@ -1,17 +1,19 @@
 %td.thin.time-col{class: ("signed" unless signoff_instance.signed.nil?)}
   %span.sortable-at<
     =signoff_instance.at.strftime '%l:%M %P'
-%td.signoff-instance{colspan: 5}
-  - if signoff_instance.signed.nil?
+- if signoff_instance.signed.nil?
+  %td.signoff-instance
     .signoff-on{class: ("accent bold" if signoff_instance.at <= Time.zone.now) }
       ="#{signoff_instance.on}: "
+  %td.signoff-instance{colspan: 4}
     = form_for signoff_instance do |f|
       = f.label :signed
       = f.text_field :signed, placeholder: "Type your full name", autocomplete: "off"
       - if signoff_instance.with_cart_name
         = f.text_field :cart_name, placeholder: "Cart name"
       = f.submit 'Sign off', data: { disable_with: 'Saving...' }
-  - else
+- else
+  %td.signoff-instance{colspan: 5}
     %span.signed
       = succeed ':' do
         = signoff_instance.on
