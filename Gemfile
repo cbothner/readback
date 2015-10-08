@@ -61,7 +61,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 ########################
 # Forms and Validation #
 ########################
-gem 'best_in_place', '~> 3.0.1'
+gem 'best_in_place', '= 3.0.1'
 gem 'jc-validates_timeliness'
 
 

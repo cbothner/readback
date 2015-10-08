@@ -7,11 +7,11 @@ class DjsController < ApplicationController
   # GET /djs
   # GET /djs.json
   def index
-    @djs = Dj.where(active: true).order(name: :asc)
+    @djs = Dj.all.order(name: :asc)
 
     respond_to do |format|
       format.html{ render layout: "wide" }
-      format.pdf
+      format.pdf{ @djs = @djs.select &:active }
     end
   end
 
@@ -64,10 +64,10 @@ class DjsController < ApplicationController
     respond_to do |format|
       if @dj.update(dj_params)
         format.html { redirect_to @dj, notice: 'Dj was successfully updated.' }
-        format.json { render :show, status: :ok, location: @dj }
+        format.json { respond_with_bip @dj }
       else
         format.html { render :edit }
-        format.json { render json: @dj.errors, status: :unprocessable_entity }
+        format.json { respond_with_bip @dj }
       end
     end
   end
@@ -97,6 +97,6 @@ class DjsController < ApplicationController
       params.require(:dj).permit(:name, :phone, :email, :umid, :um_affiliation,
                                  :um_dept, :experience, :referral, :interests,
                                  :statement, :real_name_is_public, :dj_name,
-                                 :website, :public_email, :about, :lists)
+                                 :website, :public_email, :about, :lists, :active)
     end
 end
