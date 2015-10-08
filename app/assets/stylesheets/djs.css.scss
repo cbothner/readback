@@ -263,3 +263,7 @@ textarea.tall{
     min-width: 12em;
   }
 }
+
+.dj-roster tr:nth-child(even) {
+  background-color: #eee;
+}

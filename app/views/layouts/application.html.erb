@@ -23,6 +23,7 @@
   <header id="dj-signed-<%= dj_signed_in? ? 'in' : 'out'%>-nav" <%="class=fixed" if on_fm_computer? %>>
   <div class="right">
     <% if current_dj %>
+      <%= raw "#{link_to("Roster", djs_path)} • " if current_dj.has_role?(:superuser) %>
       <%= raw "#{link_to("Trainees", trainees_path)} • " if current_dj.can_read? Trainee %>
       <%= link_to "Sub Board", sub_requests_path %> &mdash;
       <%= link_to current_dj.name, current_dj %>

@@ -10,7 +10,7 @@ class DjsController < ApplicationController
     @djs = Dj.where(active: true).order(name: :asc)
 
     respond_to do |format|
-      format.html
+      format.html{ render layout: "wide" }
       format.pdf
     end
   end

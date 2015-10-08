@@ -1,9 +1,30 @@
 - title "DJs"
 - headline "WCBN DJs"
+- subtitle link_to "Print phone list", djs_path( format: :pdf )
 
-.djs-container
-  - [["Active DJs", @active_djs], ["Trained DJs", @trained], ["DJs In Training", @trainees]].each do |name, group|
-    .dj-column
-      %h3=name
-      - group.each do |dj|
-        = render dj
+%table.dj-roster
+  %thead
+    %td Active?
+    %td ID
+    %td.width4 Name
+    %td.width3 UM Affiliation
+    %td UMID
+    %td Phone
+    %td Email
+    %td Last Signed In
+  - @djs.each do |dj|
+    %tr
+      %td=dj.active
+      %td=dj.id
+      %td
+        = link_to dj do
+          =dj.to_s
+        = " (#{dj.dj_name.blank? ? dj.name.split(' ')[1..-1]*' ' : dj.name})"
+      %td
+        = dj.um_dept
+        = Person::AFFILIATION_NAMES[dj.um_affiliation]
+      %td=dj.um_id
+      %td=dj.phone
+      %td=mail_to dj.email
+      %td
+        = time_ago_in_words(dj.last_sign_in_at) rescue "–"
