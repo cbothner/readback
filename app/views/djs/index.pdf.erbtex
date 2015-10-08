@@ -1,4 +1,4 @@
-<% @latex_config={parse_runs: 2} %>
+<% @latex_config={parse_runs: 3} %>
 \documentclass[10pt, letterpaper]{article}
 
 \usepackage[margin=1cm, bottom=1.6cm]{geometry}
@@ -11,6 +11,7 @@
 
 \begin{center}
 
+\textsc{confidential: for official business only. do not publicize.}\\
 \textbf{WCBN Volunteer Roster}\\
 \emph{Current as of <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>}\\
 {\footnotesize U-M Affiliation Key: S.\@ = Student --- A.\@ = Alumnus/a --- F./S.\@ =
@@ -21,6 +22,8 @@ Faculty/Staff --- C.\@ A.\@ = Community Advisor}
 \textsc{Name} & \textsc{Phone} & \textsc{Email} & \textsc{U-M} & \textsc{Roles}\\
 \midrule
 \endfirsthead
+\multicolumn{5}{c}%
+  {\textsc{confidential: for official business only. do not publicize.}}\\
 \multicolumn{5}{c}%
   {WCBN Volunteer Roster --- <%= lesc Time.zone.now.strftime("%B %-d, %Y") %>} \\\\
 \toprule

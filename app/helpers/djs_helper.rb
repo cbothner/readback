@@ -24,7 +24,7 @@ module DjsHelper
     when 'community' then 'C.\@ A.'
     when 'student' then 'S.'
     when 'faculty' then 'F./S.'
-    when 'alumni' then 'A.'
+    when 'alumnus' then 'A.'
     end
   end
 
