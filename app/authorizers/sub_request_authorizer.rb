@@ -37,6 +37,9 @@ class SubRequestAuthorizer < ApplicationAuthorizer
     ep.dj == user || ep.show.dj == user || user.has_role?(:superuser)
   end
 
+  def self.deletable_by?(user)
+    user.active
+  end
   def deletable_by?(user)
     resource.episode.dj == user || user.has_role?(:superuser)
   end
