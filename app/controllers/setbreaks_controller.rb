@@ -23,11 +23,9 @@ class SetbreaksController < ApplicationController
   def update
     respond_to do |format|
       if @setbreak.update(setbreak_params)
-        format.html { redirect_to @setbreak, notice: 'Setbreak was successfully updated.' }
-        format.json { render :show, status: :ok, location: @setbreak }
+        format.json { respond_with_bip @setbreak }
       else
-        format.html { render :edit }
-        format.json { render json: @setbreak.errors, status: :unprocessable_entity }
+        format.json { respond_with_bip @setbreak }
       end
     end
   end
