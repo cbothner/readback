@@ -15,6 +15,7 @@ class SignoffInstancesController < ApplicationController
     respond_to do |format|
       if @signoff_instance.update(signoff_instance_params)
         format.html { redirect_to controller: :playlist, action: :index }
+        format.js {}
       else
         format.html {
           flash[:alert] = @signoff_instance.errors.full_messages

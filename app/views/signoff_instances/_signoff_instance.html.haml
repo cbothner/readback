@@ -6,7 +6,7 @@
     .signoff-on{class: ("accent bold" if signoff_instance.at <= Time.zone.now) }
       ="#{signoff_instance.on}: "
   %td.signoff-instance{colspan: 4}
-    = form_for signoff_instance do |f|
+    = form_for signoff_instance, remote: true do |f|
       = f.label :signed
       = f.text_field :signed, placeholder: "Type your full name", autocomplete: "off"
       - if signoff_instance.with_cart_name

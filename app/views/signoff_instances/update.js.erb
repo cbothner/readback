@@ -1,0 +1,4 @@
+debugger;
+$signoff_instance_tr = $("#edit_signoff_instance_<%=@signoff_instance.id%>").closest('tr');
+$signoff_instance_tr.html("<%= j render @signoff_instance %>");
+window.sort_items($signoff_instance_tr);
