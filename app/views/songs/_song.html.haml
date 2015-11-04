@@ -6,10 +6,14 @@
   -#.thin.time-col=song.at.strftime '%l:%M %P'
   .thin.time-col
     =best_in_place_if can_bip, song, :at, inner_class: "bip-sized", url: path, display_with: ->(x) {just_time x}, value: just_time(song.at), class: "sortable-at"
-%td.width3=best_in_place_if can_bip, song, :artist, inner_class: "bip-sized", url: path
+%td.width3
+  =best_in_place_if can_bip, song, :artist, inner_class: "bip-sized", url: path
+  %span.thin.accent=' (local)' if song.local
 %td.width4<
   =best_in_place_if can_bip, song, :name, display_with: lambda {|str| '“' + str + '”' }, inner_class: "bip-sized", url: path
   %span.thin.accent=' (by request)' if song.request
-%td.width3.italic=best_in_place_if can_bip, song, :album, inner_class: "bip-sized", url: path
+%td.width3.italic
+  =best_in_place_if can_bip, song, :album, inner_class: "bip-sized", url: path
+  %span.thin.accent=' (new)' if song.new
 %td.width2.thin=best_in_place_if can_bip, song, :label, inner_class: "bip-sized", url: path
 %td.width1.thin=best_in_place_if can_bip, song, :year, inner_class: "bip-sized", url: path
