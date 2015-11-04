@@ -40,6 +40,11 @@ tr.grey * { color: #999; }
 #now.dj-signed-in-now td { padding-top: 6em; }
 #now.dj-signed-out-now td { padding-top: 4em; }
 
+i.dingbat {
+  font-style: normal;
+  font-family: "Zapf Dingbats";
+}
+
 .delete-song {
   display: inline;
   float: left;
