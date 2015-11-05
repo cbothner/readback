@@ -43,7 +43,9 @@ Rails.application.routes.draw do
   end
 
   root 'playlist#index'
-  resources :playlist, only: [:index]
+  resources :playlist, only: [:index] do
+    get :archive, on: :collection
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

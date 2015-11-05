@@ -3,32 +3,59 @@ class PlaylistController < ApplicationController
   HOW_FAR_BACK = 6.hours
 
   def index
-    songs = Song.includes(:episode).where(at: 6.hours.ago..Time.zone.now)
+    now = Time.zone.now
 
-    setbreaks = Setbreak.where at: HOW_FAR_BACK.ago..Time.zone.now
-
-    past_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
-      .where(ending: HOW_FAR_BACK.ago..Time.zone.now).order(ending: :desc)
-    @future_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
-      .where(beginning: Time.zone.now..HOW_FAR_FORWARD.since).order(beginning: :asc)
     @on_air = Episode.on_air
-    episodes = past_episodes + @future_episodes
-    episodes -= [@on_air]
 
-    items = songs + episodes + setbreaks
+    @past_items = items_between HOW_FAR_BACK.ago, now
+    @past_items -= [@on_air]
 
+    @future_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
+      .where(beginning: now..HOW_FAR_FORWARD.since).order(beginning: :asc)
     if playlist_editor_signed_in?
-      signoff_instances = SignoffInstance.where(at: HOW_FAR_BACK.ago..HOW_FAR_FORWARD.since)
-      items += signoff_instances
+      @future_items = @future_episodes + SignoffInstance.where(at: now..HOW_FAR_FORWARD.since)
+      @future_items.sort_by!(&:at).reverse!
     end
-
-    items.sort_by!(&:at).reverse!
-    @past_items = items.select{|i| i.at <= Time.zone.now }
-    @future_items = items - @past_items
 
     session[:confirm_episode] = false unless session[:song]
     @song = Song.new(session.delete(:song))
     @song ||= Song.new
     @song.episode ||= @on_air
   end
+
+  def archive
+    @from = Time.zone.parse(params[:from]) || HOW_FAR_BACK.ago
+    @til = Time.zone.parse(params[:til]) || Time.zone.now
+
+    @past_items = items_between @from, @til, ensure_all_songs_have_show_info: request.format == Mime::HTML
+
+    respond_to do |format|
+      format.html {render layout: 'wide'}
+      format.json
+    end
+  end
+
+  private
+
+  def items_between(from, til, ensure_all_songs_have_show_info: false)
+    songs = Song.includes(:episode).where at: from..til
+
+    episodes = Episode.includes(:dj, show: [:dj]).where ending: from...til
+    if ensure_all_songs_have_show_info
+      episodes += songs.map(&:episode).reject { |e| episodes.include? e }.uniq
+    end
+
+    setbreaks = Setbreak.where at: from..til
+
+    items = songs + episodes + setbreaks
+
+    if playlist_editor_signed_in?
+      signoff_instances = SignoffInstance.where(at: from..til)
+      items += signoff_instances
+    end
+
+    items.sort_by(&:at).reverse
+
+  end
+
 end

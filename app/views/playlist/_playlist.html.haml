@@ -1,5 +1,5 @@
 %table.playlist
-  - unless !on_fm_computer? || (defined?(iframe) && iframe)
+  - if on_fm_computer? && !@future_items.nil?
     %thead
     - @future_items.each do |item|
       %tr.grey
@@ -16,14 +16,14 @@
         %br
 
   %thead
-    - unless defined?(iframe) && iframe
+    - unless @on_air.nil?
       %td Time
       %td Artist
       %td Song Title
       %td Album
       %td Label
       %td Year
-  = message_if_episode_has_no_songs(@on_air)
+  = message_if_episode_has_no_songs(@on_air) unless !@on_air
   - @past_items.each do |item|
     %tr
       =render item

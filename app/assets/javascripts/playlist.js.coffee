@@ -58,6 +58,24 @@ $(document).on 'ready page:load', ->
       $('#now-button').hide()
       enableScroll()
 
+  loadMorePlaylistItems = ->
+    from = $("#infinity").data "from"
+    til = $("#infinity").data "til"
+    $.getJSON("/playlist/archive.json", {from: from, til: til}).success (data) ->
+      items = []
+      $.each data.items, ->
+        items.push "<tr>#{this.html}</tr>"
+      $("#infinity").data "from", data.newfrom
+      $("#infinity").data "til", data.newtil
+      $("table.playlist tr:last").after items
+
+  $(window).scroll ->
+    if $(window).scrollTop() == $(document).height() - $(window).height()
+      loadMorePlaylistItems()
+
+  $("#infinity").mouseover ->
+    loadMorePlaylistItems()
+
   $('#submit-to-previous-show').on 'click touchend', ->
     previous = $('#submit-to-previous-show').attr 'data-previous-show'
     $('#override_episode').val 'true'
@@ -66,5 +84,5 @@ $(document).on 'ready page:load', ->
   $('#trainee-attendance-hdr').on 'click touchend', ->
     $('#trainee-attendance').slideToggle 'fast'
 
-  $('.best_in_place').bind "ajax:success", ->
+  $('.best_in_place').bind "best_in_place:success", ->
     window.sort_items(this)

@@ -14,6 +14,11 @@
 %article.with-sidebar{class: ('scroll-up' if on_fm_computer?)}
   - if @on_air
     = render 'playlist'
+    .grey
+      %a#infinity{data: {til: PlaylistController::HOW_FAR_BACK.ago.to_json,
+                             from: (PlaylistController::HOW_FAR_BACK.ago - 1.hour).to_json}}
+        = playlist_editor_signed_in? ? "Click here" : "Scroll down"
+        to load more
   - else
     %p.alert Readback is configured incorrectly.  There is no show currently scheduled.
 

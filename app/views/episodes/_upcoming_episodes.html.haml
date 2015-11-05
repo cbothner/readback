@@ -8,7 +8,7 @@
   - if !on_fm_computer? || @standalone
     = render('episodes/shownotes', episode: @on_air) if @on_air
     %h4.small-caps-title Up Next:
-    - upcoming_episodes = @future_items.select {|e| e.is_a? Episode}.reverse
+    - upcoming_episodes = @future_episodes
     - upcoming_episodes = upcoming_episodes.take(limit) if limit
     - upcoming_episodes.each do |ep|
       = render ep
