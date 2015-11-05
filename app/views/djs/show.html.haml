@@ -59,7 +59,7 @@
               = @dj.phone
             %li
               Email:
-              = link_to @dj.email, "mailto://#{@dj.email}"
+              = mail_to @dj.email
               %br
           - unless @dj.website.blank?
             %li
