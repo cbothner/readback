@@ -50,7 +50,7 @@
     -#%br
     -#%textarea{rows: '3', tabindex: 7}
   = hidden_field_tag :override_episode
-  .actions
+  .actions.and-clear
     - if session[:confirm_episode]
       = f.submit "Save song to #{@on_air.show.unambiguous_name}", data: { disable_with: 'Saving...' }, tabindex: 9
       = f.submit "Save song to #{@song.episode.show.unambiguous_name}", data: { disable_with: 'Saving...', previous_show: @song.episode.id},  tabindex: 8, id: "submit-to-previous-show", class: 'padtop'
