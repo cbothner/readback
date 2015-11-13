@@ -41,7 +41,7 @@ class EpisodesController < ApplicationController
   def on_and_upcoming
     @standalone = true
     @on_air = Episode.on_air
-    @future_items = Episode.includes(:dj, show: [:dj])
+    @future_episodes = Episode.includes(:dj, show: [:dj])
       .where(beginning: Time.zone.now..10.hours.since)
       .order(beginning: :desc)
 
