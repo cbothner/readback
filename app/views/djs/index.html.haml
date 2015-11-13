@@ -14,7 +14,8 @@
     %td Last Signed In
   - @djs.each do |dj|
     %tr
-      %td= best_in_place dj, :active, as: :checkbox
+      %td{class: ("accent" if !dj.active)}
+        = best_in_place dj, :active, as: :checkbox
       %td=dj.id
       %td
         = link_to dj do
