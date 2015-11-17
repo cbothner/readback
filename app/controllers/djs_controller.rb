@@ -27,7 +27,6 @@ class DjsController < ApplicationController
   # GET /djs/new
   def new
     @dj = Dj.new
-    render layout: "headline"
   end
 
   # GET /djs/1/edit
@@ -38,20 +37,25 @@ class DjsController < ApplicationController
   # POST /djs
   # POST /djs.json
   def create
-    trainee = Trainee.find(params[:trainee_id])
-    @dj = Dj.new trainee.attributes.slice(*(Dj.column_names - ['id']))
-    @dj.password ||= "#{trainee.created_at}"
+    if params[:trainee_id].blank?
+      @dj = Dj.new dj_params
+      @dj.password = "#{Time.zone.now}"
+    else
+      trainee = Trainee.find(params[:trainee_id])
+      @dj = Dj.new trainee.attributes.slice(*(Dj.column_names - ['id']))
+      @dj.password ||= "#{trainee.created_at}"
+    end
 
     respond_to do |format|
       if @dj.save
-        trainee.mark_graduated approved_by: current_dj, associated_dj_instance: @dj
+        trainee.mark_graduated(approved_by: current_dj, associated_dj_instance: @dj) if trainee
+        @dj.add_role(:grandfathered_in) if params[:grandfathered] == '1'
         @dj.send_reset_password_instructions
 
-        flash[:notice] = 'Got it! Welcome to WCBN'
         format.html { redirect_to @dj, notice: "#{@dj.name} is now a WCBN DJ." }
         format.json { render :show, status: :created, location: @dj }
       else
-        format.html { render :edit }
+        format.html { render :new }
         format.json { render json: @dj.errors, status: :unprocessable_entity }
       end
     end
