@@ -5,9 +5,9 @@ require 'resque/scheduler/server'
 Rails.application.routes.draw do
 
   devise_for :playlist_editors
-  devise_for :djs, :skip => [:registrations], controllers: {
-    passwords: 'djs/passwords'
-  }
+
+  resources :djs, only: [:index, :new, :create]
+  devise_for :djs, controllers: { passwords: 'djs/passwords' }
 
   resources :semesters, shallow: true do
     resources :freeform_shows
@@ -18,7 +18,6 @@ Rails.application.routes.draw do
     get 'based_on/:model_id', action: :new, on: :new
   end
 
-  resources :djs, only: [:index, :new, :create]
   resources :trainees, shallow: true do 
     resources :djs, except: [:index, :new], shallow: true do
       resources :episodes, except: [:show] do
