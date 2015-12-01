@@ -73,8 +73,12 @@ gem 'authority'
 gem 'rolify'
 
 
+##############
+# Production #
+##############
 group :production do
   gem "memcachier"
+  gem "lograge"
 end
 
 ###############
