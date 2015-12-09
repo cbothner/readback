@@ -43,7 +43,7 @@ class EpisodesController < ApplicationController
     @on_air = Episode.on_air
     @future_episodes = Episode.includes(:dj, show: [:dj])
       .where(beginning: Time.zone.now..10.hours.since)
-      .order(beginning: :desc)
+      .order(beginning: :asc)
 
     # For Tony's scraper
     @escaped_show_name = Rack::Utils.escape("#{@on_air.show.name} with #{@on_air.dj}") if params[:escaped_show_name]
