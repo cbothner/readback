@@ -1,5 +1,7 @@
 - title "Sub Board"
 - headline "The Sub Board"
+- if params[:fulfilled]
+  - headline ": Fulfilled Requests"
 - disclaimers = {group: false, night: false}
 - subtitle "Be a hero: sub for a fellow DJ's show!"
 
@@ -22,15 +24,23 @@
               %p.req-day= day.strftime(format)
               - if reqs = @requests_by_day[day]
                 - reqs.sort_by(&:at).each do |req|
+
                   .sub-req
+                    -#RENDER SUB REQUEST
                     %p.req-time= req.at.strftime '%l%P'
                     %p.req-name
-                      = link_to req,
-                        class: ("highlight" if req.needs_sub_in_group? && disclaimers[:group] = true) do
+                      - if req.confirmed?
+                        = req.episode.dj.to_s
+                        covering
                         = req.episode.show.unambiguous_name
-                      - if req.needs_sub_including_nighttime_djs?
-                        *
-                        - disclaimers[:night] = true
+                      - else
+                        = link_to req,
+                          class: ("highlight" if req.needs_sub_in_group? && disclaimers[:group] = true) do
+                          = req.episode.show.unambiguous_name
+                        - if req.needs_sub_including_nighttime_djs?
+                          *
+                          - disclaimers[:night] = true
+
   - if disclaimers[:group]
     - subtitle "&nbsp;&nbsp;&nbsp;<span class='highlight'>Highlighted</span> requests have been sent specifically to you.".html_safe
   - if disclaimers[:night]
@@ -42,3 +52,5 @@
 - unless current_dj.allowed_to_do_daytime_radio? || current_dj.has_role?(:superuser)
   - subtitle "<br /> (As you have not completed one semester on WCBN, only nighttime requests are shown.)".html_safe
 - subtitle "<br />Or, #{link_to "request a sub", dj_episodes_path(current_dj)} for your own show.".html_safe
+- if current_dj.has_role?(:superuser) && !params[:fulfilled]
+  - subtitle "  View #{link_to "fulfilled requests", sub_requests_path(fulfilled: true)} here.".html_safe

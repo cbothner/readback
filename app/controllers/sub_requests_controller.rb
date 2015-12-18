@@ -5,7 +5,12 @@ class SubRequestsController < ApplicationController
 
   # GET /sub_requests
   def index
-    sub_requests = SubRequest.where(status: (0..2))
+    request_statuses = (0..2)
+    if params[:fulfilled] && current_dj.has_role?(:superuser)
+      request_statuses = (3..3)
+    end
+
+    sub_requests = SubRequest.where(status: request_statuses)
       .includes( episode: [show: [:dj, :semester]] )
       .reject {|req| req.episode.past?}
       .select {|req| req.updatable_by?(current_dj)}
