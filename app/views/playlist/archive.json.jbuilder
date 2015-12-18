@@ -1,4 +1,4 @@
-json.newfrom @from - 1.hour
+json.newfrom @from - 3.hours
 json.newtil @from
 json.items @past_items do |item|
   json.html render partial: item.to_partial_path,

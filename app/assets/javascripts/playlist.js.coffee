@@ -33,6 +33,7 @@ parseTime = (timeString) ->
   d
 
 $(document).on 'ready page:load', ->
+  window.loadingArchive = false
   if location.pathname is '/'
     location.hash = '#now'
     $('[autofocus]').focus()
@@ -68,13 +69,18 @@ $(document).on 'ready page:load', ->
       $("#infinity").data "from", data.newfrom
       $("#infinity").data "til", data.newtil
       $("table.playlist tr:last").after items
+      window.loadingArchive = false
 
   $(window).scroll ->
     if $(window).scrollTop() == $(document).height() - $(window).height()
-      loadMorePlaylistItems()
+      if !window.loadingArchive
+        window.loadingArchive = true
+        loadMorePlaylistItems()
 
   $("#infinity").mouseover ->
-    loadMorePlaylistItems()
+    if !window.loadingArchive
+      window.loadingArchive = true
+      loadMorePlaylistItems()
 
   $('#submit-to-previous-show').on 'click touchend', ->
     previous = $('#submit-to-previous-show').attr 'data-previous-show'
