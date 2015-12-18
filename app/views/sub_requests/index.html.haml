@@ -32,7 +32,8 @@
                       - if req.confirmed?
                         = req.episode.dj.to_s
                         covering
-                        = req.episode.show.unambiguous_name
+                        %cite
+                          = req.episode.show.unambiguous_name
                       - else
                         = link_to req,
                           class: ("highlight" if req.needs_sub_in_group? && disclaimers[:group] = true) do
@@ -53,4 +54,8 @@
   - subtitle "<br /> (As you have not completed one semester on WCBN, only nighttime requests are shown.)".html_safe
 - subtitle "<br />Or, #{link_to "request a sub", dj_episodes_path(current_dj)} for your own show.".html_safe
 - if current_dj.has_role?(:superuser) && !params[:fulfilled]
-  - subtitle "  View #{link_to "fulfilled requests", sub_requests_path(fulfilled: true)} here.".html_safe
+  = content_for :back_link do
+    = link_to "Fulfilled Requests", sub_requests_path(fulfilled: true)
+- elsif params[:fulfilled]
+  = content_for :back_link do
+    = link_to "Active Requests", sub_requests_path
