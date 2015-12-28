@@ -36,16 +36,15 @@ class PlaylistController < ApplicationController
   end
 
   def search
-    result_sets = []
-    queries = params[:q].split.map {|x| "%#{x}%"}
-    queries.each do |q|
-      result_sets << Song.where{ (artist =~ q) | (name =~ q) | (album =~ q) | (label =~ q) }
-        .includes(episode: [:dj, :songs, show: [:dj]])
-        .order(at: :desc)
-        .limit(100)
-    end
-    songs = result_sets.inject &:&
+    words = params[:q].split.map {|x| "%#{x}%"}
+
+    # The concatenation of all four fields must match all the queries
+    songs = Song.where{ artist.op("||", name.op("||", album.op("||", label))).like_all words }
+      .includes(episode: [:dj])
+      .order(at: :desc)
+      .limit(100)
     episodes = songs.map(&:episode).uniq
+
     @past_items = (songs + episodes).sort_by(&:at).reverse
 
     respond_to do |format|
