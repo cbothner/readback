@@ -39,7 +39,7 @@ class PlaylistController < ApplicationController
     @offset = params[:offset].to_i
     @offset ||= 0
 
-    words = params[:q].split.map {|x| "%#{x}%"}
+    words = params[:q].split.map {|x| "%#{x}%"}  rescue [""]
 
     # The concatenation of all four fields must match all the queries
     songs = Song.where{ artist.op("||", name.op("||", album.op("||", label))).like_all words }
