@@ -12,3 +12,12 @@
       = submit_tag "Search", name: nil
 
 = render partial: 'playlist', locals: {abridged: true}
+.grey
+  %a#infinity{data: {action: search_playlist_index_path,
+                     q: params[:q],
+                     offset: 1}}
+  %br
+  This archive only includes shows after September 15, 2015.  The historical
+  archive, back to August 2004, can be accessed
+  = succeed '.' do
+    = link_to "here", "https://wcbn.org/playlist?advsearch=fromto"

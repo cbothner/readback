@@ -33,7 +33,6 @@ parseTime = (timeString) ->
   d
 
 $(document).on 'ready page:load', ->
-  window.loadingArchive = false
   if location.pathname is '/'
     location.hash = '#now'
     $('[autofocus]').focus()
@@ -58,30 +57,6 @@ $(document).on 'ready page:load', ->
       $('h4.small-caps-title').animate {width: '100%'}, {duration: 'fast', queue: off}
       $('#now-button').hide()
       enableScroll()
-
-  loadMorePlaylistItems = ->
-    from = $("#infinity").data "from"
-    til = $("#infinity").data "til"
-    return if !from
-    $.getJSON("/playlist/archive.json", {from: from, til: til}).success (data) ->
-      items = []
-      $.each data.items, ->
-        items.push "<tr>#{this.html}</tr>"
-      $("#infinity").data "from", data.newfrom
-      $("#infinity").data "til", data.newtil
-      $("table.playlist tr:last").after items
-      window.loadingArchive = false
-
-  $(window).scroll ->
-    if $(window).scrollTop() == $(document).height() - $(window).height()
-      if !window.loadingArchive
-        window.loadingArchive = true
-        loadMorePlaylistItems()
-
-  $("#infinity").mouseover ->
-    if !window.loadingArchive
-      window.loadingArchive = true
-      loadMorePlaylistItems()
 
   $('#submit-to-previous-show').on 'click touchend', ->
     previous = $('#submit-to-previous-show').attr 'data-previous-show'

@@ -36,13 +36,17 @@ class PlaylistController < ApplicationController
   end
 
   def search
+    @offset = params[:offset].to_i
+    @offset ||= 0
+
     words = params[:q].split.map {|x| "%#{x}%"}
 
     # The concatenation of all four fields must match all the queries
     songs = Song.where{ artist.op("||", name.op("||", album.op("||", label))).like_all words }
       .includes(episode: [:dj])
       .order(at: :desc)
-      .limit(100)
+      .limit(25)
+      .offset(25 * @offset)
     episodes = songs.map(&:episode).uniq
 
     @past_items = (songs + episodes).sort_by(&:at).reverse
