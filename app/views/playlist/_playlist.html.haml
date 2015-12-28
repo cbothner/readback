@@ -1,3 +1,4 @@
+- abridged ||= false
 %table.playlist
   - if on_fm_computer? && !@future_items.nil?
     %thead
@@ -27,7 +28,7 @@
   - @past_items.each do |item|
     %tr
       =render item
-    - if item.is_a? Episode
+    - if item.is_a?(Episode) && !abridged
       - unless item.notes.blank?
         %tr
           %td{colspan: 6}

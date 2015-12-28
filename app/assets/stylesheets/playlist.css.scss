@@ -150,3 +150,12 @@ td {
   left: 100%;
   margin-left: 15px;
 }
+
+.playlist-search-form {
+  text-align: right;
+  margin-bottom: 0.5em;
+  margin-top: -1.5em;
+  input {
+    width: 15em;
+  }
+}

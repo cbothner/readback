@@ -23,6 +23,8 @@ gem 'resque-scheduler'
 gem 'rack-cache'
 gem 'dalli'
 gem 'kgio'
+# ActiveRecord Improvements
+gem 'squeel'
 
 
 #####################

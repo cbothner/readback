@@ -62,6 +62,7 @@ $(document).on 'ready page:load', ->
   loadMorePlaylistItems = ->
     from = $("#infinity").data "from"
     til = $("#infinity").data "til"
+    return if !from
     $.getJSON("/playlist/archive.json", {from: from, til: til}).success (data) ->
       items = []
       $.each data.items, ->

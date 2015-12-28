@@ -1,0 +1,14 @@
+- title "Playlist Search"
+- headline "Playlist Search"
+
+- content_for :sidebar do
+  = form_tag search_playlist_index_path, method: :get do
+    .field
+      = label_tag "Query"
+      %p.instructions
+        Matches songs with information containing all of these words.
+      = text_field_tag :q, params[:q]
+    .actions
+      = submit_tag "Search", name: nil
+
+= render partial: 'playlist', locals: {abridged: true}

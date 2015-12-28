@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
   root 'playlist#index'
   resources :playlist, only: [:index] do
+    get :search, on: :collection
     get :archive, on: :collection
   end
 

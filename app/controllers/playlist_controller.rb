@@ -35,6 +35,25 @@ class PlaylistController < ApplicationController
     end
   end
 
+  def search
+    result_sets = []
+    queries = params[:q].split.map {|x| "%#{x}%"}
+    queries.each do |q|
+      result_sets << Song.where{ (artist =~ q) | (name =~ q) | (album =~ q) | (label =~ q) }
+        .includes(episode: [:dj, :songs, show: [:dj]])
+        .order(at: :desc)
+        .limit(100)
+    end
+    songs = result_sets.inject &:&
+    episodes = songs.map(&:episode).uniq
+    @past_items = (songs + episodes).sort_by(&:at).reverse
+
+    respond_to do |format|
+      format.html {render layout: 'headline'}
+      format.json
+    end
+  end
+
   private
 
   def items_between(from, til, ensure_all_songs_have_show_info: false)
