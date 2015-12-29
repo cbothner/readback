@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     get 'based_on/:model_id', action: :new, on: :new
   end
 
+  resources :songs, only: [:find] do
+    get :find, on: :collection
+  end
   resources :trainees, shallow: true do 
     resources :djs, except: [:index, :new], shallow: true do
       resources :episodes, except: [:show] do

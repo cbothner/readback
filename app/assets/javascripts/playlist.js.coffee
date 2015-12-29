@@ -68,3 +68,31 @@ $(document).on 'ready page:load', ->
 
   $('.best_in_place').bind "best_in_place:success", ->
     window.sort_items(this)
+
+
+##################
+# Autocompletion #
+##################
+fillFields = (event, ui) ->
+  $("#song_name").val ui.item.name
+  $("#song_album").val ui.item.album
+  $("#song_label").val ui.item.label
+  $("#song_year").val ui.item.year
+  return false
+
+$(document).on 'ready page:load', ->
+  $('#song_name').autocomplete({
+    minLength: 4
+    source: (request, response) ->
+      artistName = $("#song_artist").val()
+      if $("#song_artist").val() != ''
+        $.getJSON '/songs/find.json', {artist: artistName, name: request.term}, response
+    focus: fillFields
+    select: fillFields
+  }).autocomplete("instance")._renderItem = (ul, item) ->
+    $("<li>")
+      .append("<strong>#{item.album}</strong>
+               <br/>
+               #{item.label} (#{item.year})")
+      .appendTo(ul)
+

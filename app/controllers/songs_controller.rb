@@ -3,6 +3,36 @@ class SongsController < ApplicationController
   before_action :set_song, only: [:update, :destroy]
   layout "headline"
 
+  # GET /songs/find.json
+  def find
+    artist_name = params[:artist]
+    song_title = "#{params[:name]}%"
+    case_transformation = artist_name.case
+
+    results = Song
+      .where{ artist =~ artist_name }
+      .where{ name =~ song_title }
+      .where.not(album: nil, label: nil, year: nil)
+      .order(at: :desc)
+      .pluck(:name, :album, :label, :year)
+
+    results.map! do |r|
+      r.map! &:to_s
+      unless r.first.case == case_transformation
+        r.map! &case_transformation
+      end
+      r
+    end
+
+    results.map! do |r|
+      {name: r[0], album: r[1], label: r[2], year: r[3]}
+    end
+
+    respond_to do |format|
+      format.json { render json: results.uniq }
+    end
+  end
+
   # GET /songs
   # GET /songs.json
   def index
