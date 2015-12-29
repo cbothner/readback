@@ -58,6 +58,7 @@ class EpisodesController < ApplicationController
       end
     end
 
+    expires_in 2.minutes, :public => true
     fresh_when last_modified: @on_air.beginning, public: true
   end
 
