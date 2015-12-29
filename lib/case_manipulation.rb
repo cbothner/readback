@@ -30,6 +30,7 @@ class String
 
   # File lib/linguistics/en/titlecase.rb, line 68
   def hedcase
+    return "" if empty?
 
     # Split on word-boundaries
     words = self.to_s.split( /\b/ )

@@ -78,6 +78,7 @@ fillFields = (event, ui) ->
   $("#song_album").val ui.item.album
   $("#song_label").val ui.item.label
   $("#song_year").val ui.item.year
+  $("#song_local").prop "checked", ui.item.local
   return false
 
 $(document).on 'ready page:load', ->
@@ -91,7 +92,7 @@ $(document).on 'ready page:load', ->
     select: fillFields
   }).autocomplete("instance")._renderItem = (ul, item) ->
     $("<li>")
-      .append("<strong>#{item.album}</strong>
+      .append("<strong>#{item.name}</strong> &ndash; <cite>#{item.album}</cite>
                <br/>
                #{item.label} (#{item.year})")
       .appendTo(ul)

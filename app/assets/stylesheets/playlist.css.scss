@@ -162,4 +162,21 @@ td {
 
 .ui-autocomplete {
   font-size: 90%;
+  background-color: rgba(250, 250, 250, 0);
+}
+
+.ui-autocomplete .ui-menu-item {
+  background-color: rgba(250, 250, 250, 0.9) !important;
+}
+.ui-autocomplete .ui-menu-item.ui-state-focus {
+  background-image: none !important;
+  background-color: rgba(65, 165, 232, 0.93) !important;
+}
+
+@-webkit-keyframes loading {
+  50%  {background-color: #82C4F1;}
+}
+.ui-autocomplete-loading {
+  -webkit-animation: loading 1s infinite;
+  background-color: #9BD6FF;
 }

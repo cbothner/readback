@@ -12,24 +12,37 @@ class SongsController < ApplicationController
     results = Song
       .where{ artist =~ artist_name }
       .where{ name =~ song_title }
-      .where.not(album: nil, label: nil, year: nil)
+      .where{ (album != nil) & (album != "") }
+      .where{ (label != nil) & (label != "") }
       .order(at: :desc)
-      .pluck(:name, :album, :label, :year)
+      .pluck(:name, :album, :label, :year, :local)
 
     results.map! do |r|
-      r.map! &:to_s
       unless r.first.case == case_transformation
-        r.map! &case_transformation
+        r.map! do |x|
+          if x.is_a? String
+            x.send case_transformation
+          else
+            x
+          end
+        end
       end
       r
     end
 
     results.map! do |r|
-      {name: r[0], album: r[1], label: r[2], year: r[3]}
+      {name: r[0], album: r[1], label: r[2], year: r[3], local: r[4]}
     end
 
+    results.group_by &:itself
+
     respond_to do |format|
-      format.json { render json: results.uniq }
+      format.json do
+        render json: results
+          .each_with_object(Hash.new(0)) { |o, h| h[o] += 1  }
+          .sort_by { |k, v| -v  }
+          .map(&:first)[0..4]
+      end
     end
   end
 
