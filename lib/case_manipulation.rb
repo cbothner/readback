@@ -32,12 +32,14 @@ class String
   def hedcase
     return "" if empty?
 
+    self.downcase!
+
     # Split on word-boundaries
     words = self.to_s.split( /\b/ )
 
     # Always capitalize the first and last words
-    words.first.gsub!( /^(\w)(.*)/ ) { $1.upcase + $2 }
-    words.last.gsub!( /^(\w)(.*)/ ) { $1.upcase + $2 }
+    words.first.capitalize!
+    words.last.capitalize!
 
     # Now scan the rest of the tokens, skipping non-words and capitalization
     # exceptions.
@@ -52,9 +54,7 @@ class String
       # Skip second parts of contractions
       next if words[i - 1] == "'" && /\w/.match( words[i - 2] )
 
-      # Have to do it this way instead of capitalize! because that method
-      # also downcases all other letters.
-      word.gsub!( /^(\w)(.*)/ ) { $1.upcase + $2 }
+      word.capitalize!
     end
 
     return words.join
