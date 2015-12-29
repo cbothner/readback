@@ -36,7 +36,7 @@
 
 <div class="container <%= 'dj-signed-in-container' if dj_signed_in? %>">
 <%#FROM DRUPAL%>
-<% fixed_or_absolute = if controller_name == 'playlist' && on_fm_computer?
+<% fixed_or_absolute = if current_page?(root_path) && on_fm_computer?
                          'fixed'
                        else
                          'absolute'
