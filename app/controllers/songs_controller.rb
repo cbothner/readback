@@ -5,33 +5,41 @@ class SongsController < ApplicationController
 
   # GET /songs/find.json
   def find
-    artist_name = params[:artist]
+    artist_name = "#{params[:artist]}%"
     song_title = "#{params[:name]}%"
+    album_name = "#{params[:album]}%"
     case_transformation = artist_name.case
 
     results = Song
       .where{ artist =~ artist_name }
-      .where{ name =~ song_title }
+      .where{ params[:name].nil? ? true : name =~ song_title }
+      .where{ params[:album].nil? ? true : album =~ album_name }
       .where{ (album != nil) & (album != "") }
       .where{ (label != nil) & (label != "") }
       .order(at: :desc)
-      .pluck(:name, :album, :label, :year, :local)
 
-    results.map! do |r|
-      unless r.first.case == case_transformation
-        r.map! do |x|
-          if x.is_a? String
-            x.send case_transformation
-          else
-            x
-          end
+    results = results.map do |r|
+      unless r.name.case == case_transformation
+        r = r.as_json
+        r.each_pair do |key, val|
+          r[key] = val.send case_transformation if val.is_a? String
         end
+        r
+      else
+        r.as_json
       end
-      r
+    end
+
+    if !params[:name].nil?
+      fields = %w(name album label year local)
+    elsif !params[:album].nil?
+      fields = %w(album label year local)
+    else
+      fields = %w(artist)
     end
 
     results.map! do |r|
-      {name: r[0], album: r[1], label: r[2], year: r[3], local: r[4]}
+      r.slice *fields
     end
 
     results.group_by &:itself

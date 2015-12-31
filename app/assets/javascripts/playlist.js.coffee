@@ -73,23 +73,56 @@ $(document).on 'ready page:load', ->
 ##################
 # Autocompletion #
 ##################
-fillFields = (event, ui) ->
-  $("#song_name").val ui.item.name
+fillArtistField = (event, ui) ->
+  $("#song_artist").val ui.item.artist
+  return false
+
+fillAlbumFields = (event, ui) ->
   $("#song_album").val ui.item.album
   $("#song_label").val ui.item.label
   $("#song_year").val ui.item.year
   $("#song_local").prop "checked", ui.item.local
   return false
 
+fillAllFields = (event, ui) ->
+  $("#song_name").val ui.item.name
+  fillAlbumFields event, ui
+
 $(document).on 'ready page:load', ->
+  $('#song_artist').autocomplete({
+    minLength: 4
+    source: (request, response) ->
+      $.getJSON '/songs/find.json', {artist: request.term}, response
+    focus: fillArtistField
+    select: fillArtistField
+  }).autocomplete("instance")._renderItem = (ul, item) ->
+    $("<li>")
+      .append("<strong>#{item.artist}</strong>")
+      .appendTo(ul)
+
+  $('#song_album').autocomplete({
+    minLength: 4
+    source: (request, response) ->
+      artistName = $("#song_artist").val()
+      if $("#song_artist").val() != ''
+        $.getJSON '/songs/find.json', {artist: artistName, album: request.term}, response
+    focus: fillAlbumFields
+    select: fillAlbumFields
+  }).autocomplete("instance")._renderItem = (ul, item) ->
+    $("<li>")
+      .append("<cite>#{item.album}</cite>
+               <br/>
+               #{item.label} (#{item.year})")
+      .appendTo(ul)
+
   $('#song_name').autocomplete({
     minLength: 4
     source: (request, response) ->
       artistName = $("#song_artist").val()
       if $("#song_artist").val() != ''
         $.getJSON '/songs/find.json', {artist: artistName, name: request.term}, response
-    focus: fillFields
-    select: fillFields
+    focus: fillAllFields
+    select: fillAllFields
   }).autocomplete("instance")._renderItem = (ul, item) ->
     $("<li>")
       .append("<strong>#{item.name}</strong> &ndash; <cite>#{item.album}</cite>
