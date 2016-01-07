@@ -48,7 +48,10 @@ class DjsController < ApplicationController
 
     respond_to do |format|
       if @dj.save
-        trainee.mark_graduated(approved_by: current_dj, associated_dj_instance: @dj) if trainee
+        if trainee
+          trainee.mark_graduated(approved_by: current_dj,
+                                 associated_dj_instance: @dj)
+        end
         @dj.add_role(:grandfathered_in) if params[:grandfathered] == '1'
         @dj.send_reset_password_instructions
 
