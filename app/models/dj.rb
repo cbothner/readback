@@ -36,6 +36,7 @@ class Dj < ActiveRecord::Base
 
   # TODO: Refactor to able_to_do_daytime_radio?
   def allowed_to_do_daytime_radio?
+    return false if has_role? :no_daytime
     semesters_count > 1 || has_role?(:grandfathered_in)
   end
 

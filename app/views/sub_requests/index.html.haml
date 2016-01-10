@@ -51,7 +51,10 @@
   - subtitle 'There are currently no outstanding sub requests!'
 
 - unless current_dj.allowed_to_do_daytime_radio? || current_dj.has_role?(:superuser)
-  - subtitle "<br /> (As you have not completed one semester on WCBN, only nighttime requests are shown.)".html_safe
+  - if current_dj.has_role? :no_daytime
+    - subtitle "<br /> (You are currently restricted to fulfilling nighttime sub requests.)".html_safe
+  - else
+    - subtitle "<br /> (As you have not completed one semester on WCBN, only nighttime requests are shown.)".html_safe
 - subtitle "<br />Or, #{link_to "request a sub", dj_episodes_path(current_dj)} for your own show.".html_safe
 - if current_dj.has_role?(:superuser) && !params[:fulfilled]
   = content_for :back_link do
