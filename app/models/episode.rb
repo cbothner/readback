@@ -12,8 +12,12 @@ class Episode < ActiveRecord::Base
   has_many :sub_requests, dependent: :destroy
   has_many :setbreaks, dependent: :destroy
 
+  def self.on_at(time)
+    where(beginning: (time - 6.hours)..time).order(:beginning).last
+  end
+
   def self.on_air
-    where(beginning: (Time.zone.now - 6.hours)..Time.zone.now).order(:beginning).last
+    on_at(Time.zone.now)
   end
 
   def self.starts_on_day (day)

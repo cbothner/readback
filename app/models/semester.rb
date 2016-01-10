@@ -56,7 +56,7 @@ class Semester < ActiveRecord::Base
                        duration: old.times.duration }
       new.set_times times_params
 
-      if new.save  # Callback propagates
+      if new.save(validate: false)  # Callback propagates
         old.djs.each {|o| new.djs << o} if new.is_a? SpecialtyShow
       else
         raise "Clone Error"

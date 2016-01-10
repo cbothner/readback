@@ -19,7 +19,6 @@ module Show
 
   def show_does_not_conflict_with_any_other
     return nil if times && times.recurrence_rules.empty?
-    return nil if $DO_NOT_PERFORM_SHOW_CONFLICT_VALIDATION
     conflicts = (semester.shows - [self])
       .reject { |x| x.times && x.times.recurrence_rules.empty? }
       .select { |x| times.conflicts_with? x.times }
