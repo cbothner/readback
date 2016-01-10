@@ -1,6 +1,6 @@
 class DjsController < ApplicationController
   before_filter :authenticate_dj!, except: :show
-  authorize_actions_for Dj, except: [:show, :edit, :update]
+  authorize_actions_for Dj, only: [:new, :create, :destroy]
 
   before_action :set_dj, only: [:show, :edit, :update, :destroy]
 
@@ -10,7 +10,10 @@ class DjsController < ApplicationController
     @djs = Dj.all.order(name: :asc)
 
     respond_to do |format|
-      format.html{ render layout: "wide" }
+      format.html{
+        authorize_action_for Dj
+        render layout: "wide"
+      }
       format.pdf{ @djs = @djs.select &:active }
     end
   end
