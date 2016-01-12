@@ -3,7 +3,7 @@
   .show_with="with #{freeform_show.dj}"
 - else
   .show_name
-    = link_to_most_recent_episode freeform_show
+    = link_to_most_recent_episode freeform_show, dj_signed_in?
   .show_with
     with
     = link_to freeform_show.dj, freeform_show.dj

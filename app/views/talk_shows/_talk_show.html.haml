@@ -2,6 +2,6 @@
   .show_name=talk_show.name
 - else
   .show_name
-    = link_to_most_recent_episode talk_show
+    = link_to_most_recent_episode talk_show, dj_signed_in?
 - if talk_show.dj
   .show_with=raw "with #{link_to talk_show.dj, talk_show.dj}"
