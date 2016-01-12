@@ -7,6 +7,8 @@
   margin-bottom: 0.5em;
   margin-right: 1em;
 }
+.tiled.rotating-host.ui-draggable-dragging { background-color: white; }
+
 .thin-sidebar .rotating-hosts .tiled { width: 12em; }
 
 .episode-droppable {
