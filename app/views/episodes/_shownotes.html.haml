@@ -1,8 +1,13 @@
+- if episode.show_type == "TalkShow"
+  - instructions = "The FCC requires non-commercial stations to record the topics they cover in public affairs shows. Please click here and write a brief description of the day's topics."
+- else
+  - instructions = "Click here to add your show notes."
+
 - editable ||= false
 - longform ||= false
-- unless episode.notes.nil? && !editable
+- if !episode.notes.nil? || editable
   .show-notes-box
     %h4 Show Notes:
     .show-notes{lang: 'en', class: ('longform' if longform)}
       - episode.notes ||= ''
-      = best_in_place_if editable, episode, :notes, display_with: -> (notes) { markdown(notes)}, as: :textarea, place_holder: "Click here to add your show notes."
+      = best_in_place_if editable, episode, :notes, display_with: -> (notes) { markdown(notes)}, as: :textarea, place_holder: instructions
