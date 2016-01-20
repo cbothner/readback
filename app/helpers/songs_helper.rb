@@ -4,7 +4,7 @@ module SongsHelper
       Haml::Engine.new(
 "%tr
   %td.instructions{colspan: 6}
-    = \"There are no songs recorded for #{episode.show.unambiguous_name}\""
+    = \"There are no songs recorded for #{h episode.show.unambiguous_name}\""
       ).render
     end
   end
