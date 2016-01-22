@@ -1,9 +1,21 @@
 class SignoffInstancesController < ApplicationController
 
+  layout "headline"
+
   # GET /signoff_instances
   # GET /signoff_instances.json
   def index
-    @signoff_instances = SignoffInstance.all
+    @signoff_instances = SignoffInstance.where{ signed != nil }.order(at: :desc)
+  end
+
+  def public_affairs_logs
+    @til = params[:til] || Time.zone.now
+    @from = params[:from] || Time.zone.now - 3.months
+
+    @episodes = Episode
+      .where(show_type: "TalkShow").where(ending: @from..@til)
+      .where{ notes != "" }
+      .order(ending: :desc)
   end
 
   # PATCH/PUT /signoff_instances/1

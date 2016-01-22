@@ -1,0 +1,50 @@
+<% @latex_config={parse_runs: 3} %>
+\documentclass[10pt, letterpaper]{article}
+
+\usepackage[margin=1cm, bottom=1.6cm]{geometry}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+
+
+\begin{document}
+
+\begin{center}
+
+\textbf{WCBN Public Affairs Logs}\\
+\emph{<%= lesc @from.strftime("%B %-d, %Y") %> --- <%= lesc @til.strftime("%B %-d, %Y") %>}\\
+
+\begin{longtable}{lllll}
+\toprule
+\textsc{Show} & \textsc{Date and Time} & \textsc{Duration} & \textsc{Operator} &
+\textsc{Topic}\\
+\midrule
+\endfirsthead
+\multicolumn{5}{c}%
+{}\\
+\multicolumn{5}{c}%
+  {WCBN Public Affairs Logs: <%= lesc @from.strftime("%B %-d, %Y") %> --- <%= lesc @til.strftime("%B %-d, %Y") %>} \\\\
+\toprule
+\textsc{Show} & \textsc{Date and Time} & \textsc{Duration} & \textsc{Operator} &
+\textsc{Topic}\\
+\midrule
+\endhead
+\midrule \multicolumn{5}{r}{\textit{Continued on next page}} \\
+\endfoot
+\endlastfoot
+<% @episodes.reverse.each do |ep| %>
+  \emph{<%= lesc ep.show.unambiguous_name %>} &
+  <%= lesc ep.beginning.strftime "%F %R" %> &
+  <%= lesc pluralize ep.show.duration, "hour" %> &
+  <%= lesc ep.dj.name %> &
+  <%= lesc ep.show.topic %>
+  \\\nopagebreak
+  \multicolumn{5}{p{7in}}{\texttt{<%= lesc ep.notes %>}}\\\\
+<% end %>
+\bottomrule
+\end{longtable}
+\end{center}
+
+
+
+\end{document}

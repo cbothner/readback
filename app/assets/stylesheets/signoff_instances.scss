@@ -28,3 +28,15 @@
   color: #999;
   font-weight: 400;
 }
+
+.public_affairs_log {
+  margin: 0.5em 0;
+  blockquote.longform {
+    margin: 0;
+    padding-left: 1em;
+    border-left: 1px solid #999;
+    p {
+      margin: 0;
+    }
+  }
+}

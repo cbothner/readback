@@ -36,7 +36,9 @@ Rails.application.routes.draw do
   resources :sub_requests, except: [:new, :create]
 
   resources :signoffs
-  resources :signoff_instances, only: [:index, :update]
+  resources :signoff_instances, only: [:index, :update] do
+    get :public_affairs_logs, on: :collection
+  end
 
   resources :setbreaks, only: [:update, :create, :destroy]
 

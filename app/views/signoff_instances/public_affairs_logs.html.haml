@@ -1,0 +1,25 @@
+- title "Public Affairs Log"
+- headline "Public Affairs Log"
+
+- content_for :sidebar do
+  = form_tag public_affairs_logs_signoff_instances_path, method: :get do
+    .field.field-beginning
+      = label_tag "From"
+      = date_field_tag :from, params[:from]
+    .field.field-ending
+      = label_tag "Through"
+      = date_field_tag :til, params[:til]
+    .actions
+      = submit_tag "Search", name: nil
+
+- content_for :back_link do
+  = link_to "Print", params.merge(:format => :pdf)
+- @episodes.each do |ep|
+  .public_affairs_log
+    .grey= raw "#{ep.time_string}  (#{pluralize ep.show.duration, "hour"})"
+    %strong= ep.show.unambiguous_name
+    -# Issue needs to be a field on the TalkShow object
+    %blockquote.longform= markdown ep.notes
+    %cite
+      —
+      = ep.dj.name
