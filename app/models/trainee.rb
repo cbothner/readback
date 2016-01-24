@@ -44,10 +44,10 @@ class Trainee < ActiveRecord::Base
   end
 
   def schedule_emails
-    TraineeMailer.meeting_minutes.deliver_in 1.day
-    TraineeMailer.demo_tape_tips.deliver_in 1.week
-    TraineeMailer.check_in.deliver_in 1.month
-    TraineeMailer.reminder.deliver_in 3.months
+    TraineeMailer.meeting_minutes(id).deliver_in 1.day
+    TraineeMailer.demo_tape_tips(id).deliver_in 1.week
+    TraineeMailer.check_in(id).deliver_in 1.month
+    TraineeMailer.reminder(id).deliver_in 3.months
   end
 
 end
