@@ -1,4 +1,9 @@
 class Trainee < ActiveRecord::Base
+  def self.should_email(days_after)
+    all.select{ |t| t.age >= days_after }
+      .select{ |t| t.most_recent_email.nil? || t.most_recent_email < days_after }
+  end
+
   Acceptance = Struct.new(:timestamp, :dj_id, :message) do
     def accepted?
       !timestamp.nil?
@@ -28,6 +33,10 @@ class Trainee < ActiveRecord::Base
   has_many :episodes
 
   after_commit :schedule_emails, on: [:create]
+
+  def age
+    (Time.zone.now.to_date - created_at.to_date).to_i
+  end
 
   def sent_email
     if most_recent_email.to_i == 0
