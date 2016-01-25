@@ -1,5 +1,8 @@
 class TraineesController < ApplicationController
+  before_filter :authenticate_dj!, except: :show
+  authorize_actions_for Trainee, except: [:new, :create]
   before_action :set_trainee, only: [:show, :edit, :update, :destroy]
+
   layout "headline"
 
   # GET /trainees
