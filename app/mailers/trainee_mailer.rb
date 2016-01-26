@@ -1,7 +1,5 @@
 class TraineeMailer < ApplicationMailer
 
-  include Resque::Mailer
-
   default reply_to: "WCBN Training Coordinator <training@wcbn.org>"
 
   # T + 1.day
