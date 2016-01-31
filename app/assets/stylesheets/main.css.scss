@@ -293,6 +293,10 @@ label {
     *:last-child {
       margin-bottom: 0;
     }
+
+    img {
+      max-width: 100%;
+    }
   }
   .show-notes.longform { padding: 0.5em 2em }
 }
