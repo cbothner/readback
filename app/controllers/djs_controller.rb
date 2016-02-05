@@ -15,6 +15,11 @@ class DjsController < ApplicationController
         render layout: "wide"
       }
       format.pdf{ @djs = @djs.select &:active }
+      format.csv do 
+        @djs = @djs.select &:active 
+        headers['Content-Disposition'] = "attachment; filename=\"wcbn-djs-#{Time.zone.now.strftime "%F"}\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
     end
   end
 

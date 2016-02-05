@@ -1,4 +1,5 @@
-Name,Email,Affiliation,Roles
+<%- headers = %w(Name Email Affiliation Roles) %>
+<%= CSV.generate_line headers %>
 <% @djs.each do |dj| %>
-<%= dj.name %>,<%= dj.email %>,<%= dj.um_affiliation.capitalize %>,<%= dj.roles.sort * '; ' %>
+<%= raw CSV.generate_line [dj.name, dj.email, dj.um_affiliation, roles_for_roster(dj)] %>
 <% end %>
