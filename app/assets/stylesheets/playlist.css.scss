@@ -180,3 +180,31 @@ td {
   -webkit-animation: loading 1s infinite;
   background-color: #9BD6FF;
 }
+
+
+
+/*
+ * Global fundraiser message
+ */
+aside#globalMessage {
+  border: 1px black solid;
+  padding: 0.5em;
+  h4 {
+    font-style: normal;
+    margin: 0.5em 0;
+    font-size: 90%;
+  }
+  p {
+    margin: 0.5em 0;
+    font-size: 90%;
+  }
+}
+
+aside#globalMessage.fundraiser {
+  background-color: #f9feec;
+  border-color: #8fb913;
+}
+
+aside#globalMessage.fundraiser.subdued {
+  background-color: white;
+}
