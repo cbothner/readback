@@ -27,8 +27,6 @@ class Trainee < ActiveRecord::Base
 
   has_many :episodes
 
-  after_commit :schedule_emails, on: [:create]
-
   def age
     (Time.zone.now.to_date - created_at.to_date).to_i
   end
@@ -50,13 +48,6 @@ class Trainee < ActiveRecord::Base
     broadcasters_exam = Trainee::Acceptance.new(Time.zone.now, approved_by.id)
     dj = associated_dj_instance
     save
-  end
-
-  def schedule_emails
-    TraineeMailer.meeting_minutes(id).deliver_in 1.day
-    TraineeMailer.demo_tape_tips(id).deliver_in 1.week
-    TraineeMailer.check_in(id).deliver_in 1.month
-    TraineeMailer.reminder(id).deliver_in 3.months
   end
 
 end
