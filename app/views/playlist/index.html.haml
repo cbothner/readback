@@ -4,7 +4,7 @@
   - if @on_air
     %a#now-button{href: "#now"}
       %span now
-    = render 'messages' unless on_fm_computer?
+    -#= render 'messages' unless on_fm_computer?
     = render 'episodes/upcoming_episodes'
     = render 'songs/form' if on_fm_computer?
     = render 'setbreaks/form' if on_fm_computer?
