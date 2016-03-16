@@ -12,6 +12,14 @@ class TraineesController < ApplicationController
       .reject { |t| t.broadcasters_exam.accepted? }
       .sort_by { |t| sortable(t) }
       .reverse
+
+    respond_to do |format|
+      format.html
+      format.csv do 
+        headers['Content-Disposition'] = "attachment; filename=\"wcbn-trainees-#{Time.zone.now.strftime "%F"}\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
+    end
   end
 
   # GET /trainees/1

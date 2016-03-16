@@ -1,0 +1,16 @@
+<%- headers = %w(Date Name Phone Email Affiliation UMID Interests Referral Experience Statement ) %>
+<%= CSV.generate_line headers %>
+<% @trainees.each do |t| %>
+<%= raw CSV.generate_line [
+  t.created_at,
+  t.name,
+  t.phone,
+  t.email,
+  t.um_affiliation,
+  t.umid,
+  t.interests,
+  t.referral,
+  t.experience,
+  t.statement
+] %>
+<% end %>
