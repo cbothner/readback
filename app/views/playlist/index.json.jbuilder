@@ -2,6 +2,7 @@ json.on_air do
   json.name @on_air.show.name
   json.dj @on_air.dj.to_s
   json.times @on_air.just_time_string
+  json.show_notes @on_air.notes
   json.songs @on_air.songs.order(at: :desc) do |song|
     json.at song.at
     json.artist song.artist
