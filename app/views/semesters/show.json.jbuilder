@@ -5,7 +5,7 @@ json.extract! @semester, :beginning, :ending
 
 json.shows do
   1.upto 7 do |w|
-    json.set! w, @semester.shows.select{|x| x.weekday == w % 7} do |show|
+    json.set! w, @semester.shows.select{|x| x.weekday == w % 7}.sort_by(&:beginning) do |show|
       json.id show.id
       json.name show.unambiguous_name
       json.dj do
