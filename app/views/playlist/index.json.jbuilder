@@ -12,6 +12,7 @@ json.on_air do
     json.label song.label
     json.year song.year
   end
+  json.semester_id @on_air.show.semester.id
 end
 
 json.upcoming_episodes @future_episodes do |ep|
