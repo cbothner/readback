@@ -14,6 +14,7 @@ json.shows do
       end
       json.beginning show.beginning
       json.ending show.ending
+      json.on_air show == Episode.on_air.show
     end
   end
 end
