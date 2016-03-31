@@ -33,4 +33,13 @@ class SpecialtyShow < ActiveRecord::Base
       unconfirmed_episodes.each(&:save!)
     end
   end
+
+  def with
+    if rotating_hosts.count == 1
+      "with #{dj}"
+    else
+      "#{rotating_hosts.count} #{"DJ".pluralize(rotating_hosts.count)} in rotation"
+    end
+  end
+
 end

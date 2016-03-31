@@ -8,10 +8,8 @@ json.shows do
     json.set! w, @semester.shows.select{|x| x.weekday == w % 7}.sort_by(&:beginning) do |show|
       json.id show.id
       json.name show.unambiguous_name
-      json.dj do
-        json.id show.dj.id
-        json.name show.dj.to_s
-      end
+      json.dj "#{show.dj}"
+      json.with show.with
       json.beginning show.beginning
       json.ending show.ending
       json.on_air show == Episode.on_air.show

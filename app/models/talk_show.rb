@@ -8,4 +8,8 @@ class TalkShow < ActiveRecord::Base
   def default_status
     :normal
   end
+
+  def with
+    "with #{dj}"
+  end
 end

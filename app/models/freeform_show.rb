@@ -19,4 +19,8 @@ class FreeformShow < ActiveRecord::Base
   def alternate_host_name
     "guest DJ"
   end
+
+  def with
+    "with #{dj}"
+  end
 end
