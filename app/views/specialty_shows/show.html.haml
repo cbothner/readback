@@ -32,7 +32,7 @@
     %cite
       = @specialty_show.unambiguous_name
     has its own website: 
-    = link_to @specialty_show.website, @specialty_show.website_name
+    = link_to @specialty_show.website_name, @specialty_show.website
 
 - if dj_can_update_show
   = content_for :rotating_hosts
