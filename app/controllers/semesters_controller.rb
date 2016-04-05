@@ -97,9 +97,8 @@ class SemestersController < ApplicationController
     def set_semester(variable_name = 'semester')
       id = params[:id] || params.delete(:model_id)
       var = Semester
-        .includes(freeform_shows: [:dj, :episodes],
-                  specialty_shows: [:dj, :djs],
-                  talk_shows: [:episodes])
+        .includes(:talk_shows, freeform_shows: [:dj],
+                  specialty_shows: [:dj, :djs])
         .find(id)
       shows = var.freeform_shows + var.specialty_shows + var.talk_shows
       shows.reject! {|x| x.beginning.nil? }
