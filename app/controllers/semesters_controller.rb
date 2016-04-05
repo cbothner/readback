@@ -18,6 +18,7 @@ class SemestersController < ApplicationController
   def show
     @semesters = Semester.all.sort_by(&:beginning).reverse
     render layout: 'wide_with_sidebar'
+    expires_in 10.minutes, public: true
   end
 
   # GET /semesters/new
