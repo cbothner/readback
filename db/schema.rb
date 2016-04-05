@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405183128) do
+ActiveRecord::Schema.define(version: 20160405205518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20160405183128) do
     t.datetime "updated_at",               null: false
     t.text     "times"
     t.text     "description", default: "", null: false
+    t.text     "website"
   end
 
   add_index "freeform_shows", ["dj_id"], name: "index_freeform_shows_on_dj_id", using: :btree
@@ -192,6 +193,7 @@ ActiveRecord::Schema.define(version: 20160405183128) do
     t.datetime "updated_at",                  null: false
     t.text     "times"
     t.text     "description",    default: "", null: false
+    t.text     "website"
   end
 
   add_index "specialty_shows", ["coordinator_id"], name: "index_specialty_shows_on_coordinator_id", using: :btree
@@ -217,6 +219,7 @@ ActiveRecord::Schema.define(version: 20160405183128) do
     t.text     "times"
     t.string   "topic",       default: "", null: false
     t.text     "description", default: "", null: false
+    t.text     "website"
   end
 
   add_index "talk_shows", ["dj_id"], name: "index_talk_shows_on_dj_id", using: :btree

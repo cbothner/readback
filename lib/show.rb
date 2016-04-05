@@ -11,6 +11,7 @@ module Show
     validates :name, :duration, presence: true
 
     validate :show_does_not_conflict_with_any_other
+    validates :website, format: {with: /(\Ahttp|\A\Z)/, message: "must start with “http://”"}
     after_create :propagate
     after_update :propagate_if_changed
   end
@@ -104,6 +105,10 @@ module Show
 
   def duration
     (times.duration / 60.0 / 60.0) rescue nil
+  end
+
+  def website_name
+    URI::parse(website || (return nil)).host.sub('www.','')
   end
 
   def destroy
