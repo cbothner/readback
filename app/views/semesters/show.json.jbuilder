@@ -26,7 +26,6 @@ json.shows do
       json.with show.with
       json.beginning show.beginning
       json.ending show.ending
-      json.times show.time_string
       json.on_air show == Episode.on_air.show
     end
   end
