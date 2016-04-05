@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.7 (2016-04-05)
++ Adds show descriptions and url fields
++ Partial implementation of JSON API to feed player app
+
+## 1.6 (2016-01-26)
++ Sends emails to new trainees
++ Adds public affairs log view
+
+## 1.5.1 (2016-01-12)
++ Fixes sorting and display issues on DJ profile views
++ Makes the phone list visible for signed-in DJs
+
 ## 1.5 (2015-12-29)
 + Adds full playlist search
 + Adds autocompletion of album, label, year, etc.
