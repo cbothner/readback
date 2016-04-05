@@ -9,6 +9,7 @@ json.shows do
       json.id show.id
       json.name show.unambiguous_name
       json.description show.description
+      json.website show.website
       json.dj do                            # Deprecated
         json.id show.dj.id                  # Deprecated
         json.name show.dj.to_s              # Deprecated
