@@ -26,6 +26,7 @@ class SemestersController < ApplicationController
       format.json do
         expires_in 10.minutes, public: false
       end
+    end
   end
 
   # GET /semesters/new
