@@ -17,8 +17,15 @@ class SemestersController < ApplicationController
   # GET /semesters/1.json
   def show
     @semesters = Semester.all.sort_by(&:beginning).reverse
-    render layout: 'wide_with_sidebar'
-    expires_in 10.minutes, public: true
+
+    respond_to do |format|
+      format.html do
+        render layout: 'wide_with_sidebar'
+        expires_in 10.minutes
+      end
+      format.json do
+        expires_in 10.minutes, public: false
+      end
   end
 
   # GET /semesters/new
