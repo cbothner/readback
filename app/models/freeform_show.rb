@@ -23,4 +23,8 @@ class FreeformShow < ActiveRecord::Base
   def with
     "with #{dj}"
   end
+
+  def djs
+    [dj]
+  end
 end

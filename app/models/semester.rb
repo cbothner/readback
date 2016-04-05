@@ -47,7 +47,7 @@ class Semester < ActiveRecord::Base
       old = show_type.camelize.singularize.constantize.find(id)
 
       new = old.class.new(
-        old.attributes.slice *%w(name weekday dj_id coordinator_id )
+        old.attributes.slice *%w(name weekday dj_id coordinator_id topic description )
       )
       new.semester = self
 
