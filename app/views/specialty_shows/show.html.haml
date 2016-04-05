@@ -17,7 +17,7 @@
 
 - title "#{@specialty_show.name}"
 - headline "#{@specialty_show.name}"
-- subtitle "Coordinated by #{@specialty_show.coordinator.name}"
+- subtitle @specialty_show.description
 - back_link link_to "Back to Schedule", semester_path(@specialty_show.semester)
 = content_for :sidebar do
   - if dj_can_update_show

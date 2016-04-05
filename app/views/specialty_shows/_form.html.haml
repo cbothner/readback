@@ -7,22 +7,25 @@
     = f.label :name
     = f.text_field :name, tabindex: 20
   .field
+    = f.label :description
+    = f.text_area :description, {tabindex: 21, rows: 8}
+  .field
     = f.label :coordinator_id, 'Coordinator'
     %br
-    = f.select :coordinator_id, active_for_select(f.object.coordinator), {}, tabindex:21, class: 'chzn-select'
+    = f.select :coordinator_id, active_for_select(f.object.coordinator), {}, tabindex:22, class: 'chzn-select'
   .field
     =f.label :djs, 'Rotating Hosts'
     %br
-    =f.select :djs, active_for_select(f.object.djs.to_a), {}, multiple: true, tabindex: 22, class: 'chzn-select'
+    =f.select :djs, active_for_select(f.object.djs.to_a), {}, multiple: true, tabindex: 23, class: 'chzn-select'
   - if current_dj.can_create?(SpecialtyShow)
     .field
       = f.label :weekday
-      = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex: 23
+      = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex: 24
     .field.field-beginning
       = f.label :beginning, 'Start'
-      = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 24
+      = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 25
     .field.field-ending
       = f.label :duration, raw('Duration&nbsp;(hrs)')
-      = f.number_field :duration, step: 0.1, tabindex: 14
+      = f.number_field :duration, step: 0.1, tabindex: 26
   .actions
-    = f.submit 'Save specialty show', data: { disable_with: 'Saving...' }, tabindex: 26
+    = f.submit 'Save specialty show', data: { disable_with: 'Saving...' }, tabindex: 27

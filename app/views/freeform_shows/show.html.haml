@@ -4,6 +4,7 @@
     .tiled.rotating-host
       =render @freeform_show.dj
 - title "#{@freeform_show.name}"
+- subtitle @freeform_show.description
 - headline "#{@freeform_show.name}"
 - back_link link_to "Back to Schedule", semester_path(@freeform_show.semester)
 = content_for :sidebar do

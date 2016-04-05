@@ -6,19 +6,22 @@
   .field
     = f.label :name
     = f.text_field :name, tabindex: 10
+  .field
+    = f.label :description
+    = f.text_area :description, {tabindex: 11, rows: 8}
   - if current_dj.can_create?(FreeformShow)
     .field
       = f.label :dj_id, 'DJ'
       %br
-      = f.select :dj_id, active_for_select(f.object.dj), {}, tabindex: 11, class: 'chzn-select'
+      = f.select :dj_id, active_for_select(f.object.dj), {}, tabindex: 12, class: 'chzn-select'
     .field
       = f.label :weekday
-      = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex:12
+      = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex:13
     .field.field-beginning
       = f.label :beginning, 'Start'
-      = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 13
+      = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 14
     .field.field-ending
       = f.label :duration, raw('Duration&nbsp;(hrs)')
-      = f.number_field :duration, step: 0.1, tabindex: 14
+      = f.number_field :duration, step: 0.1, tabindex: 15
   .actions
-    = f.submit 'Save freeform show', data: { disable_with: 'Saving...' }, tabindex: 15
+    = f.submit 'Save freeform show', data: { disable_with: 'Saving...' }, tabindex: 16

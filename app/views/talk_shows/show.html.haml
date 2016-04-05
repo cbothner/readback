@@ -4,6 +4,7 @@
     .tiled.rotating-host
       =render @talk_show.dj
 - title "#{@talk_show.name}"
+- subtitle @talk_show.description
 - headline "#{@talk_show.name}"
 - back_link link_to "Back to Schedule", semester_path(@talk_show.semester)
 - if dj_signed_in? && current_dj.can_update?(@talk_show)
