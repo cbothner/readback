@@ -24,7 +24,7 @@ class SemestersController < ApplicationController
         expires_in 10.minutes
       end
       format.json do
-        expires_in 10.minutes, public: false
+        expires_in 10.minutes, public: true
       end
     end
   end
