@@ -6,7 +6,7 @@ class SpecialtyShow < ActiveRecord::Base
 
   alias_attribute :coordinator, :dj
 
-  def rotating_hosts
+  def hosts
     ([coordinator] + djs.sort_by { |dj| dj.try(&:name) }).uniq
   end
 
@@ -19,13 +19,13 @@ class SpecialtyShow < ActiveRecord::Base
   end
 
   def deal
-    hosts = rotating_hosts
+    h = hosts
     # modify only unassigned or unconfirmed episodes
     unconfirmed_episodes = episodes.reject(&:past?).select do |x|
       x.unassigned? || x.normal?
     end
     unconfirmed_episodes.each_with_index do |ep, inx|
-      ep.dj = hosts[inx % hosts.count]
+      ep.dj = h[inx % h.count]
       ep.status = :normal
     end
 
@@ -35,10 +35,11 @@ class SpecialtyShow < ActiveRecord::Base
   end
 
   def with
-    if rotating_hosts.count == 1
+    if hosts.count == 1
       "with #{dj}"
     else
-      "#{rotating_hosts.count} #{"DJ".pluralize(rotating_hosts.count)} in rotation"
+      h = hosts
+      "#{h.count} #{"DJ".pluralize(h.count)} in rotation"
     end
   end
 

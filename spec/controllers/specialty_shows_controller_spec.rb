@@ -55,7 +55,7 @@ RSpec.describe SpecialtyShowsController do
         expect(@special_episode.dj).to eq @show.coordinator
         episodes = [0,1,2,4,5].map { |x| @show.episodes[x] }
         djs = episodes.map(&:dj).map(&:name)
-        expect(djs).to eq @show.rotating_hosts.map(&:name)
+        expect(djs).to eq @show.hosts.map(&:name)
       end
     end
 

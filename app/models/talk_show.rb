@@ -13,7 +13,7 @@ class TalkShow < ActiveRecord::Base
     "with #{dj}"
   end
 
-  def djs
+  def hosts
     [dj]
   end
 end

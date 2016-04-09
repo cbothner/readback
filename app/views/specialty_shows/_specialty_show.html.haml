@@ -7,7 +7,7 @@
     -#= link_to_most_recent_episode specialty_show
 
 .show_with
-  -if specialty_show.rotating_hosts.count == 1
+  -if specialty_show.hosts.count == 1
     = raw "with #{link_to(specialty_show.dj, specialty_show.dj)}"
   - else
-    ="#{specialty_show.rotating_hosts.count} #{"DJ".pluralize(specialty_show.rotating_hosts.count)} in rotation"
+    ="#{specialty_show.hosts.count} #{"DJ".pluralize(specialty_show.hosts.count)} in rotation"

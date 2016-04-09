@@ -41,7 +41,7 @@ class SubRequestsController < ApplicationController
     @episode = Episode.find(params[:episode_id])
     @sub_request = @episode.sub_requests.build
     if @episode.show.is_a? SpecialtyShow
-      @sub_request.group = @episode.show.rotating_hosts - [current_dj]
+      @sub_request.group = @episode.show.hosts - [current_dj]
     end
     authorize_action_for(@sub_request, for: @episode)
     render layout: 'thin'

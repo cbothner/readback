@@ -14,7 +14,7 @@ json.shows do
         json.id show.dj.id                  # Deprecated
         json.name show.dj.to_s              # Deprecated
       end                                   # Deprecated
-      json.djs show.djs do |d|
+      json.djs show.hosts do |d|
         json.id d.id
         json.name d.to_s
       end

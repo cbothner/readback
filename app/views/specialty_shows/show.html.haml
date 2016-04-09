@@ -11,7 +11,7 @@
       %br
       You can always change the results manually, or let the inmates run the asylum by asking DJs with conflicts to request subs from each other.
   .rotating-hosts
-    -@specialty_show.rotating_hosts.each do |host|
+    -@specialty_show.hosts.each do |host|
       .tiled.rotating-host{data: ({dj_id: host.id} if dj_can_update_show)}
         =render host
 
