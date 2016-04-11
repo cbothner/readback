@@ -6,7 +6,7 @@ json.extract! @semester, :beginning, :ending
 json.shows do
   1.upto 7 do |w|
     json.set! w, @semester.shows.select{|x| x.weekday == w % 7}.sort_by(&:beginning) do |show|
-      json.id show.id
+      json.url url_for show
       json.name show.unambiguous_name
       json.description show.description
       json.website show.website
@@ -15,15 +15,9 @@ json.shows do
         json.name show.dj.to_s              # Deprecated
       end                                   # Deprecated
       json.djs show.hosts do |d|
-        json.id d.id
+        json.url url_for d
         json.name d.to_s
       end
-      # This makes the request too slow.
-      #json.episodes show.episodes.sort_by(&:beginning).select(&:past?) do |ep|
-        #json.id ep.id
-        #json.date ep.beginning
-        #json.songs "#{ep.songs.count}"
-      #end
       json.with show.with
       json.beginning show.beginning
       json.ending show.ending
