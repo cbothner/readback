@@ -5,7 +5,7 @@
     .subtitle
       Assign rotating hosts to episodes of this specialty show by dragging them onto their episodes.
       %br
-      Or, start by clicking here to 
+      Or, start by clicking here to
       =link_to "deal out the unconfirmed episodes", deal_specialty_show_path(@specialty_show), method: :patch
       to each host in turn.
       %br
@@ -17,12 +17,12 @@
 
 - title "#{@specialty_show.name}"
 - headline "#{@specialty_show.name}"
-- subtitle @specialty_show.description
+- subtitle raw "#{@specialty_show.description.gsub("\r\n\r\n", '<br />')}"
 - back_link link_to "Back to Schedule", semester_path(@specialty_show.semester)
 = content_for :sidebar do
   - if dj_can_update_show
     =render 'form'
-  - else 
+  - else
     = content_for :rotating_hosts
 
 
@@ -31,7 +31,7 @@
   .show-website
     %cite
       = @specialty_show.unambiguous_name
-    has its own website: 
+    has its own website:
     = link_to @specialty_show.website_name, @specialty_show.website
 
 - if dj_can_update_show

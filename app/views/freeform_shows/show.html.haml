@@ -4,7 +4,7 @@
     .tiled.rotating-host
       =render @freeform_show.dj
 - title "#{@freeform_show.name}"
-- subtitle @freeform_show.description
+- subtitle raw "#{@freeform_show.description.gsub("\r\n\r\n", '<br />')}"
 - headline "#{@freeform_show.name}"
 - back_link link_to "Back to Schedule", semester_path(@freeform_show.semester)
 = content_for :sidebar do
@@ -19,7 +19,7 @@
   .show-website
     %cite
       = @freeform_show.unambiguous_name
-    has its own website: 
+    has its own website:
     = link_to @freeform_show.website_name, @freeform_show.website
 - if dj_signed_in? && current_dj.can_update?(@freeform_show)
   =content_for :host
@@ -37,4 +37,3 @@
     %p.with
       =with(episode) if episode.subbed_for?
       &nbsp;
-
