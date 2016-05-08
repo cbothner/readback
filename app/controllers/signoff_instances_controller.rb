@@ -5,7 +5,7 @@ class SignoffInstancesController < ApplicationController
   # GET /signoff_instances
   # GET /signoff_instances.json
   def index
-    @signoff_instances = SignoffInstance.where{ signed != nil }.order(at: :desc)
+    @signoff_instances = SignoffInstance.where.not(signed: nil).order(at: :desc)
   end
 
   def public_affairs_logs
@@ -14,7 +14,7 @@ class SignoffInstancesController < ApplicationController
 
     @episodes = Episode
       .where(show_type: "TalkShow").where(ending: @from..@til)
-      .where{ notes != "" }
+      .where.not(notes: "")
       .order(ending: :desc)
   end
 
