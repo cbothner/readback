@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Infrastructure #
 ##################
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
+gem 'rails', '5.0.0.beta3'
 # Heroku needs 12factor for logs and assets
 gem 'rails_12factor', group: :production
 # Use postgresql as the database for Active Record
@@ -23,8 +23,6 @@ gem 'resque-scheduler'
 gem 'rack-cache'
 gem 'dalli'
 gem 'kgio'
-# ActiveRecord Improvements
-gem 'squeel'
 
 
 #####################
@@ -70,7 +68,7 @@ gem 'jc-validates_timeliness'
 ####################################
 # Authentication and Authorization #
 ####################################
-gem 'devise'
+gem 'devise', '4.0.0.rc2'
 gem 'authority'
 gem 'rolify'
 
