@@ -52,6 +52,8 @@ Rails.application.routes.draw do
     get :archive, on: :collection
   end
 
+  mount ActionCable.server => '/cable'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
