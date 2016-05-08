@@ -54,6 +54,7 @@ Rails.application.routes.draw do
 
   post 'spotify/swap', to: "spotify#swap"
   post 'spotify/refresh', to: "spotify#refresh"
+  mount ActionCable.server => '/cable'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -5,17 +5,36 @@ Rails.application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
-  config.reload_classes_only_on_change = false
 
   # Do not eager load code on boot.
   config.eager_load = false
 
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  # Show full error reports.
+  config.consider_all_requests_local = true
+
+  # Enable/disable caching. By default caching is disabled.
+  if Rails.root.join('tmp/caching-dev.txt').exist?
+    config.action_controller.perform_caching = true
+
+    config.action_mailer.perform_caching = false
+
+    config.cache_store = :memory_store
+    config.public_file_server.headers = {
+      'Cache-Control' => 'public, max-age=172800'
+    }
+  else
+    config.action_controller.perform_caching = false
+
+    config.action_mailer.perform_caching = false
+
+    config.cache_store = :null_store
+  end
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000   }
+  config.action_mailer.delivery_method = :letter_opener
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -40,30 +59,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # Enable bullet for identifying n+1 queries and unused eager loading
-  config.after_initialize do
-    Bullet.enable = true
-    Bullet.alert = true
-  end
-
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000  }
-  config.action_mailer.delivery_method = :letter_opener
-  #config.action_mailer.delivery_method = :smtp
-  #config.action_mailer.smtp_settings = {
-    #address:              'smtp.gmail.com',
-    #port:                 587,
-    #domain:               'wcbn.org',
-    #user_name:            ENV['readback_gmail_user'],
-    #password:             ENV['readback_gmail_pass'],
-    #authentication:       'plain',
-    #enable_starttls_auto: true
-  #}
-
+  # Use an evented file watcher to asynchronously detect changes in source code,
+  # routes, locales, etc. This feature depends on the listen gem.
+  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
-
-#Time.class_eval do
-  #def self.now
-    #new(2015, 7, 20, 17, 29, 59, "-04:00")
-    ##new + 10135078.185059
-  #end
-#end
