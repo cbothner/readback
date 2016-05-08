@@ -10,12 +10,15 @@ class SongsController < ApplicationController
     album_name = "#{params[:album]}%"
     case_transformation = artist_name.case
 
+    #results = Song                     # TODO: squeel
+      #.where{ artist =~ artist_name }
+      #.where{ params[:name].nil? ? true : name =~ song_title }
+      #.where{ params[:album].nil? ? true : album =~ album_name }
+      #.where{ (album != nil) & (album != "") }
+      #.where{ (label != nil) & (label != "") }
+      #.order(at: :desc)
     results = Song
-      .where{ artist =~ artist_name }
-      .where{ params[:name].nil? ? true : name =~ song_title }
-      .where{ params[:album].nil? ? true : album =~ album_name }
-      .where{ (album != nil) & (album != "") }
-      .where{ (label != nil) & (label != "") }
+      .limit(10)
       .order(at: :desc)
 
     results = results.map do |r|
