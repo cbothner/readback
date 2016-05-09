@@ -73,12 +73,16 @@ module Show
     name
   end
 
-  def time_string
-    "<span style=\"display:inline-table\">(#{["Sunday", "Monday", "Tuesday",
-                                             "Wednesday", "Thursday", "Friday",
-                                             "Saturday"][weekday]}s,
+  def time_string(html: true)
+    w = "#{["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+            "Saturday"][weekday]}s"
+    if html
+      "<span style=\"display:inline-table\">(#{w},
     #{beginning.strftime("%l:%M")} &ndash; #{
         ending.strftime("%l:%M%P")})</span>".html_safe
+    else
+      "(#{w}, #{beginning.strftime "%-l:%M"}–#{ending.strftime "%-l:%M%P"})"
+    end
   end
 
   def sort_times t
