@@ -1,7 +1,7 @@
 - content_for :host do
   %h3 Your Host
-  .rotating-hosts
-    .tiled.rotating-host
+  .rotating-hosts.tiles
+    .tile.rotating-host
       =render @talk_show.dj
 - title "#{@talk_show.name}"
 - subtitle raw "#{@talk_show.description.gsub("\r\n\r\n", '<br />')}"
@@ -25,13 +25,14 @@
 - if dj_signed_in? && current_dj.can_update?(@talk_show)
   =content_for :host
 %h3 Episodes
-- @episodes.each do |episode|
-  .showinfo.tiled
-    -if episode.past?
-      %p.show-instance-links
-        =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
-          episode_songs_path(episode)
-    %p=episode.date_string
-    %p.with
-      =with episode, short: true if episode.subbed_for?
-      &nbsp;
+.tiles
+  - @episodes.each do |episode|
+    .showinfo.tile
+      -if episode.past?
+        %p.show-instance-links
+          =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
+            episode_songs_path(episode)
+      %p=episode.date_string
+      %p.with
+        =with episode, short: true if episode.subbed_for?
+        &nbsp;

@@ -42,12 +42,13 @@
 
   .dj-all-episodes
     - @past_episodes_by_semester.each do |semester, episodes|
-      %h4= semester == Semester.current ? "Most Recent Shows" : semester.season
-      - episodes.each do |ep|
-        .dj-episode
-          .showinfo
-            %b=ep.show.unambiguous_name
-            %p=ep.date_string
-          .buttons
-            = link_to "[#{ep.songs.count}]",
-              episode_songs_path(ep)
+      %h4.padtop= semester == Semester.current ? "Most Recent Shows" : semester.season
+      .tiles
+        - episodes.each do |ep|
+          .dj-episode
+            .showinfo
+              %b=ep.show.unambiguous_name
+              %p=ep.date_string
+            .buttons
+              = link_to "[#{ep.songs.count}]",
+                episode_songs_path(ep)

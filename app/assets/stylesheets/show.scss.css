@@ -1,15 +1,19 @@
-.tiled {
+.tiles {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.tile {
   border: 1px solid #BBB;
-  display: inline-block;
-  width: 14em;
+  flex: 0 0 14em;
   padding: 0.1em 0.4em;
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   margin-right: 1em;
 }
-.tiled.rotating-host.ui-draggable-dragging { background-color: white; }
+.tile.rotating-host.ui-draggable-dragging { background-color: white; }
 
-.thin-sidebar .rotating-hosts .tiled { width: 12em; }
+.thin-sidebar .rotating-hosts .tile { width: 12em; }
 
 .episode-droppable {
   background-color: rgba(255, 232, 138, 0.45) !important;

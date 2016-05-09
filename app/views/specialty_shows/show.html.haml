@@ -10,9 +10,9 @@
       to each host in turn.
       %br
       You can always change the results manually, or let the inmates run the asylum by asking DJs with conflicts to request subs from each other.
-  .rotating-hosts
+  .rotating-hosts.tiles
     -@specialty_show.hosts.each do |host|
-      .tiled.rotating-host{data: ({dj_id: host.id} if dj_can_update_show)}
+      .tile.rotating-host{data: ({dj_id: host.id} if dj_can_update_show)}
         =render host
 
 - title "#{@specialty_show.name}"
@@ -38,9 +38,9 @@
   = content_for :rotating_hosts
 
 %h3 Episodes
-.episodes
+.episodes.tiles
   - @episodes.each do |episode|
-    .showinfo.tiled{class: ["episode#{'-past' if episode.past? && !episode.unassigned? }", "episode-#{episode.status}"], data: ({episode_path: episode_path(episode)} if dj_can_update_show)}
+    .showinfo.tile{class: ["episode#{'-past' if episode.past? && !episode.unassigned? }", "episode-#{episode.status}"], data: ({episode_path: episode_path(episode)} if dj_can_update_show)}
       %p=episode.date_string
       -if episode.past?
         %p.show-instance-links

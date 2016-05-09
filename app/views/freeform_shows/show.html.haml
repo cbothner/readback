@@ -24,16 +24,17 @@
 - if dj_signed_in? && current_dj.can_update?(@freeform_show)
   =content_for :host
 %h3 Episodes
-- @episodes.each do |episode|
-  .showinfo.tiled
-    %p
-      = episode.date_string
-      %br
-      = episode.just_time_string
-    -if episode.past?
-      %p.show-instance-links
-        =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
-          episode_songs_path(episode)
-    %p.with
-      =with(episode) if episode.subbed_for?
-      &nbsp;
+.tiles
+  - @episodes.each do |episode|
+    .showinfo.tile
+      %p
+        = episode.date_string
+        %br
+        = episode.just_time_string
+      -if episode.past?
+        %p.show-instance-links
+          =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
+            episode_songs_path(episode)
+      %p.with
+        =with(episode) if episode.subbed_for?
+        &nbsp;
