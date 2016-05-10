@@ -7,7 +7,7 @@ module Show
 
     include Authority::Abilities
     self.authorizer_name = 'OwnedModelAuthorizer'
-    
+
     validates :name, :duration, presence: true
 
     validate :show_does_not_conflict_with_any_other
@@ -20,6 +20,7 @@ module Show
 
   def show_does_not_conflict_with_any_other
     return nil if times && times.recurrence_rules.empty?
+    return nil if times == times_was
     conflicts = (semester.shows - [self])
       .reject { |x| x.times && x.times.recurrence_rules.empty? }
       .select { |x| times.conflicts_with? x.times }
@@ -94,7 +95,7 @@ module Show
   def beginning
     times.first  unless times.nil? || times.recurrence_rules.empty?
   end
-  
+
   def ending
     beginning + duration.hours  if beginning
   end
