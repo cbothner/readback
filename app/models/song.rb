@@ -11,7 +11,7 @@ class Song < ActiveRecord::Base
   def post_information_to_icecast
     %w(hd mid hi)
       .each do |qual|
-      Kernel.system "curl --user admin:#{ENV['ICECAST_ADMIN_PASSWORD']}  \"http://floyd.wcbn.org:8000/admin/metadata?mount=/wcbn-#{qual}.mp3&mode=updinfo&song=#{Rack::Utils.escape metadata_string}\""
+      Kernel.system "curl --max-time 0.5 --user admin:#{ENV['ICECAST_ADMIN_PASSWORD']}  \"http://floyd.wcbn.org:8000/admin/metadata?mount=/wcbn-#{qual}.mp3&mode=updinfo&song=#{Rack::Utils.escape metadata_string}\""
     end
   end
 
