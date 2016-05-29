@@ -42,7 +42,8 @@ class PlaylistController < ApplicationController
     words = params[:q].split.map {|x| "%#{x}%"}  rescue [""]
 
     # The concatenation of all four fields must match all the queries
-    songs = Song#.where{ artist.op("||", name.op("||", album.op("||", label))).like_all words }  # TODO squeel
+    songs = Song
+      .where( (["(artist || name || album || label ILIKE ?)"] * words.size).join(" AND "), *words)
       .includes(episode: [:dj])
       .order(at: :desc)
       .limit(25)

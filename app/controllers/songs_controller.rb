@@ -5,21 +5,20 @@ class SongsController < ApplicationController
 
   # GET /songs/find.json
   def find
-    artist_name = "#{params[:artist]}%"
-    song_title = "#{params[:name]}%"
-    album_name = "#{params[:album]}%"
-    case_transformation = artist_name.case
-
-    #results = Song                     # TODO: squeel
-      #.where{ artist =~ artist_name }
-      #.where{ params[:name].nil? ? true : name =~ song_title }
-      #.where{ params[:album].nil? ? true : album =~ album_name }
-      #.where{ (album != nil) & (album != "") }
-      #.where{ (label != nil) & (label != "") }
-      #.order(at: :desc)
+    query = "(artist ILIKE :artist_name)" +
+            "AND (#{params[:name].nil? ? "TRUE" : "name ILIKE :song_title"})" +
+            "AND (#{params[:album].nil? ? "TRUE" : "album ILIKE :album_name"})" +
+            "AND (album IS NOT NULL) AND (album != '')" +
+            "AND (label IS NOT NULL) AND (label != '')"
     results = Song
-      .limit(10)
+      .where(query, {
+          artist_name: "#{params[:artist]}%",
+          song_title: "#{params[:name]}%",
+          album_name: "#{params[:album]}%"
+        })
       .order(at: :desc)
+
+    case_transformation = params[:artist].case
 
     results = results.map do |r|
       unless r.name.case == case_transformation
