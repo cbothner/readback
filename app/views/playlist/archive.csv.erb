@@ -1,0 +1,5 @@
+<%- headers = %w(Timestamp Artist Title Album Label Year) %>
+<%= CSV.generate_line headers %>
+<% @past_items.select{|x| x.is_a? Song}.each do |song| %>
+<%= raw CSV.generate_line [song.at, song.artist, song.name, song.album, song.label, song.year] %>
+<% end %>

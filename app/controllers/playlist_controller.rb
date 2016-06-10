@@ -31,6 +31,10 @@ class PlaylistController < ApplicationController
 
     respond_to do |format|
       format.html {render layout: 'wide'}
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"wcbn-songs-#{@from.strftime "%F"}-#{@til.strftime "%F"}\""
+        headers['Content-Type'] ||= 'text/csv'
+      end
       format.json
     end
   end
