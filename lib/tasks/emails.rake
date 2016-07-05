@@ -35,7 +35,8 @@ namespace :emails do
 
   desc "Send emails to tomorrow’s subs. This task should run once daily."
   task remind_subs: :environment do
-    range = (Time.zone.now + 1.day)..(Time.zone.now + 2.days)
+    now = Time.zone.now
+    range = (now + 1.day)..(now + 2.days)
     requests = SubRequest.joins(:episode).where episode: { beginning: range }
     requests.each do |request|
       if request.confirmed?
@@ -43,6 +44,16 @@ namespace :emails do
       else
         SubRequestMailer.unfulfilled(request).deliver
       end
+    end
+  end
+
+  desc "Send emails to rotating hosts on the day after tomorrow. Run daily at 5:30AM"
+  task remind_rotating_hosts: :environment do
+    now = Time.zone.parse "6 July 2016 5:30AM"
+    range = (now + 2.days)..(now + 3.days)
+    episodes = Episode.where show_type: SpecialtyShow.name, beginning: range
+    episodes.each do |episode|
+      EpisodeMailer.reminder(episode).deliver if episode.show.hosts.count > 1
     end
   end
 end

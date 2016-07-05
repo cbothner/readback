@@ -1,0 +1,14 @@
+Hello rotating hosts,
+
+This is a reminder that <%= @episode.active_dj %> is on <%= @episode.dj_on_hook? ? "the hook for" : "" %> *<%= @episode.show.name %>* this week <%= @episode.date_string %> from <%= @episode.just_time_string html: false %>.
+<% if @episode.unassigned? %>
+
+This is because the show hasn’t been officially assigned to anyone. 😱 Please update [the schedule in Readback.](<%= specialty_show_url @episode.show %>)
+<% elsif @episode.dj_on_hook? %>
+
+This is because there’s still a sub request on the board. 🙀 Maybe one of you all will [take it?](<%=sub_request_url @episode.sub_requests.last %>) 😎
+<% else %>Have fun! ✌️
+<% end %>
+
+<% if !@episode.unassigned? && @next %>Next week, <%=@next.beginning.strftime "%B %d" %>, <%=@next.dj %> is on the schedule. 👌 If any of this sounds fishy <%=%w(🐠 🐟 🐳 🐬).sample %> check to make sure that [the schedule on Readback](<%= specialty_show_url @episode.show %>) jives with your understanding of reality.
+<% elsif !@next %>Next week will be the beginning of a new schedule, so if you’re still planning to be on the rotation, tell your show coordinator when you can and can’t make it. 🗓<% end %>

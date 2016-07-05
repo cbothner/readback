@@ -80,4 +80,8 @@ class Episode < ActiveRecord::Base
     when 'overridden' then "Overridden!"
     end
   end
+
+  def dj_on_hook?
+    unassigned? || SubRequest.where(episode: self).where.not(status: SubRequest.statuses[:confirmed]).any?
+  end
 end
