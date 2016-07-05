@@ -32,4 +32,17 @@ namespace :emails do
       TraineeMailer.send( i[:message], t ).deliver
     end
   end
+
+  desc "Send emails to tomorrow’s subs. This task should run once daily."
+  task remind_subs: :environment do
+    range = (Time.zone.now + 1.day)..(Time.zone.now + 2.days)
+    requests = SubRequest.joins(:episode).where episode: { beginning: range }
+    requests.each do |request|
+      if request.confirmed?
+        SubRequestMailer.reminder(request).deliver
+      else
+        SubRequestMailer.unfulfilled(request).deliver
+      end
+    end
+  end
 end

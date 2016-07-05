@@ -1,5 +1,5 @@
 Hello <%= @dj %>,
 
-This is to remind you that you’re signed up to sub for <%= @episode.show.dj %>’s show *<%= @episode.show.name %>* on <%= @episode.date_string %> from <%= @episode.just_time_string html: false %>. That’s tomorrow! 💥 But you knew that already, right? 😉
+This is to remind you that you’re signed up to sub for <%= @episode.show.dj %>’s show *<%= @episode.show.name %>* on <%= @episode.date_string %> from <%= @episode.just_time_string html: false %>. That’s <%= duration_string_in_random_units @duration %> away (as I send this)! 💥 But you knew that already, right? 😉
 
 Have a great show tomorrow! 👍
