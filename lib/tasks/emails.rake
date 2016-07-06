@@ -49,7 +49,7 @@ namespace :emails do
 
   desc "Send emails to rotating hosts on the day after tomorrow. Run daily at 5:30AM"
   task remind_rotating_hosts: :environment do
-    now = Time.zone.parse "6 July 2016 5:30AM"
+    now = Time.zone.now
     range = (now + 2.days)..(now + 3.days)
     episodes = Episode.where show_type: SpecialtyShow.name, beginning: range
     episodes.each do |episode|
