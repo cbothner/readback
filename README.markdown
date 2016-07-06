@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8 (2016-07-05)
++ Emails rotating hosts and substitute DJs to remind them of their upcoming
+  slots
+
 ## 1.7 (2016-04-05)
 + Adds show descriptions and url fields
 + Partial implementation of JSON API to feed player app
