@@ -73,7 +73,7 @@ gem 'jc-validates_timeliness'
 gem 'devise'
 gem 'authority'
 gem 'rolify'
-
+gem 'encrypted_strings'
 
 ##############
 # Production #
