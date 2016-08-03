@@ -6,6 +6,9 @@ json.shows @shows do |show, shows|
   json.semesters shows do |show|
     json.id show.id
     json.semester show.semester.season
+    json.semester_beginning show.semester.beginning
     json.times show.time_string html: false
+    json.one_beginning show.episodes.take.try :beginning
+    json.one_ending show.episodes.take.try :ending
   end
 end
