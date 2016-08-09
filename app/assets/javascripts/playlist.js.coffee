@@ -3,8 +3,8 @@ window.sort_items = (item) ->
   $showItems = $show.children 'tr'
 
   $showItems.sort (a,b) ->
-    a = parseTime $(a).find('.sortable-at').text()
-    b = parseTime $(b).find('.sortable-at').text()
+    a = sortableTime a
+    b = sortableTime b
     if(a < b)
       return 1
     if(a > b)
@@ -31,6 +31,18 @@ parseTime = (timeString) ->
   d.setMinutes(parseInt(time[3],10) || 0)
   d.setSeconds(0, 0)
   d
+
+sortableTime = (obj) ->
+  time = null
+  sortableAt = $(obj).find('.sortable-at')
+  if sortableAt.text() != ""
+    time = parseTime sortableAt.text()
+  else
+    timesString = $(obj).find('span').text()
+    regex = /(\d\d?:\d\d)–\d\d?:\d\d([ap]m)/  # Extracts start time from "4:00–6:30pm"
+    match = timesString.match(regex)
+    return null unless match
+    time = parseTime "#{match[1]}#{match[2]}" if match
 
 $(document).on 'ready page:load', ->
   if location.pathname is '/'
