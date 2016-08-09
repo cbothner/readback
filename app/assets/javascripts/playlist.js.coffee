@@ -38,11 +38,9 @@ sortableTime = (obj) ->
   if sortableAt.text() != ""
     time = parseTime sortableAt.text()
   else
-    timesString = $(obj).find('span').text()
-    regex = /(\d\d?:\d\d)–\d\d?:\d\d([ap]m)/  # Extracts start time from "4:00–6:30pm"
-    match = timesString.match(regex)
-    return null unless match
-    time = parseTime "#{match[1]}#{match[2]}" if match
+    timesString = $(obj).find('.time')
+    return null if timesString.length == 0
+    time = parseTime timesString.data('beginning')
 
 $(document).on 'ready page:load', ->
   if location.pathname is '/'
@@ -79,6 +77,7 @@ $(document).on 'ready page:load', ->
     $('#trainee-attendance').slideToggle 'fast'
 
   $('.best_in_place').bind "best_in_place:success", ->
+    $(this).closest('tr').data("at", $(this).data("bip-value"))
     window.sort_items(this)
 
 

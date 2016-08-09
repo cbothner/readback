@@ -2,7 +2,7 @@
   .showinfo
     %h2=episode.show.name
     %p.with=with episode
-    %p=episode.time_string
+    %p.time{data: {beginning: episode.beginning.strftime("%l:%M%P")}}=episode.time_string
   - if on_fm_computer?
     - t = episode.trainee
     - if t && episode.shadowed.nil?
