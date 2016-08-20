@@ -48,8 +48,16 @@ class Dj < ActiveRecord::Base
     URI::parse(website || (return nil)).host.sub('www.','')
   end
 
+  def image_url
+    has_custom_picture? ? profile_picture : robot_picture_url
+  end
+
   def has_custom_picture?
     false
+  end
+
+  def robot_picture_url
+    "http://www.robohash.org/#{Digest::MD5.hexdigest(email)}?set=set3"
   end
 
 end
