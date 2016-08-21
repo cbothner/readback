@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  mount ActionCable.server => '/cable'
+
+  post 'spotify/swap', to: "spotify#swap"
+  post 'spotify/refresh', to: "spotify#refresh"
+
   devise_for :playlist_editors
 
   resources :djs, only: [:index, :new, :create]

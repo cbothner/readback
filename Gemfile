@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Infrastructure #
 ##################
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.0.0.beta3'
+gem 'rails', '5.0.0'
 # Heroku needs 12factor for logs and assets
 gem 'rails_12factor', group: :production
 # Use postgresql as the database for Active Record
@@ -125,4 +125,4 @@ group :test do
   gem 'shoulda-matchers'
 end
 
-ruby "2.2.2"
+ruby "2.2.5"
