@@ -1,4 +1,4 @@
-$(document).on 'ready page:load', ->
+$(document).on 'ready turbolinks:load', ->
   $('.rotating-host[data-dj-id]').draggable revert: true
   $('.episode[data-episode-path]').droppable
     activeClass: 'episode-droppable'

@@ -1,1 +1,1 @@
-$(document).on 'ready page:load', -> $('#tabs').tabs()
+$(document).on 'ready turbolinks:load', -> $('#tabs').tabs()

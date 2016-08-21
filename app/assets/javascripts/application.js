@@ -22,11 +22,9 @@
 //= require best_in_place
 //= require_tree .
 
-Turbolinks.enableProgressBar();
+$(document).on("ready turbolinks:load", function() {
 
-$(document).on("ready page:load", function() {
-
-  jQuery(".best_in_place").best_in_place();  
+  jQuery(".best_in_place").best_in_place();
 
   if ( $('[type="date"]').prop('type') != 'date' ) {
     $("[type='date']").datepicker({

@@ -5,7 +5,7 @@ matches = (el, words) ->
       doesMatch = true
   doesMatch
 
-$(document).on "ready page:load", ->
+$(document).on "ready turbolinks:load", ->
 
   $(document).off 'click tap', '.interest-link'
   $(document).on "click tap", ".interest-link", ->

@@ -22,7 +22,7 @@ loadMorePlaylistItems = ->
     $("#infinity").data 'action', action  # Restore deleted action
     window.loadingArchive = false
 
-$(document).on 'ready page:load', ->
+$(document).on 'ready turbolinks:load', ->
   window.loadingArchive = false
 
   $(window).scroll ->

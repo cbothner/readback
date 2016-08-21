@@ -42,7 +42,7 @@ sortableTime = (obj) ->
     return null if timesString.length == 0
     time = parseTime timesString.data('beginning')
 
-$(document).on 'ready page:load', ->
+$(document).on 'ready turbolinks:load', ->
   if location.pathname is '/'
     location.hash = '#now'
     $('[autofocus]').focus()
@@ -99,7 +99,7 @@ fillAllFields = (event, ui) ->
   $("#song_name").val ui.item.name
   fillAlbumFields event, ui
 
-$(document).on 'ready page:load', ->
+$(document).on 'ready turbolinks:load', ->
   $('#song_artist').autocomplete({
     minLength: 4
     source: (request, response) ->

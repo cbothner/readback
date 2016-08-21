@@ -1,5 +1,5 @@
 :javascript
-  $(document).on('ready page:load', function() {
+  $(document).on('ready turbolinks:load', function() {
     $('#signoff_random').change(function() {
       $('fieldset.signoff-random').slideToggle('fast');
       $('fieldset.signoff-scheduled').slideToggle('fast');
