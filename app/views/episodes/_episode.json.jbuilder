@@ -1,5 +1,6 @@
 json.name episode.show.name
 json.dj episode.dj.to_s
+json.dj_url url_for episode.dj
 json.beginning episode.beginning
 json.ending episode.ending
 json.times episode.just_time_string
