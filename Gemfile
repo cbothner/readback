@@ -25,6 +25,8 @@ gem 'dalli'
 gem 'kgio'
 # ActiveRecord Improvements
 gem 'squeel'
+# Monitoring
+gem 'newrelic_rpm'
 
 
 #####################
