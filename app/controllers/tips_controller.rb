@@ -1,9 +1,11 @@
 class TipsController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:create]
+
   def create
     @tip = Tip.new tip_params
 
     if @tip.save
-      render json: @tip, status: :created, location: @tip
+      render json: @tip, status: :created
     else
       render json: @tip.errors, status: :unprocessable_entity
     end

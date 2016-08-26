@@ -1,3 +1,3 @@
 class Tip < ApplicationRecord
-  validates :value, presence: true
+  #validates :value, presence: true
 end
