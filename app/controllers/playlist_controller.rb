@@ -27,7 +27,7 @@ class PlaylistController < ApplicationController
     @from = Time.zone.parse(params[:from]) rescue  HOW_FAR_BACK.ago
     @til = Time.zone.parse(params[:til]) rescue Time.zone.now
 
-    @past_items = items_between @from, @til, ensure_all_songs_have_show_info: request.format == Mime::HTML
+    @past_items = items_between @from, @til, ensure_all_songs_have_show_info: request.format == Mime[:html]
 
     respond_to do |format|
       format.html {render layout: 'wide'}

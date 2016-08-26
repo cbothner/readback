@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   post 'spotify/swap', to: "spotify#swap"
   post 'spotify/refresh', to: "spotify#refresh"
 
+  resources :tips, only: [:create]
+
   devise_for :playlist_editors
 
   resources :djs, only: [:index, :new, :create]
