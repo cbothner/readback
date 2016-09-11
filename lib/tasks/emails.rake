@@ -28,7 +28,7 @@ namespace :emails do
     t = Trainee.new
     t.email = "training@wcbn.org"
     t.name = "WCBN Training"
-    EMAILS.each do |i|
+    TRAINEE_EMAILS.each do |i|
       TraineeMailer.send( i[:message], t ).deliver
     end
   end
