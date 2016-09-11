@@ -12,7 +12,7 @@ module Show
 
     validate :show_does_not_conflict_with_any_other
     validates :website, format: {with: /(\Ahttp|\A\Z)/, message: "must start with “http://”"}
-    after_create :propagate
+    after_create :propagate_later
     after_update :propagate_if_changed
   end
 
@@ -29,10 +29,14 @@ module Show
     end
   end
 
+  def propagate_later
+    PropagatorJob.perform_later(self)
+  end
+
   def propagate_if_changed
     if times_changed?
       episodes.reject(&:past?).each(&:destroy)
-      propagate
+      propagate_later
     elsif dj_id_changed?
       episodes.normal.each do |ep|
         ep.update_attributes(dj_id: dj_id)

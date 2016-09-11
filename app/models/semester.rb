@@ -56,6 +56,8 @@ class Semester < ActiveRecord::Base
                        duration: old.times.duration }
       new.set_times times_params
 
+      # Save the show without validating time conflicts because the model
+      # semester ought to enforce that, and the check makes save slow.
       if new.save(validate: false)  # Callback propagates
         old.djs.each {|o| new.djs << o} if new.is_a? SpecialtyShow
       else

@@ -10,7 +10,7 @@ class Signoff < ActiveRecord::Base
 
   def self.propagate_all(from, til)
     all.each do |s|
-      s.propagate from, til
+      PropagatorJob.perform_later s, from.to_i, til.to_i
     end
   end
 
