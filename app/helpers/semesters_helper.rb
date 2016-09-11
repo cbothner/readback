@@ -13,6 +13,7 @@ module SemestersHelper
     max = [sem.freeform_shows.maximum(:updated_at),
            sem.specialty_shows.maximum(:updated_at),
            sem.talk_shows.maximum(:updated_at)]
+      .map(&:to_i)  # Nil => 0
       .max
       .try(:utc).try(:to_s, :number)
     "semesters/#{id}/#{max}"
