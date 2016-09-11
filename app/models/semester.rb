@@ -42,31 +42,6 @@ class Semester < ActiveRecord::Base
       talk_shows.where.not(times: nil)
   end
 
-  def clone_shows(show_type:, ids:)
-    ids.each do |id|
-      old = show_type.camelize.singularize.constantize.find(id)
-
-      new = old.class.new(
-        old.attributes.slice *%w(name weekday dj_id coordinator_id topic description )
-      )
-      new.semester = self
-
-      times_params = { weekday: old.times.first.wday,
-                       hour: old.times.first.hour, minute: old.times.first.min,
-                       duration: old.times.duration }
-      new.set_times times_params
-
-      # Save the show without validating time conflicts because the model
-      # semester ought to enforce that, and the check makes save slow.
-      if new.save(validate: false)  # Callback propagates
-        old.djs.each {|o| new.djs << o} if new.is_a? SpecialtyShow
-      else
-        raise "Clone Error"
-      end
-
-    end
-  end
-
   #def fix_beginning_and_ending(from, til)
     #from = from.change(hour: 6, minute: 0, second: 0)
     #til = til.change(hour: 5, minute: 59, second: 59)

@@ -56,7 +56,7 @@ class SemestersController < ApplicationController
 
     respond_to do |format|
       if @semester.save
-        show_types_to_copy.each { |type, ids| @semester.clone_shows show_type: type, ids: ids }
+        SemesterClonerJob.perform_later show_types_to_copy, into_semester: @semester
         Signoff.propagate_all(@semester.beginning, @semester.ending)
 
         format.html { redirect_to edit_semester_path @semester }

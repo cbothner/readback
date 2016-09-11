@@ -34,4 +34,8 @@ class Signoff < ActiveRecord::Base
     {on: on, at: t}
   end
 
+  def includes_instance_at?(t)
+    signoff_instances.any? {|s| s.at == t}
+  end
+
 end

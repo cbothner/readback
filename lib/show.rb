@@ -143,6 +143,10 @@ module Show
     {beginning: t, ending: t + duration.hours, status: default_status, dj: dj}
   end
 
+  def includes_instance_at?(t)
+    episodes.any? { |ep| ep.beginning == t }
+  end
+
 end
 
 class Time

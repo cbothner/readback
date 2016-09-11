@@ -9,6 +9,7 @@ module Recurring
     instances = self.method(instance_collection_name).call
     enumerator(from, til).each do |t|
       break if t > til
+      next if includes_instance_at?(t)
       instances.create instance_params(t)
     end
   end
