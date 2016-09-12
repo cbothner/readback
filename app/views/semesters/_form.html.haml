@@ -15,4 +15,13 @@
     %br
     = f.date_field :ending, tabindex: 1
   .actions
-    = f.submit 'Save semester', data: { disable_with: 'Saving...' }, tabindex: 8
+    = f.submit 'Create new semester', disabled: true, data: { disable_with: 'Saving...' }, id: "save_semester_submit"
+
+  %br
+  %p.instructions
+    It is important to copy all shows that are not changing when you build a new
+    semester. The continuity of shows across semesters, of show descriptions,
+    and other metadata, can only be ensured by selecting the show here and
+    copying it. For these reasons, it is even preferred to copy shows that are
+    changing times; by editing the show after the semester is built, the show's
+    times can be properly set.

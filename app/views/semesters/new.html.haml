@@ -16,6 +16,11 @@
         $(".ui-selected").each(function(i, e) {
           result[$(e).attr("data-show-type")].push(parseInt($(e).attr("data-show-id")));
         })
+        if ($('.ui-selected').length > 0) {
+          $("#save_semester_submit").attr("disabled", false);
+        } else {
+          $("#save_semester_submit").attr("disabled", "disabled");
+        }
         $("#shows_to_copy").val(JSON.stringify(result));
       }
     });
