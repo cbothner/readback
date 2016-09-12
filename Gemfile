@@ -23,6 +23,8 @@ gem 'resque-scheduler'
 gem 'rack-cache'
 gem 'dalli'
 gem 'kgio'
+# Queue
+gem 'sidekiq'
 # Monitoring
 gem 'newrelic_rpm'
 

@@ -36,6 +36,7 @@ module Playlist
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
 
+    config.active_job.queue_adapter = :sidekiq
     config.action_dispatch.rack_cache = true
 
   end
