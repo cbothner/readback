@@ -13,7 +13,7 @@
       = submit_tag "Search", name: nil
 
 - content_for :back_link do
-  = link_to "Print", params.merge(:format => :pdf)
+  = link_to "Print", public_affairs_logs_signoff_instances_path(format: :pdf)
 - @episodes.each do |ep|
   .public_affairs_log
     .grey= raw "#{ep.time_string}  (#{pluralize ep.show.duration, "hour"})"
