@@ -37,7 +37,7 @@ namespace :emails do
   task remind_subs: :environment do
     now = Time.zone.now
     range = (now + 1.day)..(now + 2.days)
-    requests = SubRequest.joins(:episode).where episode: { beginning: range }
+    requests = SubRequest.joins(:episode).where episodes: { beginning: range }
     requests.each do |request|
       if request.confirmed?
         SubRequestMailer.reminder(request).deliver
