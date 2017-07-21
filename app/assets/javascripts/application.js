@@ -32,6 +32,6 @@ $(document).on("ready turbolinks:load", function() {
     });
   }
 
-  $(".chzn-select").chosen();
+  $(".chzn-select").chosen({width: '100%'});
 
 });
