@@ -21,7 +21,9 @@ class Signoff < ActiveRecord::Base
       Enumerator.new do |y|
         a, b = from, from + random_interval.days
         loop do
-          y.yield rand(a..b)
+          time = rand(a..b)
+          redo unless time.hour.between? 9, 16
+          y.yield time
           a, b = b, b + random_interval.days
         end
       end
