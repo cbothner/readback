@@ -37,7 +37,7 @@
     <% end %>
 
     <% if trainee_signed_in? %>
-      <%= current_trainee.name %>
+      <%= link_to current_trainee.name, current_trainee %>
       [<%= link_to "Log out", destroy_trainee_session_path, method: :delete %>]
     <% end %>
 

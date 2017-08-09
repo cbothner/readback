@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class TraineesController < ApplicationController
-  before_action :authenticate_dj!, except: :show
-  authorize_actions_for Trainee, except: %i[new create]
+  before_action :authenticate_dj!, except: %i[show edit update]
+  authorize_actions_for Trainee, only: %i[index new create]
   before_action :set_trainee, only: %i[show edit update destroy]
 
   layout 'headline'
@@ -28,6 +28,8 @@ class TraineesController < ApplicationController
   # GET /trainees/1
   # GET /trainees/1.json
   def show
+    authorize_action_for @trainee
+
     episodes = @trainee.episodes
     @apprenticeships = {}
     sched = episodes.reject(&:past?)
@@ -55,7 +57,9 @@ class TraineesController < ApplicationController
   end
 
   # GET /trainees/1/edit
-  def edit; end
+  def edit
+    authorize_action_for @trainee
+  end
 
   # POST /trainees
   # POST /trainees.json
@@ -80,6 +84,8 @@ class TraineesController < ApplicationController
   # PATCH/PUT /trainees/1
   # PATCH/PUT /trainees/1.json
   def update
+    authorize_action_for @trainee
+
     if params[:trainee].include? :demotape
       @trainee.demotape = Trainee::Acceptance.new(Time.zone.now, current_dj.id,
                                                   params[:trainee][:demotape])
