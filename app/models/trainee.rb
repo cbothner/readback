@@ -3,6 +3,9 @@
 class Trainee < ActiveRecord::Base
   include Person
   include Authority::Abilities
+  include Person
+  include Authority::UserAbilities
+  include Authority::Abilities
   Acceptance = Struct.new(:timestamp, :dj_id, :message) do
     def accepted?
       !timestamp.nil?
@@ -17,13 +20,8 @@ class Trainee < ActiveRecord::Base
   serialize :demotape, Acceptance
   serialize :broadcasters_exam, Acceptance
 
-  include Person
-
   devise :database_authenticatable, :registerable, :recoverable,
          :rememberable, :trackable, :validatable
-
-  include Authority::UserAbilities
-  include Authority::Abilities
 
   with_options if: :um_affiliated? do |dj|
     dj.validates :umid, :um_dept, presence: true
@@ -36,11 +34,12 @@ class Trainee < ActiveRecord::Base
 
   validates :statement, presence: true, unless: :um_affiliated?
 
+  has_many :demo_tapes
   has_many :episodes
 
   # Trainees don’t have roles but must work with the
   # same authorizers as DJs.
-  def has_role?(*args)
+  def has_role?(*_args)
     false
   end
 

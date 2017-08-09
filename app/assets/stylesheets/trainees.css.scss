@@ -1,8 +1,8 @@
-.absolute{
+.absolute {
   position: absolute;
   width: inherit;
 }
-.trainee{
+.trainee {
   margin: 0;
   margin-top: 0.75em;
   width: 100%;
@@ -21,25 +21,53 @@
   @extend .trainee-wide;
   max-width: 30%;
 }
-.inline{ display: inline }
-.grey { color: #777 }
+.inline {
+  display: inline;
+}
+.grey {
+  color: #777;
+}
 .smaller {
   font-size: 86%;
   position: relative;
   top: -1px;
 }
-.green { color: #8fb913 }
+.green {
+  color: #8fb913;
+}
 .interests {
   font-size: 80%;
   clear: both;
   margin-bottom: 0.75em;
 }
-.nowrap { white-space: nowrap; }
-.padtop{ padding-top: 0.5em; }
-.padbottom{ padding-bottom: 0.5em; }
-.margintop { margin-top: 1em; }
-.padleft{ padding-left: 1em; }
-.minustop { margin-top: -1.5em; }
-.nomargin {margin: 0;}
+.nowrap {
+  white-space: nowrap;
+}
+.padtop {
+  padding-top: 0.5em;
+}
+.padbottom {
+  padding-bottom: 0.5em;
+}
+.margintop {
+  margin-top: 1em;
+}
+.padleft {
+  padding-left: 1em;
+}
+.minustop {
+  margin-top: -1.5em;
+}
+.nomargin {
+  margin: 0;
+}
 
-#trainee-attendance { overflow: hidden; }
+#trainee-attendance {
+  overflow: hidden;
+}
+
+.longform {
+  audio {
+    vertical-align: -0.5em;
+  }
+}

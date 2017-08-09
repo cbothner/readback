@@ -59,14 +59,26 @@
       .longform.padtop
         Personal Statement:
         %blockquote=@trainee.statement
-    - if @trainee.demotape.accepted?
+
+    - unless @trainee.demo_tapes.empty?
       %hr
-      .longform
-        %span.green Demo Tape Accepted
-        by
-        = @trainee.demotape.accepting_dj
-        = "(#{@trainee.demotape.timestamp.to_date})"
-        %blockquote=@trainee.demotape.message
+      - @trainee.demo_tapes.each do |demo_tape|
+        .longform.padbottom
+          Submitted demo tape on
+          = succeed ':' do
+            = demo_tape.created_at.to_date
+          %audio{controls: true, src: demo_tape.url}
+          - unless demo_tape.feedback.blank?
+            %blockquote
+              Reviewer feedback:
+              %br
+              = surround '“', '”' do
+                = demo_tape.feedback
+          - if demo_tape.accepted_at
+            %span.green
+              Accepted at
+              = demo_tape.accepted_at.to_date
+
       - if @trainee.broadcasters_exam.accepted?
         .padtop
           = succeed '.' do
