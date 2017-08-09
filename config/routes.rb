@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   devise_for :djs, controllers: { passwords: 'djs/passwords' }
   devise_for :playlist_editors
+  devise_for :trainees
 
   resources :concerts, only: %i[index]
 

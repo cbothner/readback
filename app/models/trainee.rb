@@ -17,6 +17,13 @@ class Trainee < ActiveRecord::Base
   serialize :demotape, Acceptance
   serialize :broadcasters_exam, Acceptance
 
+  include Person
+
+  devise :database_authenticatable, :registerable, :recoverable,
+         :rememberable, :trackable, :validatable
+
+  include Authority::Abilities
+
   with_options if: :um_affiliated? do |dj|
     dj.validates :umid, :um_dept, presence: true
     # dj.validates :umid, format: {with: /\A[0-9]{8}\Z/}
