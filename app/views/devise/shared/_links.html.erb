@@ -1,5 +1,10 @@
-<%- if controller_name != 'sessions' %>
-  <%= link_to "Sign In", new_session_path(resource_name) %><br />
+<%- other_user_models = %i(dj trainee) - [resource_name] %>
+<%- other_user_models.each do |model_name| %>
+  <%= link_to new_session_path(model_name) do %>
+    Sign In as a
+    <%= t "activerecord.models.#{model_name}" %>
+  <% end %>
+  <br />
 <% end -%>
 
 <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>

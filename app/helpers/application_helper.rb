@@ -77,4 +77,8 @@ module ApplicationHelper
       --black--rgb: #{Color.black.dark};
     CSS
   end
+
+  def user_signed_in?
+    dj_signed_in? || trainee_signed_in?
+  end
 end

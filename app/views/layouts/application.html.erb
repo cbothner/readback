@@ -20,9 +20,10 @@
   <% end %>
 
 
-  <header id="dj-signed-<%= dj_signed_in? ? 'in' : 'out'%>-nav" <%="class=fixed" if on_fm_computer? %>>
+  <header id="dj-signed-<%= user_signed_in? ? 'in' : 'out'%>-nav" <%="class=fixed" if on_fm_computer? %>>
   <div class="right">
-    <% if current_dj %>
+
+    <% if dj_signed_in? %>
       <% if current_dj.has_role?(:superuser) %>
         <%= raw "#{link_to("Roster", djs_path)} • " %>
       <% else %>
@@ -33,13 +34,22 @@
       <%= link_to "Sub Board", sub_requests_path %> &mdash;
       <%= link_to current_dj.name, current_dj %>
       [<%= link_to "Log out", destroy_dj_session_path, method: :delete %>]
-    <% else %>
-      <%= link_to "Log in", new_dj_session_path %>
+    <% end %>
+
+    <% if trainee_signed_in? %>
+      <%= current_trainee.name %>
+      [<%= link_to "Log out", destroy_trainee_session_path, method: :delete %>]
+    <% end %>
+
+    <% unless dj_signed_in? || trainee_signed_in? %>
+      <%= link_to "Log in as a DJ", new_dj_session_path %>
+      <br />
+      <%= link_to "Log in as a trainee", new_trainee_session_path %>
     <% end %>
   </div>
 </header>
 
-<div class="container <%= 'dj-signed-in-container' if dj_signed_in? %>">
+<div class="container <%= 'dj-signed-in-container' if user_signed_in? %>">
 <%#FROM DRUPAL%>
 <% fixed_or_absolute = if current_page?(root_path) && on_fm_computer?
                          'fixed'

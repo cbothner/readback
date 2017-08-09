@@ -18,6 +18,6 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    current_dj || current_playlist_editor
+    current_dj || current_trainee || current_playlist_editor
   end
 end

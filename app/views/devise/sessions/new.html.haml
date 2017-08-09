@@ -1,7 +1,7 @@
 .small-container
   %h1
+    Sign In as a 
     = resource.class.model_name.human.titleize
-    Sign In
 
   = simple_form_for resource, as: resource_name, url: session_path(resource_name),
                               builder: BlueprintFormBuilder do |f|
