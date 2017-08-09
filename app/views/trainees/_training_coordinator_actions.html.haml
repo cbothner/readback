@@ -1,15 +1,3 @@
-- unless @trainee.demotape.accepted? || @trainee.disqualified
-  = form_for @trainee do |f|
-    .field.padtop
-      = f.label :demotape, "Accept demo tape"
-      %p.instructions
-        This message will be emailed to the trainee along with instructions
-        for signing up for stage-two sessions and apprenticeships.
-      = f.text_area :demotape, style: "height: 7em"
-    .actions
-      = f.submit "Accept Demo Tape",
-        data: {confirm_with: "Are you sure?", disable_with: "Saving..."}
-
 - if current_dj.can_create?(Dj) && @trainee.demotape.accepted? && !@trainee.disqualified
   = form_for [@trainee, Dj.new] do |f|
     .field.padtop

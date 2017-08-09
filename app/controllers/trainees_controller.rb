@@ -86,11 +86,6 @@ class TraineesController < ApplicationController
   def update
     authorize_action_for @trainee
 
-    if params[:trainee].include? :demotape
-      @trainee.demotape = Trainee::Acceptance.new(Time.zone.now, current_dj.id,
-                                                  params[:trainee][:demotape])
-    end
-
     respond_to do |format|
       if @trainee.update(trainee_params)
         format.html do

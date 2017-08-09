@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   resources :tips, only: [:create]
 
   resources :trainees, only: %i[index show new edit create update] do
+    resources :demo_tapes, only: [:create]
     resources :djs, only: %i[create]
   end
 

@@ -1,7 +1,9 @@
 - unless @trainee.demotape.accepted?
-  .field.padtop
-    = label_tag "Submit a demo tape"
-    %p.instructions
-      When you have finished recording your demo tape in Prod C, upload the
-      MP3 here so it can be reviewed.
-    = file_field_tag 'filename'
+  = form_for [@trainee, DemoTape.new] do |f|
+    .field.padtop
+      = label_tag "Submit a demo tape"
+      %p.instructions
+        When you have finished recording your demo tape in Prod C, upload the
+        MP3 here so it can be reviewed.
+      = f.text_field :url, placeholder: 'URL (replace with upload)'
+      = f.submit 'Submit demo tape'
