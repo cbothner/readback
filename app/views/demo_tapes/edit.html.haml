@@ -1,0 +1,17 @@
+- title "Review #{@demo_tape.trainee}’s demo – #{@demo_tape.created_at.to_date}"
+- headline "Review #{@demo_tape.trainee}’s demo"
+- subtitle "Submitted on #{@demo_tape.created_at.to_date}"
+- back_link link_to 'Back to profile', @demo_tape.trainee
+
+%audio{ src: @demo_tape.url, controls: true, style: 'width: 100%;' }
+
+= form_for @demo_tape do |f|
+  .padtop
+    = f.label :feedback
+    = f.text_area :feedback, rows: 10
+  .padtop
+    %label
+      = check_box_tag :accepted, '1', false, style: 'top: 0;'
+      Accepted
+  .padtop
+    = f.submit 'Send feedback', confirm_with: "Are you sure?"

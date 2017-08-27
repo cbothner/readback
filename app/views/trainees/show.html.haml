@@ -67,8 +67,13 @@
           Submitted demo tape on
           = succeed ':' do
             = demo_tape.created_at.to_date
+          %br
           %audio{controls: true, src: demo_tape.url}
-          - unless demo_tape.feedback.blank?
+          - if demo_tape.feedback.blank?
+            - if dj_signed_in? && current_dj.can_update?(demo_tape)
+              %blockquote
+                = link_to 'Review demo tape', edit_demo_tape_path(demo_tape)
+          - else
             %blockquote
               Reviewer feedback:
               %br
