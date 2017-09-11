@@ -1,8 +1,9 @@
 - content_for :host do
-  %h3 Your Host
-  .rotating-hosts.tiles
-    .tile.rotating-host
-      =render @talk_show.dj
+  - if @talk_show.dj
+    %h3 Your Host
+    .rotating-hosts.tiles
+      .tile.rotating-host
+        =render @talk_show.dj
 - title "#{@talk_show.name}"
 - subtitle raw "#{@talk_show.description.gsub("\r\n\r\n", '<br />')}"
 - headline "#{@talk_show.name}"
