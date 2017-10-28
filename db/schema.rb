@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170801142332) do
+ActiveRecord::Schema.define(version: 20170922212222) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,6 +130,13 @@ ActiveRecord::Schema.define(version: 20170801142332) do
     t.datetime "updated_at", null: false
     t.index ["at"], name: "index_setbreaks_on_at", using: :btree
     t.index ["episode_id"], name: "index_setbreaks_on_episode_id", using: :btree
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string   "key"
+    t.jsonb    "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "signoff_instances", force: :cascade do |t|
