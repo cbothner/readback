@@ -47,6 +47,16 @@
   - if disclaimers[:night]
     .italic.subtitle *The Program Director has made this slot available to all WCBN DJs.
 
+  - if current_dj.has_role? :superuser
+    %h3 Settings
+    %div{style: 'margin-top: 0.5em'}
+    - night_setting = Setting.find_by_key('nighttime_requirement_disabled')
+    %label
+      = check_box_tag 'setting[value]', night_setting.id, night_setting.value,
+      onchange: "$(this).data('params', 'setting[value]=' + this.checked)",
+      data: { remote: true, url: setting_url(night_setting), method: 'PUT'}
+      Disable the requirement that DJs do only nighttime slots for their first semester.
+
 - else
   - subtitle 'There are currently no outstanding sub requests!'
 

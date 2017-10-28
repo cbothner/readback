@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :songs, only: [:find] do
     get :find, on: :collection
   end
-  resources :trainees, shallow: true do 
+  resources :trainees, shallow: true do
     resources :djs, except: [:index, :new], shallow: true do
       resources :episodes, except: [:show] do
         resources :songs
@@ -44,6 +44,8 @@ Rails.application.routes.draw do
   end
 
   resources :setbreaks, only: [:update, :create, :destroy]
+
+  resources :settings, only: [:create, :update]
 
   root 'playlist#index'
   resources :playlist, only: [:index] do
