@@ -22,7 +22,6 @@ dump.rdb
 *.swp
 *.swo
 
-/db/seeds.rb
 .DS_Store
 
 /vendor/bundle/
