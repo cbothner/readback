@@ -48,7 +48,7 @@ workers ENV.fetch('WEB_CONCURRENCY') { 2 }
 # cannot share connections between processes.
 #
 on_worker_boot do
-  if Rails.env == 'production'
+  if ENV['RAILS_ENV'] == 'production'
     @sidekiq_pid ||= spawn('bundle exec sidekiq -c 10')
   end
 
