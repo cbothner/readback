@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Infrastructure #
 ##################
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.1.0'
 # Heroku needs 12factor for logs and assets
 gem 'rails_12factor', group: :production
 # Use postgresql as the database for Active Record
@@ -26,7 +26,7 @@ gem 'rack-cache'
 # Queue
 gem 'sidekiq'
 # Monitoring
-gem 'newrelic_rpm'
+gem 'newrelic_rpm', group: :production
 
 #####################
 # View interpreters #
@@ -38,7 +38,7 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.1.0'
+gem 'coffee-rails', '~> 4.1'
 # Render PDFs with LaTeX
 gem 'rails-latex'
 # For markdown interpretation in show notes
@@ -56,8 +56,7 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+gem 'json'
 
 ########################
 # Forms and Validation #
@@ -69,7 +68,7 @@ gem 'jc-validates_timeliness'
 # Authentication and Authorization #
 ####################################
 gem 'authority'
-gem 'devise', '4.0.0.rc2'
+gem 'devise', '~> 4.0'
 gem 'encrypted_strings'
 gem 'rolify'
 
@@ -86,7 +85,7 @@ end
 ###############
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
 end
 
 group :development, :test do
@@ -107,7 +106,6 @@ group :development, :test do
 
   gem 'guard'
   gem 'guard-rspec', require: false
-  gem 'thor', '0.19.1'
 
   # Preview emails!
   gem 'letter_opener'
