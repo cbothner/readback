@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:flowtype/recommended",
+    "standard"
+  ],
+  "plugins": ["babel", "import", "react", "jsx-a11y", "flowtype"],
+  "rules": {
+    "comma-dangle": [
+      2,
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "never"
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+[ignore]
+<PROJECT_ROOT>/vendor/.*
+
+[include]
+
+[libs]
+
+[lints]
+all=warn
+
+[options]
+
+[strict]
+
+[version]
+0.59.0
