@@ -17,17 +17,16 @@ gem 'chronic'
 gem 'ice_cube'
 # Scheduling!
 gem 'resque'
-gem 'resque_mailer'
 gem 'resque-scheduler'
+gem 'resque_mailer'
 # Cache
-gem 'rack-cache'
 gem 'dalli'
 gem 'kgio'
+gem 'rack-cache'
 # Queue
 gem 'sidekiq'
 # Monitoring
 gem 'newrelic_rpm'
-
 
 #####################
 # View interpreters #
@@ -47,7 +46,6 @@ gem 'redcarpet'
 # For so I only have to write the emails once.
 gem 'maildown'
 
-
 ##############
 # JavaScript #
 ##############
@@ -61,28 +59,26 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-
 ########################
 # Forms and Validation #
 ########################
 gem 'best_in_place', '= 3.0.1'
 gem 'jc-validates_timeliness'
 
-
 ####################################
 # Authentication and Authorization #
 ####################################
-gem 'devise', '4.0.0.rc2'
 gem 'authority'
-gem 'rolify'
+gem 'devise', '4.0.0.rc2'
 gem 'encrypted_strings'
+gem 'rolify'
 
 ##############
 # Production #
 ##############
 group :production do
-  gem "memcachier"
-  gem "lograge"
+  gem 'lograge'
+  gem 'memcachier'
 end
 
 ###############
@@ -100,8 +96,8 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  gem 'factory_girl_rails'
   gem 'rspec-rails'
-  gem 'factory_girl_rails', require: false
 
   # To identify database inefficiencies like n+1 queries and unused eager
   # loading
@@ -109,9 +105,9 @@ group :development, :test do
 
   gem 'seed_dump'
 
-  gem 'thor', '0.19.1'
   gem 'guard'
   gem 'guard-rspec', require: false
+  gem 'thor', '0.19.1'
 
   # Preview emails!
   gem 'letter_opener'
@@ -119,7 +115,6 @@ end
 
 # To make console access better in development and on the production server
 gem 'table_print'
-
 
 ###########
 # Testing #
@@ -129,4 +124,4 @@ group :test do
   gem 'shoulda-matchers'
 end
 
-ruby "2.4.1"
+ruby '2.4.1'

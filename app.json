@@ -1,6 +1,8 @@
 {
   "name": "readback",
-  "scripts": {},
+  "scripts": {
+    "postdeploy": "rails db:schema:load db:seed"
+  },
   "env": {
     "LANG": {
       "required": true
