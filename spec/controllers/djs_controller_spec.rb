@@ -38,7 +38,7 @@ RSpec.describe DjsController do
 
     context "when attributes are valid" do
 
-      before { post :create, dj: FactoryGirl.attributes_for(:dj) }
+      before { post :create, dj: FactoryBot.attributes_for(:dj) }
 
       it "saves DJ" do
         expect(assigns(:dj)).not_to be_new_record
@@ -51,7 +51,7 @@ RSpec.describe DjsController do
 
     context "when attributes are not valid" do
 
-      before { post :create, dj: FactoryGirl.attributes_for(:dj, name: nil) }
+      before { post :create, dj: FactoryBot.attributes_for(:dj, name: nil) }
 
       it "does not save DJ" do 
         expect(assigns(:dj)).to be_new_record
