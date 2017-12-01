@@ -1,5 +1,5 @@
 class EpisodesController < ApplicationController
-  before_filter :authenticate!, except: [:index, :on_and_upcoming]
+  before_action :authenticate!, except: [:index, :on_and_upcoming]
   authorize_actions_for Episode, except: [:index, :on_and_upcoming]
   before_action :set_episode, only: [:edit, :update]
 

@@ -1,5 +1,5 @@
 class SubRequestsController < ApplicationController
-  before_filter :authenticate_dj!
+  before_action :authenticate_dj!
   authorize_actions_for SubRequest, except: [:new, :create]
   before_action :set_sub_request, only: [:show, :update, :destroy]
 

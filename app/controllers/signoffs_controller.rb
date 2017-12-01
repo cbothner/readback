@@ -1,5 +1,5 @@
 class SignoffsController < ApplicationController
-  before_filter :authenticate_dj!
+  before_action :authenticate_dj!
   authorize_actions_for Signoff
 
   before_action :set_signoff, only: [:edit, :update]

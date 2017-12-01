@@ -1,0 +1,2 @@
+web: bin/rails server -p 4000
+sidekiq: bundle exec sidekiq -c 1
