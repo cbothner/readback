@@ -68,6 +68,9 @@
 </ul>
 
 <%= yield %>
+
+<div id="player-app" data-turbolinks-permanent />
+<%= javascript_pack_tag 'player' %>
 </div>
 
 <% if Rails.env.production? %>
