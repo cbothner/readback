@@ -17,8 +17,15 @@ const Container = styled.div`
   display: flex;
 `
 
-const PlayPauseButton = styled.button`
-  width: 100px;
+const PlayPauseButton = styled.i`
+  width: 60px;
+  height: 60px;
+  border: 3px solid black;
+  border-radius: 50%;
+  display: flex;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
 `
 
 class Player extends React.Component<{}, { playing: boolean }> {
@@ -36,9 +43,12 @@ class Player extends React.Component<{}, { playing: boolean }> {
     const { playing } = this.state
     return (
       <Container>
-        <PlayPauseButton playing={playing} onClick={this.handlePlayPause}>
-          {playing ? 'Stop' : 'Play'}
-        </PlayPauseButton>
+        <PlayPauseButton
+          playing={playing}
+          onClick={this.handlePlayPause}
+          aria-hidden="true"
+          className={'fa-2x fa fa-' + (playing ? 'pause' : 'play')}
+        />
       </Container>
     )
   }
