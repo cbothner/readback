@@ -26,6 +26,8 @@ const PlayPauseButton = styled.i`
   vertical-align: middle;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  cursor: hand;
 `
 
 class Player extends React.Component<{}, { playing: boolean }> {
