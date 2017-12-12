@@ -4,35 +4,62 @@
  */
 
 import * as React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { rgba } from 'polished'
 
 const Container = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
-  width: 100vw;
-  height: 60px;
   background-color: ${props => props.theme.blue};
-  padding: 6px;
+  padding: 10px;
   display: flex;
+
+  border-top-right-radius: 4px;
 `
 
 const PlayPauseButton = styled.button`
-  width: 60px;
-  height: 60px;
-  border: 3px solid black;
-  border-radius: 50%;
+  width: 50px;
+  height: 50px;
   display: flex;
-  vertical-align: middle;
   align-items: center;
   justify-content: center;
+
+  color: ${p => p.theme.white};
+  text-shadow: none;
+
+  border: none;
+  border-radius: 50%;
+  box-shadow: none;
+  background: transparent;
+
+  cursor: pointer;
+
+  &:hover {
+    background: ${p => rgba(p.theme.white, 0.15)};
+  }
+
+  &:active {
+    box-shadow: none;
+    background: ${p => rgba(p.theme.white, 0.3)};
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
 `
 
 const PlayPauseIcon = styled.i.attrs({
-  'aria-label': ({ playing }) =>
-    playing ? 'Stop radio playback.' : 'Listen to the radio.',
-  className: ({ playing }) => `fa fa-2x fa-${playing ? 'pause' : 'play'}`,
-})``
+  'aria-label': p =>
+    p.playing ? 'Stop radio playback.' : 'Listen to the radio.',
+  className: p => `fa fa-2x fa-${p.playing ? 'pause' : 'play'}`,
+})`
+  ${p =>
+    p.playing ||
+    css`
+      margin-left: 4px; /* to make the play button visually centered */
+    `};
+`
 
 class Player extends React.Component<{}, { playing: boolean }> {
   audioElement: HTMLAudioElement
