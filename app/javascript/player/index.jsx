@@ -17,7 +17,7 @@ const Container = styled.div`
   display: flex;
 `
 
-const PlayPauseButton = styled.i`
+const PlayPauseButton = styled.button`
   width: 60px;
   height: 60px;
   border: 3px solid black;
@@ -26,9 +26,11 @@ const PlayPauseButton = styled.i`
   vertical-align: middle;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  cursor: hand;
 `
+
+const PlayPauseIcon = styled.i.attrs({
+  className: ({ playing }) => `fa fa-2x fa-${playing ? 'pause' : 'play'}`,
+})``
 
 class Player extends React.Component<{}, { playing: boolean }> {
   audioElement: HTMLAudioElement
@@ -45,12 +47,9 @@ class Player extends React.Component<{}, { playing: boolean }> {
     const { playing } = this.state
     return (
       <Container>
-        <PlayPauseButton
-          playing={playing}
-          onClick={this.handlePlayPause}
-          aria-hidden="true"
-          className={'fa-2x fa fa-' + (playing ? 'pause' : 'play')}
-        />
+        <PlayPauseButton onClick={this.handlePlayPause}>
+          <PlayPauseIcon playing={playing} />
+        </PlayPauseButton>
       </Container>
     )
   }
