@@ -29,6 +29,8 @@ const PlayPauseButton = styled.button`
 `
 
 const PlayPauseIcon = styled.i.attrs({
+  'aria-label': ({ playing }) =>
+    playing ? 'Stop radio playback.' : 'Listen to the radio.',
   className: ({ playing }) => `fa fa-2x fa-${playing ? 'pause' : 'play'}`,
 })``
 
