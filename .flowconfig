@@ -17,4 +17,4 @@ module.ignore_non_literal_requires=true
 [strict]
 
 [version]
-0.59.0
+0.61.0
