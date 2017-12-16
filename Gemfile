@@ -24,6 +24,7 @@ gem 'dalli'
 gem 'kgio'
 gem 'rack-cache'
 # Queue
+gem 'redis', '~> 3.0'
 gem 'sidekiq'
 # Monitoring
 gem 'newrelic_rpm', group: :production
