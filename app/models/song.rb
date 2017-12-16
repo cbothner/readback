@@ -1,15 +1,23 @@
 class Song < ActiveRecord::Base
-  validates :name, :episode_id, presence: true
-  validates_datetime :at,
-    on_or_after: ->(t){ t.episode.beginning },
-    before: ->(t){ Time.zone.now }
-
   belongs_to :episode
 
-  after_create :post_information_to_icecast
+  validates :name, :episode_id, presence: true
+  validates_datetime :at,
+                     on_or_after: ->(t) { t.episode.beginning },
+                     before: ->(_t) { Time.zone.now }
+
+  after_create_commit :post_information_to_icecast
+  after_create_commit { SongBroadcastJob.perform_later self }
+
+  scope :on_air, ->() { order(:at).last }
+
+  def as_json(_options = {})
+    super(only: %i[name artist album label year request new local at])
+  end
 
   def post_information_to_icecast
-    %w(hd mid hi)
+    return unless ENV['ICECAST_ADMIN_PASSWORD']
+    %w[hd mid hi]
       .each do |qual|
       Kernel.system "curl --max-time 0.5 --user admin:#{ENV['ICECAST_ADMIN_PASSWORD']}  \"http://floyd.wcbn.org:8000/admin/metadata?mount=/wcbn-#{qual}.mp3&mode=updinfo&song=#{Rack::Utils.escape metadata_string}\""
     end
