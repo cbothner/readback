@@ -7,6 +7,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 
 import PlayPauseButton from './PlayPauseButton'
+import SongInformation from './SongInformation'
 
 import type { Song } from 'models'
 
@@ -19,6 +20,9 @@ const Container = styled.div`
   background-color: ${props => props.theme.blue};
   padding: 10px;
   display: flex;
+
+  color: ${props => props.theme.white};
+  font-family: 'Lato';
 
   border-top-right-radius: 4px;
 `
@@ -57,10 +61,12 @@ class Player extends React.Component<Props, { playing: boolean }> {
   }
 
   render () {
+    const { song } = this.props
     const { playing } = this.state
     return (
       <Container>
         <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />
+        {playing && <SongInformation song={song} />}
       </Container>
     )
   }
