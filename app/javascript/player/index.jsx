@@ -35,7 +35,11 @@ const PlayPauseButton = styled.button`
 
   cursor: pointer;
 
-  &:focus,
+  .tab-focus &:focus {
+    border: 1px solid ${p => rgba(p.theme.white, 0.4)};
+    background: ${p => rgba(p.theme.white, 0.15)};
+  }
+
   &:hover {
     background: ${p => rgba(p.theme.white, 0.15)};
   }

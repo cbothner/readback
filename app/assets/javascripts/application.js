@@ -35,3 +35,15 @@ $(document).on("ready turbolinks:load", function() {
   $(".chzn-select").chosen({width: '100%'});
 
 });
+
+var TAB_KEY_CODE = 9
+
+document.addEventListener('keydown', function (e) {
+  if (e.which === TAB_KEY_CODE) {
+    document.body.classList.add('tab-focus')
+  }
+})
+
+document.addEventListener('click', function (e) {
+  document.body.classList.remove('tab-focus')
+})
