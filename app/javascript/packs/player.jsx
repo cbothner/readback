@@ -9,12 +9,15 @@ import { ThemeProvider } from 'styled-components'
 import theme from 'styled/theme'
 
 import Player from 'player'
+import withPlaylistChannel from 'channels/PlaylistChannel'
+
+const PlayerWithPlaylistChannel = withPlaylistChannel(Player)
 
 const container = document.getElementById('player-app')
 if (container) {
   render(
     <ThemeProvider theme={theme}>
-      <Player />
+      <PlayerWithPlaylistChannel />
     </ThemeProvider>,
     container
   )

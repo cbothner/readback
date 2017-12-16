@@ -7,6 +7,8 @@ import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
 
+import type { Song } from 'models'
+
 const WCBN_HD_STREAM_URL = 'http://floyd.wcbn.org:8000/wcbn-hd.mp3'
 
 const Container = styled.div`
@@ -90,11 +92,12 @@ function removeTargetBlankFromDrupalLinks () {
   })
 }
 
-class Player extends React.Component<{}, { playing: boolean }> {
+type Props = { song: Song }
+class Player extends React.Component<Props, { playing: boolean }> {
   audioElement: HTMLAudioElement
   state = { playing: false }
 
-  constructor (props: {}) {
+  constructor (props: Props) {
     super(props)
 
     this.audioElement = document.createElement('audio')
