@@ -35,6 +35,7 @@ const PlayPauseButton = styled.button`
 
   cursor: pointer;
 
+  &:focus,
   &:hover {
     background: ${p => rgba(p.theme.white, 0.15)};
   }
@@ -61,6 +62,28 @@ const PlayPauseIcon = styled.i.attrs({
     `};
 `
 
+function drupalLinks (): NodeList<HTMLAnchorElement> {
+  return document.querySelectorAll(
+    // Typecating this string to the literal 'a' so that our NodeList knows it’s
+    // full of HTMLAnchorElements
+    (('#wcbn-org-nav a[href^="http"], #wcbn-org-nav a[href^="//"]': any): 'a')
+  )
+}
+
+function addTargetBlankToDrupalLinks () {
+  drupalLinks().forEach(link => {
+    link.target = '_blank'
+    link.rel = 'noopener noreferrer'
+  })
+}
+
+function removeTargetBlankFromDrupalLinks () {
+  drupalLinks().forEach(link => {
+    link.target = ''
+    link.rel = ''
+  })
+}
+
 class Player extends React.Component<{}, { playing: boolean }> {
   audioElement: HTMLAudioElement
   state = { playing: false }
@@ -85,8 +108,15 @@ class Player extends React.Component<{}, { playing: boolean }> {
 
   handlePlayPause = () => (this.state.playing ? this._pause() : this._play())
 
-  _play = () => this.setState({ playing: true }, () => this.audioElement.play())
+  _play = () =>
+    this.setState({ playing: true }, () => {
+      this.audioElement.play()
+      addTargetBlankToDrupalLinks()
+    })
   _pause = () =>
-    this.setState({ playing: false }, () => this.audioElement.pause())
+    this.setState({ playing: false }, () => {
+      this.audioElement.pause()
+      removeTargetBlankFromDrupalLinks()
+    })
 }
 export default Player
