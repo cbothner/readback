@@ -7,6 +7,14 @@ import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
 
+const Container = styled.div`
+  background-color: ${props => props.theme.blue};
+  padding: 10px;
+  padding-right: 6px;
+
+  z-index: 1;
+`
+
 const Button = styled.button`
   width: 50px;
   height: 50px;
@@ -57,8 +65,10 @@ const Icon = styled.i.attrs({
 
 type Props = { onClick: (e: SyntheticMouseEvent<*>) => mixed, playing: boolean }
 const PlayPauseButton = ({ onClick, playing }: Props) => (
-  <Button onClick={onClick}>
-    <Icon playing={playing} />
-  </Button>
+  <Container>
+    <Button onClick={onClick}>
+      <Icon playing={playing} />
+    </Button>
+  </Container>
 )
 export default PlayPauseButton

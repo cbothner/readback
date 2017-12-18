@@ -17,14 +17,11 @@ const Container = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: ${props => props.theme.blue};
-  padding: 10px;
   display: flex;
+  align-items: stretch;
 
   color: ${props => props.theme.white};
   font-family: 'Lato';
-
-  border-top-right-radius: 4px;
 `
 
 function drupalLinks (): NodeList<HTMLAnchorElement> {
@@ -66,7 +63,7 @@ class Player extends React.Component<Props, { playing: boolean }> {
     return (
       <Container>
         <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />
-        {playing && <SongInformation song={song} />}
+        <SongInformation visible={playing} song={song} />
       </Container>
     )
   }
