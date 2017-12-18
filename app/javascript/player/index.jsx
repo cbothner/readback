@@ -7,6 +7,8 @@ import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
 
+const WCBN_HD_STREAM_URL = 'http://floyd.wcbn.org:8000/wcbn-hd.mp3'
+
 const Container = styled.div`
   position: fixed;
   bottom: 0;
@@ -96,7 +98,6 @@ class Player extends React.Component<{}, { playing: boolean }> {
     super(props)
 
     this.audioElement = document.createElement('audio')
-    this.audioElement.src = 'http://floyd.wcbn.org:8000/wcbn-hd.mp3'
   }
 
   render () {
@@ -114,12 +115,14 @@ class Player extends React.Component<{}, { playing: boolean }> {
 
   _play = () =>
     this.setState({ playing: true }, () => {
+      this.audioElement.src = WCBN_HD_STREAM_URL
       this.audioElement.play()
       addTargetBlankToDrupalLinks()
     })
   _pause = () =>
     this.setState({ playing: false }, () => {
       this.audioElement.pause()
+      this.audioElement.src = ''
       removeTargetBlankFromDrupalLinks()
     })
 }
