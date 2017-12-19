@@ -9,6 +9,8 @@ import { rgba } from 'polished'
 
 import { Motion, spring } from 'react-motion'
 
+import AlbumArt from './AlbumArt'
+
 import type { Song } from 'models'
 
 const Container = styled.div`
@@ -19,9 +21,11 @@ const Container = styled.div`
   align-items: center;
 `
 
-const TextBox = styled.div`
+const InfoBox = styled.div`
   padding: 0 15px;
   border-left: 1px solid ${p => rgba(p.theme.white, 0.4)};
+  display: flex;
+  align-items: center;
 `
 
 type Props = { song: Song, visible: boolean }
@@ -35,21 +39,24 @@ const SongInformation = ({ song, visible }: Props) => {
             transform: `translate(calc(${x * -100}% + ${x * 4}px))`,
           }}
         >
-          <TextBox>
+          <InfoBox>
+            <AlbumArt song={song} />
             <div>
-              <strong>
-                {artist && `${artist}: `}
-                “{name}”
-              </strong>
+              <div>
+                <strong>
+                  {artist && `${artist}: `}
+                  “{name}”
+                </strong>
+              </div>
+              <div>
+                <span>
+                  <cite>{album}</cite>
+                  {(label || year != null) &&
+                    ` (${label}${label && year ? ' ' : ''}${year || ''})`}
+                </span>
+              </div>
             </div>
-            <div>
-              <span>
-                <cite>{album}</cite>
-                {(label || year != null) &&
-                  ` (${label}${label && year ? ' ' : ''}${year || ''})`}
-              </span>
-            </div>
-          </TextBox>
+          </InfoBox>
         </Container>
       )}
     </Motion>
