@@ -7,9 +7,11 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { rgba } from 'polished'
 
+import ImageZoom from 'styled/ImageZoom'
+
 import type { Song } from 'models'
 
-const Image = styled.img.attrs({ role: 'presentation' })`
+const Image = styled(ImageZoom).attrs({ role: 'presentation' })`
   background-color: ${p => rgba(p.theme.white, 0.4)};
   width: 40px;
   height: 40px;
@@ -28,7 +30,12 @@ class AlbumArt extends React.Component<Props, State> {
 
   render () {
     if (this.state.imageSrc == null) return null
-    return <Image src={this.state.imageSrc} />
+    return (
+      <Image
+        image={{ src: this.state.imageSrc }}
+        zoomImage={{ src: this._largeImageSrc() }}
+      />
+    )
   }
 
   _getArtworkURL () {
@@ -40,6 +47,15 @@ class AlbumArt extends React.Component<Props, State> {
         const imageSrc = firstResult != null ? firstResult.artworkUrl100 : null
         this.setState({ imageSrc })
       })
+  }
+
+  /**
+   * The high-resolution image is lazy-loaded when the album art is zoomed in
+   */
+  _largeImageSrc () {
+    const { imageSrc } = this.state
+    if (imageSrc == null) return null
+    return imageSrc.replace(/100x100/, '1000x1000')
   }
 
   _queryURL () {
