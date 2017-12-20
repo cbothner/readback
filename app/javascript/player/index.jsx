@@ -57,6 +57,13 @@ class Player extends React.Component<Props, { playing: boolean }> {
     this.audioElement = document.createElement('audio')
   }
 
+  componentDidMount () {
+    const Url = new URL(window.location.href)
+    if (Url.searchParams.get('autoplay') === 'true') {
+      this._play()
+    }
+  }
+
   render () {
     const { song } = this.props
     const { playing } = this.state
