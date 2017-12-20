@@ -41,6 +41,8 @@ function withPlaylistChannel<Props: {}> (
       if (App == null) return
       this.subscription = App.cable.subscriptions.create('PlaylistChannel', {
         received: (message: PlaylistChannelMessage) => {
+          this._setRefreshNeeded()
+
           switch (message.type) {
             case 'song_created':
               this.setState({ song: message.song })
@@ -64,6 +66,11 @@ function withPlaylistChannel<Props: {}> (
     _disconnect () {
       if (this.subscription == null) return
       this.subscription.unsubscribe()
+    }
+
+    _setRefreshNeeded () {
+      if (this.state.song.id == null) return
+      document.body && document.body.classList.add('playlist-needs-refresh')
     }
   }
 
