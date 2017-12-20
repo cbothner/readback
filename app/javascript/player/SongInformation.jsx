@@ -22,10 +22,13 @@ const Container = styled.div`
 `
 
 const InfoBox = styled.div`
+  max-width: 700px;
+  max-height: 60px;
   padding: 0 15px;
   border-left: 1px solid ${p => rgba(p.theme.white, 0.4)};
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  overflow: hidden;
 `
 
 type Props = { song: Song, visible: boolean }
