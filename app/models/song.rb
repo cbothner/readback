@@ -6,13 +6,13 @@ class Song < ActiveRecord::Base
                      on_or_after: ->(t) { t.episode.beginning },
                      before: ->(_t) { Time.zone.now }
 
+  after_commit { SongBroadcastJob.perform_later self }
   after_create_commit :post_information_to_icecast
-  after_create_commit { SongBroadcastJob.perform_later self }
 
   scope :on_air, ->() { order(:at).last }
 
   def as_json(_options = {})
-    super(only: %i[name artist album label year request new local at])
+    super(only: %i[id name artist album label year request new local at])
   end
 
   def post_information_to_icecast

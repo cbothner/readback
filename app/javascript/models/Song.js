@@ -4,6 +4,7 @@
  */
 
 export type Song = {
+  +id: ?number,
   +name: string,
   +artist: string,
   +album: string,
@@ -16,6 +17,7 @@ export type Song = {
 }
 
 export const defaultSong: Song = {
+  id: null,
   name: '',
   artist: '',
   album: '',

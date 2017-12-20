@@ -1,2 +1,2 @@
-json.extract! song,
-              :name, :artist, :album, :label, :year, :request, :local, :new, :at
+json.extract! song, :id, :name, :artist, :album, :label, :year, :request,
+              :local, :new, :at

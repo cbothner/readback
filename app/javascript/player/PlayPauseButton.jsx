@@ -30,6 +30,8 @@ const Button = styled.button`
   box-shadow: none;
   background: transparent;
 
+  transition: background-color 0.7s ease;
+
   cursor: pointer;
 
   .tab-focus &:focus {
