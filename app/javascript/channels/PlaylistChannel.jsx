@@ -15,7 +15,7 @@ type SongUpdatedMessage = {| +type: 'song_updated', +song: Song |}
 type SongDestroyedMessage = {| +type: 'song_destroyed', +id: number |}
 type PlaylistChannelMessage =
   | SongCreatedMessage
-  | SongCreatedMessage
+  | SongUpdatedMessage
   | SongDestroyedMessage
 
 type State = {
