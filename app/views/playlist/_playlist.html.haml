@@ -15,6 +15,13 @@
         %span Edit the playlist by clicking on the mistaken text.
         %i.dingbat✏︎
         %br
+  - else
+    %thead
+    %tbody
+      %tr.refresh-playlist
+        %td{colspan: 6}
+          The DJ has made some changes.
+          = link_to 'Click here to refresh the playlist.', root_path(anchor: 'now')
 
   %thead
     - unless @on_air.nil?

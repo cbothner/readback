@@ -64,7 +64,8 @@
           - unless @dj.website.blank?
             %li
               URL:
-              = link_to @dj.website_name, @dj.website
+              = link_to @dj.website_name, @dj.website,
+                        target: '_blank', rel: 'noopener noreferrer'
           - unless @dj.public_email.blank?
             %li
               = "#{"Public " if dj_signed_in?}Email:"

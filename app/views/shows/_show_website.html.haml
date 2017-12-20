@@ -1,0 +1,7 @@
+- unless show.website.blank?
+  .show-website
+    %cite
+      = show.unambiguous_name
+    has its own website:
+    = link_to show.website_name, show.website,
+              target: '_blank', rel: 'noopener noreferrer'

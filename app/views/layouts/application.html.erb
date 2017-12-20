@@ -45,7 +45,8 @@
                        else
                          'absolute'
                        end%>
-<ul id="wcbn-org-nav" class="<%=fixed_or_absolute%>-wcbn-org-nav">
+<div id="wcbn-org-nav-container" class="<%=fixed_or_absolute%>-wcbn-org-nav">
+<ul id="wcbn-org-nav" data-turbolinks-permanent>
   <a href="http://www.wcbn.org/"><%= image_tag(asset_path("wcbn.png"))%></a>
   <li id="LI_2">
   <a href="http://www.wcbn.org/about" id="A_3">About</a>
@@ -66,9 +67,15 @@
   <a href="http://www.wcbn.org/donate" id="A_11">Donate</a>
   </li>
 </ul>
+</div>
 
 <%= yield %>
+
+<% unless on_fm_computer? %>
+<div id="player-app" data-turbolinks-permanent />
+<%= javascript_pack_tag 'player' %>
 </div>
+<% end %>
 
 <% if Rails.env.production? %>
 <script>

@@ -12,7 +12,7 @@ module ApplicationHelper
     LatexToPdf.escape_latex(text)
   end
 
-  %i(title headline back_link subtitle)
+  %i[title headline back_link subtitle]
     .each do |key|
     ApplicationHelper.send(:define_method, key) do |val|
       content_for(key) { val }
@@ -21,12 +21,21 @@ module ApplicationHelper
 
   def markdown(text)
     text ||= ''
-    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true),
-                                       no_intra_emphasis: true, autolink: true,
-                                       disable_indented_code_blocks: true)
+
+    extensions = {
+      no_intra_emphasis: true,
+      autolink: true,
+      disable_indented_code_blocks: true
+    }
+    renderer = Redcarpet::Render::HTML.new(
+      hard_wrap: true,
+      link_attributes: { target: '_blank' }
+    )
+    markdown = Redcarpet::Markdown.new(renderer, extensions)
+
     markdown.render(text).html_safe
   end
-  
+
   def on_fm_computer?
     playlist_editor_signed_in?
   end
