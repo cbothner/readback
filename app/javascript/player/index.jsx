@@ -4,8 +4,12 @@
  */
 
 import * as React from 'react'
-import styled, { css } from 'styled-components'
-import { rgba } from 'polished'
+import styled from 'styled-components'
+
+import PlayPauseButton from './PlayPauseButton'
+import SongInformation from './SongInformation'
+
+import type { Song } from 'models'
 
 const WCBN_HD_STREAM_URL = 'http://floyd.wcbn.org:8000/wcbn-hd.mp3'
 
@@ -13,59 +17,11 @@ const Container = styled.div`
   position: fixed;
   bottom: 0;
   left: 0;
-  background-color: ${props => props.theme.blue};
-  padding: 10px;
   display: flex;
+  align-items: stretch;
 
-  border-top-right-radius: 4px;
-`
-
-const PlayPauseButton = styled.button`
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  color: ${p => p.theme.white};
-  text-shadow: none;
-
-  border: none;
-  border-radius: 50%;
-  box-shadow: none;
-  background: transparent;
-
-  cursor: pointer;
-
-  .tab-focus &:focus {
-    border: 1px solid ${p => rgba(p.theme.white, 0.4)};
-    background: ${p => rgba(p.theme.white, 0.15)};
-  }
-
-  &:hover {
-    background: ${p => rgba(p.theme.white, 0.15)};
-  }
-
-  &:active {
-    box-shadow: none;
-    background: ${p => rgba(p.theme.white, 0.3)};
-  }
-
-  &:focus {
-    box-shadow: none;
-  }
-`
-
-const PlayPauseIcon = styled.i.attrs({
-  'aria-label': p =>
-    p.playing ? 'Stop radio playback.' : 'Listen to the radio.',
-  className: p => `fa fa-2x fa-${p.playing ? 'pause' : 'play'}`,
-})`
-  ${p =>
-    p.playing ||
-    css`
-      margin-left: 4px; /* to make the play button visually centered */
-    `};
+  color: ${props => props.theme.white};
+  font-family: 'Lato';
 `
 
 function drupalLinks (): NodeList<HTMLAnchorElement> {
@@ -90,23 +46,31 @@ function removeTargetBlankFromDrupalLinks () {
   })
 }
 
-class Player extends React.Component<{}, { playing: boolean }> {
+type Props = { song: Song }
+class Player extends React.Component<Props, { playing: boolean }> {
   audioElement: HTMLAudioElement
   state = { playing: false }
 
-  constructor (props: {}) {
+  constructor (props: Props) {
     super(props)
 
     this.audioElement = document.createElement('audio')
   }
 
+  componentDidMount () {
+    const url = new URL(window.location)
+    if (url.searchParams.has('autoplay')) {
+      this._play()
+    }
+  }
+
   render () {
+    const { song } = this.props
     const { playing } = this.state
     return (
       <Container>
-        <PlayPauseButton onClick={this.handlePlayPause}>
-          <PlayPauseIcon playing={playing} />
-        </PlayPauseButton>
+        <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />
+        <SongInformation visible={playing} song={song} />
       </Container>
     )
   }

@@ -43,6 +43,14 @@ tr.grey * { color: #999; }
 #now.dj-signed-in-now td { padding-top: 6em; }
 #now.dj-signed-out-now td { padding-top: 4em; }
 
+.refresh-playlist {
+  color: #999;
+}
+
+body:not(.playlist-needs-refresh) .refresh-playlist {
+  display: none;
+}
+
 i.dingbat {
   font-style: normal;
   font-family: "Zapf Dingbats";
