@@ -58,8 +58,8 @@ class Player extends React.Component<Props, { playing: boolean }> {
   }
 
   componentDidMount () {
-    const Url = new URL(window.location.href)
-    if (Url.searchParams.get('autoplay') === 'true') {
+    const url = new URL(window.location)
+    if (url.searchParams.has('autoplay')) {
       this._play()
     }
   }
