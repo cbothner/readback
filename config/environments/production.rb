@@ -19,18 +19,18 @@ Rails.application.configure do
   # For large-scale production use, consider using a caching reverse proxy like
   # NGINX, varnish or squid.
   config.cache_store = :dalli_store
-  client = Dalli::Client.new((ENV["MEMCACHIER_SERVERS"] || "").split(","),
-                             :username => ENV["MEMCACHIER_USERNAME"],
-                             :password => ENV["MEMCACHIER_PASSWORD"],
-                             :failover => true,
-                             :socket_timeout => 1.5,
-                             :socket_failure_delay => 0.2,
-                             :value_max_bytes => 10485760)
+  client = Dalli::Client.new((ENV['MEMCACHIER_SERVERS'] || '').split(','),
+                             username: ENV['MEMCACHIER_USERNAME'],
+                             password: ENV['MEMCACHIER_PASSWORD'],
+                             failover: true,
+                             socket_timeout: 1.5,
+                             socket_failure_delay: 0.2,
+                             value_max_bytes: 10_485_760)
   config.action_dispatch.rack_cache = {
-    :metastore    => client,
-    :entitystore  => client
+    metastore: client,
+    entitystore: client
   }
-  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=2592000'  }
+  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=2592000' }
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -58,7 +58,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -66,7 +66,7 @@ Rails.application.configure do
   config.lograge.enabled = true
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
@@ -104,7 +104,7 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
-  if ENV["RAILS_LOG_TO_STDOUT"].present?
+  if ENV['RAILS_LOG_TO_STDOUT'].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
     config.logger = ActiveSupport::TaggedLogging.new(logger)
