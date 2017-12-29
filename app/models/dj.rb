@@ -18,11 +18,11 @@ class Dj < ActiveRecord::Base
   serialize :roles, Array
 
   validates :name, :phone, :email, presence: true
-  validates :website, format: {with: /(\Ahttp|\A\Z)/, message: "must start with “http://”"}
+  validates :website, format: { with: /(\Ahttp|\A\Z)/, message: 'must start with “http://”' }
 
   with_options if: :um_affiliated? do |dj|
     dj.validates :umid, :um_dept, presence: true
-    #dj.validates :umid, format: {with: /\A[0-9]{8}\Z/}
+    # dj.validates :umid, format: {with: /\A[0-9]{8}\Z/}
   end
 
   def semesters_count
@@ -36,7 +36,7 @@ class Dj < ActiveRecord::Base
 
   # TODO: Refactor to able_to_do_daytime_radio?
   def allowed_to_do_daytime_radio?
-    return true if Setting.get "nighttime_requirement_disabled"
+    return true if Setting.get 'nighttime_requirement_disabled'
     return false if has_role? :no_daytime
     semesters_count > 1 || has_role?(:grandfathered_in)
   end
@@ -46,7 +46,7 @@ class Dj < ActiveRecord::Base
   end
 
   def website_name
-    URI::parse(website || (return nil)).host.sub('www.','')
+    URI.parse(website || (return nil)).host.sub('www.', '')
   end
 
   def image_url
@@ -58,7 +58,6 @@ class Dj < ActiveRecord::Base
   end
 
   def robot_picture_url
-    "http://www.robohash.org/#{Digest::MD5.hexdigest(email)}?set=set3"
+    "https://www.robohash.org/#{Digest::MD5.hexdigest(email)}?set=set3"
   end
-
 end
