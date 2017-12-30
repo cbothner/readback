@@ -12,8 +12,8 @@ module Show
     validates :website, format: { with: /(\Ahttp|\A\Z)/, message: 'must start with “http://”' }
     validate :show_does_not_conflict_with_any_other
 
-    after_create :propagate_later
-    after_update :propagate_if_changed
+    after_create_commit :propagate_later
+    after_update_commit :propagate_if_changed
 
     self.authorizer_name = 'OwnedModelAuthorizer'
   end
@@ -37,10 +37,10 @@ module Show
   end
 
   def propagate_if_changed
-    if times_changed?
+    if saved_change_to_times?
       episodes.reject(&:past?).each(&:destroy)
       propagate_later
-    elsif dj_id_changed?
+    elsif saved_change_to_dj_id?
       episodes.normal.each do |ep|
         ep.update_attributes(dj_id: dj_id)
       end

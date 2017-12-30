@@ -17,8 +17,8 @@ class Semester < ActiveRecord::Base
   end
 
   def ensure_beginning_and_ending_are_at_six_am
-    self.beginning = beginning.change(hour: 6, minute: 0, second: 0)
-    self.ending = ending.change(hour: 5, minute: 59, second: 59)
+    self.beginning = beginning.change(hour: 6, min: 0, sec: 0)
+    self.ending = ending.change(hour: 5, min: 59, sec: 59)
   end
 
   def future?
