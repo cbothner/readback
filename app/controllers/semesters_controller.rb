@@ -1,11 +1,12 @@
 class SemestersController < ApplicationController
-  before_action :authenticate_dj!, except: [:index, :show]
-  authorize_actions_for Semester, except: [:index, :show]
+  before_action :authenticate_dj!, except: %i[index show]
+  authorize_actions_for Semester, except: %i[index show]
 
-  before_action :set_semester, only: [:show, :edit, :update, :destroy]
-  before_action :set_model, only: [:new, :create]
+  before_action :set_semesters, only: %i[show]
+  before_action :set_semester, only: %i[show edit update destroy]
+  before_action :set_model, only: %i[new create]
 
-  layout "headline"
+  layout 'headline'
 
   # GET /semesters
   # GET /semesters.json
@@ -16,29 +17,21 @@ class SemestersController < ApplicationController
   # GET /semesters/1
   # GET /semesters/1.json
   def show
-    @semesters = Semester.all.sort_by(&:beginning).reverse
-
     respond_to do |format|
-      format.html do
-        render layout: 'wide_with_sidebar'
-        expires_in 10.minutes
-      end
-      format.json do
-        expires_in 10.minutes, public: true
-      end
+      format.html { render layout: 'wide_with_sidebar' }
+      format.json
     end
   end
 
   # GET /semesters/new
   def new
     @semester = Semester.new
-    @semester.beginning = Semester.current.ending.strftime "%%Y-%B-%d"
+    @semester.beginning = Semester.current.ending.strftime '%%Y-%B-%d'
   end
 
   # GET /semesters/1/edit
   def edit
-    @semesters = Semester.all.sort_by(&:beginning).reverse
-    [ FreeformShow, SpecialtyShow, TalkShow ].each do |x|
+    [FreeformShow, SpecialtyShow, TalkShow].each do |x|
       instance_variable_set "@#{x.name.underscore}", @semester.method(x.name.underscore.pluralize).call.build
     end
   end
@@ -49,9 +42,9 @@ class SemestersController < ApplicationController
     show_types_to_copy = JSON.parse params.delete(:shows_to_copy)
 
     params[:semester][:beginning] = Time.zone.parse(params[:semester][:beginning])
-      .change(hour: 6).beginning_of_hour
+                                        .change(hour: 6).beginning_of_hour
     params[:semester][:ending] = Time.zone.parse(params[:semester][:ending])
-      .change(hour: 5, minute: 59, second:59)
+                                     .change(hour: 5, minute: 59, second: 59)
     @semester = Semester.new(semester_params)
 
     respond_to do |format|
@@ -93,28 +86,30 @@ class SemestersController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_semester(variable_name = 'semester')
-      id = params[:id] || params.delete(:model_id)
-      var = Semester
-        .includes(:talk_shows, freeform_shows: [:dj],
-                  specialty_shows: [:dj, :djs])
-        .find(id)
-      shows = var.freeform_shows + var.specialty_shows + var.talk_shows
-      shows.reject! {|x| x.beginning.nil? }
-      @start_times = shows.map{|x| x.sort_times :beginning}.sort_by{|x| x[:sortable]}.uniq
-      @shows = shows.group_by{|x| x.sort_times(:beginning)[:sortable]}
-      self.instance_variable_set "@#{variable_name}", var
-    end
 
-    def set_model
-      set_semester('model')
-    end
+  def set_semesters
+    @semesters = Semester.all.decorate
+  end
 
-    def semester_params
-      hash = {}
-      hash.merge! params.require(:semester).permit(:beginning, :ending)
-      hash.merge! params.slice(:model_id, :shows_to_copy)
-    end
+  def set_semester
+    @semester = find_semester(params[:id]).decorate
+  end
+
+  def set_model
+    @model = find_semester(params.delete(:model_id)).decorate
+  end
+
+  def find_semester(id)
+    Semester
+      .includes(talk_shows: [:dj],
+                freeform_shows: [:dj],
+                specialty_shows: %i[dj djs])
+      .find(id)
+  end
+
+  def semester_params
+    hash = {}
+    hash.merge! params.require(:semester).permit(:beginning, :ending)
+    hash.merge! params.slice(:model_id, :shows_to_copy)
+  end
 end
-# Never trust parameters from the scary internet, only allow the white list through.

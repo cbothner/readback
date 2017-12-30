@@ -18,5 +18,5 @@
               =link_to("copy", "/semesters/new/based_on/#{semester.id}")
               ]
 
-- cache cache_key_for_semester(@semester), :expires_in => 1.hour do
+- cache @semester do
   = render @semester, locals: {no_links: false}

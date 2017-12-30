@@ -11,10 +11,6 @@ gem 'rails_12factor', group: :production
 gem 'pg'
 # Don't use WEBBrick because it's slow
 gem 'puma'
-# What are English times?
-gem 'chronic'
-# What are recurring times?!
-gem 'ice_cube'
 # Scheduling!
 gem 'resque'
 gem 'resque-scheduler'
@@ -28,6 +24,16 @@ gem 'redis', '~> 3.0'
 gem 'sidekiq'
 # Monitoring
 gem 'newrelic_rpm', group: :production
+
+##########
+# Models #
+##########
+# Decorator pattern
+gem 'draper'
+# What are English times?
+gem 'chronic'
+# What are recurring times?!
+gem 'ice_cube'
 
 #####################
 # View interpreters #

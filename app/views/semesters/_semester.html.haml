@@ -1,4 +1,4 @@
-- if @shows.empty?
+- if semester.shows.empty?
   %h3 Shows are being copied in the background. Refresh in five seconds.
   %br
 %table.schedule
@@ -6,22 +6,17 @@
     - ["", "Monday", "Tuesday", "Wednesday", "Thursday",
       "Friday", "Saturday", "Sunday"].each do |day|
       %td=day
-  - weekday_rowskip_countdown = Hash.new(0)
-  - @start_times.each do |time|
-    %tr
-      %th=time[:printable]
-      - 1.upto 7 do |i|
-        - if weekday_rowskip_countdown[i] == 0
-          - s = @shows[time[:sortable]].select{|x| x.weekday == i % 7}.first
-          - unless s.nil?
-            - rowspan = rowspan(time, s.sort_times(:ending))
-            - weekday_rowskip_countdown[i] = rowspan - 1
-            %td.show{data: {show_type: s.class, show_id: s.id}, rowspan: rowspan}
-              - if current_page? edit_semester_path(semester)
-                .show_delete=link_to "[x]", s, method: :delete,
-                  data: {confirm_with: "Are you sure you want to delete this show?"}
-              = render s, locals: locals
-          - else  # no show at this time
-            %td.no-show
-        - else
-          - weekday_rowskip_countdown[i] -= 1
+  %tbody
+    - semester.schedule.rows.each do |row|
+      %tr
+        %th= row.start_time
+        - row.weekdays.each do |cell|
+          - unless cell.nil?
+            %td{class: cell.css_class,
+                data: cell.data_attributes,
+                rowspan: cell.rowspan}
+              - unless cell.show.nil?
+                - if current_page? edit_semester_path(semester)
+                  .show_delete= link_to '[x]', cell.show, method: :delete,
+                                        data: { confirm: 'Are you sure you want to delete this show?'}
+                = render cell.show, locals: locals
