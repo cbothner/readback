@@ -17,41 +17,34 @@ class SemestersController < ApplicationController
   # GET /semesters/1
   # GET /semesters/1.json
   def show
-    respond_to do |format|
-      format.html { render layout: 'wide_with_sidebar' }
-      format.json
-    end
+    render layout: 'wide_with_sidebar'
   end
 
   # GET /semesters/new
   def new
-    @semester = Semester.new
-    @semester.beginning = Semester.current.ending.strftime '%%Y-%B-%d'
+    @semester = Semester.new beginning: @model.ending
   end
 
   # GET /semesters/1/edit
   def edit
-    [FreeformShow, SpecialtyShow, TalkShow].each do |x|
-      instance_variable_set "@#{x.name.underscore}", @semester.method(x.name.underscore.pluralize).call.build
-    end
+    @freeform_show = @semester.freeform_shows.build
+    @specialty_show = @semester.specialty_shows.build
+    @talk_show = @semester.talk_shows.build
   end
 
   # POST /semesters
   # POST /semesters.json
   def create
     show_types_to_copy = JSON.parse params.delete(:shows_to_copy)
+    @semester = Semester.create(semester_params)
 
-    params[:semester][:beginning] = Time.zone.parse(params[:semester][:beginning])
-                                        .change(hour: 6).beginning_of_hour
-    params[:semester][:ending] = Time.zone.parse(params[:semester][:ending])
-                                     .change(hour: 5, minute: 59, second: 59)
-    @semester = Semester.new(semester_params)
+    if @semester.errors.empty?
+      SemesterClonerJob.perform_later show_types_to_copy,
+                                      into_semester: @semester
+    end
 
     respond_to do |format|
-      if @semester.save
-        SemesterClonerJob.perform_later show_types_to_copy, into_semester: @semester
-        Signoff.propagate_all(@semester.beginning, @semester.ending)
-
+      if @semester.errors.empty?
         format.html { redirect_to edit_semester_path @semester }
         format.json { render :show, status: :created, location: @semester }
       else
@@ -108,8 +101,6 @@ class SemestersController < ApplicationController
   end
 
   def semester_params
-    hash = {}
-    hash.merge! params.require(:semester).permit(:beginning, :ending)
-    hash.merge! params.slice(:model_id, :shows_to_copy)
+    params.require(:semester).permit(:beginning, :ending)
   end
 end
