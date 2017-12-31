@@ -22,10 +22,11 @@ Rails.application.routes.draw do
   end
 
   resources :semesters, only: %i[index create show edit] do
+    resource :clone, module: :semesters, only: %i[new create]
+
     resources :freeform_shows, only: %i[create]
     resources :specialty_shows, only: %i[create]
     resources :talk_shows, only: %i[create]
-    get 'based_on/:model_id', action: :new, on: :new
   end
 
   resources :setbreaks, only: %i[update create destroy]
