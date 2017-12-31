@@ -9,13 +9,11 @@ class SemestersController < ApplicationController
   layout 'headline'
 
   # GET /semesters
-  # GET /semesters.json
   def index
     redirect_to Semester.current
   end
 
   # GET /semesters/1
-  # GET /semesters/1.json
   def show
     render layout: 'wide_with_sidebar'
   end
@@ -51,30 +49,6 @@ class SemestersController < ApplicationController
         format.html { render :new }
         format.json { render json: @semester.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # PATCH/PUT /semesters/1
-  # PATCH/PUT /semesters/1.json
-  def update
-    respond_to do |format|
-      if @semester.update(semester_params)
-        format.html { redirect_to @semester, notice: 'Semester was successfully updated.' }
-        format.json { render :show, status: :ok, location: @semester }
-      else
-        format.html { render :edit }
-        format.json { render json: @semester.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /semesters/1
-  # DELETE /semesters/1.json
-  def destroy
-    @semester.destroy
-    respond_to do |format|
-      format.html { redirect_to semesters_url, notice: 'Semester was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 

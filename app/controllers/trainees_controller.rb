@@ -1,22 +1,22 @@
 class TraineesController < ApplicationController
   before_action :authenticate_dj!, except: :show
-  authorize_actions_for Trainee, except: [:new, :create]
-  before_action :set_trainee, only: [:show, :edit, :update, :destroy]
+  authorize_actions_for Trainee, except: %i[new create]
+  before_action :set_trainee, only: %i[show edit update destroy]
 
-  layout "headline"
+  layout 'headline'
 
   # GET /trainees
   # GET /trainees.json
   def index
     @trainees = Trainee.includes(:episodes).where(disqualified: false)
-      .reject { |t| t.broadcasters_exam.accepted? }
-      .sort_by { |t| sortable(t) }
-      .reverse
+                       .reject { |t| t.broadcasters_exam.accepted? }
+                       .sort_by { |t| sortable(t) }
+                       .reverse
 
     respond_to do |format|
       format.html
-      format.csv do 
-        headers['Content-Disposition'] = "attachment; filename=\"wcbn-trainees-#{Time.zone.now.strftime "%F"}\""
+      format.csv do
+        headers['Content-Disposition'] = "attachment; filename=\"wcbn-trainees-#{Time.zone.now.strftime '%F'}\""
         headers['Content-Type'] ||= 'text/csv'
       end
     end
@@ -26,16 +26,16 @@ class TraineesController < ApplicationController
   # GET /trainees/1.json
   def show
     episodes = @trainee.episodes
-    @apprenticeships = Hash.new
+    @apprenticeships = {}
     sched = episodes.reject(&:past?)
     happened = (episodes - sched)
-      .reject {|e| e.shadowed == false}
-      .sort_by(&:beginning)
+               .reject { |e| e.shadowed == false }
+               .sort_by(&:beginning)
     @apprenticeships[:stage_two_training] = happened.empty? ? [] : [happened.shift]
     @apprenticeships[:freeform_apprenticeships] = happened
-      .select{ |ep| ep.show.is_a? FreeformShow }
-    @apprenticeships[:specialty_apprenticeships] = happened.select{ |ep| ep.show.is_a? SpecialtyShow }
-    @apprenticeships[:scheduled_apprenticeships] = sched  # this is last for order in the view
+                                                  .select { |ep| ep.show.is_a? FreeformShow }
+    @apprenticeships[:specialty_apprenticeships] = happened.select { |ep| ep.show.is_a? SpecialtyShow }
+    @apprenticeships[:scheduled_apprenticeships] = sched # this is last for order in the view
   end
 
   # GET /trainees/new
@@ -44,8 +44,7 @@ class TraineesController < ApplicationController
   end
 
   # GET /trainees/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /trainees
   # POST /trainees.json
@@ -82,37 +81,28 @@ class TraineesController < ApplicationController
     end
   end
 
-  # DELETE /trainees/1
-  # DELETE /trainees/1.json
-  def destroy
-    @trainee.destroy
-    respond_to do |format|
-      format.html { redirect_to trainees_url, notice: 'Trainee was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_trainee
+    @trainee = Trainee.includes(episodes: [:show]).find(params[:id])
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_trainee
-      @trainee = Trainee.includes(episodes: [:show]).find(params[:id])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def trainee_params
+    params.require(:trainee).permit(:name, :phone, :email, :umid,
+                                    :um_affiliation, :um_dept, :experience,
+                                    :referral, :interests, :statement,
+                                    :disqualified)
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def trainee_params
-      params.require(:trainee).permit(:name, :phone, :email, :umid,
-                                     :um_affiliation, :um_dept, :experience,
-                                     :referral, :interests, :statement,
-                                     :disqualified)
+  def sortable(t)
+    if params[:sort] == 'progress'
+      # t.volunteer_hours +
+      (t.demotape.accepted? ? 10 : 0) +
+        (100 * t.episodes.count)
+    else
+      t.created_at
     end
-
-    def sortable(t)
-      if params[:sort] == "progress"
-        # t.volunteer_hours +
-        (t.demotape.accepted? ? 10 : 0) +
-          (100 * t.episodes.count)
-      else
-        t.created_at
-      end
-    end
+  end
 end

@@ -1,26 +1,9 @@
 class TalkShowsController < ApplicationController
   include ShowsController
 
-  # GET /talk_shows
-  # GET /talk_shows.json
-  def index
-    @talk_shows = TalkShow.all
-  end
-
   # GET /talk_shows/1
   # GET /talk_shows/1.json
-  def show
-  end
-
-  # GET /talk_shows/new
-  def new
-    @talk_show = TalkShow.new
-  end
-
-  # GET /talk_shows/1/edit
-  def edit
-    authorize_action_for @talk_show
-  end
+  def show; end
 
   # POST /talk_shows
   # POST /talk_shows.json
@@ -32,12 +15,12 @@ class TalkShowsController < ApplicationController
 
     respond_to do |format|
       if @talk_show.save
-        format.html { redirect_to edit_semester_path(@talk_show.semester, anchor: "tab-talk") }
+        format.html { redirect_to edit_semester_path(@talk_show.semester, anchor: 'tab-talk') }
       else
         format.html do
           flash[:alert] = @talk_show.errors.full_messages
           session[:talk_show] = @talk_show
-          redirect_to edit_semester_path(params[:semester_id], anchor: "tab-talk")
+          redirect_to edit_semester_path(params[:semester_id], anchor: 'tab-talk')
         end
       end
     end

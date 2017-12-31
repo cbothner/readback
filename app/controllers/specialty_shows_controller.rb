@@ -1,26 +1,9 @@
 class SpecialtyShowsController < ApplicationController
   include ShowsController
 
-  # GET /specialty_shows
-  # GET /specialty_shows.json
-  def index
-    @specialty_shows = SpecialtyShow.all
-  end
-
   # GET /specialty_shows/1
   # GET /specialty_shows/1.json
-  def show
-  end
-
-  # GET /specialty_shows/new
-  def new
-    @specialty_show = SpecialtyShow.new
-  end
-
-  # GET /specialty_shows/1/edit
-  def edit
-    authorize_action_for @specialty_show
-  end
+  def show; end
 
   # POST /specialty_shows
   # POST /specialty_shows.json
@@ -37,17 +20,17 @@ class SpecialtyShowsController < ApplicationController
     respond_to do |format|
       if @specialty_show.save
         format.html do
-          #session[:specialty_show] = {
-            #weekday: @specialty_show.weekday,
-            #beginning: @specialty_show.ending
-          #}
-          redirect_to edit_semester_path(@specialty_show.semester, anchor: "tab-specialty")
+          # session[:specialty_show] = {
+          #   weekday: @specialty_show.weekday,
+          #   beginning: @specialty_show.ending
+          # }
+          redirect_to edit_semester_path(@specialty_show.semester, anchor: 'tab-specialty')
         end
       else
         format.html do
           flash[:alert] = @specialty_show.errors.full_messages
           session[:specialty_show] = @specialty_show
-          redirect_to edit_semester_path(params[:semester_id], anchor: "tab-specialty")
+          redirect_to edit_semester_path(params[:semester_id], anchor: 'tab-specialty')
         end
       end
     end
@@ -89,18 +72,17 @@ class SpecialtyShowsController < ApplicationController
   # of n hosts
   def deal
     respond_to do |format|
-      if @specialty_show.deal
-        format.html { redirect_to @specialty_show }
-      end
+      format.html { redirect_to @specialty_show } if @specialty_show.deal
     end
   end
 
   private
-    def active_record_find_includes
-      { episodes: [:dj] }
-    end
 
-    def specialty_show_params
-      params.require(:specialty_show).permit(:name, :coordinator_id, :djs)
-    end
+  def active_record_find_includes
+    { episodes: [:dj] }
+  end
+
+  def specialty_show_params
+    params.require(:specialty_show).permit(:name, :coordinator_id, :djs)
+  end
 end
