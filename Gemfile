@@ -121,6 +121,7 @@ group :development, :test do
 end
 
 # To make console access better in development and on the production server
+gem 'awesome_print'
 gem 'table_print'
 
 ###########

@@ -104,7 +104,7 @@ $(document).on 'ready turbolinks:load', ->
     $('#song_artist').autocomplete({
       minLength: 4
       source: (request, response) ->
-        $.getJSON '/songs/find.json', {artist: request.term}, response
+        $.getJSON '/songs/completions.json', {artist: request.term}, response
       focus: fillArtistField
       select: fillArtistField
     }).autocomplete("instance")._renderItem = (ul, item) ->
@@ -117,7 +117,7 @@ $(document).on 'ready turbolinks:load', ->
       source: (request, response) ->
         artistName = $("#song_artist").val()
         if $("#song_artist").val() != ''
-          $.getJSON '/songs/find.json', {artist: artistName, album: request.term}, response
+          $.getJSON '/songs/completions.json', {artist: artistName, album: request.term}, response
       focus: fillAlbumFields
       select: fillAlbumFields
     }).autocomplete("instance")._renderItem = (ul, item) ->
@@ -132,7 +132,7 @@ $(document).on 'ready turbolinks:load', ->
       source: (request, response) ->
         artistName = $("#song_artist").val()
         if $("#song_artist").val() != ''
-          $.getJSON '/songs/find.json', {artist: artistName, name: request.term}, response
+          $.getJSON '/songs/completions.json', {artist: artistName, name: request.term}, response
       focus: fillAllFields
       select: fillAllFields
     }).autocomplete("instance")._renderItem = (ul, item) ->

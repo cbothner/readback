@@ -39,8 +39,10 @@ Rails.application.routes.draw do
     get :public_affairs_logs, on: :collection
   end
 
-  resources :songs, only: %i[update destroy] do
-    get :find, on: :collection
+  resources :songs, only: %i[update destroy]
+
+  namespace :songs do
+    resources :completions, only: %i[index]
   end
 
   resources :specialty_shows, only: %i[show update destroy] do
