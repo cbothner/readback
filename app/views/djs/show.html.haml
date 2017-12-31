@@ -10,7 +10,7 @@
         %ul
           - shows.each do |show|
             %li
-              =link_to "#{show.semester.season}", show
+              =link_to "#{show.semester.decorate.season}", show
               =raw show.time_string rescue raw "&nbsp;(cancelled)"
     .dj-recent-episodes
       %h4 Most Recent Shows
