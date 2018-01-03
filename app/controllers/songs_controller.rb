@@ -1,11 +1,15 @@
+# frozen_string_literal: true
+
+# We love music
 class SongsController < ApplicationController
   before_action :set_song, only: %i[update destroy]
   layout 'headline'
 
-  # GET /songs
-  # GET /songs.json
+  # GET /episodes/1/songs
   def index
-    @episode = Episode.includes(:setbreaks, show: [:semester, :dj, episodes: %i[dj show]]).find(params[:episode_id])
+    @episode = Episode.includes(:setbreaks,
+                                show: [:semester, :dj, episodes: %i[dj show]])
+                      .find(params[:episode_id])
     # @songs = Song.all.sort_by(&:at).reverse
     @songs = @episode.songs
     @songs += @episode.setbreaks
@@ -75,7 +79,6 @@ class SongsController < ApplicationController
     @song = Song.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def song_params
     params.require(:song).permit(:name, :artist, :request, :album, :label,
                                  :year, :episode_id, :at, :local, :new)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Clone a selection of shows from one semester into another
 class SemesterClonerJob < ApplicationJob
   queue_as :default

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DjsController < ApplicationController
   before_action :authenticate_dj!, except: :show
   authorize_actions_for Dj, only: %i[new create destroy]
@@ -17,7 +19,8 @@ class DjsController < ApplicationController
       format.pdf { @djs = @djs.select(&:active) }
       format.csv do
         @djs = @djs.select(&:active)
-        headers['Content-Disposition'] = "attachment; filename=\"wcbn-djs-#{Time.zone.now.strftime '%F'}\""
+        filename = "wcbn-djs-#{Time.zone.now.strftime '%F'}"
+        headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
         headers['Content-Type'] ||= 'text/csv'
       end
     end
@@ -58,10 +61,8 @@ class DjsController < ApplicationController
 
     respond_to do |format|
       if @dj.save
-        if trainee
-          trainee.mark_graduated(approved_by: current_dj,
-                                 associated_dj_instance: @dj)
-        end
+        trainee&.mark_graduated(approved_by: current_dj,
+                                associated_dj_instance: @dj)
         @dj.add_role(:grandfathered_in) if params[:grandfathered] == '1'
         @dj.send_reset_password_instructions
 
@@ -91,7 +92,6 @@ class DjsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_dj
     show_assoc = %i[freeform_shows specialty_shows talk_shows].map do |show|
       [show, :semester]
@@ -100,7 +100,6 @@ class DjsController < ApplicationController
     @dj = Dj.includes(Hash[show_assoc]).find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def dj_params
     params.require(:dj).permit(:name, :phone, :email, :umid, :um_affiliation,
                                :um_dept, :experience, :referral, :interests,

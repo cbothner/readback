@@ -1,38 +1,29 @@
+# frozen_string_literal: true
+
 module Semesters
+  # Create a new semester by copying some shows from a previous one
   class ClonesController < ApplicationController
     before_action :authenticate_dj!
     authorize_actions_for Semester
 
     layout 'headline'
 
-    # GET /semesters/new
+    # GET /semesters/1/clone/new
     def new
       @model = find_semester(params.delete(:semester_id)).decorate
       @semester = Semester.new beginning: @model.ending
     end
 
-    # POST /semesters
-    # POST /semesters.json
+    # POST /semesters/1/clone
     def create
       show_types_to_copy = JSON.parse params.delete(:shows_to_copy)
       @semester = Semester.create(semester_params)
 
-      if @semester.errors.empty?
-        SemesterClonerJob.perform_later show_types_to_copy,
-                                        into_semester: @semester
-      end
+      return render :new if @semester.errors.any?
 
-      respond_to do |format|
-        if @semester.errors.empty?
-          format.html { redirect_to edit_semester_path @semester }
-          format.json { render :show, status: :created, location: @semester }
-        else
-          format.html { render :new }
-          format.json do
-            render json: @semester.errors, status: :unprocessable_entity
-          end
-        end
-      end
+      SemesterClonerJob.perform_later show_types_to_copy,
+                                      into_semester: @semester
+      redirect_to edit_semester_path @semester
     end
 
     private

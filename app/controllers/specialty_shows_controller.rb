@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SpecialtyShowsController < ApplicationController
   include ShowsController
 
@@ -24,13 +26,19 @@ class SpecialtyShowsController < ApplicationController
           #   weekday: @specialty_show.weekday,
           #   beginning: @specialty_show.ending
           # }
-          redirect_to edit_semester_path(@specialty_show.semester, anchor: 'tab-specialty')
+          redirect_to edit_semester_path(
+            @specialty_show.semester,
+            anchor: 'tab-specialty'
+          )
         end
       else
         format.html do
           flash[:alert] = @specialty_show.errors.full_messages
           session[:specialty_show] = @specialty_show
-          redirect_to edit_semester_path(params[:semester_id], anchor: 'tab-specialty')
+          redirect_to edit_semester_path(
+            params[:semester_id],
+            anchor: 'tab-specialty'
+          )
         end
       end
     end

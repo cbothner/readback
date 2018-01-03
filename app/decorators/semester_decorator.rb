@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
+# :nodoc
 class SemesterDecorator < Draper::Decorator
   class Cells
+    # Defines the default attributes of a schedule cell
     class Base
       attr_reader :css_class, :data_attributes, :rowspan, :show
 
@@ -11,6 +15,7 @@ class SemesterDecorator < Draper::Decorator
       end
     end
 
+    # A schedule cell with no show
     class EmptySlot < Base
       def initialize
         super
@@ -18,6 +23,7 @@ class SemesterDecorator < Draper::Decorator
       end
     end
 
+    # A schedule cell with a show
     class Show < Base
       def initialize(show, rowspan)
         @css_class = 'show'
@@ -28,8 +34,13 @@ class SemesterDecorator < Draper::Decorator
     end
   end
 
+  # One row of a schedule table
   class Row
-    attr_reader :seconds_since_six_am, :weekdays
+    # @return [Numeric]
+    attr_reader :seconds_since_six_am
+
+    # @return [Array<Cell>] Seven cells, ordered Monday through Sunday
+    attr_reader :weekdays
 
     def initialize(seconds_since_six_am, weekdays)
       @seconds_since_six_am = seconds_since_six_am
@@ -42,7 +53,11 @@ class SemesterDecorator < Draper::Decorator
     end
   end
 
+  # Schedule organizes a Semester’s Shows into columns by weekday (Monday though
+  # Sunday) and rows by time of day (6am-6am). Cells have defined rowskips to
+  # align start and end times across weekdays
   class Schedule
+    # @return [Array<Row>]
     attr_reader :rows
 
     def initialize(semester)
@@ -64,7 +79,7 @@ class SemesterDecorator < Draper::Decorator
     end
 
     def get_cell(weekday, time)
-      if @rowskip_countdown[weekday] > 0
+      if @rowskip_countdown[weekday].positive?
         @rowskip_countdown[weekday] -= 1
         return
       end

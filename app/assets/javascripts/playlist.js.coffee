@@ -117,7 +117,10 @@ $(document).on 'ready turbolinks:load', ->
       source: (request, response) ->
         artistName = $("#song_artist").val()
         if $("#song_artist").val() != ''
-          $.getJSON '/songs/completions.json', {artist: artistName, album: request.term}, response
+          $.getJSON '/songs/completions.json', {
+            artist: artistName,
+            album: request.term
+          }, response
       focus: fillAlbumFields
       select: fillAlbumFields
     }).autocomplete("instance")._renderItem = (ul, item) ->
@@ -132,7 +135,10 @@ $(document).on 'ready turbolinks:load', ->
       source: (request, response) ->
         artistName = $("#song_artist").val()
         if $("#song_artist").val() != ''
-          $.getJSON '/songs/completions.json', {artist: artistName, name: request.term}, response
+          $.getJSON '/songs/completions.json', {
+            artist: artistName,
+            name: request.term
+          }, response
       focus: fillAllFields
       select: fillAllFields
     }).autocomplete("instance")._renderItem = (ul, item) ->

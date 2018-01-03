@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# The common interface of FreeformShow, SpecialtyShow, and TalkShow models
 module Show
   extend ActiveSupport::Concern
   include Recurring
@@ -9,7 +12,8 @@ module Show
     has_many :episodes, as: :show, dependent: :destroy
 
     validates :name, :duration, presence: true
-    validates :website, format: { with: /(\Ahttp|\A\Z)/, message: 'must start with “http://”' }
+    validates :website, format: { with: /(\Ahttp|\A\Z)/,
+                                  message: 'must start with “http://”' }
     validate :show_does_not_conflict_with_any_other
 
     after_create_commit :propagate_later
@@ -24,12 +28,12 @@ module Show
     return nil if times == times_was
 
     conflicts = (semester.shows - [self])
-                .reject { |x| x.times && x.times.recurrence_rules.empty? }
+                .reject { |x| x.times&.recurrence_rules&.empty? }
                 .select { |x| times.conflicts_with? x.times }
 
-    if conflicts.any?
-      errors.add(:time, " conflict with #{conflicts.map(&:unambiguous_name).to_sentence}.")
-    end
+    return unless conflicts.any?
+    conflicting_shows = conflicts.map(&:unambiguous_name).to_sentence
+    errors.add(:time, " conflict with #{conflicting_shows}.")
   end
 
   def propagate_later
@@ -115,9 +119,8 @@ module Show
   end
 
   def duration
+    return if times.nil? || times.duration.nil?
     (times.duration / 60.0 / 60.0)
-  rescue
-    nil
   end
 
   def website_name
