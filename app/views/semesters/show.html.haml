@@ -1,7 +1,7 @@
 :ruby
   title 'Show Schedule'
   headline "#{'Active ' if @semester == Semester.current}WCBN Schedule "
-  
+
   if dj_signed_in? && current_dj.can_update?(Semester)
     edit_link = link_to 'edit schedule', edit_semester_path(@semester)
     conditional_edit_link = " &nbsp;&nbsp;[#{edit_link}]"

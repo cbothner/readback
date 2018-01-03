@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
+# Get a list of maximum four possible completions for the given search params
 class FindCompletions
-  # Get a list of maximum four possible completions for the given search params
   # @param search_params [{ artist: string, name?: string, album?: string }]
-  #
   # @return
   # If only a partial artist is provided, return an array of hashes containing
   # only artist names.

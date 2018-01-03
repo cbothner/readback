@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TalkShowsController < ApplicationController
   include ShowsController
 
@@ -15,12 +17,16 @@ class TalkShowsController < ApplicationController
 
     respond_to do |format|
       if @talk_show.save
-        format.html { redirect_to edit_semester_path(@talk_show.semester, anchor: 'tab-talk') }
+        format.html do
+          redirect_to edit_semester_path(@talk_show.semester,
+                                         anchor: 'tab-talk')
+        end
       else
         format.html do
           flash[:alert] = @talk_show.errors.full_messages
           session[:talk_show] = @talk_show
-          redirect_to edit_semester_path(params[:semester_id], anchor: 'tab-talk')
+          redirect_to edit_semester_path(params[:semester_id],
+                                         anchor: 'tab-talk')
         end
       end
     end

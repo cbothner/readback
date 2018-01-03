@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Ruby Linguistics is from ged/linguistics
 
 # Exceptions: Indefinite articles
@@ -19,7 +21,8 @@ RECORD_LABELS = %w[EMI WB].freeze
 # conjunctions (and, but). These rules apply to titles of long, short,
 # and partial works as well as your own papers" (Anson, Schwegler,
 # and Muth. The Longman Writer's Companion 240).
-TITLE_CASE_EXCEPTIONS = ARTICLES | SHORT_PREPOSITIONS | COORD_CONJUNCTIONS | RECORD_LABELS
+TITLE_CASE_EXCEPTIONS = ARTICLES | SHORT_PREPOSITIONS | COORD_CONJUNCTIONS |
+                        RECORD_LABELS
 
 class String
   def case
@@ -45,7 +48,7 @@ class String
     # exceptions.
     words.each_with_index do |word, i|
       # Non-words
-      next unless /^\w+$/.match(word)
+      next unless /^\w+$/.match?(word)
 
       # Skip exception-words
       next if TITLE_CASE_EXCEPTIONS.include?(word)
