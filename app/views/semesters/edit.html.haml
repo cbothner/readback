@@ -25,4 +25,5 @@
       = render "talk_shows/form"
 
 
-= render @semester, locals: {no_links: false}
+- cache [@semester, :edit] do
+  = render @semester, locals: {no_links: false}
