@@ -67,8 +67,13 @@ class Player extends React.Component<Props, { playing: boolean }> {
   render () {
     const { song } = this.props
     const { playing } = this.state
+    
+    const pStyle = {
+      'width': playing ? 'auto' : 0
+    }
+    
     return (
-      <Container>
+      <Container style={pStyle}>
         <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />
         <SongInformation visible={playing} song={song} />
       </Container>
