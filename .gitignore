@@ -28,3 +28,5 @@ dump.rdb
 /public/packs
 /public/packs-test
 /node_modules
+
+.byebug_history

@@ -42,7 +42,11 @@
 
   .dj-all-episodes
     - @past_episodes_by_semester.each do |semester, episodes|
-      %h4.padtop= semester == Semester.current ? "Most Recent Shows" : semester.season
+      %h4.padtop
+        - if semester == Semester.current
+          Most Recent Shows
+        - else
+          = semester.decorate.season
       .tiles
         - episodes.each do |ep|
           .dj-episode

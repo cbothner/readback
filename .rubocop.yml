@@ -1,0 +1,8 @@
+Style/AsciiComments:
+  Enabled: false
+Style/MixinUsage:
+  Enabled: false
+Lint/DefEndAlignment:
+  AutoCorrect: true
+Lint/EndAlignment:
+  AutoCorrect: true
