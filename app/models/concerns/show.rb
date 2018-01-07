@@ -92,7 +92,7 @@ module Show
       <<~HTML.html_safe
         <span style="display:inline-table">
           (#{w},
-          #{beginning.strftime('%l:%M')} &ndash; {ending.strftime('%l:%M%P')})
+          #{beginning.strftime('%l:%M')} &ndash; #{ending.strftime('%l:%M%P')})
         </span>
     HTML
     else
