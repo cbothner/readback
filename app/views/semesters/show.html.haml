@@ -1,22 +1,27 @@
-- title "Show Schedule"
-- headline "#{'Active ' if @semester == Semester.current}WCBN Schedule "
-- conditional_edit_link = " &nbsp;&nbsp;[#{link_to("edit schedule", edit_semester_path(@semester))}]" if dj_signed_in? && current_dj.can_update?(Semester)
-- subtitle "#{@semester.start} &ndash; #{@semester.end}#{conditional_edit_link}".html_safe
+:ruby
+  title 'Show Schedule'
+  headline "#{'Active ' if @semester == Semester.current}WCBN Schedule "
+
+  if dj_signed_in? && current_dj.can_update?(Semester)
+    edit_link = link_to 'edit schedule', edit_semester_path(@semester)
+    conditional_edit_link = " &nbsp;&nbsp;[#{edit_link}]"
+  end
+  subtitle raw "#{@semester.start} – #{@semester.end}#{conditional_edit_link}"
 
 - content_for :sidebar do
   %h4.no-margin All Schedules
   %ul.semesters
     - @semesters.each do |semester|
       - if (current_dj || Dj.new).can_read?(semester)
-        %li{class: ("arrow" if semester == Semester.current)}
-          %span{class: ("highlight" if semester == @semester)}
-            =(semester == Semester.current ? "&rarr; ".html_safe : "".html_safe)
-            =link_to("#{semester.season}", semester)
+        %li{ class: ('arrow' if semester == Semester.current) }
+          %span{ class: ('highlight' if semester == @semester) }
+            = '→ ' if semester == Semester.current
+            = link_to semester.season, semester
           - if dj_signed_in? && current_dj.can_create?(Semester)
             .copy
-              [
-              =link_to("copy", "/semesters/new/based_on/#{semester.id}")
-              ]
+              = surround '[', ']' do
+                = link_to 'copy', new_semester_clone_path(semester.id)
 
-- cache cache_key_for_semester(@semester), :expires_in => 1.hour do
-  = render @semester, locals: {no_links: false}
+
+- cache @semester do
+  = render @semester, locals: { no_links: false }

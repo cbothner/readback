@@ -1,26 +1,9 @@
 class FreeformShowsController < ApplicationController
   include ShowsController
 
-  # GET /freeform_shows
-  # GET /freeform_shows.json
-  def index
-    @freeform_shows = FreeformShow.all
-  end
-
   # GET /freeform_shows/1
   # GET /freeform_shows/1.json
-  def show
-  end
-
-  # GET /freeform_shows/new
-  def new
-    @freeform_show = FreeformShow.new
-  end
-
-  # GET /freeform_shows/1/edit
-  def edit
-    authorize_action_for @freeform_show
-  end
+  def show; end
 
   # POST /freeform_shows
   # POST /freeform_shows.json
@@ -34,10 +17,10 @@ class FreeformShowsController < ApplicationController
     respond_to do |format|
       if @freeform_show.save
         format.html do
-          #session[:freeform_show] = {
-            #weekday: @freeform_show.weekday,
-            #beginning: @freeform_show.ending
-          #}
+          # session[:freeform_show] = {
+          #   weekday: @freeform_show.weekday,
+          #   beginning: @freeform_show.ending
+          # }
           redirect_to edit_semester_path(@freeform_show.semester)
         end
       else
@@ -82,7 +65,8 @@ class FreeformShowsController < ApplicationController
   end
 
   private
-    def active_record_find_includes
-      { episodes: [:dj, show: [:dj]] }
-    end
+
+  def active_record_find_includes
+    { episodes: [:dj, show: [:dj]] }
+  end
 end
