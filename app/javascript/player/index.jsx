@@ -20,7 +20,8 @@ const Container = styled.div`
   display: flex;
   align-items: stretch;
 
-  color: ${props => props.theme.white};
+  width: ${p => p.playing ? 'auto' : '0'};
+  color: ${p => p.theme.white};
   font-family: 'Lato';
 `
 
@@ -67,8 +68,9 @@ class Player extends React.Component<Props, { playing: boolean }> {
   render () {
     const { song } = this.props
     const { playing } = this.state
+    
     return (
-      <Container>
+      <Container playing={playing}>
         <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />
         <SongInformation visible={playing} song={song} />
       </Container>
