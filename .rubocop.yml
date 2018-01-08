@@ -6,5 +6,5 @@ Lint/DefEndAlignment:
   AutoCorrect: true
 Lint/EndAlignment:
   AutoCorrect: true
-Style/ClassStructure:
+Layout/ClassStructure:
   Enabled: true
