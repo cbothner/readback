@@ -28,6 +28,8 @@ Rails.application.routes.draw do
     resources :specialty_shows, only: %i[create]
     resources :talk_shows, only: %i[create]
   end
+  
+  resources :calendars, only: %i[index]
 
   resources :setbreaks, only: %i[update create destroy]
 

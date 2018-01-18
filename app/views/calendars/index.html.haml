@@ -1,0 +1,70 @@
+- title "Events and Concerts"
+
+
+-# 
+-#
+-# %h3 Upcoming Events:
+-#
+-# %div.events-wrapper
+-#   - @days.each do |day, events|
+-#     %div.events-day-wrapper
+-#       %div.events-date-col
+-#         %h1=day.strftime("%A, %B %e")
+-#       %div.event-descriptions
+-#         - events.each do |event|
+-#           %li.event
+-#             %h3=event.summary
+-#             %p=event.start.date_time.strftime("%I:%M%p")
+-#             %p=event.description
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-#
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+-# %br
+
+
+%h3 Upcoming Events:
+%table.events-list
+  - @days.each do |day, events|
+    %div.event-day
+      %div.event-date
+        %h1=day.strftime("%A, %B %e")
+        %hr
+      %ul.events
+      - events.each do |event|
+        %li.event
+          %h3=event.summary
+          %p=event.start.date_time.strftime("%I:%M%p")
+          %p=event.description
+          -# %h3=event.color_id
+
+-# <!-- <iframe src="https://calendar.google.com/calendar/embed?src=umich.edu_e5nqekg2rvo7nsa7t64neu802c%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe> -->
+
+
+
+%p= h(                                                                         |
+  "Events Information is brought to you by Current Magazine, Ann Arbor's "   + |
+  "entertainment monthly, available at many locations around town. Events "  + |
+  "Info can be heard daily in the morning at 1:30, 4:30, 7:30, and 10:30, "  + |
+  "and also at 1:30pm, 4:30pm, and 8:30pm right here on WCBN fm Ann Arbor. ")  |
