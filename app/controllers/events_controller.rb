@@ -1,3 +1,6 @@
+require 'google/apis/calendar_v3'
+
+
 class EventsController < ApplicationController
   def index
     # name, id, scope
