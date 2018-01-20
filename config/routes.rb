@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     get :on_and_upcoming, on: :collection
   end
 
+  resources :events, only: %i[index]
+    
   resources :freeform_shows, only: %i[show update destroy]
 
   resources :playlist, only: %w[index] do
