@@ -24,6 +24,8 @@ gem 'redis', '~> 3.0'
 gem 'sidekiq'
 # Monitoring
 gem 'newrelic_rpm', group: :production
+# API
+gem 'google-api-client'
 
 ##########
 # Models #

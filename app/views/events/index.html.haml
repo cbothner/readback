@@ -1,0 +1,22 @@
+- title "Events and Concerts"
+
+%h3 Upcoming Events:
+%table.events-list
+  - @days.each do |day, events|
+    %div.event-day
+      %div.event-date
+        %h1=day.strftime("%A, %B %e")
+        %hr
+      %ul.events
+      - events.each do |event|
+        %li.event
+          %h3=event.summary
+          %p=event.start.date_time.strftime("%I:%M%p")
+          %p=event.description
+
+
+%p= h(                                                                         |
+  "Events Information is brought to you by Current Magazine, Ann Arbor's "   + |
+  "entertainment monthly, available at many locations around town. Events "  + |
+  "Info can be heard daily in the morning at 1:30, 4:30, 7:30, and 10:30, "  + |
+  "and also at 1:30pm, 4:30pm, and 8:30pm right here on WCBN fm Ann Arbor. ")  |
