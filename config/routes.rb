@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     get :on_and_upcoming, on: :collection
   end
 
+  resources :events, only: %i[index]
+    
   resources :freeform_shows, only: %i[show update destroy]
 
   resources :playlist, only: %w[index] do
@@ -28,6 +30,8 @@ Rails.application.routes.draw do
     resources :specialty_shows, only: %i[create]
     resources :talk_shows, only: %i[create]
   end
+  
+  resources :calendars, only: %i[index]
 
   resources :setbreaks, only: %i[update create destroy]
 
