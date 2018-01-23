@@ -1,14 +1,15 @@
-require 'google/apis/calendar_v3'
+# frozen_string_literal: true
 
-
+# @see Event
 class EventsController < ApplicationController
   def index
-    # name, id, scope
-    calendar = CalendarService.new('WCBN Events Info',
-                                   'jjdakqoft456pv0rur6nrj27ro@group.calendar.google.com',
-                                   Google::Apis::CalendarV3::AUTH_CALENDAR_READONLY)
-    
-    events = calendar.fetch_upcoming(20)
-    @days = events.chunk { |e| e.start.date_time.to_date } #TODO handle all-day events, which won't accept a call to .to_date
+    events = FetchEvents.from calendar_id
+    @events = EventsDecorator.decorate events
+  end
+
+  private
+
+  def calendar_id
+    'umich.edu_ufhcesmo1sb25vqr2k6ftm9m64@group.calendar.google.com'
   end
 end
