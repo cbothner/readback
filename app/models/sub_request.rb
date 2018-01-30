@@ -35,7 +35,8 @@ class SubRequest < ActiveRecord::Base
     when :needs_sub_in_group then
       SubRequestMailer.request_of_group(self).deliver!
     when :confirmed
-      SubRequestMailer.fulfilled(self, asking_dj: episode.show.dj).deliver!
+      SubRequestMailer.fulfilled(self, asking_dj: Dj.find(episode.dj_id_was))
+                      .deliver!
     end
   end
 
