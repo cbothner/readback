@@ -16,8 +16,12 @@ class SubRequest < ActiveRecord::Base
 
   belongs_to :episode
 
+  before_create :ensure_group_is_not_sparse
+  before_create :set_status_from_request_group
   after_create :send_emails
   after_update :send_emails
+  after_save :update_episode_status
+  after_destroy :reset_episode_status
 
   scope :fulfilled, -> { where status: :confirmed }
   scope :unfulfilled, lambda {
@@ -49,5 +53,23 @@ class SubRequest < ActiveRecord::Base
 
   def for
     "for #{episode.show.name} on #{episode.date_string}"
+  end
+
+  private
+
+  def ensure_group_is_not_sparse
+    group.reject!(&:blank?)
+  end
+
+  def set_status_from_request_group
+    self.status = group.empty? ? :needs_sub : :needs_sub_in_group
+  end
+
+  def update_episode_status
+    episode.update status: status
+  end
+
+  def reset_episode_status
+    episode.update status: :confirmed
   end
 end
