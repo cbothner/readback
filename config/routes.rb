@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root 'playlist#index'
 
@@ -49,7 +51,9 @@ Rails.application.routes.draw do
     patch 'deal', on: :member
   end
 
-  resources :sub_requests, only: %i[index show update destroy]
+  resources :sub_requests, only: %i[index show update destroy] do
+    resources :fulfillments, module: :sub_requests, only: %i[create]
+  end
 
   resources :talk_shows, only: %i[show update destroy]
 
