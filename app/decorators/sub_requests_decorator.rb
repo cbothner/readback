@@ -40,7 +40,7 @@ class SubRequestsDecorator < Draper::CollectionDecorator
 
   def calendar_range
     last_day = requests_by_day.keys.max
-    Time.zone.today.monday..last_day
+    Time.zone.today.monday..last_day.sunday
   end
 
   def requests_for(day)
