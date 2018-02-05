@@ -32,18 +32,24 @@ class SubRequestsDecorator < Draper::CollectionDecorator
   # Iterates through days of sub requests
   # @yield [Enumerator<SubRequests>]
   def each_day(&block)
-    last_day = requests_by_day.keys.max
-    (Time.zone.today.monday..last_day).map do |day|
-      requests = requests_by_day[day] || []
-      Day.new(day, requests.sort_by(&:at))
-    end.each(&block)
+    calendar_range.map { |day| Day.new(day, requests_for(day)) }
+                  .each(&block)
   end
 
   private
 
+  def calendar_range
+    last_day = requests_by_day.keys.max
+    Time.zone.today.monday..last_day
+  end
+
+  def requests_for(day)
+    requests_by_day[day].sort_by(&:at)
+  end
+
   def requests_by_day
-    @_requests_by_day = decorated_collection.group_by do |request|
-      request.at.midnight.to_date
-    end
+    @_requests_by_day ||=
+      decorated_collection.group_by { |request| request.at.midnight.to_date }
+                          .tap { |hash| hash.default = [] }
   end
 end
