@@ -28,7 +28,7 @@ class IcecastUpdateJob < ApplicationJob
   end
 
   def metadata_string(song)
-    artist = " by #{song.artist}" unless artist.blank?
+    artist = " by #{song.artist}" unless song.artist.blank?
     "WCBN-FM: “#{song.name}”#{artist} – " \
       "on #{song.episode.show.name} with #{song.episode.dj}"
   end
