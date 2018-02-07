@@ -23,7 +23,7 @@ class IcecastUpdateJob < ApplicationJob
   def icecast_endpoint(qual, song)
     mount = "/wcbn-#{qual}.mp3"
     'http://floyd.wcbn.org:8000/admin/metadata' \
-      "?mount=#{mount}&song=#{metadata_string(song)}" \
+      "?mount=#{mount}&song=#{Rack::Utils.escape metadata_string song}" \
       '&mode=updinfo'
   end
 
