@@ -21,7 +21,7 @@ class Trainee < ActiveRecord::Base
 
   validates :name, :phone, :email, presence: true
 
-  belongs_to :dj
+  belongs_to :dj, optional: true
 
   validates :statement, presence: true, unless: :um_affiliated?
 
