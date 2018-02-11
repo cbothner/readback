@@ -1,3 +1,7 @@
+branches:
+  only:
+  - master
+
 env:
   global:
     - CC_TEST_REPORTER_ID=26a1fd96d414aa41611448e0418057a6081c5ebe742208ca8de2083699a32851
