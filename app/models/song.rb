@@ -4,6 +4,8 @@
 class Song < ActiveRecord::Base
   belongs_to :episode
 
+  attribute :at, :datetime, default: -> { Time.zone.now }
+
   validates :name, :episode_id, presence: true
   validates_datetime :at,
                      on_or_after: ->(t) { t.episode.beginning },

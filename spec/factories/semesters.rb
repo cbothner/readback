@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :semester do
     transient do
-      reference_date Date.today
+      reference_date Date.tomorrow
       weeks 10
     end
 
