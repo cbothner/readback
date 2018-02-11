@@ -18,7 +18,12 @@ chdir APP_ROOT do
 
   puts '== Installing dependencies =='
   system! 'gem install bundler --conservative'
-  system('bundle check') || system!('bundle install')
+
+  if ENV['CI']
+    system('bundle check --path=vendor/bundle') || system!('bundle install --path=vendor/bundle')
+  else
+    system('bundle check') || system!('bundle install')
+  end
 
   # Install JavaScript dependencies if using Yarn
   system('bin/yarn')
