@@ -31,4 +31,6 @@ dump.rdb
 
 .byebug_history
 
+# Test metadata
 spec/examples.txt
+coverage

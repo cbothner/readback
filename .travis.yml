@@ -1,3 +1,7 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=26a1fd96d414aa41611448e0418057a6081c5ebe742208ca8de2083699a32851
+
 dist: trusty
 
 language: ruby
@@ -12,3 +16,14 @@ addons:
   postgresql: '9.6'
 
 install: 'bin/setup'
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - bundle exec rspec
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
