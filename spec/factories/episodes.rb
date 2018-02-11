@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :episode do
-    show { create :freeform_show }
+    association :show, factory: :freeform_show
     beginning { Time.zone.now.at_beginning_of_hour }
     ending { beginning + 3.hours }
     dj { show.dj }

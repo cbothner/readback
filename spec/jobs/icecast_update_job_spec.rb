@@ -9,9 +9,9 @@ RSpec.describe IcecastUpdateJob, type: :job do
     allow(ENV).to receive(:[]).with('ICECAST_ADMIN_PASSWORD')
                               .and_return 'password'
 
-    show = object_double 'FreeformShow', name: 'Freeform'
-    episode = object_double 'Episode', dj: 'Cameron', show: show
-    song = object_double 'Song', artist: 'The Decemberists',
+    show = instance_double FreeformShow, name: 'Freeform'
+    episode = instance_double Episode, dj: 'Cameron', show: show
+    song = instance_double Song, artist: 'The Decemberists',
                                  name: 'Sons and Daughters',
                                  episode: episode
 
@@ -53,9 +53,9 @@ RSpec.describe IcecastUpdateJob, type: :job do
       allow(ENV).to receive(:[]).with('ICECAST_ADMIN_PASSWORD')
                                 .and_return('password')
 
-      show = object_double('FreeformShow', name: 'Freeform')
-      episode = object_double('Episode', dj: 'Cameron', show: show)
-      song = object_double('Song', artist: '', name: 'Sons and Daughters',
+      show = instance_double(FreeformShow, name: 'Freeform')
+      episode = instance_double(Episode, dj: 'Cameron', show: show)
+      song = instance_double(Song, artist: '', name: 'Sons and Daughters',
                                    episode: episode)
 
       job = IcecastUpdateJob.new
