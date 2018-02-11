@@ -1,0 +1,14 @@
+dist: trusty
+
+language: ruby
+rvm:
+  - 2.5
+cache:
+  directories:
+    - 'vendor/bundle'
+    - '$HOME/.cache/yarn'
+
+addons:
+  postgresql: '9.6'
+
+install: 'bin/setup'
