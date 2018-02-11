@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :setbreak do
-    at "2015-09-16 11:14:46"
+    at { Time.zone.now }
   end
-
 end

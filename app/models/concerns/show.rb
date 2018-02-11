@@ -11,7 +11,7 @@ module Show
     belongs_to :semester, touch: true
     has_many :episodes, as: :show, dependent: :destroy
 
-    validates :name, :duration, presence: true
+    validates :name, presence: true
     validates :website, format: { with: /(\Ahttp|\A\Z)/,
                                   message: 'must start with “http://”' }
     validate :show_does_not_conflict_with_any_other
