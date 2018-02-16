@@ -21,6 +21,8 @@ class PlaylistController < ApplicationController
     @song = Song.new(session.delete(:song))
     @song ||= Song.new
     @song.episode ||= @on_air
+
+    render layout: 'redesign'
   end
 
   def archive
