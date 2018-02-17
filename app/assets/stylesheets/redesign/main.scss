@@ -1,5 +1,30 @@
 @import '_variables';
 
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
-  background-color: $color-primary;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  background: $color-primary image_url('paisley.svg');
+  color: $white;
+  font-family: $font-sans;
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: $color-primary;
+
+  &:visited {
+    color: inherit;
+  }
 }
