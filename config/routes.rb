@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :djs, controllers: { passwords: 'djs/passwords' }
   devise_for :playlist_editors
 
+  resources :concerts, only: %i[index]
+
   resources :djs, only: %i[index show new edit create update] do
     resources :episodes, only: %w[index]
   end
@@ -31,8 +33,6 @@ Rails.application.routes.draw do
     resources :talk_shows, only: %i[create]
   end
   
-  resources :calendars, only: %i[index]
-
   resources :setbreaks, only: %i[update create destroy]
 
   resources :settings, only: %i[create update]
