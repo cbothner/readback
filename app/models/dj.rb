@@ -67,5 +67,6 @@ class Dj < ActiveRecord::Base
 
   def sanitize_markdown
     self.about = sanitize(self.about)
+    self.lists = sanitize(self.lists)
   end
 end
