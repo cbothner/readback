@@ -5,7 +5,6 @@ class Dj < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include Authority::UserAbilities
   include Authority::Abilities
-  include ActionView::Helpers::SanitizeHelper
   rolify
 
   has_and_belongs_to_many :specialty_shows
@@ -18,7 +17,6 @@ class Dj < ActiveRecord::Base
 
   serialize :roles, Array
 
-  before_update :sanitize_markdown
   validates :name, :phone, :email, presence: true
   validates :website, format: { with: /(\Ahttp|\A\Z)/, message: 'must start with “http://”' }
 
@@ -61,12 +59,5 @@ class Dj < ActiveRecord::Base
 
   def robot_picture_url
     "https://www.robohash.org/#{Digest::MD5.hexdigest(email)}?set=set3"
-  end
-
-  private
-
-  def sanitize_markdown
-    self.about = sanitize(self.about)
-    self.lists = sanitize(self.lists)
   end
 end
