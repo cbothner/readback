@@ -20,12 +20,12 @@ const Container = styled.div`
   display: flex;
   align-items: stretch;
 
-  width: ${p => (p.playing ? 'auto' : '0')};
+  width: ${p => p.playing ? 'auto' : '0'};
   color: ${p => p.theme.white};
   font-family: 'Lato';
 `
 
-function drupalLinks(): NodeList<HTMLAnchorElement> {
+function drupalLinks (): NodeList<HTMLAnchorElement> {
   return document.querySelectorAll(
     // Typecating this string to the literal 'a' so that our NodeList knows it’s
     // full of HTMLAnchorElements
@@ -33,14 +33,14 @@ function drupalLinks(): NodeList<HTMLAnchorElement> {
   )
 }
 
-function addTargetBlankToDrupalLinks() {
+function addTargetBlankToDrupalLinks () {
   drupalLinks().forEach(link => {
     link.target = '_blank'
     link.rel = 'noopener noreferrer'
   })
 }
 
-function removeTargetBlankFromDrupalLinks() {
+function removeTargetBlankFromDrupalLinks () {
   drupalLinks().forEach(link => {
     link.target = ''
     link.rel = ''
@@ -52,23 +52,23 @@ class Player extends React.Component<Props, { playing: boolean }> {
   audioElement: HTMLAudioElement
   state = { playing: false }
 
-  constructor(props: Props) {
+  constructor (props: Props) {
     super(props)
 
     this.audioElement = document.createElement('audio')
   }
 
-  componentDidMount() {
+  componentDidMount () {
     const url = new URL(window.location)
     if (url.searchParams.has('autoplay')) {
       this._play()
     }
   }
 
-  render() {
+  render () {
     const { song } = this.props
     const { playing } = this.state
-
+    
     return (
       <Container playing={playing}>
         <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />

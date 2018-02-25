@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   root 'playlist#index'
 
@@ -17,7 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :events, only: %i[index]
-    
+
   resources :freeform_shows, only: %i[show update destroy]
 
   resources :playlist, only: %w[index] do
@@ -32,7 +34,7 @@ Rails.application.routes.draw do
     resources :specialty_shows, only: %i[create]
     resources :talk_shows, only: %i[create]
   end
-  
+
   resources :setbreaks, only: %i[update create destroy]
 
   resources :settings, only: %i[create update]

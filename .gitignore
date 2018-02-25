@@ -30,5 +30,3 @@ dump.rdb
 /node_modules
 
 .byebug_history
-
-client_secret.json
