@@ -13,11 +13,19 @@ class FetchEvents
   end
 
   def call
-    query_calendar_api
-    parse_events
+    cache do
+      query_calendar_api
+      parse_events
+    end
   end
 
   private
+
+  def cache
+    Rails.cache.fetch("events/#{@calendar_id}", expires_in: 5.minutes) do
+      yield
+    end
+  end
 
   def query_calendar_api
     @response = JSON.parse Net::HTTP.get endpoint
