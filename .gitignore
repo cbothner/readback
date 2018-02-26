@@ -34,3 +34,5 @@ dump.rdb
 # Test metadata
 spec/examples.txt
 coverage
+
+/storage
