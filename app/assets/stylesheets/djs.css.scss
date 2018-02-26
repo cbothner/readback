@@ -21,7 +21,7 @@ label:not(:first-child) { margin-left: 0.5em; }
   input[type="checkbox"] { top: -1px; }
 }
 
-textarea.monospace { 
+textarea.monospace {
   font-family: Consolas, Monaco, monospace !important;
   font-size: 9pt !important;
 }
@@ -42,8 +42,10 @@ header#headline.with-profile-pic {
   padding-left: 0px;
   padding-bottom: 1em;
   img.profile-pic {
+    width: 4em;
     height: 4em;
     margin-right: 1em;
+    object-fit: cover;
   }
   img.profile-pic.robot {
     height: 5em !important;
@@ -57,6 +59,7 @@ header#headline.with-profile-pic {
     height: 2em;
     width: 2em;
     margin-right: 0.5em;
+    object-fit: cover;
   }
   img.profile-pic.robot {
     height: 3em !important;
@@ -67,7 +70,7 @@ header#headline.with-profile-pic {
 }
 img.profile-pic {
   float: left;
-  border-radius: 10%;
+  border-radius: 4px;
 }
 img.profile-pic.robot {
   margin-top: -10% !important;
