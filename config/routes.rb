@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   devise_for :djs, controllers: { passwords: 'djs/passwords' }
   devise_for :playlist_editors
 
+  resources :concerts, only: %i[index]
+
   resources :djs, only: %i[index show new edit create update] do
     resources :episodes, only: %w[index]
   end
@@ -15,6 +17,8 @@ Rails.application.routes.draw do
     resources :sub_requests, only: %i[new create]
     get :on_and_upcoming, on: :collection
   end
+
+  resources :events, only: %i[index]
 
   resources :freeform_shows, only: %i[show update destroy]
 
