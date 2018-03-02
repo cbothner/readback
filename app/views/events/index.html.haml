@@ -1,23 +1,40 @@
 - title "Events"
 
-%h3 Upcoming Events:
-%table.events-list
-  - @events.days.each do |date, events|
-    %div.event-day
-      %div.event-date
-        %h1= l date, format: :long
-        %hr
+%div.events-heading
+  %h2.active= link_to 'Events', events_path
+  %h2= link_to 'Concerts', concerts_path
+
+- @events.days.each do |date, events|
+  %div.events-container
+    %div.events-date
+      %h3= l date, format: :long
+
+
+    %div.events-day
       %ul.events
       - events.each do |event|
         %li.event
-          %h3= event.title
-          %p= l event.beginning, format: :long
+          %h4= event.title
+          -if (l event.beginning, format: '%p') != ''
+            %p= l event.beginning, format: '%l:%M %p'
+          -else
+            %p All day
+          %p=link_to event.location, 'https://www.google.com/maps/search/' + event.location
           %p= event.description
+          - event.attachments.each do |a|
+            %a= link_to 'View Attachment', a['fileUrl'], alt: a['title'], target: "_blank"
+  %hr
+  
+%footer.events-footer
+  - if on_fm_computer?
+    %p.events-dj-instructions
+      Always read when you are done with Events Info
+      
 
 
-%p
-  Events Information is brought to you by Current Magazine, Ann Arbor's
-  entertainment monthly, available at many locations around town.
-  %br
-  Events Info can be heard daily in the morning at 1:30, 4:30, 7:30, and 10:30,
-  and also at 1:30pm, 4:30pm, and 8:30pm right here on WCBN fm Ann Arbor.
+  %p.events-blurb
+    Events Information is brought to you by Current Magazine, Ann Arbor's
+    entertainment monthly, available at many locations around town.
+    %br
+    Events Info can be heard daily in the morning at 1:30, 4:30, 7:30, and 10:30,
+    and also at 1:30pm, 4:30pm, and 8:30pm right here on WCBN fm Ann Arbor.
