@@ -18,7 +18,7 @@ class Event
   end
 
   def location
-    @data['location']
+    @data['location'] || ''
   end
 
   def beginning
@@ -28,6 +28,10 @@ class Event
   def ending
     return nil if @data['endTimeUnspecified']
     date_or_date_time @data['end']
+  end
+
+  def attachments
+    @data['attachments'] || []
   end
 
   private
