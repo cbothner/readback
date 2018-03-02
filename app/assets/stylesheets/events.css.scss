@@ -1,0 +1,62 @@
+//HEADER
+.events-heading {
+  border-bottom: 1px solid black;
+  padding: 10px 10px 0px 10px;
+  margin-bottom: 0.5em;
+
+  h2 {
+    padding: 10px;
+    display: inline-block;
+
+    &.active {
+      background-color: #f0f0f0;
+      border-style: solid;
+      border-width: 1px 1px 0px 1px;
+    }
+  }
+}
+
+//BODY - Should probably refactor a little but I'm lazy
+.events-container {
+  display: flex;
+
+  .events-date {
+    flex: 1;
+  }
+
+  .events-day {
+    flex: 4;
+  }
+}
+
+.events {
+  margin: 0;
+}
+
+.event {
+  list-style: none;
+  padding: 5px 5px 15px 5px;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+}
+
+.event > * {
+  margin: 0;
+  line-height: 1.5em;
+}
+
+//FOOTER
+.events-footer {
+  text-align: center;
+  margin: auto;
+  margin-top: 2em;
+  width: 85%;
+
+  p.events-dj-instructions {
+    font-weight: bold;
+    text-decoration: underline;
+    color: crimson;
+  }
+}
