@@ -9,7 +9,7 @@ class SetbreaksController < ApplicationController
 
     respond_to do |format|
       if @setbreak.save
-        format.html { redirect_to controller: :playlist, action: :index }
+        format.html { redirect_to playlist_path }
         format.json { render :show, status: :created, location: @setbreak }
       else
         format.html { render :new }
@@ -35,7 +35,7 @@ class SetbreaksController < ApplicationController
   def destroy
     @setbreak.destroy
     respond_to do |format|
-      format.html { redirect_to controller: :playlist, action: :index }
+      format.html { redirect_to playlist_path }
       format.json { head :no_content }
     end
   end
