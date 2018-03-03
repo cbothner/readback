@@ -2,55 +2,47 @@
   - if session[:confirm_episode]
     .alert
       Would you like to save this to the new show, or the old?
-  - if @song.errors.any?
-    #error_explanation
-      %h2<
-        = pluralize(@song.errors.count, "error")
-        prohibited this song from being saved:
-      %ul
-        - @song.errors.full_messages.each do |msg|
-          %li= msg
-  .field.field-withflag
-    = f.label :artist, "Artist"
-    %br
-    = f.text_field :artist, tabindex: 1, autofocus: true
-  .field.field-flag
-    = f.label :local, "Local?"
-    %br
-    = f.check_box :local, tabindex:7
 
-  .field.field-withflag
-    = f.label :name, "Song Title*"
-    %br
-    = f.text_field :name, tabindex: 2
-  .field.field-flag
-    = f.label :request, "Req?"
-    %br
-    = f.check_box :request, tabindex:7
+  .form__row.form__group
+    = f.label :artist, class: 'input--fill' do
+      Artist
+      = f.text_field :artist, tabindex: 1, autofocus: true
 
-  .field.field-withflag
-    = f.label :album, "Album"
-    %br
-    = f.text_field :album, tabindex: 3
-  .field.field-flag
-    = f.label :new, "New?"
-    %br
-    = f.check_box :new, tabindex:8
+    = f.label :local, class: 'song__flag' do
+      Local
+      = f.check_box :local, tabindex:7
+      .song__flag__background
 
-  .field.field-label
-    = f.label :label, "Label"
-    %br
-    = f.text_field :label, tabindex: 4
-  .field.field-year
-    = f.label :year, "Year"
-    %br
-    = f.number_field :year, tabindex: 5, autocomplete: 'off'
-  -#.field
-    -#%label Notes
-    -#%br
-    -#%textarea{rows: '3', tabindex: 7}
+  .form__row.form__group
+    = f.label :name, class: 'input--fill' do
+      Song Title*
+      = f.text_field :name, tabindex: 2
+
+    = f.label :request, class: 'song__flag' do
+      Req
+      = f.check_box :request, tabindex:7
+      .song__flag__background
+
+  .form__row.form__group
+    = f.label :album, class: 'input--fill' do
+      Album
+      = f.text_field :album, tabindex: 3
+
+    = f.label :new, class: 'song__flag' do
+      New
+      = f.check_box :new, tabindex:8
+      .song__flag__background
+
+  .form__row
+    = f.label :label do
+      Label
+      = f.text_field :label, tabindex: 4
+    = f.label :year do
+      Year
+      = f.number_field :year, tabindex: 5, autocomplete: 'off'
+
   = hidden_field_tag :override_episode
-  .actions.and-clear
+  .actions
     - if session[:confirm_episode]
       = f.submit "Save song to #{@on_air.show.unambiguous_name}", data: { disable_with: 'Saving...' }, tabindex: 9
       = f.submit "Save song to #{@song.episode.show.unambiguous_name}", data: { disable_with: 'Saving...', previous_show: @song.episode.id},  tabindex: 8, id: "submit-to-previous-show", class: 'padtop'

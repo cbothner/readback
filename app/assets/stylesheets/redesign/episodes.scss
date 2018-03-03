@@ -3,6 +3,10 @@
   font-size: 19px;
   font-weight: 600;
 
+  &:first-child {
+    margin-top: 0;
+  }
+
   &__time-string {
     font-size: 12px;
     font-weight: 400;
