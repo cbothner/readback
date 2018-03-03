@@ -7,24 +7,8 @@ class PlaylistController < ApplicationController
   def index
     set_sidebar_variables
 
-    now = Time.zone.now
-
-    @on_air = Episode.on_air
-
-    @past_items = items_between HOW_FAR_BACK.ago, now
-    @past_items.prepend @on_air
-
-    @future_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
-                              .where(beginning: now..HOW_FAR_FORWARD.since).order(beginning: :asc)
-    if playlist_editor_signed_in?
-      @future_items = @future_episodes + SignoffInstance.where(at: now..HOW_FAR_FORWARD.since)
-      @future_items.sort_by!(&:at).reverse!
-    end
-
-    session[:confirm_episode] = false unless session[:song]
-    @song = Song.new(session.delete(:song))
-    @song ||= Song.new
-    @song.episode ||= @on_air
+    @items = items_between HOW_FAR_BACK.ago, Time.zone.now
+    @items.prepend Episode.on_air
 
     render layout: 'with_sidebar'
   end
