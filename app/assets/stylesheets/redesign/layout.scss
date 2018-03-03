@@ -8,7 +8,7 @@
   max-width: $max-width;
 }
 
-.master-detail {
+.with-sidebar {
   &__container {
     display: flex;
 
@@ -17,14 +17,14 @@
     }
   }
 
-  &__master {
+  &__main {
     flex: 1;
     background-color: $white;
     color: $black;
     padding: 2rem;
   }
 
-  &__detail {
+  &__sidebar {
     padding: 2rem 0;
     flex: 0 0 15rem;
   }
