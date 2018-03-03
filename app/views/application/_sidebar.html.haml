@@ -1,7 +1,67 @@
 %h2.kicker Up Next
 
--# TODO: Set sidebar variables in a method ApplicationController called
--# explicitly when needed
-= render Episode.on_air, tag: :div
-= render Episode.on_air, tag: :div
-= render Episode.on_air, tag: :div
+- @upcoming_episodes.each do |episode|
+  = render episode, tag: :div
+
+-# ---
+
+%h2.kicker Frequency Modulation
+
+.sidebar__item
+  88.3 MHz
+  %span in Ann Arbor, Mich.
+
+-# ---
+
+%h2.kicker Make a Request
+
+.sidebar__item
+  (734) 763-3500
+  %span on the telephone
+
+.sidebar__item
+  radio@wcbn.org
+  %span iMessages & Google Hangouts
+
+
+-# ---
+
+%h2.kicker Sports Department
+
+.sidebar__item
+  = external_link_to "WCBN Sports Online", "http://www.wcbnsports.org/"
+  %span multimedia journalism
+
+.sidebar__item
+  = external_link_to "Tune in to the Game", "https://www.youtube.com/channel/UCxwfiaoQsw27pfItWRiqVqA?&ab_channel=WCBNSports"
+  %span online and on air
+
+
+
+
+-# ---
+
+%h2.kicker Become a DJ
+
+.sidebar__info
+  :markdown
+    Training sessions are held **every Sunday at 4pm** in our lobby. Go to the
+    Thompson St. entrance of the [Student Activities
+    Building](https://goo.gl/maps/91WSG8EQ7212). Call (734) 763-3500 and **we’ll
+    buzz you in**.
+
+    Email [training@wcbn.org](mailto:training@wcbn.org) for more information.
+
+-# ---
+
+%h2.kicker Social Media
+
+.sidebar__social-links
+  = external_link_to "https://www.facebook.com/wcbn88.3fm/" do
+    %i.fab.fa-facebook
+
+  = external_link_to "https://twitter.com/WCBN_FM" do
+    %i.fab.fa-twitter
+
+  = external_link_to "https://www.instagram.com/wcbn_fm/" do
+    %i.fab.fa-instagram
