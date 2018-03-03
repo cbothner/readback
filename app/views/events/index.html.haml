@@ -15,10 +15,7 @@
       - events.each do |event|
         %li.event
           %h4= event.title
-          -if (l event.beginning, format: '%p') != ''
-            %p= l event.beginning, format: '%l:%M %p'
-          -else
-            %p All day
+          %p= event.beginning.formatted_time
           %p=link_to event.location, 'https://www.google.com/maps/search/' + event.location
           %p= event.description
           - event.attachments.each do |a|
