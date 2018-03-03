@@ -1,6 +1,6 @@
 %h2.kicker Playlist
 .playlist
-  - @past_items.each do |item|
+  - @items.each do |item|
     .playlist-item{ class: "playlist-item--#{item.class.name.downcase}",
                     data: { at: item.at.to_json }}
       = render item
