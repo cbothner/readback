@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-class PlaylistController < ApplicationController
+class PlaylistsController < ApplicationController
   HOW_FAR_FORWARD = 4.hours
   HOW_FAR_BACK = 6.hours
 
-  def index
+  before_action :authenticate_playlist_editor!, only: %i[edit]
+
+  def show
     set_sidebar_variables
 
     @items = items_between HOW_FAR_BACK.ago, Time.zone.now

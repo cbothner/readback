@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'playlist#index'
+  root 'playlists#show'
 
   devise_for :djs, controllers: { passwords: 'djs/passwords' }
   devise_for :playlist_editors
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   resources :freeform_shows, only: %i[show update destroy]
 
-  resources :playlist, only: %w[index] do
+  resource :playlist, only: %w[show] do
     get :search, on: :collection
     get :archive, on: :collection
   end

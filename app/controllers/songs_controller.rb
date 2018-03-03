@@ -32,13 +32,13 @@ class SongsController < ApplicationController
       if @song.at.between?(@song.episode.beginning, @song.episode.ending) ||
          params[:override_episode] == 'true'
         if @song.save
-          format.html { redirect_to controller: :playlist, action: :index }
+          format.html { redirect_to playlist_path }
           format.json { render :show, status: :created, location: @song }
         else
           format.html do
             flash[:alert] = @song.errors.full_messages
             session[:song] = @song
-            redirect_to controller: :playlist, action: :index
+            redirect_to playlist_path
           end
           format.json { render json: @song.errors, status: :unprocessable_entity }
         end
@@ -46,7 +46,7 @@ class SongsController < ApplicationController
         format.html do
           session[:song] = @song
           session[:confirm_episode] = true
-          redirect_to controller: :playlist, action: :index
+          redirect_to playlist_path
         end
       end
     end
@@ -66,7 +66,7 @@ class SongsController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:alert] = ['Song deleted']
-        redirect_to controller: :playlist, action: :index
+        redirect_to playlist_path
       end
       format.json { head :no_content }
     end

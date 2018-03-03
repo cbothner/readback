@@ -2,7 +2,7 @@
 - headline "Playlist Search"
 
 - content_for :sidebar do
-  = form_tag search_playlist_index_path, method: :get do
+  = form_tag search_playlist_path, method: :get do
     .field
       = label_tag "Query"
       %p.instructions
@@ -20,7 +20,7 @@
     - if @past_items.empty?
       %p No results found in the specified range of time.
     - else
-      %a#infinity{data: {action: search_playlist_index_path,
+      %a#infinity{data: {action: search_playlist_path,
                          q: params[:q],
                          offset: 1}}
     %p
