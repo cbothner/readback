@@ -10,7 +10,9 @@ class PlaylistsController < ApplicationController
     set_sidebar_variables
 
     @items = items_between HOW_FAR_BACK.ago, Time.zone.now
-    @items.prepend Episode.on_air
+    @items.prepend Episode.on_air unless playlist_editor_signed_in?
+
+    return render_edit if playlist_editor_signed_in?
 
     render layout: 'with_sidebar'
   end
@@ -86,5 +88,20 @@ class PlaylistsController < ApplicationController
     end
 
     items.sort_by(&:at).reverse
+  end
+
+  # We don’t want to expose the /playlist/edit endpoint because we *don’t* want
+  # it to be so discoverable. This hijacks the show action and adds the
+  # instance variables needed for the new song form, etc.
+  def render_edit
+    @on_air = Episode.on_air
+    set_song
+
+    render :edit, layout: 'redesign'
+  end
+
+  def set_song
+    @song = Song.new(session.delete(:song))
+    @song ||= @on_air.songs.build
   end
 end
