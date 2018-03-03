@@ -1,50 +1,6 @@
-- abridged ||= false
-%table.playlist
-  - if on_fm_computer? && !@future_items.nil?
-    %thead
-    - @future_items.each do |item|
-      %tr.grey
-        =render item
-    %tr#now.grey{class: "dj-signed-#{dj_signed_in? ? "in" : "out"}-now"}
-      %td{colspan: 6}
-        ⇧
-        %span Next up on WCBN (scroll up)
-        ⇧
-        %br
-        %i.dingbat✏︎
-        %span Edit the playlist by clicking on the mistaken text.
-        %i.dingbat✏︎
-        %br
-  - else
-    %thead
-    %tbody
-      %tr.refresh-playlist
-        %td{colspan: 6}
-          The DJ has made some changes.
-          = link_to 'Click here to refresh the playlist.', root_path(anchor: 'now')
-
-  %thead
-    - unless @on_air.nil?
-      %td Time
-      %td Artist
-      %td Song Title
-      %td Album
-      %td Label
-      %td Year
-  = message_if_episode_has_no_songs(@on_air) unless !@on_air
+%h2.kicker Playlist
+.playlist
   - @past_items.each do |item|
-    %tr
-      =render item
-    - if item.is_a?(Episode) && !abridged
-      - if !item.notes.blank? || (item.show_type == "TalkShow" && on_fm_computer?)
-        %tr
-          %td{colspan: 6}
-            = render 'episodes/shownotes', episode: item, editable: on_fm_computer? && item.notes.nil?
-      %thead
-        %td Time
-        %td Artist
-        %td Song Title
-        %td Album
-        %td Label
-        %td Year
-      = message_if_episode_has_no_songs(item)
+    .playlist-item{ class: "playlist-item--#{item.class.name.downcase}",
+                    data: { at: item.at.to_json }}
+      = render item

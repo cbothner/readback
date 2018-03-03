@@ -1,12 +1,1 @@
-- can_bip = setbreak.episode == @on_air && on_fm_computer?
-%td{colspan: 6}
-  - if can_bip
-    .delete-song=link_to '[x]', setbreak, method: :delete, data: {confirm: "Are you sure you want to delete this song?"}
-  .setbreak
-    %span
-      setbreak
-      -#= if on_fm_computer?
-      - if on_fm_computer?
-        = surround '(', ')' do
-          %span.sortable-at<
-            = best_in_place_if can_bip, setbreak, :at, display_with: ->(at){just_time at}, class: "sortable-at", inner_class: 'bip-sized', value: just_time(setbreak.at), html_attrs: {style: "max-width: 5em;"}
+%hr.setbreak

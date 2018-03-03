@@ -1,23 +1,11 @@
-%td{colspan: 6}
-  .showinfo
-    %h2=episode.show.name
-    %p.with=with episode
-    %p.time{data: {beginning: episode.beginning.strftime("%l:%M%P")}}=episode.time_string
-  - if on_fm_computer?
-    - t = episode.trainee
-    - if t && episode.shadowed.nil?
-      %h4#trainee-attendance-hdr.accent.nomargin.clickable Trainee? Click here!
-      #trainee-attendance.hidden.padbottom
-        %p.instructions
-          %strong>=t.name
-          , a DJ-in-training, is scheduled to do
-          = t.episodes.select(&:shadowed).any? ? " an apprentice" : "stage-two training"
-          with you today.  Give them some time to show up, then choose:
-        .field-beginning
-          = form_for episode do |f|
-            = f.hidden_field :shadowed, value: true
-            = f.submit "They’re here!"
-        .field-ending
-          = form_for episode do |f|
-            = f.hidden_field :shadowed, value: false
-            = f.submit "They’re not here!", data: {confirm: "You can’t undo this. Are you sure the trainee isn’t just running late?"}
+-# Episode names should be headers in the playlist, but this is overridable
+-# because they should not be headers everywhere.
+- tag ||= :h3
+
+- haml_tag tag, class: 'episode' do
+  %span.episode__time-string
+    = episode.decorate.time_string # TODO
+  = link_to episode.show.name, episode.show
+  %span.episode__dj-string
+    with
+    = link_to episode.dj
