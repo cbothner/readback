@@ -14,17 +14,18 @@ body {
   position: relative;
   margin: 0;
   padding: 0;
-  background: $color-primary image_url('paisley.svg');
+  background-color: $color-primary;
+  background-image: image_url('paisley.svg');
   color: $white;
   font-family: $font-sans;
   font-size: 100%;
   -webkit-font-smoothing: antialiased;
 }
 
-a {
+a:link {
   color: $color-primary;
+}
 
-  &:visited {
-    color: inherit;
-  }
+a:visited {
+  color: $color-primary;
 }

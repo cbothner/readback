@@ -8,7 +8,7 @@ class PlaylistController < ApplicationController
     @on_air = Episode.on_air
 
     @past_items = items_between HOW_FAR_BACK.ago, now
-    @past_items -= [@on_air]
+    @past_items.prepend @on_air
 
     @future_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
       .where(beginning: now..HOW_FAR_FORWARD.since).order(beginning: :asc)

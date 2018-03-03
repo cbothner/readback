@@ -1,36 +1,9 @@
 - title "Playlist"
 
-%aside.sidebar{class: ("sidebar-fixed" if on_fm_computer?)}
-  - if @on_air
-    %a#now-button{href: "#now"}
-      %span now
-    -#= render 'messages' unless on_fm_computer?
-    = render 'episodes/upcoming_episodes'
-    = render 'songs/form' if on_fm_computer?
-    = render 'setbreaks/form' if on_fm_computer?
-    %br
-    - if on_fm_computer?
-      = render 'episodes/shownotes', episode: @on_air, editable: true
-  .playlist-search-form
-    = form_tag search_playlist_index_path, method: :get do
-      %p.linear-field
-        = text_field_tag :q, params[:q], placeholder: "Search playlist"
-        = label_tag do
-          = link_to search_playlist_index_path do
-            %i.fa.fa-search
-
-%article.with-sidebar{class: ('scroll-up' if on_fm_computer?)}
-  - if @on_air
+.master-detail__container
+  %main.master-detail__master
     = render 'playlist'
-    .grey
-      %a#infinity{data: {action: archive_playlist_index_path,
-                         til: PlaylistController::HOW_FAR_BACK.ago.to_json,
-                         from: (PlaylistController::HOW_FAR_BACK.ago - 3.hours).to_json}}
-        = playlist_editor_signed_in? ? "Click here" : "Scroll down"
-        to load more
-  - else
-    %p.alert Readback is configured incorrectly.  There is no show currently scheduled.
+    -# TODO: #infinity{ data: { action:, from:, til: } }
 
--#<div style="position:absolute; text-align:right; border-top: 3px solid black;
--#margin-left: -215px; width: 200px;">This is a DJ comment! It should have a
--#maximum width, don't you think?</div>
+  %aside.master-detail__detail
+    = render 'application/sidebar'
