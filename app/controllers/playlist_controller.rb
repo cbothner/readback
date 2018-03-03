@@ -1,8 +1,12 @@
+# frozen_string_literal: true
+
 class PlaylistController < ApplicationController
   HOW_FAR_FORWARD = 4.hours
   HOW_FAR_BACK = 6.hours
 
   def index
+    set_sidebar_variables
+
     now = Time.zone.now
 
     @on_air = Episode.on_air
@@ -11,7 +15,7 @@ class PlaylistController < ApplicationController
     @past_items.prepend @on_air
 
     @future_episodes = Episode.includes(:dj, :songs, show: [:dj], trainee: [:episodes])
-      .where(beginning: now..HOW_FAR_FORWARD.since).order(beginning: :asc)
+                              .where(beginning: now..HOW_FAR_FORWARD.since).order(beginning: :asc)
     if playlist_editor_signed_in?
       @future_items = @future_episodes + SignoffInstance.where(at: now..HOW_FAR_FORWARD.since)
       @future_items.sort_by!(&:at).reverse!
@@ -22,19 +26,27 @@ class PlaylistController < ApplicationController
     @song ||= Song.new
     @song.episode ||= @on_air
 
-    render layout: 'redesign'
+    render layout: 'with_sidebar'
   end
 
   def archive
-    @from = Time.zone.parse(params[:from]) rescue  HOW_FAR_BACK.ago
-    @til = Time.zone.parse(params[:til]) rescue Time.zone.now
+    @from = begin
+              Time.zone.parse(params[:from])
+            rescue StandardError
+              HOW_FAR_BACK.ago
+            end
+    @til = begin
+             Time.zone.parse(params[:til])
+           rescue StandardError
+             Time.zone.now
+           end
 
     @past_items = items_between @from, @til, ensure_all_songs_have_show_info: request.format == Mime[:html]
 
     respond_to do |format|
-      format.html {render layout: 'wide'}
+      format.html { render layout: 'wide' }
       format.csv do
-        headers['Content-Disposition'] = "attachment; filename=\"wcbn-songs-#{@from.strftime "%F"}-#{@til.strftime "%F"}\""
+        headers['Content-Disposition'] = "attachment; filename=\"wcbn-songs-#{@from.strftime '%F'}-#{@til.strftime '%F'}\""
         headers['Content-Type'] ||= 'text/csv'
       end
       format.json
@@ -45,21 +57,25 @@ class PlaylistController < ApplicationController
     @offset = params[:offset].to_i
     @offset ||= 0
 
-    words = params[:q].split.map {|x| "%#{x}%"}  rescue [""]
+    words = begin
+              params[:q].split.map { |x| "%#{x}%" }
+            rescue StandardError
+              ['']
+            end
 
     # The concatenation of all four fields must match all the queries
     songs = Song
-      .where( (["(artist || name || album || label ILIKE ?)"] * words.size).join(" AND "), *words)
-      .includes(episode: [:dj])
-      .order(at: :desc)
-      .limit(25)
-      .offset(25 * @offset)
+            .where((['(artist || name || album || label ILIKE ?)'] * words.size).join(' AND '), *words)
+            .includes(episode: [:dj])
+            .order(at: :desc)
+            .limit(25)
+            .offset(25 * @offset)
     episodes = songs.map(&:episode).uniq
 
     @past_items = (songs + episodes).sort_by(&:at).reverse
 
     respond_to do |format|
-      format.html {render layout: 'headline'}
+      format.html { render layout: 'headline' }
       format.json
     end
   end
@@ -84,7 +100,5 @@ class PlaylistController < ApplicationController
     end
 
     items.sort_by(&:at).reverse
-
   end
-
 end

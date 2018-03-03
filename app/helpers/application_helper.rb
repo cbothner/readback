@@ -53,4 +53,12 @@ module ApplicationHelper
   def on_fm_computer?
     playlist_editor_signed_in?
   end
+
+  def external_link_to(*args, **kwargs, &blk)
+    link_to(
+      *args,
+      **kwargs.merge(target: '_blank', rel: 'noopener noreferrer'),
+      &blk
+    )
+  end
 end

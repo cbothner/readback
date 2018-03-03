@@ -1,0 +1,10 @@
+<div class="master-detail__container">
+  <main class="master-detail__master">
+    <%= yield %>
+  </main>
+  <aside class="master-detail__detail">
+    <%= render 'application/sidebar' %>
+  </aside>
+</div>
+
+<% parent_layout 'redesign' %>
