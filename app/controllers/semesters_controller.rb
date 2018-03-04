@@ -7,17 +7,13 @@ class SemestersController < ApplicationController
   before_action :set_semesters, only: %i[show]
   before_action :set_semester, only: %i[show edit update destroy]
 
-  layout 'with_sidebar'
-
   # GET /semesters
   def index
     redirect_to Semester.current
   end
 
   # GET /semesters/1
-  def show
-    set_sidebar_variables
-  end
+  def show; end
 
   # GET /semesters/1/edit
   def edit

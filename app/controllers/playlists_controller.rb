@@ -7,14 +7,10 @@ class PlaylistsController < ApplicationController
   before_action :authenticate_playlist_editor!, only: %i[edit]
 
   def show
-    set_sidebar_variables
-
     @items = items_between HOW_FAR_BACK.ago, Time.zone.now
     @items.prepend Episode.on_air unless playlist_editor_signed_in?
 
     return render_edit if playlist_editor_signed_in?
-
-    render layout: 'with_sidebar'
   end
 
   def archive
