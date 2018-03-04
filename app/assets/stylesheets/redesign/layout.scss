@@ -11,6 +11,7 @@
 .with-sidebar {
   &__container {
     display: flex;
+    overflow: hidden;
 
     & > *:not(:last-child) {
       margin-right: 2rem;
@@ -19,6 +20,7 @@
 
   &__main {
     flex: 1;
+    overflow: hidden;
     background-color: $white;
     color: $black;
     padding: 2rem;
@@ -28,4 +30,9 @@
     padding: 2rem 0;
     flex: 0 0 15rem;
   }
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
 }

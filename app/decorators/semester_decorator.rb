@@ -49,7 +49,7 @@ class SemesterDecorator < Draper::Decorator
 
     def start_time
       time = Time.at(0).midnight + 6.hours + seconds_since_six_am
-      time.strftime '%l:%M %P'
+      time.strftime '%l:%M %p'
     end
   end
 

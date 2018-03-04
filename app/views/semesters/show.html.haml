@@ -24,4 +24,9 @@
 
 
 - cache @semester do
+  .card__header
+    %h1.kicker
+      Show Schedule
+    = select_tag 'semesters', semesters_options
+
   = render @semester, locals: { no_links: false }
