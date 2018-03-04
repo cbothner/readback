@@ -18,7 +18,7 @@ class Event
   end
 
   def location
-    @data['location'] || ''
+    @data['location']
   end
 
   def beginning
@@ -31,7 +31,7 @@ class Event
   end
 
   def attachments
-    @data['attachments'] || []
+    @data['attachments']
   end
 
   private

@@ -1,6 +1,6 @@
 - title "Events"
 
-%div.events-heading
+%nav.events-heading
   %h2.active= link_to 'Events', events_path
   %h2= link_to 'Concerts', concerts_path
 
@@ -16,10 +16,13 @@
         %li.event
           %h4= event.title
           %p= event.beginning.formatted_time
-          %p=link_to event.location, 'https://www.google.com/maps/search/' + event.location
-          %p= event.description
-          - event.attachments.each do |a|
-            %a= link_to 'View Attachment', a['fileUrl'], alt: a['title'], target: "_blank"
+          - unless event.location.blank?
+            %p=link_to event.location, 'https://www.google.com/maps/search/' + event.location
+          - unless event.description.blank?
+            %p= event.description
+          - unless event.attachments.blank?
+            - event.attachments.each do |a|
+              %a= link_to 'View Attachment', a['fileUrl'], alt: a['title'], target: "_blank", rel: "noopener noreferrer"
   %hr
   
 %footer.events-footer
