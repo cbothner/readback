@@ -26,7 +26,23 @@
   <%= render 'application/main_header' %>
 
   <div class="max-width-container">
-  <%= yield %>
+    <div class="with-sidebar__container">
+      <% if content_for?(:sidebar) %>
+        <aside class="with-sidebar__sidebar">
+          <%= yield :sidebar %>
+        </aside>
+      <% end %>
+
+      <main class="with-sidebar__main">
+        <%= yield %>
+      </main>
+
+      <% unless content_for?(:sidebar) %>
+        <aside class="with-sidebar__sidebar">
+          <%= render 'application/sidebar' %>
+        </aside>
+      <% end %>
+    </div>
   </div
 
   <% if Rails.env.production? %>

@@ -1,6 +1,4 @@
-.with-sidebar__container
-  %aside.with-sidebar__sidebar
-    = render 'form'
+- content_for :sidebar do
+  = render 'form'
 
-  %main.with-sidebar__main
-    = render 'playlist'
+= render 'playlist'
