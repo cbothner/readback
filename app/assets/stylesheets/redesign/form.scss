@@ -28,6 +28,41 @@ input[type='radio'] {
   margin-top: 10px;
 }
 
+input[type='submit'],
+button {
+  padding: 5px 6px;
+  border: none;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2),
+    inset 0 -1px 0 rgba(16, 22, 26, 0.1);
+  background-color: #f5f8fa;
+  background-image: linear-gradient(
+    180deg,
+    hsla(0, 0%, 100%, 0.8),
+    hsla(0, 0%, 100%, 0)
+  );
+  color: #182026;
+  font-family: Rubik;
+  font-size: 15px;
+  font-weight: 500;
+  color: $color-primary;
+
+  &:hover {
+    box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2),
+      inset 0 -1px 0 rgba(16, 22, 26, 0.1);
+    background-clip: padding-box;
+    background-color: #ebf1f5;
+    cursor: pointer;
+  }
+
+  &:active {
+    box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2),
+      inset 0 1px 2px rgba(16, 22, 26, 0.2);
+    background-color: #d8e1e8;
+    background-image: none;
+  }
+}
+
 .form {
   &__row {
     display: flex;
@@ -55,7 +90,7 @@ input[type='radio'] {
       input {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
-        border-right: none;
+        border-right: none !important;
       }
     }
   }
@@ -64,16 +99,31 @@ input[type='radio'] {
 .with-sidebar__sidebar {
   input {
     border: 1px solid $white;
-    background-color: transparent;
     box-shadow: none;
     font-weight: 500;
-    color: $white;
 
     transition: background-color 0.1s ease-out;
 
+    &:not([type='submit']) {
+      background-color: transparent;
+      color: $white;
+
+      &:focus {
+        background-color: #ffffff30;
+      }
+    }
+
     &:focus {
       outline: none;
-      background-color: #ffffff30;
+    }
+  }
+
+  input[type='submit'],
+  button {
+    box-shadow: none;
+
+    &:focus {
+      outline: white 3px auto;
     }
   }
 }
