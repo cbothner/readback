@@ -1,7 +1,5 @@
-@import '../_variables';
-
 .with-sidebar__sidebar a {
-  color: $white;
+  color: var(--color-primary__contrast);
 }
 
 .sidebar__item {

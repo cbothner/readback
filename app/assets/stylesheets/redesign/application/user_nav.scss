@@ -1,5 +1,3 @@
-@import '../_variables';
-
 .user-nav {
   position: relative;
   padding: 0.5rem 0;
@@ -16,16 +14,16 @@
     position: absolute;
 
     & a {
-      color: $color-accent !important;
+      color: var(--color-accent) !important;
     }
   }
 
   &--active {
-    background-color: $color-accent;
-    border-bottom: 3px solid $color-accent--dark;
+    background-color: var(--color-accent);
+    border-bottom: 3px solid var(--color-accent--dark);
 
     & a {
-      color: $black !important;
+      color: var(--color-accent__contrast) !important;
     }
   }
 }
