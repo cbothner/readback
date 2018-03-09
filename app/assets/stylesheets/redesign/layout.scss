@@ -21,8 +21,8 @@
   &__main {
     flex: 1;
     overflow: hidden;
-    background-color: $white;
-    color: $black;
+    background-color: var(--white);
+    color: var(--black);
     padding: 2rem;
   }
 
@@ -34,5 +34,11 @@
 
 .card__header {
   display: flex;
+  align-items: baseline;
   justify-content: space-between;
+
+  button {
+    font-size: 14px;
+    margin-left: 6px;
+  }
 }

@@ -10,7 +10,7 @@
   <%= csrf_meta_tags %>
 </head>
 
-<body>
+<body style="<%= theme_colors %>">
   <% if flash[:notice] %>
     <div class="flash flash--notice">
       <p><%= flash[:notice] %></p>

@@ -1,4 +1,4 @@
-@import '_variables';
+@import '_functions';
 
 label {
   margin: 6px 0;
@@ -45,7 +45,7 @@ button {
   font-family: Rubik;
   font-size: 15px;
   font-weight: 500;
-  color: $color-primary;
+  color: var(--color-primary--dark);
 
   &:hover {
     box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2),
@@ -98,7 +98,7 @@ button {
 
 .with-sidebar__sidebar {
   input {
-    border: 1px solid $white;
+    border: 1px solid var(--color-primary__contrast);
     box-shadow: none;
     font-weight: 500;
 
@@ -106,10 +106,10 @@ button {
 
     &:not([type='submit']) {
       background-color: transparent;
-      color: $white;
+      color: var(--color-primary__contrast);
 
       &:focus {
-        background-color: #ffffff30;
+        background-color: css-rgba(var(--color-primary__contrast--rgb), 0.2);
       }
     }
 
@@ -121,9 +121,11 @@ button {
   input[type='submit'],
   button {
     box-shadow: none;
+    background: var(--color-primary__contrast);
+    color: var(--color-primary);
 
     &:focus {
-      outline: white 3px auto;
+      outline: var(--color-primary__contrast) 3px auto;
     }
   }
 }

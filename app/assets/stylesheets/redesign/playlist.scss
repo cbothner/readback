@@ -1,4 +1,5 @@
 @import '_variables';
+@import '_functions';
 
 .playlist__form {
   .episode {
@@ -25,7 +26,7 @@
     right: 3px;
 
     &:focus {
-      outline: $color-primary auto 5px;
+      outline: var(--color-primary__contrast) auto 5px;
     }
   }
 
@@ -36,7 +37,7 @@
     left: 0;
     width: 100%;
     height: 30px;
-    border: 1px solid $white;
+    border: 1px solid var(--color-primary__contrast);
     border-left: none;
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
@@ -45,7 +46,7 @@
 
   input[type='checkbox']:checked + &__background,
   input[type='checkbox']:focus + &__background {
-    background-color: $white;
+    background-color: var(--color-primary__contrast);
   }
 }
 
@@ -54,5 +55,5 @@
   + .song__flag
   input:not(:checked)
   + .song__flag__background {
-  background-color: #ffffff30;
+  background-color: css-rgba(var(--color-primary__contrast--rgb), 0.2);
 }

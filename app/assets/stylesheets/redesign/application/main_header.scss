@@ -1,5 +1,3 @@
-@import '../_variables';
-
 .main-header {
   display: flex;
   align-items: center;
@@ -8,7 +6,7 @@
   padding-bottom: 3rem;
 
   & a {
-    color: $white;
+    color: var(--color-primary__contrast);
     font-size: 17px;
     font-weight: 600;
     letter-spacing: -0.2px;
@@ -19,6 +17,7 @@
     align-items: center;
 
     & .wcbn-logo {
+      fill: var(--color-primary__contrast);
       margin-right: 2rem;
     }
   }
