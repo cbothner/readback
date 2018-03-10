@@ -3,7 +3,7 @@
  */
 
 import * as React from 'react'
-import { render } from 'react-dom'
+import ReactOnRails from 'react-on-rails'
 
 import { ThemeProvider } from 'styled-components'
 import theme from 'styled/theme'
@@ -13,12 +13,12 @@ import withPlaylistChannel from 'channels/PlaylistChannel'
 
 const PlayerWithPlaylistChannel = withPlaylistChannel(Player)
 
-const container = document.getElementById('player-app')
-if (container) {
-  render(
-    <ThemeProvider theme={theme}>
-      <PlayerWithPlaylistChannel />
-    </ThemeProvider>,
-    container
-  )
-}
+const Component = () => (
+  <ThemeProvider theme={theme}>
+    <PlayerWithPlaylistChannel />
+  </ThemeProvider>
+)
+
+ReactOnRails.register({
+  Player: Component,
+})
