@@ -6,6 +6,8 @@ class PlaylistsController < ApplicationController
 
   before_action :authenticate_playlist_editor!, only: %i[edit]
 
+  with_theme :lime
+
   def show
     @items = items_between HOW_FAR_BACK.ago, Time.zone.now
     @items.prepend Episode.on_air unless playlist_editor_signed_in?

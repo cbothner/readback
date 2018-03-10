@@ -9,12 +9,13 @@
       = "#{@semester.start} – #{@semester.end}"
 
     .card__header
-      = select_tag 'semesters', semesters_options
-      = button_to new_semester_clone_path(@semester), method: :get do
-        %i.far.fa-clone
+      .pt-select
+        = select_tag 'semesters', semesters_options
+      = button_to new_semester_clone_path(@semester),
+                  method: :get, class: %w[pt-button pt-icon-duplicate] do
         Clone
-      = button_to edit_semester_path(@semester), method: :get do
-        %i.far.fa-edit
+      = button_to edit_semester_path(@semester),
+                  method: :get, class: %w[pt-button pt-icon-edit] do
         Edit
 
   = render @semester, locals: { no_links: false }

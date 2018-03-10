@@ -26,4 +26,8 @@
       color: var(--color-accent__contrast) !important;
     }
   }
+
+  :focus {
+    outline-color: var(--color-accent__contrast);
+  }
 }
