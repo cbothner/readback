@@ -39,7 +39,7 @@ Theme = Struct.new(:primary, :accent) do
   end
 
   {
-    black:  :white,
+    black:  :pink,
     blue:  :orange,
     brown:  :lime,
     coffee:  :forest_green,
