@@ -6,7 +6,7 @@ class PlaylistsController < ApplicationController
 
   before_action :authenticate_playlist_editor!, only: %i[edit]
 
-  with_theme :lime
+  with_theme :plum
 
   def show
     @items = items_between HOW_FAR_BACK.ago, Time.zone.now
