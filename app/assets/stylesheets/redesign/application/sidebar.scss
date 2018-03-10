@@ -1,5 +1,10 @@
-.with-sidebar__sidebar a {
-  color: var(--color-primary__contrast);
+.with-sidebar__sidebar {
+  :focus {
+    outline-color: var(--color-primary__contrast);
+  }
+  a {
+    color: var(--color-primary__contrast);
+  }
 }
 
 .sidebar__item {
