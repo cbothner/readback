@@ -5,11 +5,12 @@
     WCBN-FM <%= content_for?(:title) ? " — " + content_for(:title): "" %>
   </title>
 
-  <%= javascript_pack_tag 'styles', data: { turbolinks_track: true } %> 
+  <%= javascript_pack_tag 'styles', data: { turbolinks_track: true } %>
   <%= stylesheet_pack_tag 'styles', data: { turbolinks_track: true } %>
   <%= stylesheet_link_tag 'redesign', media: 'all', data: { turbolinks_track: true } %>
   <%= javascript_include_tag 'application', data: { turbolinks_track: true } %>
   <%= csrf_meta_tags %>
+  <%= yield :head %>
 </head>
 
 <body style="<%= theme_colors %>">

@@ -22,18 +22,7 @@ body {
   font-size: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-a:link {
-  color: var(--color-primary--dark);
-  text-decoration: underline;
-}
-
-a:visited {
-  color: var(--color-primary--dark);
-}
-
-body {
   --color-primary: rgba(var(--color-primary--rgb));
   --color-primary--dark: rgba(var(--color-primary--dark--rgb));
   --color-primary__contrast: rgba(var(--color-primary__contrast--rgb));
@@ -44,4 +33,12 @@ body {
 
   --white: rgba(var(--white--rgb));
   --black: rgba(var(--black--rgb));
+}
+
+a:link {
+  text-decoration: underline;
+
+  .pt-menu & {
+    text-decoration: none;
+  }
 }
