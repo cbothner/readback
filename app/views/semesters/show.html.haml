@@ -11,11 +11,16 @@
     .card__header
       .pt-select
         = select_tag 'semesters', semesters_options
-      = button_to new_semester_clone_path(@semester),
-                  method: :get, class: %w[pt-button pt-icon-duplicate] do
-        Clone
-      = button_to edit_semester_path(@semester),
-                  method: :get, class: %w[pt-button pt-icon-edit] do
-        Edit
+      - if dj_signed_in? && current_dj.can_create?(Semester)
+        = react_component 'Options', prerender: true,
+          props: { items: [ { text: 'Clone',
+                              icon: 'duplicate',
+                              href: new_semester_clone_path(@semester)},
+                            { text: 'Edit',
+                              icon: 'edit',
+                              href: edit_semester_path(@semester) } ] }
 
   = render @semester, locals: { no_links: false }
+
+- content_for :head do
+  = javascript_pack_tag 'options'
