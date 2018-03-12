@@ -38,5 +38,5 @@ ReactOnRails.configure do |config|
   # file is typically different. You should have ONE server bundle which can
   # create all of your server rendered React components.
   #
-  config.server_bundle_js_file = 'index.js'
+  config.server_bundle_js_file = 'server.js'
 end
