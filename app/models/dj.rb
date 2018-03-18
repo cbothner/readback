@@ -10,6 +10,8 @@ class Dj < ActiveRecord::Base
   rolify
 
   has_and_belongs_to_many :specialty_shows
+  has_many :coordinated_specialty_shows, class_name: 'SpecialtyShow',
+                                         foreign_key: :coordinator_id
   has_many :freeform_shows
   has_many :talk_shows
 
@@ -46,7 +48,11 @@ class Dj < ActiveRecord::Base
   end
 
   def shows
-    freeform_shows + specialty_shows + talk_shows
+    freeform_shows + all_specialty_shows + talk_shows
+  end
+
+  def all_specialty_shows
+    (specialty_shows + coordinated_specialty_shows).uniq
   end
 
   def website_name

@@ -23,22 +23,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --color-primary: rgba(var(--color-primary--rgb));
-  --color-primary--dark: rgba(var(--color-primary--dark--rgb));
-  --color-primary__contrast: rgba(var(--color-primary__contrast--rgb));
+  --color-primary: rgba(var(--color-primary--rgb), 1);
+  --color-primary--dark: rgba(var(--color-primary--dark--rgb), 1);
+  --color-primary__contrast: rgba(var(--color-primary__contrast--rgb), 1);
 
-  --color-accent: rgba(var(--color-accent--rgb));
-  --color-accent--dark: rgba(var(--color-accent--dark--rgb));
-  --color-accent__contrast: rgba(var(--color-accent__contrast--rgb));
+  --color-accent: rgba(var(--color-accent--rgb), 1);
+  --color-accent--dark: rgba(var(--color-accent--dark--rgb), 1);
+  --color-accent__contrast: rgba(var(--color-accent__contrast--rgb), 1);
 
-  --white: rgba(var(--white--rgb));
-  --black: rgba(var(--black--rgb));
+  --white: rgba(var(--white--rgb), 1);
+  --black: rgba(var(--black--rgb), 1);
 }
 
 a:link {
   text-decoration: underline;
 
-  .pt-menu & {
+  .pt-menu &,
+  &.pt-button {
     text-decoration: none;
   }
 }

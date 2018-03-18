@@ -1,0 +1,80 @@
+.dj__metadata {
+  margin-bottom: 2em;
+}
+
+.profile-pic {
+  height: 4em;
+  width: 4em;
+  margin-right: 1em;
+}
+
+.profile-pic.robot {
+  height: 10em;
+  width: 10em;
+  margin: -1.3em 0.5em -1.3em -0.6em;
+}
+
+.dj__name {
+  h1 {
+    margin: 0.25em 0 0;
+    font-size: 190%;
+    line-height: 1.1;
+  }
+
+  p {
+    margin: 0;
+    &.pt-button-group {
+      margin-top: 10px;
+    }
+  }
+}
+
+.dj__story {
+  display: flex;
+  justify-content: center;
+}
+
+.dj__biography:last-child {
+  margin: 0 10em;
+}
+
+@import '_typography';
+.dj__lists {
+  flex-shrink: 0;
+  height: 100%;
+  width: 20em;
+  margin-left: 2em;
+  font-size: 90%;
+
+  ul,
+  ol {
+    padding-left: 1em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include kicker;
+  }
+}
+
+.dj__shows {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.dj__show {
+  font-size: 15px;
+
+  strong {
+    font-weight: 500;
+    display: block;
+  }
+}

@@ -86,18 +86,9 @@ module Show
   end
 
   def time_string(html: true)
-    w = "#{%w[Sunday Monday Tuesday Wednesday Thursday Friday
-              Saturday][weekday]}s"
-    if html
-      <<~HTML.html_safe
-        <span style="display:inline-table">
-          (#{w},
-          #{beginning.strftime('%l:%M')} &ndash; #{ending.strftime('%l:%M%P')})
-        </span>
-    HTML
-    else
-      "(#{w}, #{beginning.strftime '%-l:%M'}–#{ending.strftime '%-l:%M%P'})"
-    end
+    w = %w[Sunday Monday Tuesday Wednesday Thursday Friday
+           Saturday][weekday].to_s
+    "#{w}, #{beginning.strftime '%-l:%M'}–#{ending.strftime '%-l:%M%P'}"
   end
 
   def seconds_since_six_am
