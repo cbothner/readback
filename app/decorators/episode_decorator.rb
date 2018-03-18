@@ -6,10 +6,18 @@ class EpisodeDecorator < Draper::Decorator
 
   delegate_all
 
+  def date_string
+    h.localize beginning.to_date, format: :long
+  end
+
   def time_string
     return until_ending if range.include? Time.zone.now
     return range_string if beginning.today?
     absolute_time_string
+  end
+
+  def activity
+    ActivityFormatter.for(model)
   end
 
   private

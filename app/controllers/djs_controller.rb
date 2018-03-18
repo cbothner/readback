@@ -31,10 +31,17 @@ class DjsController < ApplicationController
   def show
     @shows = @dj.shows
                 .sort_by(&:semester)
+                .reverse
                 .reject { |x| x.semester.future? }
                 .group_by(&:unambiguous_name)
-    @recent_episodes = @dj.episodes.where('beginning < ?', Time.zone.now)
-                          .order(beginning: :desc).first(5)
+                .sort_by { |_, shows| shows.first.class.name }
+                .sort_by { |_, shows| -shows.length }
+
+    @recent_episodes = @dj.episodes
+                          .where('beginning < ?', Time.zone.now)
+                          .order(beginning: :desc)
+                          .limit(10)
+                          .decorate
   end
 
   # GET /djs/new
