@@ -13,6 +13,9 @@
     "RAILS_ENV": {
       "required": true
     },
+    "RAILS_MASTER_KEY": {
+      "required": true
+    },
     "RAILS_SERVE_STATIC_FILES": {
       "required": true
     },
