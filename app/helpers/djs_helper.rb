@@ -51,7 +51,9 @@ module DjsHelper
   end
 
   def dj_profile_url(dj)
-    return url_for(dj.avatar) if dj.avatar.attached?
+    if dj.avatar.attached?
+      return url_for(dj.avatar.variant(thumbnail: '128x128^'))
+    end
 
     dj.robot_picture_url
   end
