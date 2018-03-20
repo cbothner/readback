@@ -50,10 +50,8 @@ module DjsHelper
     content_tag :img, nil, class: ['profile-pic', ('robot' unless dj.avatar.attached?)], src: dj_profile_url(dj)
   end
 
-  def dj_profile_url(dj)
-    if dj.avatar.attached?
-      return url_for(dj.avatar.variant(thumbnail: '128x128^'))
-    end
+  def dj_profile_url(dj, variant: { thumbnail: '128x128^' })
+    return polymorphic_url dj.avatar.variant variant if dj.avatar.attached?
 
     dj.robot_picture_url
   end
