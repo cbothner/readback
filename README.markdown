@@ -62,13 +62,15 @@ For Program Director:
 
 # Docker
 
-##Build the Project
+## Build the Project
+
 `docker-compose run web rails new . --force --database=postgresql`
 
 Some changes require only `docker-compose up --build` but a full rebuild requires
 a re-run of `docker-compose run web bundle install`
 
-##Create the database
+## Create the database
+
 `docker-compose run web rake db:create`
 
 [At some point you might have to `rm sudo rm tmp/pids/server.pid`](https://stackoverflow.com/questions/35022428/rails-server-is-still-running-in-a-new-opened-docker-container)
