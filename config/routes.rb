@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     get :archive, on: :collection
   end
 
+  get '/prod-a-calendar' => redirect('https://calendar.google.com/calendar/embed?src=jjdakqoft456pv0rur6nrj27ro%40group.calendar.google.com&ctz=America%2FNew_York')
+
   resources :semesters, only: %i[index create show edit] do
     resource :clone, module: :semesters, only: %i[new create]
 

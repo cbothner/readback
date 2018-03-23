@@ -29,6 +29,7 @@
         <%= raw "#{link_to("Phone List", djs_path(format: :pdf))} • "%>
       <% end %>
       <%= raw "#{link_to("Trainees", trainees_path)} • " if current_dj.can_read? Trainee %>
+      <%= link_to "Prod A Calendar", "prod-a-calendar" %> •
       <%= link_to "Sub Board", sub_requests_path %> &mdash;
       <%= link_to current_dj.name, current_dj %>
       [<%= link_to "Log out", destroy_dj_session_path, method: :delete %>]
