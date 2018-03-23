@@ -2,8 +2,14 @@ version: '3'
 services:
   db:
     image: postgres
+    hostname: postgres
+    environment:
+      POSTGRES_PORT_5432_TCP_PORT: 5432
+    ports:
+      - "5432:5432"
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
+    restart: always
   web:
     # use the Dockerfile next to this file
     build: .
@@ -13,6 +19,6 @@ services:
     volumes:
       - .:/myapp
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - db
