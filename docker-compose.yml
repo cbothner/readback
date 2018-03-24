@@ -2,22 +2,11 @@ version: '3'
 services:
   db:
     image: postgres
-    hostname: postgres
-    environment:
-      POSTGRES_PORT_5432_TCP_PORT: 5432
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
-    restart: always
   web:
-    # use the Dockerfile next to this file
     build: .
-    # sources environment variable configuration for our app
-    # env_file: .env
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     volumes:
-      - .:/myapp
+      - .:/readback
     ports:
       - "3000:3000"
     depends_on:
