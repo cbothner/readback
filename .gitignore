@@ -34,3 +34,8 @@ dump.rdb
 # Test metadata
 spec/examples.txt
 coverage
+
+/storage
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

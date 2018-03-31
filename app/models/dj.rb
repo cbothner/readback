@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dj < ActiveRecord::Base
   include Person
 
@@ -14,6 +16,8 @@ class Dj < ActiveRecord::Base
   has_many :episodes
 
   has_one :trainee
+
+  has_one_attached :avatar
 
   serialize :roles, Array
 
@@ -47,14 +51,6 @@ class Dj < ActiveRecord::Base
 
   def website_name
     URI.parse(website || (return nil)).host.sub('www.', '')
-  end
-
-  def image_url
-    has_custom_picture? ? profile_picture : robot_picture_url
-  end
-
-  def has_custom_picture?
-    false
   end
 
   def robot_picture_url

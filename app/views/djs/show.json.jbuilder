@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 json.dj_name @dj.to_s
-json.extract! @dj, :id, :real_name_is_public, :image_url, :about, :website, :public_email
+json.extract! @dj, :id, :real_name_is_public, :about, :website, :public_email
+json.image_url dj_profile_url @dj, variant: { thumbnail: '320x320^' }
 json.real_name @dj.real_name_is_public ? @dj.name : nil
 json.shows @shows do |show_name, shows|
   json.name show_name

@@ -104,6 +104,7 @@ class DjsController < ApplicationController
     params.require(:dj).permit(:name, :phone, :email, :umid, :um_affiliation,
                                :um_dept, :experience, :referral, :interests,
                                :statement, :real_name_is_public, :dj_name,
-                               :website, :public_email, :about, :lists, :active)
+                               :website, :public_email, :about, :lists, :active,
+                               :avatar)
   end
 end
