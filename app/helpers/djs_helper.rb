@@ -2,8 +2,9 @@
 
 module DjsHelper
   def interest_link(name)
-    '<input type="button" class="interest-link" data-interest="' + name + '" value="' +
-      name + '" />'
+    content_tag :input, nil,
+                type: 'button', class: %w[interest-link], value: name,
+                data: { interest: name }
   end
 
   def interest_links(list)
@@ -31,7 +32,10 @@ module DjsHelper
   end
 
   def roles_for_roster(dj)
-    current_semester_shows = dj.shows.select { |x| x.semester == Semester.current }
+    current_semester_shows = dj.shows.select do |x|
+      x.semester == Semester.current
+    end
+
     if current_semester_shows.empty?
       'Sub Only'
     else
@@ -47,7 +51,9 @@ module DjsHelper
   end
 
   def profile_picture(dj)
-    content_tag :img, nil, class: ['profile-pic', ('robot' unless dj.avatar.attached?)], src: dj_profile_url(dj)
+    content_tag :img, nil,
+                class: ['profile-pic', ('robot' unless dj.avatar.attached?)],
+                src: dj_profile_url(dj)
   end
 
   def dj_profile_url(dj, variant: { thumbnail: '128x128^' })
