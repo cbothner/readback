@@ -1,0 +1,60 @@
+@import '_variables';
+
+.max-width-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  max-width: $max-width;
+}
+
+.with-sidebar {
+  &__container {
+    display: flex;
+    overflow: hidden;
+
+    & > *:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+
+  &__main {
+    flex: 1;
+    overflow: hidden;
+    background-color: var(--white);
+    color: var(--black);
+    padding: 2rem;
+    border-radius: 3px;
+  }
+
+  &__sidebar {
+    padding: 2rem 0;
+    flex: 0 0 15rem;
+  }
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+
+  .card__header {
+    height: 100%;
+  }
+
+  & button,
+  & .pt-button {
+    font-size: 14px;
+
+    &:not(:first-child) {
+      margin-left: 6px;
+    }
+  }
+}
+
+.row {
+  display: flex;
+
+  &.wrap {
+    flex-flow: wrap;
+  }
+}

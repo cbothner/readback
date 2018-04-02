@@ -3,6 +3,15 @@
 module ApplicationHelper
   LATEX_SUBSTITUTIONS = { '“': '``', '”': "''", '‘': '`', '’': "'" }.freeze
 
+  # TODO
+  def page_path(*_args)
+    '/'
+  end
+
+  def events_path
+    '/'
+  end
+
   def parent_layout(layout)
     @view_flow.set(:layout, output_buffer)
     self.output_buffer = render(file: "layouts/#{layout}")
@@ -43,5 +52,28 @@ module ApplicationHelper
 
   def on_fm_computer?
     playlist_editor_signed_in?
+  end
+
+  def external_link_to(*args, **kwargs, &blk)
+    link_to(
+      *args,
+      **kwargs.merge(target: '_blank', rel: 'noopener noreferrer'),
+      &blk
+    )
+  end
+
+  def theme_colors
+    <<~CSS.squish
+      --color-primary--rgb: #{@theme.primary.bright};
+      --color-primary--dark--rgb: #{@theme.primary.dark};
+      --color-primary__contrast--rgb: #{@theme.primary.contrast};
+
+      --color-accent--rgb: #{@theme.accent.bright};
+      --color-accent--dark--rgb: #{@theme.accent.dark};
+      --color-accent__contrast--rgb: #{@theme.accent.contrast};
+
+      --white--rgb: #{Color.white.bright};
+      --black--rgb: #{Color.black.dark};
+    CSS
   end
 end

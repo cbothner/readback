@@ -1,0 +1,37 @@
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+
+  & a {
+    color: var(--color-primary__contrast);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+
+    & a {
+      margin-right: 2rem;
+    }
+
+    & .wcbn-logo {
+      fill: var(--color-primary__contrast);
+    }
+  }
+
+  &__nav {
+    & a {
+      margin-left: 1.25rem;
+    }
+  }
+
+  :focus {
+    outline-color: var(--color-primary__contrast);
+  }
+}

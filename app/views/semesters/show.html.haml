@@ -1,27 +1,31 @@
-:ruby
-  title 'Show Schedule'
-  headline "#{'Active ' if @semester == Semester.current}WCBN Schedule "
+- content_for :head do
+  = javascript_pack_tag 'options'
+  = javascript_pack_tag 'selectNav'
 
-  if dj_signed_in? && current_dj.can_update?(Semester)
-    edit_link = link_to 'edit schedule', edit_semester_path(@semester)
-    conditional_edit_link = " &nbsp;&nbsp;[#{edit_link}]"
-  end
-  subtitle raw "#{@semester.start} – #{@semester.end}#{conditional_edit_link}"
-
-- content_for :sidebar do
-  %h4.no-margin All Schedules
-  %ul.semesters
-    - @semesters.each do |semester|
-      - if (current_dj || Dj.new).can_read?(semester)
-        %li{ class: ('arrow' if semester == Semester.current) }
-          %span{ class: ('highlight' if semester == @semester) }
-            = '→ ' if semester == Semester.current
-            = link_to semester.season, semester
-          - if dj_signed_in? && current_dj.can_create?(Semester)
-            .copy
-              = surround '[', ']' do
-                = link_to 'copy', new_semester_clone_path(semester.id)
-
+- title 'Show Schedule'
 
 - cache @semester do
+  .card__header
+    %h1.kicker
+      = 'Active' if @semester.range.cover? Date.today
+      Show Schedule
+      %br
+      = "#{@semester.start} – #{@semester.end}"
+
+    .card__header
+      .pt-select
+        = react_component 'SelectNav', prerender: true,
+          props: { items: @semesters.map { |s| { text: s.season,
+                                                 url: semester_path(s) } },
+                   selectedUrl: semester_path(@semester) }
+
+      - if dj_signed_in? && current_dj.can_create?(Semester)
+        = react_component 'Options', prerender: true,
+          props: { items: [ { text: 'Clone',
+                              icon: 'duplicate',
+                              href: new_semester_clone_path(@semester)},
+                            { text: 'Edit',
+                              icon: 'edit',
+                              href: edit_semester_path(@semester) } ] }
+
   = render @semester, locals: { no_links: false }

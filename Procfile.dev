@@ -1,2 +1,4 @@
 web: bin/rails server -p 4000
 sidekiq: bundle exec sidekiq -c 1
+webpack-client: bin/webpack -w
+webpack-server: NODE_ENV=server bin/webpack -w

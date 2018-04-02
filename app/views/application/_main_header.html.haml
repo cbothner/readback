@@ -1,0 +1,15 @@
+%header.main-header.max-width-container
+  .main-header__logo
+    = link_to root_path do
+      = inline_svg 'wcbn.svg', aria: true, title: 'WCBN', class: 'wcbn-logo'
+
+    %span.player-widget
+      %i.fas.fa-play-circle.player-widget__button
+      %a{ href: '#' } Listen Live
+
+  %nav.main-header__nav
+    = link_to 'About', page_path('about')
+    = link_to 'Events', events_path
+    = link_to 'Schedule', semester_path(Semester.current)
+    = link_to 'Playlist', playlist_path
+    = link_to 'Donate', page_path('donate')

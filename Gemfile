@@ -26,6 +26,8 @@ gem 'redis', '~> 3.0'
 gem 'sidekiq'
 # Monitoring
 gem 'newrelic_rpm', group: :production
+# JS Runtime for server-side rendering
+gem 'mini_racer', platforms: :ruby
 # File Storage
 gem 'aws-sdk-s3', require: false
 gem 'mini_magick'
@@ -57,12 +59,16 @@ gem 'rails-latex'
 gem 'redcarpet'
 # For so I only have to write the emails once.
 gem 'maildown'
+# Inline SVGs can be styled with CSS
+gem 'inline_svg'
 
 ##############
 # JavaScript #
 ##############
 # Webpacker for the npm ecosystem
 gem 'webpacker', '~> 3.0'
+# React on Rails gives us server rendering and easy components in rails views
+gem 'react_on_rails', '10.1.3' # Exact to match NPM
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

@@ -1,0 +1,33 @@
+.episode {
+  margin: 16px 0;
+  font-size: 19px;
+  line-height: 1.22;
+  font-weight: 600;
+  color: unset;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &__time-string {
+    font-size: 12px;
+    font-weight: 400;
+    display: block;
+  }
+
+  &__dj-string {
+    font-size: 14px;
+    font-weight: 400;
+    display: block;
+  }
+}
+
+// Within playlist
+.playlist .episode {
+  margin: 22px 0;
+  font-size: 22px;
+
+  &__dj-string {
+    font-size: 16px;
+  }
+}

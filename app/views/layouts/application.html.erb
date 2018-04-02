@@ -72,8 +72,10 @@
 <%= yield %>
 
 <% unless on_fm_computer? %>
-<div id="player-app" data-turbolinks-permanent />
 <%= javascript_pack_tag 'player' %>
+<%= react_component 'player',
+                    prerender: true,
+                    html_options: { data: { turbolinks_permanent: true } } %>
 </div>
 <% end %>
 
