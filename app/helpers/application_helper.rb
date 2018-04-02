@@ -1,15 +1,20 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
+  LATEX_SUBSTITUTIONS = { '“': '``', '”': "''", '‘': '`', '’': "'" }.freeze
+
   def parent_layout(layout)
     @view_flow.set(:layout, output_buffer)
     self.output_buffer = render(file: "layouts/#{layout}")
   end
 
-  def lesc(text)
-    text ||= ''
-    [['“', '``'], ['”', "''"], ['‘', '`'], ['’', "'"]].each do |a, b|
-      text.sub! a, b
+  def lesc(text = '')
+    escaped = text.gsub(/./) do |char|
+      next char unless LATEX_SUBSTITUTIONS.key? char
+      LATEX_SUBSTITUTIONS[char]
     end
-    LatexToPdf.escape_latex(text)
+
+    LatexToPdf.escape_latex escaped
   end
 
   %i[title headline back_link subtitle]
