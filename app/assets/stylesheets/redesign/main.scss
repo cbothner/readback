@@ -14,9 +14,10 @@ body {
   position: relative;
   margin: 0;
   padding: 0;
-  background-color: $color-primary;
-  background-image: image_url('paisley.svg');
-  color: $white;
+  background-color: var(--color-primary);
+  background-image: image-url('paisley.svg');
+  background-blend-mode: overlay;
+  color: var(--color-primary__contrast);
   font-family: $font-sans;
   font-size: 100%;
   -webkit-font-smoothing: antialiased;
@@ -24,9 +25,23 @@ body {
 }
 
 a:link {
-  color: $color-primary;
+  color: var(--color-primary--dark);
+  text-decoration: underline;
 }
 
 a:visited {
-  color: $color-primary;
+  color: var(--color-primary--dark);
+}
+
+body {
+  --color-primary: rgba(var(--color-primary--rgb));
+  --color-primary--dark: rgba(var(--color-primary--dark--rgb));
+  --color-primary__contrast: rgba(var(--color-primary__contrast--rgb));
+
+  --color-accent: rgba(var(--color-accent--rgb));
+  --color-accent--dark: rgba(var(--color-accent--dark--rgb));
+  --color-accent__contrast: rgba(var(--color-accent__contrast--rgb));
+
+  --white: rgba(var(--white--rgb));
+  --black: rgba(var(--black--rgb));
 }

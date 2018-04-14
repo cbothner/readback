@@ -1,66 +1,8 @@
-@import '_variables';
+@import '_functions';
 
 label {
-  margin: 6px 0;
   font-size: 14px;
   font-weight: 500;
-
-  input {
-    margin-top: 3px;
-  }
-}
-
-input {
-  padding: 5px 6px;
-  border: none;
-  box-shadow: 0 0 0 0 rgba(19, 124, 189, 0), 0 0 0 0 rgba(19, 124, 189, 0),
-    inset 0 0 0 1px rgba(16, 22, 26, 0.15),
-    inset 0 1px 1px rgba(16, 22, 26, 0.2);
-  border-radius: 2px;
-  font-family: Rubik;
-  font-size: 15px;
-}
-
-input[type='checkbox'],
-input[type='radio'] {
-  width: 16px !important;
-  height: 18px;
-  margin-top: 10px;
-}
-
-input[type='submit'],
-button {
-  padding: 5px 6px;
-  border: none;
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2),
-    inset 0 -1px 0 rgba(16, 22, 26, 0.1);
-  background-color: #f5f8fa;
-  background-image: linear-gradient(
-    180deg,
-    hsla(0, 0%, 100%, 0.8),
-    hsla(0, 0%, 100%, 0)
-  );
-  color: #182026;
-  font-family: Rubik;
-  font-size: 15px;
-  font-weight: 500;
-  color: $color-primary;
-
-  &:hover {
-    box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2),
-      inset 0 -1px 0 rgba(16, 22, 26, 0.1);
-    background-clip: padding-box;
-    background-color: #ebf1f5;
-    cursor: pointer;
-  }
-
-  &:active {
-    box-shadow: inset 0 0 0 1px rgba(16, 22, 26, 0.2),
-      inset 0 1px 2px rgba(16, 22, 26, 0.2);
-    background-color: #d8e1e8;
-    background-image: none;
-  }
 }
 
 .form {
@@ -74,6 +16,10 @@ button {
     input {
       display: block;
       width: 100%;
+    }
+
+    .pt-fill {
+      flex: 1;
     }
   }
 
@@ -98,7 +44,7 @@ button {
 
 .with-sidebar__sidebar {
   input {
-    border: 1px solid $white;
+    border: 1px solid var(--color-primary__contrast);
     box-shadow: none;
     font-weight: 500;
 
@@ -106,10 +52,11 @@ button {
 
     &:not([type='submit']) {
       background-color: transparent;
-      color: $white;
+      color: var(--color-primary__contrast);
 
       &:focus {
-        background-color: #ffffff30;
+        box-shadow: none;
+        background-color: css-rgba(var(--color-primary__contrast--rgb), 0.2);
       }
     }
 
@@ -118,12 +65,36 @@ button {
     }
   }
 
+  .pt-control-group {
+    & > *:not(:last-child) input {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right-width: 0 !important;
+    }
+  }
+
   input[type='submit'],
   button {
     box-shadow: none;
+    background: css-rgba(var(--color-primary__contrast--rgb), 0.8);
+    color: var(--color-primary);
+
+    &:hover {
+      background: css-rgba(var(--color-primary__contrast--rgb), 0.9);
+    }
+
+    &:active {
+      background: var(--color-primary__contrast);
+    }
 
     &:focus {
-      outline: white 3px auto;
+      outline: var(--color-primary__contrast) 3px auto;
+    }
+
+    &:disabled {
+      color: var(--color-primary);
+      background: css-rgba(var(--color-primary__contrast--rgb), 0.5);
+      outline: none;
     }
   }
 }

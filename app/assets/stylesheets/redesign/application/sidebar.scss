@@ -1,7 +1,10 @@
-@import '../_variables';
-
-.with-sidebar__sidebar a {
-  color: $white;
+.with-sidebar__sidebar {
+  :focus {
+    outline-color: var(--color-primary__contrast);
+  }
+  a {
+    color: var(--color-primary__contrast);
+  }
 }
 
 .sidebar__item {

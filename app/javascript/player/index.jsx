@@ -20,12 +20,13 @@ const Container = styled.div`
   display: flex;
   align-items: stretch;
 
-  width: ${p => p.playing ? 'auto' : '0'};
+  width: ${p => (p.playing ? 'auto' : '0')};
   color: ${p => p.theme.white};
   font-family: 'Lato';
 `
 
 function drupalLinks (): NodeList<HTMLAnchorElement> {
+  if (!document) return new NodeList()
   return document.querySelectorAll(
     // Typecating this string to the literal 'a' so that our NodeList knows it’s
     // full of HTMLAnchorElements
@@ -49,16 +50,12 @@ function removeTargetBlankFromDrupalLinks () {
 
 type Props = { song: Song }
 class Player extends React.Component<Props, { playing: boolean }> {
-  audioElement: HTMLAudioElement
+  audioElement: ?HTMLAudioElement
   state = { playing: false }
 
-  constructor (props: Props) {
-    super(props)
-
-    this.audioElement = document.createElement('audio')
-  }
-
   componentDidMount () {
+    this.audioElement = document.createElement('audio')
+
     const url = new URL(window.location)
     if (url.searchParams.has('autoplay')) {
       this._play()
@@ -68,7 +65,7 @@ class Player extends React.Component<Props, { playing: boolean }> {
   render () {
     const { song } = this.props
     const { playing } = this.state
-    
+
     return (
       <Container playing={playing}>
         <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />
@@ -81,14 +78,14 @@ class Player extends React.Component<Props, { playing: boolean }> {
 
   _play = () =>
     this.setState({ playing: true }, () => {
-      this.audioElement.src = WCBN_HD_STREAM_URL
-      this.audioElement.play()
+      this.audioElement && (this.audioElement.src = WCBN_HD_STREAM_URL)
+      this.audioElement && this.audioElement.play()
       addTargetBlankToDrupalLinks()
     })
   _pause = () =>
     this.setState({ playing: false }, () => {
-      this.audioElement.pause()
-      this.audioElement.src = ''
+      this.audioElement && this.audioElement.pause()
+      this.audioElement && (this.audioElement.src = '')
       removeTargetBlankFromDrupalLinks()
     })
 }

@@ -5,13 +5,14 @@
     WCBN-FM <%= content_for?(:title) ? " — " + content_for(:title): "" %>
   </title>
 
-  <%= stylesheet_link_tag 'redesign', media: 'all', 'data-turbolinks-track' => true %>
-  <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_pack_tag 'styles', data: { turbolinks_track: true } %> 
+  <%= stylesheet_pack_tag 'styles', data: { turbolinks_track: true } %>
+  <%= stylesheet_link_tag 'redesign', media: 'all', data: { turbolinks_track: true } %>
+  <%= javascript_include_tag 'application', data: { turbolinks_track: true } %>
   <%= csrf_meta_tags %>
 </head>
 
-<body>
+<body style="<%= theme_colors %>">
   <% if flash[:notice] %>
     <div class="flash flash--notice">
       <p><%= flash[:notice] %></p>
@@ -27,7 +28,23 @@
   <%= render 'application/main_header' %>
 
   <div class="max-width-container">
-  <%= yield %>
+    <div class="with-sidebar__container">
+      <% if content_for?(:sidebar) %>
+        <aside class="with-sidebar__sidebar">
+          <%= yield :sidebar %>
+        </aside>
+      <% end %>
+
+      <main class="with-sidebar__main">
+        <%= yield %>
+      </main>
+
+      <% unless content_for?(:sidebar) %>
+        <aside class="with-sidebar__sidebar">
+          <%= render 'application/sidebar' %>
+        </aside>
+      <% end %>
+    </div>
   </div
 
   <% if Rails.env.production? %>
