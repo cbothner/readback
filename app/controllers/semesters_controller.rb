@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SemestersController < ApplicationController
   before_action :authenticate_dj!, except: %i[index show]
   authorize_actions_for Semester, except: %i[index show]
@@ -5,7 +7,7 @@ class SemestersController < ApplicationController
   before_action :set_semesters, only: %i[show]
   before_action :set_semester, only: %i[show edit update destroy]
 
-  layout 'headline'
+  layout 'with_sidebar'
 
   # GET /semesters
   def index
@@ -14,7 +16,7 @@ class SemestersController < ApplicationController
 
   # GET /semesters/1
   def show
-    render layout: 'wide_with_sidebar'
+    set_sidebar_variables
   end
 
   # GET /semesters/1/edit
