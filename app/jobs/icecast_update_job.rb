@@ -9,7 +9,7 @@ class IcecastUpdateJob < ApplicationJob
     return unless ENV['ICECAST_ADMIN_PASSWORD']
 
     %w[hd mid hi].each do |qual|
-      Kernel.system(
+      system(
         'curl',
         '--max-time', '0.5',
         '--user', "admin:#{ENV['ICECAST_ADMIN_PASSWORD']}",
