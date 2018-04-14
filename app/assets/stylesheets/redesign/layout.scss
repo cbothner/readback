@@ -1,0 +1,31 @@
+@import '_variables';
+
+.max-width-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 3rem;
+  padding-right: 3rem;
+  max-width: $max-width;
+}
+
+.with-sidebar {
+  &__container {
+    display: flex;
+
+    & > *:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+
+  &__main {
+    flex: 1;
+    background-color: $white;
+    color: $black;
+    padding: 2rem;
+  }
+
+  &__sidebar {
+    padding: 2rem 0;
+    flex: 0 0 15rem;
+  }
+}

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'csv'
 
 class ApplicationController < ActionController::Base
@@ -6,7 +8,16 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   private
+
   def current_user
     current_dj || current_playlist_editor
+  end
+
+  def set_sidebar_variables
+    @upcoming_episodes =
+      Episode.includes(:dj, show: [:dj])
+             .where('beginning > ?', Time.zone.now)
+             .order(beginning: :asc)
+             .limit(3)
   end
 end

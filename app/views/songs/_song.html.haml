@@ -1,19 +1,26 @@
-- path = song_path(song)
-- can_bip = song.episode == @on_air && on_fm_computer?
-%td.width1
-  - if can_bip
-    .delete-song=link_to '[x]', path, method: :delete, data: {confirm: "Are you sure you want to delete this song?"}
-  -#.thin.time-col=song.at.strftime '%l:%M %P'
-  .thin.time-col
-    =best_in_place_if can_bip, song, :at, inner_class: "bip-sized", url: path, display_with: ->(x) {just_time x}, value: just_time(song.at), class: "sortable-at"
-%td.width3
-  =best_in_place_if can_bip, song, :artist, inner_class: "bip-sized", url: path
-  %span.thin.accent=' (local)' if song.local
-%td.width4<
-  =best_in_place_if can_bip, song, :name, display_with: lambda {|str| '“' + str + '”' }, inner_class: "bip-sized", url: path
-  %span.thin.accent=' (by request)' if song.request
-%td.width3.italic
-  =best_in_place_if can_bip, song, :album, inner_class: "bip-sized", url: path
-  %span.thin.accent=' (new)' if song.new
-%td.width2.thin=best_in_place_if can_bip, song, :label, inner_class: "bip-sized", url: path
-%td.width1.thin=best_in_place_if can_bip, song, :year, inner_class: "bip-sized", url: path
+.song__metadata{ title: song.at.to_formatted_s(:long) }
+  %span.song__time-string= song.decorate.time_string # TODO
+  .song__album-art
+
+%div
+  .song__details
+    %span.song__artist
+      = song.artist
+
+    %span.song__name
+      = surround '“', '”' do
+        = song.name.strip
+
+  - unless song.album.blank? && song.label.blank? && song.year.blank?
+    .song__details
+      - unless song.album.blank?
+        %span.song__album
+          = song.album
+
+      - unless song.label.blank? && song.year.blank?
+        %span.song__publishing-info
+          = surround '(', ')' do
+            - unless song.label.blank?
+              = song.label.strip
+            - unless song.year.blank?
+              = song.year

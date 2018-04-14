@@ -1,0 +1,10 @@
+<div class="with-sidebar__container">
+  <main class="with-sidebar__main">
+    <%= yield %>
+  </main>
+  <aside class="with-sidebar__sidebar">
+    <%= render 'application/sidebar' %>
+  </aside>
+</div>
+
+<% parent_layout 'redesign' %>

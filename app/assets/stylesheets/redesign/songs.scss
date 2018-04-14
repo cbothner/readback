@@ -1,0 +1,47 @@
+.playlist-item--song {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.song__metadata {
+  display: flex;
+  align-items: center;
+}
+
+.song__details {
+  margin-bottom: 2px;
+}
+
+.song__time-string {
+  width: 52px;
+  font-size: 12px;
+}
+
+.song__album-art {
+  display: inline-block;
+  width: 38px;
+  height: 38px;
+  margin: 0 14px;
+  background-color: #d8d8d8;
+}
+
+.song__artist,
+.song__name,
+.song__album,
+.song__publishing-info {
+  margin-right: 1em;
+}
+
+.song__name {
+  font-weight: 500;
+}
+
+.song__album {
+  font-style: italic;
+}
+
+.song__publishing-info {
+  font-weight: 300;
+  opacity: 0.8;
+}

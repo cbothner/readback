@@ -1,0 +1,33 @@
+@import '../_variables';
+
+.with-sidebar__sidebar a {
+  color: $white;
+}
+
+.sidebar__item {
+  margin: 12px 0;
+  font-size: 19px;
+  font-weight: 600;
+
+  & > span {
+    font-size: 14px;
+    font-weight: 400;
+    display: block;
+  }
+}
+
+.sidebar__info {
+  font-size: 15px;
+}
+
+.sidebar__social-links {
+  font-size: 20px;
+
+  & > * {
+    margin-right: 0.5em;
+  }
+
+  & a {
+    text-decoration: none;
+  }
+}

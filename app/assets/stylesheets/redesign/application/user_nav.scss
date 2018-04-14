@@ -1,0 +1,31 @@
+@import '../_variables';
+
+.user-nav {
+  position: relative;
+  padding: 0.5rem 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: right;
+
+  & a {
+    margin-left: 1rem;
+  }
+
+  &--inactive {
+    position: absolute;
+
+    & a {
+      color: $color-accent !important;
+    }
+  }
+
+  &--active {
+    background-color: $color-accent;
+    border-bottom: 3px solid $color-accent--dark;
+
+    & a {
+      color: $black !important;
+    }
+  }
+}

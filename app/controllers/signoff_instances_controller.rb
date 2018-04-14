@@ -26,12 +26,12 @@ class SignoffInstancesController < ApplicationController
     @signoff_instance.at = Time.zone.now
     respond_to do |format|
       if @signoff_instance.update(signoff_instance_params)
-        format.html { redirect_to controller: :playlist, action: :index }
+        format.html { redirect_to playlist_path }
         format.js {}
       else
         format.html {
           flash[:alert] = @signoff_instance.errors.full_messages
-          redirect_to controller: :playlist, action: :index
+          redirect_to playlist_path
         }
       end
     end
