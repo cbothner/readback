@@ -10,15 +10,63 @@
   }
 }
 
-label { margin-right: 0.5em; }
-label:not(:first-child) { margin-left: 0.5em; }
+label {
+  margin-right: 0.5em;
+}
+label:not(:first-child) {
+  margin-left: 0.5em;
+}
 .linear-field {
   margin: 0.2em 0 0.1em 0 !important;
-  input, select {
+  input,
+  select {
     top: -0.2em;
     position: relative;
   }
-  input[type="checkbox"] { top: -1px; }
+  input[type="checkbox"] {
+    top: -1px;
+  }
+  .inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+#avatar-upload-wrapper {
+  position: relative;
+  text-align: center;
+
+  #avatar-upload-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    width: 100%;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    & > .profile-pic {
+      webkit-filter: blur(2px); /* Chrome, Safari, Opera */
+      filter: blur(2px);
+    }
+
+    & > #avatar-upload-text {
+      color: whitesmoke;
+      background-color: rgba(0, 0, 0, 0.6);
+      visibility: visible !important;
+    }
+  }
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 textarea.monospace {
@@ -33,7 +81,7 @@ header#headline.with-profile-pic {
     display: table-cell;
     vertical-align: middle;
     p {
-      margin: 0
+      margin: 0;
     }
   }
 }
@@ -44,14 +92,15 @@ header#headline.with-profile-pic {
   img.profile-pic {
     width: 4em;
     height: 4em;
-    margin-right: 1em;
     object-fit: cover;
   }
   img.profile-pic.robot {
     height: 5em !important;
-    margin:  0;
-    margin-right: 0.5em;
+    margin: 0;
   }
+}
+#dj-title {
+  padding-left: 0.7em;
 }
 .dj {
   height: 2.5em;
@@ -80,7 +129,9 @@ img.profile-pic.robot {
   font-size: 85%;
   margin-top: -0.1em !important;
 }
-a:hover .dj div p span#dj-name {text-decoration: underline;}
+a:hover .dj div p span#dj-name {
+  text-decoration: underline;
+}
 
 section {
   width: 70%;
@@ -117,28 +168,39 @@ section {
     margin: 0.5em auto;
     padding: 0 1em;
     border-left: 3px solid #bbb;
-}
-  h1, h2, h3, h4, h5, h6{
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     text-align: center;
   }
-  ol, ul {
+  ol,
+  ul {
     max-width: 40em;
     margin-left: auto;
     margin-right: auto;
   }
 }
-code, .code {
+code,
+.code {
   font-family: "Monaco";
   white-space: pre-wrap;
   font-size: 8pt;
   margin-top: 0;
   color: #888;
 }
-.dj-about-textarea {height: 15em;}
-.dj-lists-textarea {height: 20em;}
+.dj-about-textarea {
+  height: 15em;
+}
+.dj-lists-textarea {
+  height: 20em;
+}
 
 .small-caps-title {
-  font-family: 'Alegreya Sans SC';
+  font-family: "Alegreya Sans SC";
   font-style: normal;
   font-weight: 700;
   letter-spacing: 1px;
@@ -151,24 +213,34 @@ aside.right-sidebar {
   float: left;
   .dj-lists {
     font-size: 90%;
-    border: solid 1pt #AAA;
+    border: solid 1pt #aaa;
     padding: 0.25em 0 0.75em 0;
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       @extend .small-caps-title;
       text-align: center;
       margin: 0.5em 0 0.2em 0;
       margin-bottom: 0.2em;
     }
-    ul, ol {
+    ul,
+    ol {
       margin: 0;
       padding: 0 0.5em 0 2em;
-      li { padding-bottom: 0.2em; }
+      li {
+        padding-bottom: 0.2em;
+      }
     }
   }
 }
 
 .dj-shows {
-  h4 { margin: 0; }
+  h4 {
+    margin: 0;
+  }
   ul {
     margin-top: 0.5em;
     padding-left: 1.5em;
@@ -181,9 +253,11 @@ aside.right-sidebar {
   margin: 0.3em 0;
   border: solid 1pt #3498db;
   color: #555 !important;
-  background-color: #F1F9FE;
+  background-color: #f1f9fe;
   display: block;
-  a { display: block; }
+  a {
+    display: block;
+  }
 }
 a.dj-recent-episode:hover {
   text-decoration: underline !important;
@@ -191,13 +265,16 @@ a.dj-recent-episode:hover {
 a.dj-recent-episode:first-child {
   margin-top: 0.7em;
 }
-.dj-shows, .dj-recent-episodes {
+.dj-shows,
+.dj-recent-episodes {
   width: 50%;
   min-width: 12em;
   float: left;
   margin-top: 0.5em;
   padding-right: 0;
-  h4 {margin:0;}
+  h4 {
+    margin: 0;
+  }
 }
 
 .dj-all-episodes {
@@ -214,12 +291,16 @@ a.dj-recent-episode:first-child {
   float: left;
   display: table;
 }
-.dj-episode .showinfo, .buttons {
+.dj-episode .showinfo,
+.buttons {
   display: table-cell;
   vertical-align: middle;
 }
 .buttons {
-  b, p {margin: 0}
+  b,
+  p {
+    margin: 0;
+  }
   margin: 0;
   text-align: center;
   padding-right: 0;
@@ -229,15 +310,16 @@ a.dj-recent-episode:first-child {
   padding-bottom: 2px;
 }
 
-.clear-left { clear: left; }
-
+.clear-left {
+  clear: left;
+}
 
 .instructions {
   color: #888;
   font-weight: 400;
-  font-size:95%;
+  font-size: 95%;
   font-style: italic;
-  margin:0 0 0.3em 0;
+  margin: 0 0 0.3em 0;
 }
 
 .dj-form-container {
@@ -250,13 +332,15 @@ a.dj-recent-episode:first-child {
   margin-right: 0.4em !important;
   margin-bottom: 0.4em !important;
 }
-textarea{
+textarea {
   height: 3em;
 }
-textarea.tall{
+textarea.tall {
   height: 10em;
 }
-.hidden{ display:none; }
+.hidden {
+  display: none;
+}
 
 .djs-container {
   min-width: 40em;
@@ -269,5 +353,5 @@ textarea.tall{
 }
 
 .dj-roster tbody tr:hover {
-  background-color: #FFEAD9;
+  background-color: #ffead9;
 }
