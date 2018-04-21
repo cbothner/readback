@@ -3,8 +3,11 @@
 = form_for(@dj) do |f|
 
   %header#headline.with-profile-pic
-    = profile_picture @dj
-    %div
+    = f.label :avatar, :for => "dj_avatar", id: "avatar-upload" do
+      %div#avatar-upload-wrapper
+        = profile_picture(@dj)
+        %div#avatar-upload-text Edit
+    %div#dj-title
       %p.linear-field
         = f.label :dj_name, "DJ Name"
         = f.text_field :dj_name, placeholder: @dj.first_name
@@ -12,8 +15,9 @@
         = f.label :name, "Real Name"
         = f.text_field :name
       %p.linear-field
-        = f.label :avatar, "Upload Photo", :for => "dj_avatar"
-        = f.file_field :avatar
+        = f.file_field :avatar, class: "inputfile"
+      %div#file-upload-complete.hidden
+        An image has been uploaded. Click "Save changes" when you're ready.
 
   %aside.thin-sidebar{style: "padding-top: 0;"}
     .linear-field
@@ -82,4 +86,3 @@
             4. Jimi Hendrix at Woodstock
             5. The Beatles’ rooftop concert, 30 January 1969
       = f.text_area :lists, class: "dj-lists-textarea monospace"
-
