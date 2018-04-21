@@ -22,7 +22,7 @@
 
 %header#headline.with-profile-pic
   =profile_picture @dj
-  %div
+  %div#dj-title
     %h2="#{@dj}"
     - if dj_signed_in? || @dj.real_name_is_public
       %p.subtitle.italic

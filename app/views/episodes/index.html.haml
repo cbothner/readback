@@ -2,8 +2,7 @@
 
 %header#headline.with-profile-pic
   = profile_picture @dj
-  -#%img.profile-pic{src: "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(@dj.email)}?d=identicon&s=200&f=y"}
-  %div
+  %div#dj-title
     %h2="#{@dj}"
     - if dj_signed_in? || @dj.real_name_is_public
       %p.subtitle.italic
