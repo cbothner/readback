@@ -59,27 +59,26 @@
           %li.linear-field
             = f.label :um_dept, "U-M Department"
             = f.text_field :um_dept
-      = f.label :about, "Your Bio"
-      %div
-        %p.instructions
-          You can use
-          = link_to "Markdown", "http://daringfireball.net/projects/markdown/syntax", target: "_blank"
-          for formatting.
-        = f.text_area :about, class: "dj-about-textarea monospace"
+        = f.label :about, "Your Bio"
+        = f.hidden_field :about, id: :dj_about
+        %trix-editor{:input => "dj_about"}
+
     %aside.right-sidebar
       = f.label :lists, "Your Picks"
+      = f.hidden_field :lists, id: :dj_lists
       %p.instructions
-        E.g. best albums this year, favorite instruments, etc.
+        Best albums this year, favorite instruments, etc.
         %br
-        Use Markdown to do it as follows, and put a blank line in between two lists.
+        Use the Heading and Numbered List buttons for formatting
       =preserve do
         %pre.code<
           :escaped
-            # Top 5 Concerts I’ve Seen
+            e.g.
+            [tT] Top 5 Concerts I’ve Seen
+
             1. John Coltrane, A Love Supreme, live at Festival Mondial du Jazz Antibes, 26 July 1965
             2. The Grateful Dead, then “Warlocks,” at the first Acid Test, 27 November 1965
             3. Bob Dylan – Newport Folk Festival, 25 July 1965
             4. Jimi Hendrix at Woodstock
             5. The Beatles’ rooftop concert, 30 January 1969
-      = f.text_area :lists, class: "dj-lists-textarea monospace"
-
+        %trix-editor{:input => "dj_lists"}

@@ -13,6 +13,7 @@
  *
  *= require_tree
  *= require_self
+ *= require trix
  */
 
 @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans:800,500,500italic,400italic,400|Alegreya+Sans+SC:700);
