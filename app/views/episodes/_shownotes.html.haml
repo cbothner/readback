@@ -10,4 +10,4 @@
     %h4 Show Notes:
     .show-notes{lang: 'en', class: ('longform' if longform)}
       - episode.notes ||= ''
-      = best_in_place_if editable, episode, :notes, display_with: -> (notes) { markdown(notes)}, as: :textarea, place_holder: instructions
+      = best_in_place_if editable, episode, :notes, display_with: -> (notes) { sanitize markdown(notes)}, as: :textarea, place_holder: instructions
