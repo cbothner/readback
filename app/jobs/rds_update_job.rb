@@ -45,7 +45,7 @@ class RdsUpdateJob < ApplicationJob
 
   def metadata_string(song)
     return episode_string Episode.on_air if song.blank?
-    "#{song.artist}|#{song.name}|#{episode_string song.episode}"
+    "#{song.artist}--#{song.name}--#{episode_string song.episode}"
   end
 
   def episode_string(episode)
