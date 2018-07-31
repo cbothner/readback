@@ -5,7 +5,7 @@ class RdsUpdateJob < ApplicationJob
   queue_as :default
 
   # @param [Song]
-  def perform(song)
+  def perform(song = nil)
     unless rds_tunnel_options
       logger.warn 'Skipping RDS update because tunnel credentials are missing'
       return
@@ -44,7 +44,11 @@ class RdsUpdateJob < ApplicationJob
   end
 
   def metadata_string(song)
-    episode = song.episode
-    "#{song.artist}|#{song.name}|#{episode.show.name} w/ #{episode.dj}"
+    return episode_string Episode.on_air if song.blank?
+    "#{song.artist}|#{song.name}|#{episode_string song.episode}"
+  end
+
+  def episode_string(episode)
+    "#{episode.show.name} w/ #{episode.dj}"
   end
 end
