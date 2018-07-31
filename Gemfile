@@ -29,6 +29,8 @@ gem 'newrelic_rpm', group: :production
 # File Storage
 gem 'aws-sdk-s3', require: false
 gem 'mini_magick'
+# SSH
+gem 'net-ssh'
 
 ##########
 # Models #
