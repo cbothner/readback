@@ -188,6 +188,7 @@ GEM
     multi_json (1.12.2)
     mustermann (1.0.1)
     nenv (0.3.0)
+    net-ssh (5.0.2)
     newrelic_rpm (4.6.0.338)
     nio4r (2.2.0)
     nokogiri (1.8.2)
@@ -398,6 +399,7 @@ DEPENDENCIES
   maildown
   memcachier
   mini_magick
+  net-ssh
   newrelic_rpm
   pg
   puma

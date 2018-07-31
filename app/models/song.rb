@@ -13,6 +13,7 @@ class Song < ActiveRecord::Base
 
   after_commit { SongBroadcastJob.perform_later self }
   after_create_commit { IcecastUpdateJob.perform_later self }
+  after_create_commit { RdsUpdateJob.perform_later self }
 
   scope :on_air, -> { order(:at).last }
 

@@ -38,3 +38,11 @@ en:
               blank: "can’t be blank when U-M Affiliation is not Community Member"
             statement:
               blank: "can’t be blank when U-M Affiliation is Community Member"
+
+  i18n:
+    transliterate:
+      rule:
+        ’: "'"
+        ‘: "'"
+        “: '"'
+        ”: '"'
