@@ -18,6 +18,7 @@
 //= require jquery-ui/widgets/droppable
 //= require jquery-ui/widgets/tabs
 //= require jquery-ui/widgets/selectable
+//= require activestorage
 //= require trix
 //= require turbolinks
 //= require best_in_place

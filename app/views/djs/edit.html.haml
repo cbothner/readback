@@ -13,7 +13,7 @@
         = f.text_field :name
       %p.linear-field
         = f.label :avatar, "Upload Photo", :for => "dj_avatar"
-        = f.file_field :avatar
+        = f.file_field :avatar, direct_upload: true, accept: 'image/png,image/gif,image/jpeg'
 
   %aside.thin-sidebar{style: "padding-top: 0;"}
     .linear-field
@@ -82,3 +82,4 @@
             4. Jimi Hendrix at Woodstock
             5. The Beatles’ rooftop concert, 30 January 1969
         %trix-editor{:input => "dj_lists"}
+  = javascript_pack_tag 'trix_uploads'
