@@ -1,45 +1,13 @@
-import { DirectUpload } from "activestorage"
-// Turn off the default Trix captions
+import { DirectUpload } from 'activestorage'
+
 Trix.config.attachments.preview.caption = {
   name: false,
   size: false,
 }
-//
-// function uploadAttachment (attachment) {
-//   // Create our form data to submit
-//   const file = attachment.file
-//   let form = new FormData()
-//   form.append('Content-Type', file.type)
-//   form.append('photo[image]', file)
-//
-//   // Create our XHR request
-//   let xhr = new XMLHttpRequest()
-//   xhr.open('POST', '/photos.json', true)
-//   xhr.setRequestHeader('X-CSRF-Token', Rails.csrfToken())
-//
-//   // Report file uploads back to Trix
-//   xhr.upload.onprogress = function (event) {
-//     let progress = (event.loaded / event.total) * 100
-//     attachment.setUploadProgress(progress)
-//   }
-//
-//   // Tell Trix what url and href to use on successful upload
-//   xhr.onload = function () {
-//     if (xhr.status === 201) {
-//       let data = JSON.parse(xhr.responseText)
-//       return attachment.setAttributes({
-//         url: data.image_url,
-//         href: data.url,
-//       })
-//     }
-//   }
-//
-//   return xhr.send(form)
-// }
-//
 
+const uploadAttachment = attachment => {
+  const file = attachment.file
 
-const uploadFile = (file) => {
   // your form needs the file_field direct_upload: true, which
   //  provides data-direct-upload-url
   // const url = input.dataset.directUploadUrl
@@ -48,24 +16,138 @@ const uploadFile = (file) => {
   upload.create((error, blob) => {
     if (error) {
       // Handle the error
-      console.log('Error uploading file from Trix');
+      window.alert('Error uploading file from Trix')
     } else {
       // Add an appropriately-named hidden input to the form with a
       //  value of blob.signed_id so that the blob ids will be
       //  transmitted in the normal upload flow
       const hiddenField = document.createElement('input')
-      hiddenField.setAttribute("type", "hidden");
-      hiddenField.name = "dj[images][]"
-      hiddenField.setAttribute("value", blob.signed_id);
+      hiddenField.setAttribute('type', 'hidden')
+      hiddenField.name = 'dj[images][]'
+      hiddenField.setAttribute('value', blob.signed_id)
       document.querySelector('form').appendChild(hiddenField)
+
+      console.log(file)
+      console.log(blob)
+      console.log(blob.signed_id)
+
+      return attachment.setAttributes({
+        url: '/rails/active_storage/disk/' + blob.signed_id + '/' + file.name,
+        href: '/rails/active_storage/disk/' + blob.signed_id + '/' + file.name,
+      })
     }
   })
 }
 
+// const uploadAttachment = attachment => {
+//   const file = attachment.file;
+//
+//   // your form needs the file_field direct_upload: true, which
+//   //  provides data-direct-upload-url
+//   let upload = new DirectUpload(file, '/rails/active_storage/direct_uploads')
+//
+//   upload.create((error, blob) => {
+//     if (error) {
+//       // Handle the error
+//       window.alert('Error uploading file from Trix')
+//     }
+//     else {
+//       let form = new FormData;
+//       // form.append("key", key);
+//       form.append("Content-Type", file.type);
+//       // form.append("file", file);
+//
+//       // Add an appropriately-named hidden input to the form with a
+//       //  value of blob.signed_id so that the blob ids will be
+//       //  transmitted in the normal upload flow
+//       const hiddenField = document.createElement('input')
+//       hiddenField.setAttribute('type', 'hidden')
+//       hiddenField.name = 'dj[images][]'
+//       hiddenField.setAttribute('value', blob.signed_id)
+//       form.appendChild(hiddenField)
+//
+//       let xhr = new XMLHttpRequest;
+//       xhr.open("POST", host, true);
+//       xhr.upload.onprogress = (event) => {
+//         var progress;
+//         progress = event.loaded / event.total * 100
+//         return attachment.setUploadProgress(progress)
+//       }
+//       xhr.onload = () => {
+//         var href, url;
+//         if (xhr.status === 204) {
+//           url = href = host + key;
+//           return attachment.setAttributes({
+//             url: url,
+//             href: href
+//           })
+//         }
+//       }
+//       return xhr.send(form);
+//
+//     }
+//   })
+// }
+//
+//
+//   let key = createStorageKey(file);
+//   form = new FormData;
+//   form.append("key", key);
+//   form.append("Content-Type", file.type);
+//   form.append("file", file);
+//   xhr = new XMLHttpRequest;
+//   xhr.open("POST", host, true);
+//   xhr.upload.onprogress = function(event) {
+//     var progress;
+//     progress = event.loaded / event.total * 100;
+//     return attachment.setUploadProgress(progress);
+//   };
+//   xhr.onload = function() {
+//     var href, url;
+//     if (xhr.status === 204) {
+//       url = href = host + key;
+//       return attachment.setAttributes({
+//         url: url,
+//         href: href
+//       });
+//     }
+//   };
+//   return xhr.send(form);
+// };
+
+// const uploadAttachment = (attachment) => {
+//   const file = attachment.file;
+//   let form, xhr;
+//
+//   let key = createStorageKey(file);
+//   form = new FormData;
+//   form.append("key", key);
+//   form.append("Content-Type", file.type);
+//   form.append("file", file);
+//   xhr = new XMLHttpRequest;
+//   xhr.open("POST", host, true);
+//   xhr.upload.onprogress = function(event) {
+//     var progress;
+//     progress = event.loaded / event.total * 100;
+//     return attachment.setUploadProgress(progress);
+//   };
+//   xhr.onload = function() {
+//     var href, url;
+//     if (xhr.status === 204) {
+//       url = href = host + key;
+//       return attachment.setAttributes({
+//         url: url,
+//         href: href
+//       });
+//     }
+//   };
+//   return xhr.send(form);
+// };
+
 // Listen for the Trix attachment event to trigger upload
-addEventListener('trix-attachment-add', (event) => {
+addEventListener('trix-attachment-add', event => {
   const attachment = event.attachment
   if (attachment.file) {
-    return uploadFile(attachment.file)
+    return uploadAttachment(attachment)
   }
 })
