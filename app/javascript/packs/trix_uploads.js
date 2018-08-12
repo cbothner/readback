@@ -23,8 +23,7 @@ const uploadAttachment = attachment => {
       document.querySelector('form').appendChild(hiddenField)
 
       return attachment.setAttributes({
-        url: '/rails/active_storage/blobs/' + blob.signed_id + '/' + blob.filename,
-        href: '/rails/active_storage/blobs/' + blob.signed_id + '/' + blob.filename,
+        url: '/rails/active_storage/blobs/' + blob.signed_id + '/' + blob.filename
       })
     }
   })
