@@ -1,0 +1,5 @@
+//can't be named trix.scss because it will conflict and overwrite the styles provided in the gem
+button.trix-button.trix-button--icon.trix-button--icon-strike,
+button.trix-button.trix-button--icon.trix-button--icon-code {
+  display: none;
+}
