@@ -1,8 +1,21 @@
+# Getting Started
+
+## Quickstart
+We recommend first making a fork
+
+    git clone https://github.com/<username>/readback.git
+    bundle
+    yarn
+    rake db:reset
+    foreman start
+
+
+
 # Changelog
 
 ## 3.0 (2018-08-12)
 + Now on Rails 5.2 and Ruby 2.5
-+ Persistent player built in ReactJS; shows album art
++ Persistent player built in ReactJS shows album art
 + ActiveStorage facilitates uploads to an S3 bucket
 + Events and Concerts listings are fetched from Google Calendars
 
