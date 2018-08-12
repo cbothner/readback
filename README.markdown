@@ -1,7 +1,13 @@
 # Getting Started
 
-## Quickstart
-We recommend first making a fork
+Things you'll need:
++ Postgres
++ yarn or npm
++ Ruby
++ Rails
+
+We recommend making a fork of our master repo
+
 
     git clone https://github.com/<username>/readback.git
     bundle
