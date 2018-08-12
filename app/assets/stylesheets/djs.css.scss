@@ -3,21 +3,26 @@
   width: 20em;
   margin: auto;
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     width: auto;
     top: 4px;
     position: relative;
   }
 }
 
-label { margin-right: 0.5em; }
+label {
+  margin-right: 0.5em;
+}
 .linear-field {
   margin: 0.2em 0 0.1em 0 !important;
-  input, select {
+  input,
+  select {
     top: -0.2em;
     position: relative;
   }
-  input[type="checkbox"] { top: -1px; }
+  input[type='checkbox'] {
+    top: -1px;
+  }
 }
 
 .dj,
@@ -27,7 +32,7 @@ header#headline.with-profile-pic {
     display: table-cell;
     vertical-align: middle;
     p {
-      margin: 0
+      margin: 0;
     }
   }
 }
@@ -43,7 +48,7 @@ header#headline.with-profile-pic {
   }
   img.profile-pic.robot {
     height: 5em !important;
-    margin:  0;
+    margin: 0;
     margin-right: 0.5em;
   }
 }
@@ -74,17 +79,22 @@ img.profile-pic.robot {
   font-size: 85%;
   margin-top: -0.1em !important;
 }
-a:hover .dj div p span#dj-name {text-decoration: underline;}
+a:hover .dj div p span#dj-name {
+  text-decoration: underline;
+}
 
-section {
-  width: 70%;
-  float: left;
-  position: relative;
-  top: -1em;
-  div {
-    padding-right: 2em;
+.with-right-sidebar {
+  display: flex;
+
+  #dj-center-panel {
+    width: 70%;
+    float: left;
+    position: relative;
+    top: -1em;
+    padding: 0 1em;
   }
 }
+
 
 .dj-info {
   ul {
@@ -111,69 +121,37 @@ section {
     margin: 0.5em auto;
     padding: 0 1em;
     border-left: 3px solid #bbb;
-}
-  h1, h2, h3, h4, h5, h6{
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     text-align: center;
   }
-  ol, ul {
+  ol,
+  ul {
     max-width: 40em;
     margin-left: auto;
     margin-right: auto;
   }
+  img {
+    display: block;
+    max-width: 85%;
+    width: auto;
+    height: auto;
+    margin: auto;
+  }
 }
-code, .code {
-  font-family: "Monaco";
+code,
+.code {
+  font-family: 'Monaco';
   white-space: pre-wrap;
   font-size: 8pt;
   margin-top: 0;
   color: #888;
 }
-
-// trix toolbar
-// hide unwanted icons
-button.trix-button.trix-button--icon.trix-button--icon-strike,
-button.trix-button.trix-button--icon.trix-button--icon-code {
-  display: none;
-}
-
-// room is limited on the sidebar
-.right-sidebar {
-  span.trix-button-group {
-    overflow-x: auto;
-  }
-
-  // so we hide some extraneous icons
-  button.trix-button.trix-button--icon.trix-button--icon-quote,
-  button.trix-button.trix-button--icon.trix-button--icon-decrease-nesting-level,
-  button.trix-button.trix-button--icon.trix-button--icon-increase-nesting-level {
-    display: none;
-  }
-}
-
-// custom icons?
-//
-// trix-toolbar {
-//   .trix-button--icon-bold::before {
-//     background-image: image-url("icons/bold.svg") !important;
-//   }
-//   .trix-button--icon-italic::before {
-//     background-image: image-url("icons/italic.svg") !important;
-//   }
-//   .trix-button--icon-quote::before {
-//     background-image: image-url("icons/quote.svg") !important;
-//   }
-//   .trix-button--icon-bullet-list::before {
-//     background-image: image-url("icons/list-unordered.svg") !important;
-//   }
-//   .trix-button--icon-link::before {
-//     background-image: image-url("icons/link.svg") !important;
-//   }
-//   .trix-button--icon-heading-1::before {
-//     background: no-repeat 50% 50% !important;
-//     background-image: image-url("icons/header.svg") !important;
-//   }
-// }
-
 
 .small-caps-title {
   font-family: 'Alegreya Sans SC';
@@ -186,27 +164,51 @@ button.trix-button.trix-button--icon.trix-button--icon-code {
 }
 aside.right-sidebar {
   width: 30%;
-  float: left;
+
   .dj-lists {
     font-size: 90%;
-    border: solid 1pt #AAA;
+    border: solid 1pt #aaa;
     padding: 0.25em 0 0.75em 0;
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       @extend .small-caps-title;
       text-align: center;
       margin: 0.5em 0 0.2em 0;
       margin-bottom: 0.2em;
     }
-    ul, ol {
+    ul,
+    ol {
       margin: 0;
       padding: 0 0.5em 0 2em;
-      li { padding-bottom: 0.2em; }
+      li {
+        padding-bottom: 0.2em;
+      }
     }
   }
 }
 
+// room is limited on the sidebar
+.right-sidebar {
+  span.trix-button-group {
+    overflow-x: auto;
+  }
+
+  // extraneous icons
+  button.trix-button.trix-button--icon.trix-button--icon-quote,
+  button.trix-button.trix-button--icon.trix-button--icon-decrease-nesting-level,
+  button.trix-button.trix-button--icon.trix-button--icon-increase-nesting-level {
+    display: none;
+  }
+}
+
 .dj-shows {
-  h4 { margin: 0; }
+  h4 {
+    margin: 0;
+  }
   ul {
     margin-top: 0.5em;
     padding-left: 1.5em;
@@ -219,9 +221,11 @@ aside.right-sidebar {
   margin: 0.3em 0;
   border: solid 1pt #3498db;
   color: #555 !important;
-  background-color: #F1F9FE;
+  background-color: #f1f9fe;
   display: block;
-  a { display: block; }
+  a {
+    display: block;
+  }
 }
 a.dj-recent-episode:hover {
   text-decoration: underline !important;
@@ -229,13 +233,16 @@ a.dj-recent-episode:hover {
 a.dj-recent-episode:first-child {
   margin-top: 0.7em;
 }
-.dj-shows, .dj-recent-episodes {
+.dj-shows,
+.dj-recent-episodes {
   width: 50%;
   min-width: 12em;
   float: left;
   margin-top: 0.5em;
   padding-right: 0;
-  h4 {margin:0;}
+  h4 {
+    margin: 0;
+  }
 }
 
 .dj-all-episodes {
@@ -252,12 +259,16 @@ a.dj-recent-episode:first-child {
   float: left;
   display: table;
 }
-.dj-episode .showinfo, .buttons {
+.dj-episode .showinfo,
+.buttons {
   display: table-cell;
   vertical-align: middle;
 }
 .buttons {
-  b, p {margin: 0}
+  b,
+  p {
+    margin: 0;
+  }
   margin: 0;
   text-align: center;
   padding-right: 0;
@@ -267,15 +278,16 @@ a.dj-recent-episode:first-child {
   padding-bottom: 2px;
 }
 
-.clear-left { clear: left; }
-
+.clear-left {
+  clear: left;
+}
 
 .instructions {
   color: #888;
   font-weight: 400;
-  font-size:95%;
+  font-size: 95%;
   font-style: italic;
-  margin:0 0 0.3em 0;
+  margin: 0 0 0.3em 0;
 }
 
 .dj-form-container {
@@ -289,7 +301,9 @@ a.dj-recent-episode:first-child {
   margin-bottom: 0.4em !important;
 }
 
-.hidden{ display:none; }
+.hidden {
+  display: none;
+}
 
 .djs-container {
   min-width: 40em;
@@ -302,5 +316,5 @@ a.dj-recent-episode:first-child {
 }
 
 .dj-roster tbody tr:hover {
-  background-color: #FFEAD9;
+  background-color: #ffead9;
 }
