@@ -91,19 +91,11 @@ td {
 
 .song--name {
   &:before {
-<<<<<<< Updated upstream
-    content: open-quote;
-  }
-
-  &:after {
-    content: close-quote;
-=======
     content: '“';
   }
 
   &:after {
     content: '”';
->>>>>>> Stashed changes
   }
 }
 
