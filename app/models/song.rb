@@ -27,7 +27,7 @@ class Song < ActiveRecord::Base
 
   def strip_spaces
     %i[name artist album label].each do |attribute|
-      send(attribute).strip!
+      send(attribute)&.strip!
     end
   end
 end
