@@ -89,6 +89,16 @@ td {
   width: 95%;
 }
 
+.song--name {
+  &:before {
+    content: open-quote;
+  }
+
+  &:after {
+    content: close-quote;
+  }
+}
+
 .time-col { min-width: 60px; }
 
 .thin { font-weight: 300; }
