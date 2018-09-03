@@ -45,7 +45,7 @@ class FetchEvents
       orderBy: 'startTime',
       singleEvents: true,
       timeMin: Time.zone.now.iso8601,
-      timeMax: 6.months.since.iso8601
+      timeMax: 2.months.since.iso8601
     )
   end
 

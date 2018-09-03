@@ -3,6 +3,6 @@
 # @see Event
 class EventsDecorator < Draper::CollectionDecorator
   def days
-    object.chunk { |event| event.beginning.to_date }
+    decorated_collection.chunk { |event| event.beginning.to_date }
   end
 end

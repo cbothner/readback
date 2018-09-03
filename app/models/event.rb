@@ -30,6 +30,10 @@ class Event
     date_or_date_time @data['end']
   end
 
+  def attachments
+    @data['attachments']
+  end
+
   private
 
   def date_or_date_time(obj)
