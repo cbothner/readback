@@ -1,29 +1,4 @@
-# Getting Started
-
-Things you'll need:
-+ Postgres
-+ yarn or npm
-+ Ruby
-+ Rails
-
-We recommend making a fork of our master repo
-
-
-    git clone https://github.com/<username>/readback.git
-    bundle
-    yarn
-    rake db:reset
-    foreman start
-
-
-
 # Changelog
-
-## 3.0 (2018-08-12)
-+ Now on Rails 5.2 and Ruby 2.5
-+ Persistent player built in ReactJS shows album art
-+ ActiveStorage facilitates uploads to an S3 bucket
-+ Events and Concerts listings are fetched from Google Calendars
 
 ## 1.8 (2016-07-05)
 + Emails rotating hosts and substitute DJs to remind them of their upcoming
