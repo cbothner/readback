@@ -39,10 +39,7 @@ FactoryBot.define do
       transient { dj_count 4 }
 
       after(:create) do |show, evaluator|
-        djs = create_list(:dj, evaluator.dj_count)
-        djs.each do |dj|
-          show.djs << dj
-        end
+        create_list(:dj, evaluator.dj_count, specialty_shows: [show])
       end
     end
   end

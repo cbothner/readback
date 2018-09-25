@@ -10,7 +10,8 @@
   =best_in_place_if can_bip, song, :artist, inner_class: "bip-sized", url: path
   %span.thin.accent=' (local)' if song.local
 %td.width4<
-  =best_in_place_if can_bip, song, :name, display_with: lambda {|str| '“' + str + '”' }, inner_class: "bip-sized", url: path
+  %span.song--name<
+    =best_in_place_if can_bip, song, :name, inner_class: "bip-sized", url: path
   %span.thin.accent=' (by request)' if song.request
 %td.width3.italic
   =best_in_place_if can_bip, song, :album, inner_class: "bip-sized", url: path

@@ -11,6 +11,9 @@
       %p.linear-field
         = f.label :name, "Real Name"
         = f.text_field :name
+      %p.linear-field
+        = f.label :avatar, "Upload Photo", :for => "dj_avatar"
+        = f.file_field :avatar
 
   %aside.thin-sidebar{style: "padding-top: 0;"}
     .linear-field
@@ -38,10 +41,10 @@
           The following fields are only visible to WCBN DJs. (UMID only visible to Exec Staff.)
         %ul
           %li.linear-field
-            = f.label :phone 
+            = f.label :phone
             = f.phone_field :phone
           %li.linear-field
-            = f.label :email 
+            = f.label :email
             = f.email_field :email
           %li.linear-field
             = f.label :um_affiliation, "U-M Affiliation"
@@ -59,7 +62,7 @@
       = f.label :about, "Your Bio"
       %div
         %p.instructions
-          You can use 
+          You can use
           = link_to "Markdown", "http://daringfireball.net/projects/markdown/syntax", target: "_blank"
           for formatting.
         = f.text_area :about, class: "dj-about-textarea monospace"
