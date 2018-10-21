@@ -1,5 +1,5 @@
 # Readback
-![Build Status](https://travis-ci.org/cbothner/readback.svg?branch=master) [![license](https://img.shields.io/github/license/galahq/gala.svg)](https://github.com/galahq/gala/blob/master/LICENSE)
+![Build Status](https://travis-ci.org/cbothner/readback.svg?branch=master) [![license](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 Readback is how WCBN manages playlists, schedules, personnel, and trainees.
 
@@ -10,6 +10,8 @@ In order to work on Readback, you’ll need to install Ruby, Yarn, Postgres, and
 ### Homebrew
 
 The easiest way to install developer tools on macOS is Homebrew. Install it following [the instructions on their website](https://brew.sh/)
+
+The package manager for Windows known as [Chocolately](https://chocolatey.org/) may (or may not) be useful.
 
 ### Ruby
 
@@ -61,7 +63,3 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/cbothn
 ## License
 
 The project is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Something project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/something/blob/master/CODE_OF_CONDUCT.md).
