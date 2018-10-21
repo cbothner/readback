@@ -38,19 +38,21 @@ brew install redis
 ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
 ```
 
-### Foreman
+### Overmind
 
-Foreman will run all the various processes needed for a developement server of Readback. Install it as follows:
+Overmind will run all the processes needed for a developement server of Readback. Install it as follows:
 
 ```sh
-gem install foreman
+brew install overmind
 ```
 
 ### Readback and its dependencies
 
 After checking out the repo, run `bin/setup` to install dependencies.
 
-Start the development server by running `foreman start`.  You can also run `bin/rails console` for an interactive prompt that will allow you to experiment.
+Start the development server by running `overmind start`.  You can also run `bin/rails console` for an interactive prompt that will allow you to experiment.
+
+Navigate to http://localhost:5000
 
 ## Contributing
 
