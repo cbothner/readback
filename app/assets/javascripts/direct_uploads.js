@@ -1,7 +1,6 @@
 // direct_uploads.js
 
 addEventListener('direct-upload:initialize', event => {
-  console.log('direct uploading...')
   const { target, detail } = event
   const { id, file } = detail
   target.insertAdjacentHTML(
@@ -16,14 +15,12 @@ addEventListener('direct-upload:initialize', event => {
 })
 
 addEventListener('direct-upload:start', event => {
-  console.log('direct uploading2...')
   const { id } = event.detail
   const element = document.getElementById(`direct-upload-${id}`)
   element.classList.remove('direct-upload--pending')
 })
 
 addEventListener('direct-upload:progress', event => {
-  console.log('direct uploading3...')
   const { id, progress } = event.detail
   const progressElement = document.getElementById(`direct-upload-progress-${id}`)
   progressElement.style.width = `${progress}%`
