@@ -1,4 +1,6 @@
 import { DirectUpload } from 'activestorage'
+import * as Trix from 'trix'
+import 'trix/dist/trix.css'
 
 Trix.config.attachments.preview.caption = {
   name: false,
@@ -23,7 +25,11 @@ const uploadAttachment = attachment => {
       document.querySelector('form').appendChild(hiddenField)
 
       return attachment.setAttributes({
-        url: '/rails/active_storage/blobs/' + blob.signed_id + '/' + blob.filename
+        url:
+          '/rails/active_storage/blobs/' +
+          blob.signed_id +
+          '/' +
+          encodeURIComponent(blob.filename),
       })
     }
   })
@@ -32,10 +38,9 @@ const uploadAttachment = attachment => {
 // Listen for the Trix attachment event to trigger upload
 // If Trix is given a prevent-uploads css class, disallow upload
 addEventListener('trix-attachment-add', event => {
-  if (event.path.some(attr => attr.className === 'prevent-uploads')) {
+  if (event.dataset.trixPreventUploads) {
     return event.preventDefault()
   }
-
   const attachment = event.attachment
   if (attachment.file) {
     return uploadAttachment(attachment)

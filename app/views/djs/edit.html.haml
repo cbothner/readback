@@ -81,5 +81,6 @@
             3. Bob Dylan – Newport Folk Festival, 25 July 1965
             4. Jimi Hendrix at Woodstock
             5. The Beatles’ rooftop concert, 30 January 1969
-        %trix-editor.prevent-uploads{:input => "dj_lists"}
+        %trix-editor{ data: { 'trix-prevent-uploads': true }, input: "dj_lists" }
   = javascript_pack_tag 'trix_uploads'
+  = stylesheet_pack_tag 'trix_uploads'
