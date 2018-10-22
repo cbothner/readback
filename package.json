@@ -10,7 +10,8 @@
     "react-dom": "^16.2.0",
     "react-medium-image-zoom": "^3.0.5",
     "react-motion": "^0.5.2",
-    "styled-components": "^2.2.4"
+    "styled-components": "^2.2.4",
+    "trix": "^1.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
