@@ -1,5 +1,5 @@
 # Readback
-![Build Status](https://travis-ci.org/cbothner/readback.svg?branch=master) [![license](https://img.shields.io/github/license/galahq/gala.svg)](https://github.com/galahq/gala/blob/master/LICENSE)
+![Build Status](https://travis-ci.org/cbothner/readback.svg?branch=master) [![license](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 Readback is how WCBN manages playlists, schedules, personnel, and trainees.
 
@@ -10,6 +10,8 @@ In order to work on Readback, you’ll need to install Ruby, Yarn, Postgres, and
 ### Homebrew
 
 The easiest way to install developer tools on macOS is Homebrew. Install it following [the instructions on their website](https://brew.sh/)
+
+The package manager for Windows known as [Chocolately](https://chocolatey.org/) may (or may not) be useful.
 
 ### Ruby
 
@@ -38,28 +40,26 @@ brew install redis
 ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
 ```
 
-### Foreman
+### Overmind
 
-Foreman will run all the various processes needed for a developement server of Readback. Install it as follows:
+Overmind will run all the processes needed for a developement server of Readback. Install it as follows:
 
 ```sh
-gem install foreman
+brew install overmind
 ```
 
 ### Readback and its dependencies
 
 After checking out the repo, run `bin/setup` to install dependencies.
 
-Start the development server by running `foreman start`.  You can also run `bin/rails console` for an interactive prompt that will allow you to experiment.
+Start the development server by running `overmind start`.  You can also run `bin/rails console` for an interactive prompt that will allow you to experiment.
+
+Navigate to http://localhost:5000
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/cbothner/readback. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/cbothner/readback. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](https://contributor-covenant.org) code of conduct.
 
 ## License
 
 The project is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Something project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/something/blob/master/CODE_OF_CONDUCT.md).
