@@ -36,9 +36,9 @@ const uploadAttachment = attachment => {
 }
 
 // Listen for the Trix attachment event to trigger upload
-// If Trix is given a prevent-uploads css class, disallow upload
+// If Trix editor has prevent-uploads data attribute, disallow upload
 addEventListener('trix-attachment-add', event => {
-  if (event.dataset.trixPreventUploads) {
+  if (event.target.dataset.trixPreventUploads) {
     return event.preventDefault()
   }
   const attachment = event.attachment
