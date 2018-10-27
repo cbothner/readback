@@ -60,8 +60,8 @@
             = f.label :um_dept, "U-M Department"
             = f.text_field :um_dept
         = f.label :about, "Your Bio"
-        = f.hidden_field :about, id: :dj_about
-        %trix-editor{:input => "dj_about"}
+      = f.hidden_field :about, id: :dj_about
+      %trix-editor.dj-about{input: "dj_about"}
 
     %aside.right-sidebar
       = f.label :lists, "Your Picks"
@@ -81,7 +81,8 @@
             3. Bob Dylan – Newport Folk Festival, 25 July 1965
             4. Jimi Hendrix at Woodstock
             5. The Beatles’ rooftop concert, 30 January 1969
-        %trix-editor{ data: { 'trix-prevent-uploads': 'true' }, input: "dj_lists" }
+      %trix-editor.dj-lists{ data: { 'trix-prevent-uploads': 'true' },
+                             input: "dj_lists" }
   = javascript_pack_tag 'direct_uploads'
   = javascript_pack_tag 'trix_uploads'
   = stylesheet_pack_tag 'trix_uploads'

@@ -112,10 +112,11 @@ a:hover .dj div p span#dj-name {
 }
 
 .dj-about {
-  p {
+  & > * {
     max-width: 40em;
-    margin: 0.5em auto;
+    margin: 1em auto;
   }
+
   blockquote {
     max-width: 38em;
     margin: 0.5em auto;
@@ -169,7 +170,7 @@ aside.right-sidebar {
   .dj-lists {
     font-size: 90%;
     border: solid 1pt #aaa;
-    padding: 0.25em 0 0.75em 0;
+    padding: 0.25em 0.5em 0.75em;
     h1,
     h2,
     h3,
