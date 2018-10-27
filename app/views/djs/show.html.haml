@@ -39,7 +39,7 @@
   = content_for(:dj_activity) unless @dj.about.blank?
 
 %article.with-thin-sidebar.with-right-sidebar
-  %section
+  %section#dj-center-panel
     - if @dj.trainee && dj_signed_in? && current_dj.can_read?(@dj.trainee)
       .rightalign.minustop= link_to "Training History", @dj.trainee
     - unless !dj_signed_in? && @dj.website.blank? && @dj.public_email.blank?
@@ -72,7 +72,7 @@
               = link_to @dj.public_email, "mailto://#{@dj.public_email}"
     .dj-about
       - unless @dj.about.blank?
-        = sanitize markdown @dj.about
+        = sanitize @dj.about
       - else
         %span.italic This DJ has not written a bio.
     - if @dj.about.blank?
@@ -82,4 +82,4 @@
   - unless @dj.lists.blank?
     %aside.right-sidebar
       .dj-lists
-        = sanitize markdown @dj.lists
+        = sanitize @dj.lists

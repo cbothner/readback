@@ -18,6 +18,7 @@ class Dj < ActiveRecord::Base
   has_one :trainee
 
   has_one_attached :avatar
+  has_many_attached :images
 
   serialize :roles, Array
 
@@ -28,6 +29,8 @@ class Dj < ActiveRecord::Base
     dj.validates :umid, :um_dept, presence: true
     # dj.validates :umid, format: {with: /\A[0-9]{8}\Z/}
   end
+
+  after_update_commit :purge_detached_images
 
   def semesters_count
     (freeform_shows.map(&:semester) + specialty_shows.map(&:semester))
@@ -55,5 +58,13 @@ class Dj < ActiveRecord::Base
 
   def robot_picture_url
     "https://www.robohash.org/#{Digest::MD5.hexdigest(email)}?set=set3"
+  end
+
+  private
+
+  def purge_detached_images
+    images.attachments.preload(:blob).each do |attachment|
+      attachment.purge_later unless about.include? attachment.signed_id
+    end
   end
 end

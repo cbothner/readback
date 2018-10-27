@@ -1,7 +1,6 @@
 local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
-  host: http://localhost:5000
 
 test:
   service: Disk
