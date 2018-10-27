@@ -61,28 +61,25 @@
             = f.text_field :um_dept
         = f.label :about, "Your Bio"
       = f.hidden_field :about, id: :dj_about
-      %trix-editor.dj-about{input: "dj_about"}
+      %trix-editor.dj-about{input: :dj_about}
 
     %aside.right-sidebar
       = f.label :lists, "Your Picks"
-      = f.hidden_field :lists, id: :dj_lists
       %p.instructions
         Best albums this year, favorite instruments, etc.
-        %br
-        Use the Heading and Numbered List buttons for formatting
-      =preserve do
-        %pre.code<
-          :escaped
-            e.g.
-            [tT] Top 5 Concerts I’ve Seen
+      = f.hidden_field :lists, id: :dj_lists
+      :ruby
+        placeholder_text = <<~PLACEHOLDER
+          Top 5 Concerts I’ve Seen
 
-            1. John Coltrane, A Love Supreme, live at Festival Mondial du Jazz Antibes, 26 July 1965
-            2. The Grateful Dead, then “Warlocks,” at the first Acid Test, 27 November 1965
-            3. Bob Dylan – Newport Folk Festival, 25 July 1965
-            4. Jimi Hendrix at Woodstock
-            5. The Beatles’ rooftop concert, 30 January 1969
+          1. John Coltrane, A Love Supreme, live at Festival Mondial du Jazz Antibes, 26 July 1965
+          2. The Grateful Dead, then “Warlocks,” at the first Acid Test, 27 November 1965
+          3. Bob Dylan – Newport Folk Festival, 25 July 1965
+          4. Jimi Hendrix at Woodstock
+          5. The Beatles’ rooftop concert, 30 January 1969
+        PLACEHOLDER
       %trix-editor.dj-lists{ data: { 'trix-prevent-uploads': 'true' },
-                             input: "dj_lists" }
+                             input: :dj_lists, placeholder: placeholder_text }
   = javascript_pack_tag 'direct_uploads'
   = javascript_pack_tag 'trix_uploads'
   = stylesheet_pack_tag 'trix_uploads'

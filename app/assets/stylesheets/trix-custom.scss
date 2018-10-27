@@ -3,3 +3,7 @@ button.trix-button.trix-button--icon.trix-button--icon-strike,
 button.trix-button.trix-button--icon.trix-button--icon-code {
   display: none;
 }
+
+trix-editor:empty:not(:focus)::before {
+  white-space: pre-wrap;
+}
