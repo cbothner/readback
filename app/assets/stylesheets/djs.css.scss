@@ -137,13 +137,82 @@ a:hover .dj div p span#dj-name {
     margin-left: auto;
     margin-right: auto;
   }
+
   img {
-    display: block;
-    max-width: 85%;
-    width: auto;
+    max-width: 100%;
     height: auto;
-    margin: auto;
-    margin-top: 1em;
+  }
+
+  .attachment {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover,
+      &:visited:hover {
+        color: inherit;
+      }
+    }
+  }
+
+  .attachment__caption {
+    padding: 0;
+    text-align: center;
+
+    .attachment__name + .attachment__size {
+      &::before {
+        content: ' · ';
+      }
+    }
+  }
+
+  .attachment--preview {
+    width: 100%;
+    text-align: center;
+
+    .attachment__caption {
+      color: #666;
+      font-size: 0.9em;
+      line-height: 1.2;
+    }
+  }
+
+  .attachment--file {
+    color: #333;
+    line-height: 1;
+    margin: 0 2px 2px 0;
+    padding: 0.4em 1em;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+  }
+
+  .attachment-gallery {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    max-width: unset;
+    padding: 0;
+    position: relative;
+
+    .attachment {
+      flex: 1;
+      padding: 0 0.5em;
+      max-width: 33%;
+    }
+
+    &.attachment-gallery--2,
+    &.attachment-gallery--4 {
+      .attachment {
+        max-width: 50%;
+      }
+    }
   }
 }
 code,
