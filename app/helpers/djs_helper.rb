@@ -53,7 +53,8 @@ module DjsHelper
   def profile_picture(dj)
     content_tag :img, nil,
                 class: ['profile-pic', ('robot' unless dj.avatar.attached?)],
-                src: dj_profile_url(dj)
+                src: dj_profile_url(dj),
+                alt: 'DJ Profile Picture'
   end
 
   def dj_profile_url(dj, variant: { thumbnail: '128x128^' })
