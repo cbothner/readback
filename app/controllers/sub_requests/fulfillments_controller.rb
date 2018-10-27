@@ -12,7 +12,7 @@ module SubRequests
       if fulfillment.save
         redirect_to(
           @sub_request.episode.show,
-          notice: "You’ve signed up to cover for #{fulfillment.previous_dj}!"
+          notice: "You’ve signed up to cover #{@sub_request.episode.show.name}!"
         )
       else
         render 'sub_requests#show', notice: @sub_request.errors.full_messages
