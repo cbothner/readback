@@ -105,6 +105,6 @@ class DjsController < ApplicationController
                                :um_dept, :experience, :referral, :interests,
                                :statement, :real_name_is_public, :dj_name,
                                :website, :public_email, :about, :lists, :active,
-                               :avatar)
+                               :avatar, images: [])
   end
 end

@@ -287,6 +287,7 @@ label {
     margin: 0.5em 0;
   }
   .show-notes {
+    overflow-x: scroll;
     *:first-child {
       margin-top: 0;
     }

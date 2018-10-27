@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 # Infrastructure #
 ##################
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0-rc1'
+gem 'rails', '~> 5.2.1'
 # Heroku needs 12factor for logs and assets
 gem 'rails_12factor', group: :production
 # Use postgresql as the database for Active Record
@@ -31,6 +31,8 @@ gem 'mini_racer', platforms: :ruby
 # File Storage
 gem 'aws-sdk-s3', require: false
 gem 'mini_magick'
+# SSH
+gem 'net-ssh'
 
 ##########
 # Models #
@@ -66,7 +68,7 @@ gem 'inline_svg'
 # JavaScript #
 ##############
 # Webpacker for the npm ecosystem
-gem 'webpacker', '~> 3.0'
+gem 'webpacker', '~> 3.5'
 # React on Rails gives us server rendering and easy components in rails views
 gem 'react_on_rails', '10.1.3' # Exact to match NPM
 # Use jquery as the JavaScript library

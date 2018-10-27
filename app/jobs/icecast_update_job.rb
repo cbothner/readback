@@ -5,7 +5,7 @@ class IcecastUpdateJob < ApplicationJob
   queue_as :default
 
   # @param [Song]
-  def perform(song)
+  def perform(song = nil)
     return unless ENV['ICECAST_ADMIN_PASSWORD']
 
     %w[hd mid hi].each do |qual|
@@ -28,8 +28,14 @@ class IcecastUpdateJob < ApplicationJob
   end
 
   def metadata_string(song)
+    return episode_string Episode.on_air if song.blank?
+
     artist = " by #{song.artist}" unless song.artist.blank?
     "WCBN-FM: “#{song.name}”#{artist} – " \
-      "on #{song.episode.show.name} with #{song.episode.dj}"
+      "on #{episode_string song.episode}"
+  end
+
+  def episode_string(episode)
+    "#{episode.show.name} with #{episode.dj}"
   end
 end
