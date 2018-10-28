@@ -34,13 +34,35 @@
         Edit
 
 .dj__story
-  .dj__biography.pt-running-text
-    - unless @dj.about.blank?
-      %h2.kicker Biography
-      = sanitize @dj.about
+  .dj__biography
+    - if dj_signed_in?
+      .pt-callout.pt-intent-primary.pt-icon-id-number
+        %h2.kicker.pt-callout-title Personal Information
+        %dl.dj__personal-info
+          %dt Phone
+          %dd= @dj.phone
+
+          %dt Email
+          %dd= @dj.email
+
+          %dt UM Affiliation
+          %dd= @dj.um_affiliation
+
+          - unless @dj.um_dept.blank?
+            %dt Department
+            %dd= @dj.um_dept
+
+          - unless @dj.umid.blank?
+            %dt UMID Number
+            %dd= @dj.um_id
+
+    .trix-content.pt-running-text
+      - unless @dj.about.blank?
+        %h2.kicker Biography
+        = sanitize @dj.about
 
   - unless @dj.lists.blank?
-    .pt-card.dj__lists.pt-running-text
+    .pt-card.dj__lists__container.dj__lists.pt-running-text
       = sanitize @dj.lists
 
 %h2.kicker Shows

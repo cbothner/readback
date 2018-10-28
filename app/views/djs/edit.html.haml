@@ -27,8 +27,8 @@
               = f.check_box :real_name_is_public
               %span.pt-control-indicator
 
-  .dj__personal-info.pt-card
-    %h2 Personal Information
+  .pt-callout.pt-intent-primary.pt-icon-id-number.margin-bottom
+    %h2.kicker.pt-callout-title Personal Information
     %p.pt-text-muted
       The following fields are only visible to other station members
     .row.wrap
@@ -49,93 +49,118 @@
       = f.form_group :umid
       = f.form_group :um_dept
 
-  .pt-card
+  .pt-callout.pt-icon-user.margin-bottom
+    %h2.kicker.pt-callout-title Profile Information
     .row.wrap
       = f.form_group :website
       = f.form_group :public_email
 
+    .margin-bottom.margin-right
+      = f.label :about, "Your Bio"
+      = f.hidden_field :about, id: :dj_about
+      %trix-editor.trix-content.pt-running-text{input: :dj_about}
+
+    = f.label :lists, "Your Picks"
+    %p.pt-text-muted
+      E.g. best albums this year, favorite instruments, etc.
+    .dj__lists.margin-bottom.margin-right
+      = f.hidden_field :lists, id: :dj_lists
+      :ruby
+        placeholder_text = <<~PLACEHOLDER
+          Top 5 Concerts I’ve Seen
+
+          1. John Coltrane, A Love Supreme, live at Festival Mondial du Jazz Antibes, 26 July 1965
+          2. The Grateful Dead, then “Warlocks,” at the first Acid Test, 27 November 1965
+          3. Bob Dylan – Newport Folk Festival, 25 July 1965
+          4. Jimi Hendrix at Woodstock
+          5. The Beatles’ rooftop concert, 30 January 1969
+        PLACEHOLDER
+      %trix-editor{ data: { 'trix-prevent-uploads': 'true' }, input: :dj_lists,                                |
+                    placeholder: placeholder_text }
+
   .row.wrap
     = f.submit 'Save Changes', class: %w[pt-button pt-intent-primary]
-  -#
-  -# %header#headline.with-profile-pic
-  -#   = profile_picture @dj
-  -#   %div
-  -#     %p.linear-field
-  -#       = f.label :dj_name, "DJ Name"
-  -#       = f.text_field :dj_name, placeholder: @dj.first_name
-  -#     %p.linear-field
-  -#       = f.label :name, "Real Name"
-  -#       = f.text_field :name
-  -#    %p.linear-field
-  -#      = f.label :avatar, "Upload Photo", :for => "dj_avatar"
-  -#      = f.file_field :avatar
-  -#
-  -# %aside.thin-sidebar{style: "padding-top: 0;"}
-  -#   .linear-field
-  -#     = f.label :real_name_is_public, "Make my real name public?"
-  -#     = f.check_box :real_name_is_public
-  -#   %br
-  -#   .actions
-  -#     = f.submit "Save changes", data: {disable_with: "Saving..."}
-  -#
-  -# %article.with-thin-sidebar.with-right-sidebar
-  -#   %section
-  -#     .dj-info
-  -#       - if @dj.errors.any?
-  -#         .alert
-  -#           - @dj.errors.full_messages.each do |msg|
-  -#             %p= msg
-  -#       %ul
-  -#         %li.linear-field
-  -#           = f.label :website
-  -#           = f.text_field :website, placeholder: "optional"
-  -#         %li.linear-field
-  -#           = f.label :public_email
-  -#           = f.text_field :public_email, placeholder: "optional"
-  -#       %p.instructions
-  -#         The following fields are only visible to WCBN DJs. (UMID only visible to Exec Staff.)
-  -#       %ul
-  -#         %li.linear-field
-  -#           = f.label :phone
-  -#           = f.phone_field :phone
-  -#         %li.linear-field
-  -#           = f.label :email
-  -#           = f.email_field :email
-  -#         %li.linear-field
-  -#           = f.label :um_affiliation, "U-M Affiliation"
-  -#           = f.select :um_affiliation, options_for_select([['U-M Student', 'student'],
-  -#               ['U-M Faculty or Staff', 'faculty'],
-  -#               ['U-M Alumnus/a', 'alumnus'],
-  -#               ['Community Member', 'community']],
-  -#             @dj.um_affiliation)
-  -#         %li.linear-field
-  -#           =f.label :umid, "UMID Number"
-  -#           =f.text_field :umid
-  -#         %li.linear-field
-  -#           = f.label :um_dept, "U-M Department"
-  -#           = f.text_field :um_dept
-  -#     = f.label :about, "Your Bio"
-  -#     %div
-  -#       = f.hidden_field :about, id: :dj_about
-  -#       %trix-editor.dj-about{input: :dj_about}
-  -#   %aside.right-sidebar
-  -#     = f.label :lists, "Your Picks"
-  -#     %p.instructions
-  -#       E.g. best albums this year, favorite instruments, etc.
-  -#       = f.hidden_field :lists, id: :dj_lists
-  -#       :ruby
-  -#         placeholder_text = <<~PLACEHOLDER
-  -#           Top 5 Concerts I’ve Seen
-  -#
-  -#           1. John Coltrane, A Love Supreme, live at Festival Mondial du Jazz Antibes, 26 July 1965
-  -#           2. The Grateful Dead, then “Warlocks,” at the first Acid Test, 27 November 1965
-  -#           3. Bob Dylan – Newport Folk Festival, 25 July 1965
-  -#           4. Jimi Hendrix at Woodstock
-  -#           5. The Beatles’ rooftop concert, 30 January 1969
-  -#         PLACEHOLDER
-  -#       %trix-editor.dj-lists{ data: { 'trix-prevent-uploads': 'true' },
-  -#                              input: :dj_lists, placeholder: placeholder_text }
-  -#
-  -# = javascript_pack_tag 'direct_uploads'
-  -# = javascript_pack_tag 'trix_uploads'
-  -# = stylesheet_pack_tag 'trix_uploads'
+
+= javascript_pack_tag 'direct_uploads'
+= javascript_pack_tag 'trix_uploads'
+
+-#
+-# %header#headline.with-profile-pic
+-#   = profile_picture @dj
+-#   %div
+-#     %p.linear-field
+-#       = f.label :dj_name, "DJ Name"
+-#       = f.text_field :dj_name, placeholder: @dj.first_name
+-#     %p.linear-field
+-#       = f.label :name, "Real Name"
+-#       = f.text_field :name
+-#    %p.linear-field
+-#      = f.label :avatar, "Upload Photo", :for => "dj_avatar"
+-#      = f.file_field :avatar
+-#
+-# %aside.thin-sidebar{style: "padding-top: 0;"}
+-#   .linear-field
+-#     = f.label :real_name_is_public, "Make my real name public?"
+-#     = f.check_box :real_name_is_public
+-#   %br
+-#   .actions
+-#     = f.submit "Save changes", data: {disable_with: "Saving..."}
+-#
+-# %article.with-thin-sidebar.with-right-sidebar
+-#   %section
+-#     .dj-info
+-#       - if @dj.errors.any?
+-#         .alert
+-#           - @dj.errors.full_messages.each do |msg|
+-#             %p= msg
+-#       %ul
+-#         %li.linear-field
+-#           = f.label :website
+-#           = f.text_field :website, placeholder: "optional"
+-#         %li.linear-field
+-#           = f.label :public_email
+-#           = f.text_field :public_email, placeholder: "optional"
+-#       %p.instructions
+-#         The following fields are only visible to WCBN DJs. (UMID only visible to Exec Staff.)
+-#       %ul
+-#         %li.linear-field
+-#           = f.label :phone
+-#           = f.phone_field :phone
+-#         %li.linear-field
+-#           = f.label :email
+-#           = f.email_field :email
+-#         %li.linear-field
+-#           = f.label :um_affiliation, "U-M Affiliation"
+-#           = f.select :um_affiliation, options_for_select([['U-M Student', 'student'],
+-#               ['U-M Faculty or Staff', 'faculty'],
+-#               ['U-M Alumnus/a', 'alumnus'],
+-#               ['Community Member', 'community']],
+-#             @dj.um_affiliation)
+-#         %li.linear-field
+-#           =f.label :umid, "UMID Number"
+-#           =f.text_field :umid
+-#         %li.linear-field
+-#           = f.label :um_dept, "U-M Department"
+-#           = f.text_field :um_dept
+-#     = f.label :about, "Your Bio"
+-#     %div
+-#       = f.hidden_field :about, id: :dj_about
+-#       %trix-editor.dj-about{input: :dj_about}
+-#   %aside.right-sidebar
+-#     = f.label :lists, "Your Picks"
+-#     %p.instructions
+-#       E.g. best albums this year, favorite instruments, etc.
+-#       = f.hidden_field :lists, id: :dj_lists
+-#       :ruby
+-#         placeholder_text = <<~PLACEHOLDER
+-#           Top 5 Concerts I’ve Seen
+-#
+-#           1. John Coltrane, A Love Supreme, live at Festival Mondial du Jazz Antibes, 26 July 1965
+-#           2. The Grateful Dead, then “Warlocks,” at the first Acid Test, 27 November 1965
+-#           3. Bob Dylan – Newport Folk Festival, 25 July 1965
+-#           4. Jimi Hendrix at Woodstock
+-#           5. The Beatles’ rooftop concert, 30 January 1969
+-#         PLACEHOLDER
+-#       %trix-editor.dj-lists{ data: { 'trix-prevent-uploads': 'true' },
+-#                              input: :dj_lists, placeholder: placeholder_text }
+-#

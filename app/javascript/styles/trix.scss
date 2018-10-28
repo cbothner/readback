@@ -1,10 +1,21 @@
 @import '~trix/dist/trix';
 
+trix-editor {
+  background: white;
+}
+
+trix-toolbar {
+  .trix-button {
+    background: white;
+  }
+}
+
 button.trix-button.trix-button--icon.trix-button--icon-code {
   display: none;
 }
 
 trix-editor:empty:not(:focus)::before {
+  color: grey !important;
   white-space: pre-wrap;
 }
 

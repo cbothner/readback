@@ -4,10 +4,6 @@
 }
 
 .edit_dj {
-  .row:not(:last-child) {
-    margin-bottom: 2rem;
-  }
-
   .pt-form-group {
     margin-right: 1rem;
 
@@ -83,8 +79,7 @@
   }
 }
 
-.dj__personal-info {
-  margin-bottom: 1.5rem;
+.dj__edit-personal-info {
   background: rgba(white, 0.25);
 
   h2 {
@@ -103,18 +98,36 @@ input[name='dj[umid]'] {
   justify-content: center;
 }
 
-.dj__biography:last-child {
-  margin: 0 10em;
+.dj__personal-info {
+  display: grid;
+  grid-gap: 0.5em;
+  grid-template-columns: max-content 1fr;
+
+  dt {
+    font-weight: 500;
+  }
 }
 
-@import '_typography';
-.dj__lists {
+.dj__biography {
+  .pt-callout {
+    margin-bottom: 2em;
+  }
+
+  &:last-child {
+    margin: 0 10em;
+  }
+}
+
+.dj__lists__container {
   flex-shrink: 0;
   height: 100%;
   width: 20em;
   margin-left: 2em;
   font-size: 90%;
+}
 
+@import '_typography';
+.dj__lists{
   ul,
   ol {
     padding-left: 1em;
