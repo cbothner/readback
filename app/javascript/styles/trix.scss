@@ -1,0 +1,20 @@
+@import '~trix/dist/trix';
+
+button.trix-button.trix-button--icon.trix-button--icon-code {
+  display: none;
+}
+
+trix-editor:empty:not(:focus)::before {
+  white-space: pre-wrap;
+}
+
+
+.attachment__name, .attachment__size {
+  display: none;
+}
+
+trix-editor {
+  .attachment__name, .attachment__size {
+    display: initial;
+  }
+}

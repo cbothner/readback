@@ -1,6 +1,5 @@
 import { DirectUpload } from 'activestorage'
 import * as Trix from 'trix'
-import 'trix/dist/trix.css'
 
 Trix.config.attachments.preview.caption = {
   name: false,
