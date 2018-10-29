@@ -70,7 +70,7 @@ gem 'inline_svg'
 # Webpacker for the npm ecosystem
 gem 'webpacker', '~> 3.5'
 # React on Rails gives us server rendering and easy components in rails views
-gem 'react_on_rails', '10.1.3' # Exact to match NPM
+gem 'react_on_rails', '11.1.8' # Exact to match NPM
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

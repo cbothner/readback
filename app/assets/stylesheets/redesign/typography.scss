@@ -1,11 +1,9 @@
-.kicker {
-  margin: 0 0 17px 0;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 1.22;
-  color: unset;
+@import '_typography';
+.kicker,
+.pt-running-text .kicker {
+  @include kicker;
+}
 
-  &:not(:first-child) {
-    margin-top: 50px;
-  }
+.pt-running-text {
+  hyphens: auto;
 }

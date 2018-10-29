@@ -4,8 +4,9 @@
       = inline_svg 'wcbn.svg', aria: true, title: 'WCBN', class: 'wcbn-logo'
 
     %span.player-widget
-      %i.fas.fa-play-circle.player-widget__button
-      %a{ href: '#' } Listen Live
+      %a{ href: '#' }
+        %i.fas.fa-play-circle.player-widget__button
+        Listen Live
 
   %nav.main-header__nav
     = link_to 'About', page_path('about')

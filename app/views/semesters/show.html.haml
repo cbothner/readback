@@ -1,3 +1,7 @@
+- content_for :head do
+  = javascript_pack_tag 'options'
+  = javascript_pack_tag 'selectNav'
+
 - title 'Show Schedule'
 
 - cache @semester do
@@ -10,7 +14,11 @@
 
     .card__header
       .pt-select
-        = select_tag 'semesters', semesters_options
+        = react_component 'SelectNav', prerender: true,
+          props: { items: @semesters.map { |s| { text: s.season,
+                                                 url: semester_path(s) } },
+                   selectedUrl: semester_path(@semester) }
+
       - if dj_signed_in? && current_dj.can_create?(Semester)
         = react_component 'Options', prerender: true,
           props: { items: [ { text: 'Clone',
@@ -21,6 +29,3 @@
                               href: edit_semester_path(@semester) } ] }
 
   = render @semester, locals: { no_links: false }
-
-- content_for :head do
-  = javascript_pack_tag 'options'

@@ -1,85 +1,94 @@
+- content_for :head do
+  = javascript_pack_tag 'options'
+  = javascript_pack_tag 'selectNav'
+
 - title "#{@dj}"
 
--# DJ Activity is in the sidebar if the dj has about text written, and in the
--# main body if not.
-- content_for :dj_activity do
-  - unless @shows.empty? && @recent_episodes.empty?
-    .dj-shows
-      - @shows.each do |name, shows|
-        %h4=name
-        %ul
-          - shows.each do |show|
-            %li
-              = link_to "#{show.semester.decorate.season}", show
-              = raw show.time_string rescue raw "&nbsp;(cancelled)"
-    .dj-recent-episodes
-      %h4 Most Recent Shows
-      - @recent_episodes.each do |ep|
-        =link_to episode_songs_path(ep), {class: %w(dj-recent-episode showinfo)} do
-          %b=ep.show.unambiguous_name
-          %p=ep.date_string
-      .rightalign= link_to "All Recent Shows".html_safe, dj_episodes_path(@dj)
+.card__header.dj__metadata
+  .row
+    = profile_picture @dj
+    .dj__name
+      %h1= @dj
 
-%header#headline.with-profile-pic
-  =profile_picture @dj
-  %div
-    %h2="#{@dj}"
-    - if dj_signed_in? || @dj.real_name_is_public
-      %p.subtitle.italic
-        =@dj.name
-        =" (real name is #{"not " unless @dj.real_name_is_public}public)" if dj_signed_in?
-    %p.subtitle.dj-edit-link
-      - if dj_signed_in? && @dj.updatable_by?(current_dj)
-        =link_to "edit profile", edit_dj_path(@dj)
-      - if current_dj == @dj
-        •
-        =link_to "change password", edit_dj_registration_path
+      - if dj_signed_in? || @dj.real_name_is_public
+        %p{ class: @dj.real_name_is_public ? '' : 'pt-text-muted' }
+          = @dj.name
 
-%aside.thin-sidebar
-  = content_for(:dj_activity) unless @dj.about.blank?
-
-%article.with-thin-sidebar.with-right-sidebar
-  %section#dj-center-panel
-    - if @dj.trainee && dj_signed_in? && current_dj.can_read?(@dj.trainee)
-      .rightalign.minustop= link_to "Training History", @dj.trainee
-    - unless !dj_signed_in? && @dj.website.blank? && @dj.public_email.blank?
-      .dj-info
-        %ul
-          - if dj_signed_in?
-            %li
-              UM Affiliation:&nbsp;
-              = @dj.um_dept
-              = Person::AFFILIATION_NAMES[@dj.um_affiliation]
-            - if @dj.um_affiliated? && current_dj.has_role?(:superuser)
-              %li
-                UMID:
-                = @dj.um_id
-            %li
-              Phone:
-              = @dj.phone
-            %li
-              Email:
-              = mail_to @dj.email
-              %br
+      - unless @dj.website.blank? && @dj.public_email.blank?
+        %p.pt-button-group
           - unless @dj.website.blank?
-            %li
-              URL:
-              = link_to @dj.website_name, @dj.website,
-                        target: '_blank', rel: 'noopener noreferrer'
+            = link_to 'Website', @dj.website,
+                      target: '_blank', rel: 'noopener noreferrer',
+                      class: %i[pt-button pt-icon-globe]
           - unless @dj.public_email.blank?
-            %li
-              = "#{"Public " if dj_signed_in?}Email:"
-              = link_to @dj.public_email, "mailto://#{@dj.public_email}"
-    .dj-about
+            = mail_to @dj.public_email, 'Email',
+                    class: %i[pt-button pt-icon-envelope]
+
+
+  .card__header
+    - if current_dj == @dj
+      = link_to edit_dj_registration_path, class: 'pt-button pt-icon-key' do
+        Change Password
+    - if current_dj&.can_update? @dj
+      = link_to edit_dj_path(@dj), class: 'pt-button pt-icon-edit' do
+        Edit
+
+.dj__story
+  .dj__biography
+    - if dj_signed_in?
+      .pt-callout.pt-intent-primary.pt-icon-id-number
+        %h2.kicker.pt-callout-title Personal Information
+        %dl.dj__personal-info
+          %dt Phone
+          %dd= @dj.phone
+
+          %dt Email
+          %dd= @dj.email
+
+          %dt UM Affiliation
+          %dd= @dj.um_affiliation
+
+          - unless @dj.um_dept.blank?
+            %dt Department
+            %dd= @dj.um_dept
+
+          - unless @dj.umid.blank?
+            %dt UMID Number
+            %dd= @dj.um_id
+
+    .trix-content.pt-running-text
       - unless @dj.about.blank?
+        %h2.kicker Biography
         = sanitize @dj.about
-      - else
-        %span.italic This DJ has not written a bio.
-    - if @dj.about.blank?
-      %div
-        = content_for(:dj_activity)
 
   - unless @dj.lists.blank?
-    %aside.right-sidebar
-      .dj-lists
-        = sanitize @dj.lists
+    .pt-card.dj__lists__container.dj__lists.pt-running-text
+      = sanitize @dj.lists
+
+%h2.kicker Shows
+.dj__shows
+  - @shows.each do |name, shows|
+    .pt-card.pt-elevation-2.dj__show
+      %p
+        %strong= name
+
+        %span
+          - if shows.first.semester == Semester.current
+            = shows.first.time_string
+          - else
+            No longer DJing
+
+      = react_component 'SelectNav', prerender: true,
+        props: { blankItem: pluralize(shows.length, 'semester'),
+                 items: shows.map { |s| { text: s.semester.decorate.season,
+                                          url: url_for(s) } } }
+
+%h2.kicker Activity
+.dj__activities
+  - @recent_episodes.each do |episode|
+    .dj__activity
+      .activity__icon.pt-card
+        %i{ class: episode.activity.icon_classes }
+      %p.activity__details
+        %span.activity__date= episode.date_string
+        = raw episode.activity

@@ -1,0 +1,33 @@
+.dj__activity {
+  display: flex;
+  margin-left: 0.75rem;
+}
+
+.activity__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.3rem 1.25rem 0 0;
+  padding: 0;
+  flex-shrink: 0;
+  height: 1.75rem;
+  width: 1.75rem;
+  border-radius: 1.75rem;
+  color: var(--color-primary);
+
+  i {
+    margin-left: 1px;
+  }
+}
+
+.activity__details {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.activity__date {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: normal;
+}

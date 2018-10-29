@@ -24,6 +24,7 @@
     background-color: var(--white);
     color: var(--black);
     padding: 2rem;
+    border-radius: 3px;
   }
 
   &__sidebar {
@@ -36,8 +37,24 @@
   display: flex;
   justify-content: space-between;
 
-  button {
+  .card__header {
+    height: 100%;
+  }
+
+  & button,
+  & .pt-button {
     font-size: 14px;
-    margin-left: 6px;
+
+    &:not(:first-child) {
+      margin-left: 6px;
+    }
+  }
+}
+
+.row {
+  display: flex;
+
+  &.wrap {
+    flex-flow: wrap;
   }
 }

@@ -6,3 +6,7 @@ $pt-link-color: var(--color-primary--dark);
 
 @import '~@blueprintjs/icons/src/blueprint-icons';
 @import '~@blueprintjs/core/src/blueprint';
+
+input[type='submit'].pt-button {
+  padding: 5px 10px;
+}

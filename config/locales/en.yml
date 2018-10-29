@@ -25,7 +25,11 @@ en:
       song:
         name: "Song title"
       dj:
+        dj_name: DJ Name
+        name: Real Name
+        real_name_is_public: Show my real name?
         umid: "UMID"
+        um_affiliation: U-M Affiliation
         um_dept: "U-M Department"
         statement: "Personal Statement"
     errors:
