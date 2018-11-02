@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   root 'playlist#index'
 
@@ -71,4 +73,8 @@ Rails.application.routes.draw do
   post 'spotify/refresh', to: 'spotify#refresh'
 
   mount ActionCable.server => '/cable'
+
+  authenticate :dj, ->(dj) { dj.has_role? :superuser } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
