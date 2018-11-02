@@ -112,6 +112,8 @@ GEM
       railties (>= 3.0.0)
     faker (1.8.4)
       i18n (~> 0.5)
+    faraday (0.15.3)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
     formatador (0.2.5)
     globalid (0.4.1)
@@ -183,6 +185,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.12.2)
+    multipart-post (2.0.0)
     nenv (0.3.0)
     net-ssh (5.0.2)
     newrelic_rpm (4.6.0.338)
@@ -287,6 +290,8 @@ GEM
     seed_dump (3.2.4)
       activerecord (>= 4)
       activesupport (>= 4)
+    sentry-raven (2.7.4)
+      faraday (>= 0.7.6, < 1.0)
     shellany (0.0.1)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
@@ -385,6 +390,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   seed_dump
+  sentry-raven
   shoulda-matchers
   sidekiq
   simplecov
