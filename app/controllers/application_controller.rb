@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def set_raven_context
     Raven.user_context(
-      email: current_dj.email, playlist_editor: playlist_editor_signed_in?
+      email: current_dj&.email, playlist_editor: playlist_editor_signed_in?
     )
     Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
