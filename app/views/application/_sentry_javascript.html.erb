@@ -1,0 +1,14 @@
+<script src="https://browser.sentry-cdn.com/4.2.3/bundle.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.init(<%= raw({
+    dsn: 'https://7eefb3c4a9dc4774ad70d87df9fed130@sentry.io/1314257',
+    environment: Rails.env,
+  }.to_json) %>);
+
+  Sentry.configureScope(function (scope) {
+    scope.setUser(<%= raw({
+      email: current_dj&.email,
+      playlist_editor: playlist_editor_signed_in?
+    }.to_json) %>)
+ })
+</script>

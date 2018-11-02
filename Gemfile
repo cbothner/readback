@@ -22,6 +22,7 @@ gem 'redis', '~> 3.0'
 gem 'sidekiq'
 # Monitoring
 gem 'newrelic_rpm', group: :production
+gem 'sentry-raven'
 # File Storage
 gem 'aws-sdk-s3', require: false
 gem 'mini_magick'
