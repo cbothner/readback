@@ -18,8 +18,8 @@ class SubRequest < ActiveRecord::Base
 
   before_create :ensure_group_is_not_sparse
   before_create :set_status_from_request_group
-  # after_create :send_emails
-  # after_update :send_emails
+  after_create :send_emails
+  after_update :send_emails
   after_save :update_episode_status
   after_destroy :reset_episode_status
 
@@ -31,12 +31,12 @@ class SubRequest < ActiveRecord::Base
 
   def send_emails
     case status.to_sym
-    when :needs_sub then SubRequestMailer.request_of_all(self).deliver!
+    when :needs_sub then SubRequestMailer.request_of_all(self).deliver_later
     when :needs_sub_in_group then
-      SubRequestMailer.request_of_group(self).deliver!
+      SubRequestMailer.request_of_group(self).deliver_later
     when :confirmed
       SubRequestMailer.fulfilled(self, asking_dj: Dj.find(episode.dj_id_was))
-                      .deliver!
+                      .deliver_later
     end
   end
 
