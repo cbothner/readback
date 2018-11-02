@@ -13,10 +13,6 @@ gem 'rails_12factor', group: :production
 gem 'pg'
 # Don't use WEBBrick because it's slow
 gem 'puma'
-# Scheduling!
-gem 'resque'
-gem 'resque-scheduler'
-gem 'resque_mailer'
 # Cache
 gem 'dalli'
 gem 'kgio'
