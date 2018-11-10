@@ -20,7 +20,7 @@ const Container = styled.div`
   display: flex;
   align-items: stretch;
 
-  width: ${p => p.playing ? 'auto' : '0'};
+  width: ${p => (p.playing ? 'auto' : '0')};
   color: ${p => p.theme.white};
   font-family: 'Lato';
 `
@@ -63,12 +63,23 @@ class Player extends React.Component<Props, { playing: boolean }> {
     if (url.searchParams.has('autoplay')) {
       this._play()
     }
+
+    var audio = this.audioElement
+
+    const volumeBar = document.getElementById('volume-bar')
+    volumeBar.addEventListener(
+      'input',
+      function () {
+        audio.volume = parseInt(this.value) / 10
+      },
+      false
+    )
   }
 
   render () {
     const { song } = this.props
     const { playing } = this.state
-    
+
     return (
       <Container playing={playing}>
         <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />

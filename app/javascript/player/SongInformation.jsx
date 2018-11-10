@@ -5,16 +5,15 @@
 
 import * as React from 'react'
 import styled from 'styled-components'
-import { rgba } from 'polished'
 
 import { Motion, spring } from 'react-motion'
 
 import AlbumArt from './AlbumArt'
+import Volume from './Volume'
 
 import type { Song } from 'models'
 
 const Container = styled.div`
-  padding-left: 4px;
   background-color: ${props => props.theme.blue};
   border-top-right-radius: 4px;
   display: flex;
@@ -25,7 +24,6 @@ const InfoBox = styled.div`
   max-width: 700px;
   max-height: 60px;
   padding: 0 15px;
-  border-left: 1px solid ${p => rgba(p.theme.white, 0.4)};
   display: flex;
   align-items: flex-start;
   overflow: hidden;
@@ -42,13 +40,13 @@ const SongInformation = ({ song, visible }: Props) => {
             transform: `translate(calc(${x * -100}% + ${x * 4}px))`,
           }}
         >
+          <Volume />
           <InfoBox>
             <AlbumArt song={song} />
             <div>
               <div>
                 <strong>
-                  {artist && `${artist}: `}
-                  “{name}”
+                  {artist && `${artist}: `}“{name}”
                 </strong>
               </div>
               <div>
