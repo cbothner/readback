@@ -88,7 +88,7 @@ class DjsController < ApplicationController
     authorize_action_for @dj
     respond_to do |format|
       if @dj.update(dj_params)
-        format.html { redirect_to @dj, notice: 'Dj was successfully updated.' }
+        format.html { redirect_to @dj, successfully_updated }
         format.json { respond_with_bip @dj }
       else
         format.html { render :edit }

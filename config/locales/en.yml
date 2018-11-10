@@ -30,6 +30,11 @@ en:
     models:
       dj: DJ
       playlist_editor: Playlist Editor
+    persistance:
+      messages:
+        created: "%{model} successfully created."
+        destroyed: "%{model} successfully deleted."
+        updated: "%{model} successfully updated."
 
   errors:
     template:

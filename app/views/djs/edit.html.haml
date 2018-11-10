@@ -9,6 +9,8 @@
 
 
 = simple_form_for @dj, builder: BlueprintFormBuilder do |f|
+  = f.errors
+
   .dj__metadata
     .row
       = profile_picture @dj

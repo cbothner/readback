@@ -25,8 +25,8 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
   def errors
     return if @object.errors.empty?
 
-    classes = %w[pt-callout pt-intent-danger pt-icon-error margin-bottom]
-    @template.content_tag :div, class: classes do
+    classes = %w[form__errors pt-callout pt-intent-danger pt-icon-error]
+    @template.content_tag :div, class: classes, role: 'alert' do
       contents = ''.html_safe
       contents << error_header
       contents << error_list
@@ -132,7 +132,7 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
   end
 
   def error_header
-    @template.content_tag :h5 do
+    @template.content_tag :h5, class: %w[pt-callout-title] do
       I18n.translate 'errors.template.header',
                      model: @object.model_name.human,
                      count: @object.errors.count
@@ -140,10 +140,12 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
   end
 
   def error_list
-    @object.errors.full_messages
-           .map { |error| @template.content_tag :div, error }
-           .join
-           .html_safe
+    @template.content_tag :ul do
+      @object.errors.full_messages
+             .map { |error| @template.content_tag :li, error }
+             .join
+             .html_safe
+    end
   end
 
   def with_blueprint_file_input(method, instructions: nil, **options)

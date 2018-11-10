@@ -10,7 +10,7 @@ $flashes: (alert, $orange3, "\E647" /* pt-icon-warning */),
 @each $type, $color, $icon in $flashes {
   .flash--#{$type} {
     background-color: tint($color, 70%);
-    border-bottom: 2px solid tint($color, 50%);
+    border-bottom: 3px solid tint($color, 50%);
     padding: 0.5rem 1rem;
     text-align: center;
 
