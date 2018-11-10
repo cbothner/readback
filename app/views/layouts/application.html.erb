@@ -2,10 +2,13 @@
 <html>
 <head>
   <title>WCBN-FM <%= content_for?(:title) ? " — " + content_for(:title): "" %></title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch&flags=gated"></script>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
   <%= render 'application/sentry_javascript' %>
+
+  <%= csrf_meta_tags %>
 </head>
 <body>
 
