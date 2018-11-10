@@ -1,6 +1,6 @@
 .episode {
   margin: 16px 0;
-  font-size: 19px;
+  font-size: modular-scale(1);
   line-height: 1.22;
   font-weight: 600;
   color: unset;
@@ -10,13 +10,13 @@
   }
 
   &__time-string {
-    font-size: 12px;
+    font-size: modular-scale(-1);
     font-weight: 400;
     display: block;
   }
 
   &__dj-string {
-    font-size: 14px;
+    font-size: modular-scale(-1);
     font-weight: 400;
     display: block;
   }
@@ -25,9 +25,9 @@
 // Within playlist
 .playlist .episode {
   margin: 22px 0;
-  font-size: 22px;
+  font-size: modular-scale(2);
 
   &__dj-string {
-    font-size: 16px;
+    font-size: modular-scale(0);
   }
 }

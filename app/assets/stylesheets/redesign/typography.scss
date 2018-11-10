@@ -1,9 +1,0 @@
-@import '_typography';
-.kicker,
-.pt-running-text .kicker {
-  @include kicker;
-}
-
-.pt-running-text {
-  hyphens: auto;
-}

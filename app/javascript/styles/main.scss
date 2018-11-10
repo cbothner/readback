@@ -1,5 +1,3 @@
-@import '_variables';
-
 html {
   box-sizing: border-box;
 }
@@ -15,7 +13,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--color-primary);
-  background-image: image-url('paisley.svg');
+  background-image: url('../images/paisley.svg');
   background-blend-mode: overlay;
   color: var(--color-primary__contrast);
   font-family: $font-sans;

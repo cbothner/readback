@@ -1,7 +1,7 @@
 .playlist-item--song {
   display: flex;
   align-items: center;
-  margin: 16px 0;
+  margin: 1rem 0;
 }
 
 .song__metadata {
@@ -14,15 +14,14 @@
 }
 
 .song__time-string {
-  width: 52px;
-  font-size: 12px;
+  width: 3.5rem;
+  font-size: modular-scale(-1);
 }
 
 .song__album-art {
   display: inline-block;
-  width: 38px;
-  height: 38px;
-  margin: 0 14px;
+  @include size(modular-scale(4));
+  margin: 0 modular-scale(-1);
   background-color: #d8d8d8;
 }
 

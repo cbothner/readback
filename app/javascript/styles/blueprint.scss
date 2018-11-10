@@ -1,5 +1,6 @@
-$pt-font-family: 'Rubik', sans-serif;
 $icon-font-path: '~@blueprintjs/icons/resources/icons';
+
+$pt-font-family: 'Rubik', sans-serif;
 $pt-line-height: 1.22;
 
 $pt-link-color: var(--color-primary--dark);
@@ -9,4 +10,8 @@ $pt-link-color: var(--color-primary--dark);
 
 input[type='submit'].pt-button {
   padding: 5px 10px;
+}
+
+.pt-button {
+  margin: 0;
 }

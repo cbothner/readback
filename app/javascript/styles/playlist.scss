@@ -1,6 +1,3 @@
-@import '_variables';
-@import '_functions';
-
 .playlist__form {
   .episode {
     margin-top: -2rem;
@@ -35,7 +32,7 @@
 
   .pt-control-indicator {
     position: absolute;
-    top: 29px;
+    top: 31px;
     right: 8px;
   }
 
@@ -46,7 +43,7 @@
   &__background {
     position: absolute;
     z-index: -1;
-    top: 22px;
+    top: 24px;
     left: 0;
     width: 100%;
     height: 30px;

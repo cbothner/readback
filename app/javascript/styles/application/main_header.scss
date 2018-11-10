@@ -7,7 +7,7 @@
 
   & a {
     color: var(--color-primary__contrast);
-    font-size: 17px;
+    font-size: modular-scale(0);
     font-weight: 600;
     letter-spacing: -0.2px;
   }

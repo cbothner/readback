@@ -1,5 +1,4 @@
-import 'styles/blueprint'
-import 'styles/trix'
+import 'styles'
 
 import { FocusStyleManager } from '@blueprintjs/core'
 FocusStyleManager.onlyShowFocusOnTabs()
