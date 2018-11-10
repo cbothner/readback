@@ -1,0 +1,26 @@
+.small-container
+  %h1 Change your Password
+
+  = simple_form_for resource,
+                    as: resource_name, url: registration_path(resource_name),
+                    html: { method: :put }, builder: BlueprintFormBuilder do |f|
+    = f.errors
+
+    = f.form_group :password do |f, error_classes|
+      = f.password_field :password, class: %w[pt-input pt-fill] + error_classes
+
+    = f.form_group :password_confirmation do |f, error_classes|
+      = f.password_field :password_confirmation,
+                         class: %w[pt-input pt-fill] + error_classes
+
+
+    - helper_text = '(we need your current password to confirm your changes)'
+    = f.form_group :current_password,
+                   helper_text: helper_text do |f, error_classes|
+      = f.password_field :current_password,
+                         class: %w[pt-input pt-fill] + error_classes
+
+    = f.submit "Update"
+
+    .margin-top
+      = link_to "Back", resource

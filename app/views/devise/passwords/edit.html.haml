@@ -1,0 +1,27 @@
+.small-container
+  %h1
+    - if resource.sign_in_count.zero?
+      Choose your password
+    - else
+      Change your password
+
+  = simple_form_for resource,
+                    as: resource_name, url: password_path(resource_name),
+                    html: { method: :put }, builder: BlueprintFormBuilder do |f|
+    = f.errors
+
+    = f.form_group :password,
+                   label: 'New Password',
+                   helper_text: '8 characters minimum' do |f, error_classes|
+      = f.password_field :password, class: %w[pt-input pt-fill] + error_classes
+
+    = f.form_group :password_confirmation,
+                   label: 'Confirm New Password' do |f, error_classes|
+      = f.password_field :password_confirmation,
+                         class: %w[pt-input pt-fill] + error_classes
+
+    = f.hidden_field :reset_password_token
+    = f.submit 'Change my Password'
+
+  .margin-top
+    = render 'devise/shared/links'

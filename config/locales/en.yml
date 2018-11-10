@@ -27,11 +27,22 @@ en:
               blank: "can’t be blank when U-M Affiliation is not Community Member"
             statement:
               blank: "can’t be blank when U-M Affiliation is Community Member"
+    models:
+      dj: DJ
+      playlist_editor: Playlist Editor
+
+  errors:
+    template:
+      body: 'There were problems with the following fields:'
+      header:
+        one: 1 error prevented this %{model} from being saved
+        other: "%{count} errors prevented this %{model} from being saved"
 
   helpers:
     submit:
       dj:
         update: Update DJ
+
   i18n:
     transliterate:
       rule:
@@ -39,3 +50,26 @@ en:
         ‘: "'"
         “: '"'
         ”: '"'
+
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+
+    error_notification:
+      default_message: "Please review the problems below:"
+
+    options:
+      dj:
+        um_affiliation:
+          student: U-M Student
+          faculty: U-M Faculty or Staff
+          alumnus: U-M Alumnus/a
+          community: Community Advisor
+
+    prompts:
+      dj:
+        um_affiliation: Choose your affiliation...
+
+    required:
+      text: 'required'
+      mark: '*'

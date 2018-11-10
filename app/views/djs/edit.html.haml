@@ -24,7 +24,7 @@
           = f.form_group :name, in_parens: 'required', group_class: %w[pt-large]
           = f.form_group :real_name_is_public, group_class: %w[pt-large] do |f|
             %label.pt-control.pt-switch.pt-large
-              = f.check_box :real_name_is_public
+              = f.check_box :real_name_is_public, with_label: false
               %span.pt-control-indicator
 
   .pt-callout.pt-intent-primary.pt-icon-id-number.margin-bottom

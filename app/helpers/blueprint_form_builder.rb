@@ -9,29 +9,57 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
 
   # Creates a label, input, and helper text that are colored red together when
   # there is an error in the field.
-  # rubocop:disable Metrics/ParameterLists
   def form_group(method, label: nil, in_parens: nil, placeholder: nil,
-                 helper_text: nil, group_class: [], &block)
+                 helper_text: nil, **kwargs, &block)
     without_field_error_wrapper do
-      group_class << ['pt-form-group'] + error_classes(method)
-      @template.content_tag :div, class: group_class do
+      classes = ['pt-form-group'] + error_classes(method)
+      @template.content_tag :div, class: classes, **kwargs do
         contents = ''.html_safe
         contents << label_with_text_in_parens(method, label, in_parens)
         contents << form_content(method, placeholder, helper_text, &block)
       end
     end
   end
-  # rubocop:enable Metrics/ParameterLists
 
   # Creates a callout listing the form’s errors if there are any
   def errors
     return if @object.errors.empty?
-    classes = %w[pt-callout pt-intent-danger pt-icon-error form__callout]
+
+    classes = %w[pt-callout pt-intent-danger pt-icon-error margin-bottom]
     @template.content_tag :div, class: classes do
       contents = ''.html_safe
       contents << error_header
       contents << error_list
     end
+  end
+
+  def check_box(method, with_label: true, **options)
+    base_check_box = super method, options
+    without_field_error_wrapper do
+      return base_check_box unless with_label
+
+      @template.content_tag :label, class: %i[pt-control pt-checkbox] do
+        content = ''.html_safe
+        content << base_check_box
+        content << @template.content_tag(:span, '', class: %i[pt-control-indicator])
+        content << default_label_text(method)
+      end
+    end
+  end
+
+  # Creates a blueprint style file input
+  def file_field(method, **kwargs)
+    without_field_error_wrapper do
+      with_blueprint_file_input method, kwargs do |options|
+        super(method, options)
+      end
+    end
+  end
+
+  def submit(*args, **kwargs)
+    class_argument = kwargs.delete(:class) || []
+    classes = %i[pt-button pt-intent-success].append(class_argument)
+    super(*args, kwargs.merge(class: classes))
   end
 
   private
@@ -47,9 +75,7 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
   def label_with_text_in_parens(method, label, in_parens)
     contents = ''.html_safe
 
-    contents << (label || @template.translate(
-      "activerecord.attributes.#{@object_name}.#{method}"
-    ))
+    contents << (label || default_label_text(method))
 
     unless in_parens.nil?
       contents << ' '
@@ -58,6 +84,18 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
     end
 
     label method, contents, class: 'pt-label'
+  end
+
+  def default_label_text(method)
+    defaults = []
+    defaults << :"helpers.label.#{normalized_object_name}.#{method}"
+    defaults << :"#{object.class.i18n_scope}.attributes.#{normalized_object_name}.#{method}"
+    key = defaults.shift
+    @template.translate key, default: defaults
+  end
+
+  def normalized_object_name
+    @object_name.to_s.tr('[', '.').delete(']')
   end
 
   def form_content(method, placeholder, helper_text)
@@ -70,7 +108,7 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
                       yield self, error_classes
                     end
                   else
-                    classes = %w[pt-input] + error_classes
+                    classes = %w[pt-input pt-fill] + error_classes
                     text_field(method, class: classes, placeholder: placeholder)
                   end
 
@@ -96,7 +134,7 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
   def error_header
     @template.content_tag :h5 do
       I18n.translate 'errors.template.header',
-                     model: @object.model_name.human.downcase,
+                     model: @object.model_name.human,
                      count: @object.errors.count
     end
   end
@@ -106,5 +144,23 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
            .map { |error| @template.content_tag :div, error }
            .join
            .html_safe
+  end
+
+  def with_blueprint_file_input(method, instructions: nil, **options)
+    label method, class: 'pt-label' do
+      contents = ''.html_safe
+      classes = %w[pt-file-input].concat Array(options.delete(:class))
+      contents << @template.content_tag(:div, class: classes) do
+        div_contents = ''.html_safe
+        div_contents << yield(options)
+        div_contents << file_input_span(instructions)
+      end
+    end
+  end
+
+  def file_input_span(instructions)
+    @template.content_tag :span, class: %i[pt-file-upload-input] do
+      instructions || I18n.t('helpers.choose_an_image')
+    end
   end
 end

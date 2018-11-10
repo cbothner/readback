@@ -1,0 +1,20 @@
+.small-container
+  %h1
+    = resource.class.model_name.human
+    Sign In
+
+  = simple_form_for resource, as: resource_name, url: session_path(resource_name),
+                              builder: BlueprintFormBuilder do |f|
+    = f.form_group :email do |f, error_classes|
+      = f.email_field :email, class: %w[pt-input pt-fill] + error_classes
+
+    = f.form_group :password do |f, error_classes|
+      = f.password_field :password, class: %w[pt-input pt-fill] + error_classes
+
+    - if devise_mapping.rememberable?
+      = f.check_box :remember_me
+
+    = f.submit "Sign In"
+
+  .margin-top
+    = render 'devise/shared/links'
