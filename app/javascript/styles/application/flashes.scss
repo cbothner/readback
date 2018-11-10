@@ -1,0 +1,28 @@
+.flashes {
+  margin: -2rem -2rem 2rem;
+}
+
+$flashes: (alert, $orange3, "\E647" /* pt-icon-warning */),
+          (error, $red3, "\E648" /* pt-icon-error */),
+          (notice, $blue3, "\2139" /* pt-icon-info-sign */),
+          (success, $green3, "\E779" /* pt-icon-tick-circle */);
+
+@each $type, $color, $icon in $flashes {
+  .flash--#{$type} {
+    background-color: tint($color, 70%);
+    border-bottom: 2px solid tint($color, 50%);
+    padding: 0.5rem 1rem;
+    text-align: center;
+
+    &:before {
+      color: $color;
+      content: $icon;
+      font-family: Icons20, sans-serif;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1;
+      margin-right: 0.5em;
+    }
+  }
+}

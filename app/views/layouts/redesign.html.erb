@@ -14,17 +14,6 @@
 </head>
 
 <body style="<%= theme_colors %>">
-  <% if flash[:notice] %>
-    <div class="flash flash--notice">
-      <p><%= flash[:notice] %></p>
-    </div>
-  <% end %>
-  <% if flash[:alert] %>
-    <div class="flash flash--alert">
-      <p><%= flash[:alert] %></p>
-    </div>
-  <% end %>
-
   <%= render 'application/user_nav' %>
   <%= render 'application/main_header' %>
 
@@ -37,6 +26,7 @@
       <% end %>
 
       <main class="with-sidebar__main">
+        <%= render 'application/flashes' %>
         <%= yield %>
       </main>
 

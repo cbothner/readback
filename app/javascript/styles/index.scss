@@ -16,6 +16,7 @@ $bourbon: (
 
 @import 'jquery-ui';
 
+@import 'application/flashes';
 @import 'application/main_header';
 @import 'application/player_widget';
 @import 'application/sidebar';
