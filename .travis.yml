@@ -18,7 +18,11 @@ cache:
     - '$HOME/.cache/yarn'
 
 addons:
+  chrome: stable
   postgresql: '9.6'
+
+before_install:
+  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 install: 'bin/setup'
 
