@@ -6,13 +6,14 @@ class PlaylistsController < ApplicationController
 
   before_action :authenticate_playlist_editor!, only: %i[edit]
 
-  with_theme :plum
+  with_theme :brown
 
   def show
     @items = items_between HOW_FAR_BACK.ago, Time.zone.now
-    @items.prepend Episode.on_air unless playlist_editor_signed_in?
-
     return render_edit if playlist_editor_signed_in?
+
+    on_air = Episode.on_air
+    @items.prepend on_air if on_air.present?
   end
 
   def archive

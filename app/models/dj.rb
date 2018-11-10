@@ -24,7 +24,7 @@ class Dj < ActiveRecord::Base
 
   serialize :roles, Array
 
-  validates :name, :phone, :email, presence: true
+  validates :name, :phone, :email, :um_affiliation, presence: true
   validates :website, format: { with: /(\Ahttp|\A\Z)/, message: 'must start with “http://”' }
 
   with_options if: :um_affiliated? do |dj|

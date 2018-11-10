@@ -2,7 +2,7 @@
 
 # Makes it easier to make forms in the [Blueprint](http://blueprintjs.com/)
 # style
-class BlueprintFormBuilder < ActionView::Helpers::FormBuilder
+class BlueprintFormBuilder < SimpleForm::FormBuilder
   FIELD_ERROR_PROC = proc do |html_tag, _instance_tag|
     html_tag
   end

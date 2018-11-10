@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'support/with_queue_adapter'
 
 RSpec.describe Song, type: :model do
   extend WithQueueAdapter

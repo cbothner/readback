@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Person
   extend ActiveSupport::Concern
 
-  AFFILIATED_UM_AFFILIATIONS = %w(student alumni faculty)
-  UNAFFILIATED_UM_AFFILIATIONS = %w(community)
+  AFFILIATED_UM_AFFILIATIONS = %w[student alumnus faculty].freeze
+  UNAFFILIATED_UM_AFFILIATIONS = %w[community].freeze
   UM_AFFILIATIONS = AFFILIATED_UM_AFFILIATIONS + UNAFFILIATED_UM_AFFILIATIONS
-  AFFILIATION_NAMES = {'student' => "Student", 'alumnus' => "Alumni",
-                       'faculty' => "Faculty/Staff", 'community' => "Community Advisor"}
+  AFFILIATION_NAMES = { 'student' => 'Student', 'alumnus' => 'Alumni',
+                        'faculty' => 'Faculty/Staff', 'community' => 'Community Advisor' }.freeze
 
   def um_affiliated?
     AFFILIATED_UM_AFFILIATIONS.include? um_affiliation
@@ -28,5 +30,4 @@ module Person
   def to_s
     first_name
   end
-
 end

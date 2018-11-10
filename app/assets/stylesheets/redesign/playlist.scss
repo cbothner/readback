@@ -8,6 +8,12 @@
 
   input[name='song[year]'] {
     width: 5em;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   input[type='submit'] {

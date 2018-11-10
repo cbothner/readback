@@ -1,37 +1,22 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   activerecord:
     attributes:
       song:
-        name: "Song title"
+        name: Song Title
       dj:
         dj_name: DJ Name
         name: Real Name
         real_name_is_public: Show my real name?
-        umid: "UMID"
+        phone: Phone
+        email: Email
         um_affiliation: U-M Affiliation
-        um_dept: "U-M Department"
-        statement: "Personal Statement"
+        umid: UMID
+        um_dept: U-M Department
+        website: Website
+        public_email: Public Email
+        about: Your Bio
+        lists: Your Picks
+        statement: Personal Statement
     errors:
       models:
         dj:
@@ -43,6 +28,10 @@ en:
             statement:
               blank: "can’t be blank when U-M Affiliation is Community Member"
 
+  helpers:
+    submit:
+      dj:
+        update: Update DJ
   i18n:
     transliterate:
       rule:
