@@ -6,6 +6,8 @@ class DjsController < ApplicationController
 
   before_action :set_dj, only: %i[show edit update destroy]
 
+  decorates_assigned :dj
+
   # GET /djs
   # GET /djs.json
   def index
@@ -28,21 +30,7 @@ class DjsController < ApplicationController
 
   # GET /djs/1
   # GET /djs/1.json
-  def show
-    @shows = @dj.shows
-                .sort_by(&:semester)
-                .reverse
-                .reject { |x| x.semester.future? }
-                .group_by(&:unambiguous_name)
-                .sort_by { |_, shows| shows.first.class.name }
-                .sort_by { |_, shows| -shows.length }
-
-    @recent_episodes = @dj.episodes
-                          .where('beginning < ?', Time.zone.now)
-                          .order(beginning: :desc)
-                          .limit(10)
-                          .decorate
-  end
+  def show; end
 
   # GET /djs/new
   def new
@@ -86,14 +74,11 @@ class DjsController < ApplicationController
   # PATCH/PUT /djs/1.json
   def update
     authorize_action_for @dj
-    respond_to do |format|
-      if @dj.update(dj_params)
-        format.html { redirect_to @dj, successfully_updated }
-        format.json { respond_with_bip @dj }
-      else
-        format.html { render :edit }
-        format.json { respond_with_bip @dj }
-      end
+
+    if @dj.update(dj_params)
+      redirect_to @dj, successfully_updated
+    else
+      render :edit
     end
   end
 

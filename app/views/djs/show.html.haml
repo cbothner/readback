@@ -2,35 +2,35 @@
   = javascript_pack_tag 'options'
   = javascript_pack_tag 'selectNav'
 
-- title "#{@dj}"
+- title "#{dj}"
 
 .card__header.dj__metadata
   .row
-    = profile_picture @dj
+    = profile_picture dj
     .dj__name
-      %h1= @dj
+      %h1= dj
 
-      - if dj_signed_in? || @dj.real_name_is_public
-        %p{ class: @dj.real_name_is_public ? '' : 'pt-text-muted' }
-          = @dj.name
+      - if dj_signed_in? || dj.real_name_is_public
+        %p{ class: dj.real_name_is_public ? '' : 'pt-text-muted' }
+          = dj.name
 
-      - unless @dj.website.blank? && @dj.public_email.blank?
+      - unless dj.website.blank? && dj.public_email.blank?
         %p.pt-button-group
-          - unless @dj.website.blank?
-            = link_to 'Website', @dj.website,
+          - unless dj.website.blank?
+            = link_to 'Website', dj.website,
                       target: '_blank', rel: 'noopener noreferrer',
                       class: %i[pt-button pt-icon-globe]
-          - unless @dj.public_email.blank?
-            = mail_to @dj.public_email, 'Email',
+          - unless dj.public_email.blank?
+            = mail_to dj.public_email, 'Email',
                     class: %i[pt-button pt-icon-envelope]
 
 
   .card__header
-    - if current_dj == @dj
+    - if current_dj == dj
       = link_to edit_dj_registration_path, class: 'pt-button pt-icon-key' do
         Change Password
-    - if current_dj&.can_update? @dj
-      = link_to edit_dj_path(@dj), class: 'pt-button pt-icon-edit' do
+    - if current_dj&.can_update? dj
+      = link_to edit_dj_path(dj), class: 'pt-button pt-icon-edit' do
         Edit
 
 .dj__story
@@ -40,34 +40,34 @@
         %h2.kicker.pt-callout-title Personal Information
         %dl.dj__personal-info
           %dt Phone
-          %dd= @dj.phone
+          %dd= dj.phone
 
           %dt Email
-          %dd= @dj.email
+          %dd= dj.email
 
           %dt UM Affiliation
-          %dd= @dj.um_affiliation
+          %dd= dj.um_affiliation
 
-          - unless @dj.um_dept.blank?
+          - unless dj.um_dept.blank?
             %dt Department
-            %dd= @dj.um_dept
+            %dd= dj.um_dept
 
-          - unless @dj.umid.blank?
+          - unless dj.umid.blank?
             %dt UMID Number
-            %dd= @dj.um_id
+            %dd= dj.um_id
 
     .trix-content.pt-running-text
-      - unless @dj.about.blank?
+      - unless dj.about.blank?
         %h2.kicker Biography
-        = sanitize @dj.about
+        = sanitize dj.about
 
-  - unless @dj.lists.blank?
+  - unless dj.lists.blank?
     .pt-card.dj__lists__container.dj__lists.pt-running-text
-      = sanitize @dj.lists
+      = sanitize dj.lists
 
 %h2.kicker Shows
 .dj__shows
-  - @shows.each do |name, shows|
+  - dj.shows_by_name.each do |name, shows|
     .pt-card.pt-elevation-2.dj__show
       %p
         %strong= name
@@ -85,7 +85,7 @@
 
 %h2.kicker Activity
 .dj__activities
-  - @recent_episodes.each do |episode|
+  - dj.recent_episodes.each do |episode|
     .dj__activity
       .activity__icon.pt-card
         %i{ class: episode.activity.icon_classes }
