@@ -30,7 +30,9 @@ class DjsController < ApplicationController
 
   # GET /djs/1
   # GET /djs/1.json
-  def show; end
+  def show
+    with_theme :lime if @dj.id == 1
+  end
 
   # GET /djs/new
   def new

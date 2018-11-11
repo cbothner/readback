@@ -39,14 +39,14 @@ Theme = Struct.new(:primary, :accent) do
   end
 
   {
-    black:  :pink,
-    blue:  :orange,
-    brown:  :lime,
-    coffee:  :forest_green,
+    black: :pink,
+    blue: :orange,
+    brown: :lime,
+    coffee: :forest_green,
     forest_green: :plum,
     gray: :watermelon,
     green: :powder_blue,
-    lime:  :watermelon,
+    lime: :watermelon,
     magenta: :yellow,
     mint: :purple,
     navy_blue: :pink,
@@ -54,13 +54,13 @@ Theme = Struct.new(:primary, :accent) do
     pink: :sky_blue,
     plum: :mint,
     powder_blue: :white,
-    purple:  :orange,
+    purple: :orange,
     red: :blue,
-    sky_blue:  :yellow,
+    sky_blue: :yellow,
     teal: :watermelon,
     watermelon: :brown,
     white: :purple,
-    yellow:  :plum
+    yellow: :plum
   }.map do |primary, accent|
     define_singleton_method primary do
       new Color.send(primary), Color.send(accent)

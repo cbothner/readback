@@ -6,22 +6,31 @@ module Themeable
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_theme
+    before_action -> { with_theme }
+
+    helper_method :theme
   end
 
   class_methods do
-    def with_theme(theme_name)
-      throw ThemeNotFoundError unless Theme.respond_to? theme_name
+    attr_reader :default_theme_name
 
-      define_method :theme do
-        Theme.send theme_name
-      end
+    def with_theme(theme_name)
+      before_action -> { with_theme theme_name }
     end
   end
 
   private
 
-  def set_theme
-    @theme = theme
+  attr_reader :theme_name
+
+  def with_theme(theme_name = self.class.default_theme_name)
+    @theme_name = theme_name
+  end
+
+  def theme
+    return Theme.send theme_name if Theme.respond_to? theme_name
+
+    logger.error "ThemeNotFoundError: Theme.#{theme_name} is not defined"
+    Theme.sky_blue
   end
 end

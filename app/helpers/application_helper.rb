@@ -20,6 +20,7 @@ module ApplicationHelper
   def lesc(text = '')
     escaped = text.gsub(/./) do |char|
       next char unless LATEX_SUBSTITUTIONS.key? char
+
       LATEX_SUBSTITUTIONS[char]
     end
 
@@ -64,13 +65,13 @@ module ApplicationHelper
 
   def theme_colors
     <<~CSS.squish
-      --color-primary--rgb: #{@theme.primary.bright};
-      --color-primary--dark--rgb: #{@theme.primary.dark};
-      --color-primary__contrast--rgb: #{@theme.primary.contrast};
+      --color-primary--rgb: #{theme.primary.bright};
+      --color-primary--dark--rgb: #{theme.primary.dark};
+      --color-primary__contrast--rgb: #{theme.primary.contrast};
 
-      --color-accent--rgb: #{@theme.accent.bright};
-      --color-accent--dark--rgb: #{@theme.accent.dark};
-      --color-accent__contrast--rgb: #{@theme.accent.contrast};
+      --color-accent--rgb: #{theme.accent.bright};
+      --color-accent--dark--rgb: #{theme.accent.dark};
+      --color-accent__contrast--rgb: #{theme.accent.contrast};
 
       --white--rgb: #{Color.white.bright};
       --black--rgb: #{Color.black.dark};
