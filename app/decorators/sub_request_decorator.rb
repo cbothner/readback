@@ -6,10 +6,10 @@ class SubRequestDecorator < Draper::Decorator
 
   # @return [String] e.g. '4pm'
   def time
-    at.strftime '%l%P'
+    at.strftime '%l %p'
   end
 
   def html_class
-    'highlight' if needs_sub_in_group?
+    'highlighted' if needs_sub_in_group?
   end
 end

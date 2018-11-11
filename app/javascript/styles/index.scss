@@ -28,6 +28,7 @@ $bourbon: (
 @import 'form';
 @import 'helpers';
 @import 'layout';
+@import 'table';
 @import 'typography';
 
 @import 'djs';
@@ -38,4 +39,5 @@ $bourbon: (
 @import 'semesters';
 @import 'setbreaks';
 @import 'songs';
+@import 'sub_requests';
 

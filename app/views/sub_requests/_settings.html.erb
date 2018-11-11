@@ -1,0 +1,28 @@
+<% night_setting = Setting.find_by_key 'nighttime_requirement_disabled' %>
+
+<% if current_dj.has_role? :superuser %>
+  <div class="pt-callout pt-icon-cog margin-top">
+    <h4>Sub Board Settings</h4>
+
+    <label class="pt-control pt-switch">
+      <%= check_box_tag(
+        'setting[value]',
+        night_setting.id,
+        night_setting.value,
+        onchange: <<~JS,
+          $(this).data('params', 'setting[value]=' + this.checked)
+        JS
+        data: {
+          remote: true,
+          url: setting_url(night_setting),
+          method: 'PUT'
+        }
+      ) %>
+
+      <span class="pt-control-indicator"></span>
+
+      Disable the requirement that DJs do only nighttime slots for their first
+      semester.
+    </label>
+  </div>
+<% end %>

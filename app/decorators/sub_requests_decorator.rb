@@ -13,10 +13,6 @@ class SubRequestsDecorator < Draper::CollectionDecorator
       @requests = requests
     end
 
-    def html_class
-      'active' unless past?
-    end
-
     def to_s
       fmt = @date.day == 1 || @date == Time.zone.today ? '%b %d' : '%d'
       @date.strftime fmt

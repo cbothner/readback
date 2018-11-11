@@ -10,7 +10,6 @@ class SubRequestsController < ApplicationController
   # GET /sub_requests
   def index
     set_sub_requests
-    render layout: 'wide'
   end
 
   def show
@@ -70,12 +69,13 @@ class SubRequestsController < ApplicationController
   end
 
   def request_scope
-    if params[:fulfilled] && current_dj.has_role?(:superuser)
-      :fulfilled
-    else
-      :unfulfilled
+    if params[:request_scope] == 'fulfilled' && current_dj.has_role?(:superuser)
+      return :fulfilled
     end
+
+    :unfulfilled
   end
+  helper_method :request_scope
 
   def set_sub_request
     @sub_request = SubRequest.includes(episode: %i[dj show]).find(params[:id])

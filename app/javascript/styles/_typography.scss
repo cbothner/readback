@@ -14,6 +14,10 @@ h1 {
   font-size: modular-scale(3);
 }
 
+strong {
+  font-weight: 500;
+}
+
 .kicker,
 .pt-running-text .kicker {
   @include kicker;

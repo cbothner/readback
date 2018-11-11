@@ -3,40 +3,8 @@
   margin-right: -2rem;
 
   table {
-    border-spacing: 0;
-    margin-top: 1em;
     padding-right: 2rem;
-    border: 0px solid var(--black);
     min-width: 900px;
-
-    th,
-    td {
-      vertical-align: top;
-    }
-
-    thead td[data-weekday] {
-      width: 150px;
-      padding: 8px 6px 10px;
-      border-bottom: 2px solid var(--black);
-      font-size: modular-scale(-1);
-      font-weight: 500;
-    }
-
-    th {
-      position: sticky;
-      left: 0;
-      background-color: var(--white);
-      min-width: 72px;
-      width: 72px;
-      padding-right: 8px;
-      text-align: right;
-    }
-
-    tbody td {
-      border-bottom: 1px solid var(--black);
-      width: 150px;
-      padding: 10px 6px 12px;
-    }
   }
 }
 

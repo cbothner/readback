@@ -1,82 +1,83 @@
 - title 'Sub Board'
-- headline 'The Sub Board'
-- if params[:fulfilled]
-  - headline ': Fulfilled Requests'
+
+.card__header
+  %h1.kicker
+    The Sub Board
+
+    - if request_scope == :fulfilled
+      — Fulfilled Requests
+
+    - unless fulfilled?
+      %br
+      Be a hero: sub for a fellow DJ’s show!
+
+  .card__header
+    - if current_dj.has_role?(:superuser)
+      = link_to "#{other_request_scope.capitalize} Requests",
+                sub_requests_path(request_scope: other_request_scope),
+                class: %w[pt-button pt-icon-timeline-events]
+
+    = link_to 'Request a Sub', dj_episodes_path(current_dj),
+              class: %w[pt-button pt-intent-primary pt-icon-issue-new]
 
 - if @sub_requests.any?
-  - subtitle "Be a hero: sub for a fellow DJ's show!"
-
-  %table.sub-board
-    %thead
-      - Date::DAYNAMES.rotate(1).each do |day|
-        %td= day
-
-    - @sub_requests.each_week do |week|
-      %tr
-        - week.each do |day|
-          %td{ class: day.html_class }
-            - unless day.past?
-              %p.req-day= day
-              - day.requests.each do |request|
-                .sub-req
-                  %p.req-time= request.time
-                  %p.req-name
-                    - if request.confirmed?
-                      = request.episode.dj.to_s
-                      covering
-                      %cite
-                        = request.episode.show.unambiguous_name
-                    - else
-                      = link_to request, class: request.html_class do
-                        = request.episode.show.unambiguous_name
-                      - if request.needs_sub_including_nighttime_djs?
-                        *
-
   - if @sub_requests.any?(&:needs_sub_in_group?)
-    - content_for :subtitle do
-      ! &nbsp;&nbsp;&nbsp;
-      %span.highlight
-        Highlighted
-      requests have been sent specifically to you.
+    %span.highlighted< Highlighted requests
+    have been sent 
+    %em specifically
+    to you.
 
   - if @sub_requests.any?(&:needs_sub_including_nighttime_djs?)
-    .italic.subtitle
-      *The Program Director has made this slot available to all WCBN DJs.
+    %br
+    %em
+      *The Program Director has made this daytime slot available to all WCBN DJs.
 
-  - if current_dj.has_role? :superuser
-    %h3 Settings
-    %div{ style: 'margin-top: 0.5em' }
-    - night_setting = Setting.find_by_key('nighttime_requirement_disabled')
-    %label
-      = check_box_tag 'setting[value]', night_setting.id, night_setting.value,
-      onchange: "$(this).data('params', 'setting[value]=' + this.checked)",
-      data: { remote: true, url: setting_url(night_setting), method: 'PUT' }
-      Disable the requirement that DJs do only nighttime slots for their first
-      semester.
-
-- else
-  - subtitle 'There are currently no outstanding sub requests!'
-
-- unless current_dj.allowed_to_do_daytime_radio?
-  - if current_dj.has_role? :no_daytime
-    - content_for :subtitle do
+  - unless current_dj.allowed_to_do_daytime_radio?
+    - if current_dj.has_role? :no_daytime
       %br
       (You are currently restricted to fulfilling nighttime sub requests.)
-  - else
-    - content_for :subtitle do
+    - else
       %br
       (As you have not completed one semester on WCBN, only nighttime requests
       are shown.)
 
-- content_for :subtitle do
-  %br
-  Or,
-  = link_to 'request a sub', dj_episodes_path(current_dj)
-  for your own show.
 
-- if current_dj.has_role?(:superuser) && !params[:fulfilled]
-  = content_for :back_link do
-    = link_to 'Fulfilled Requests', sub_requests_path(fulfilled: true)
-- elsif params[:fulfilled]
-  = content_for :back_link do
-    = link_to 'Active Requests', sub_requests_path
+
+  %table.table.sub-board
+    %thead
+      %tr
+        - Date::DAYNAMES.rotate(1).each do |day|
+          %td{ data: { weekday: day } }
+            = day
+
+    %tbody
+      - @sub_requests.each_week do |week|
+        %tr
+          - week.each do |day|
+            %td
+              - unless day.past?
+                %p.sub-board__date= day
+                - day.requests.each do |request|
+                  .sub-board__request
+
+                    %p.sub-board__request__time= request.time
+                    %p.sub-board__request__name<
+                      - if request.confirmed?
+                        %span= request.episode.dj.to_s
+                        covering
+                        %cite
+                          = request.episode.show.unambiguous_name
+
+                      - else
+                        = link_to request, class: request.html_class do
+                          = request.episode.show.unambiguous_name
+                        - if request.needs_sub_including_nighttime_djs?
+                          *
+
+
+
+- else
+  .pt-callout.pt-icon-calendar.pt-intent-success
+    %strong There are currently no outstanding sub requests!
+
+= render 'settings'

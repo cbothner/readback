@@ -1,11 +1,12 @@
 - if semester.shows.empty?
   %h3 Shows are being copied in the background. Refresh in five seconds.
   %br
+
 .schedule
-  %table
+  %table.table
     %thead
       %th
-      - %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].each do |day|
+      - Date::DAYNAMES.rotate(1).each do |day|
         %td{ data: { weekday: day } }
           = day
     %tbody

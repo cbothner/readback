@@ -1,0 +1,33 @@
+.sub-board {
+  tbody td {
+    height: 8rem;
+  }
+
+  &__date {
+    font-size: modular-scale(-1);
+  }
+
+  &__request {
+    padding-left: 0.5em;
+    margin-left: -0.5em;
+
+    &__time {
+      margin: 0;
+      font-size: modular-scale(-1);
+    }
+
+    &__name {
+      font-weight: 500;
+    }
+  }
+}
+
+.highlighted {
+  background-color: rgba( 255, 205, 3, 1);
+  margin-left: -0.2em;
+  padding: 0 0.2em;
+}
+
+a.highlighted {
+  color: black;
+}
