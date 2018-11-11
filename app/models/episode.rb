@@ -16,7 +16,8 @@ class Episode < ActiveRecord::Base
 
   default_scope { order(beginning: :desc) }
   scope :past, -> { where 'beginning <= ?', Time.zone.now }
-  scope :future, -> { where 'beginning > ?', Time.zone.now }
+  scope :future,
+        -> { where('beginning > ?', Time.zone.now).reorder(beginning: :asc) }
 
   def self.on_at(time)
     where(beginning: (time - 6.hours)..time).order(:beginning).last

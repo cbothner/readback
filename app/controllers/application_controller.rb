@@ -24,9 +24,6 @@ class ApplicationController < ActionController::Base
 
   def set_sidebar_variables
     @upcoming_episodes =
-      Episode.includes(:dj, show: [:dj])
-             .where('beginning > ?', Time.zone.now)
-             .order(beginning: :asc)
-             .limit(3)
+      Episode.includes(:dj, show: [:dj]).future.limit(3)
   end
 end

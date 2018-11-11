@@ -21,6 +21,6 @@ class UpcomingEpisodesController < ApplicationController
   end
 
   def set_episodes
-    @episodes = @dj.episodes.future.reverse
+    @episodes = @dj.episodes.future
   end
 end
