@@ -20,7 +20,7 @@ class Episode < ActiveRecord::Base
         -> { where('beginning > ?', Time.zone.now).reorder(beginning: :asc) }
 
   def self.on_at(time)
-    where(beginning: (time - 6.hours)..time).order(:beginning).last
+    where(beginning: (time - 6.hours)..time).reorder(:beginning).last
   end
 
   def self.on_air
