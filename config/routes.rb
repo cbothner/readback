@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   resources :djs, only: %i[index show new edit create update] do
     resources :episodes, only: %w[index]
+
+    resources :upcoming_episodes, only: %w[index]
   end
 
   resources :episodes, only: %i[edit update] do
@@ -66,6 +68,8 @@ Rails.application.routes.draw do
   resources :trainees, only: %i[index show new edit create update] do
     resources :djs, only: %i[create]
   end
+
+  resources :upcoming_episodes, only: %w[index]
 
   post 'spotify/swap', to: 'spotify#swap'
   post 'spotify/refresh', to: 'spotify#refresh'

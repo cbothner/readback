@@ -17,7 +17,7 @@
                 sub_requests_path(request_scope: other_request_scope),
                 class: %w[pt-button pt-icon-timeline-events]
 
-    = link_to 'Request a Sub', dj_episodes_path(current_dj),
+    = link_to 'Request a Sub', upcoming_episodes_path,
               class: %w[pt-button pt-intent-primary pt-icon-issue-new]
 
 - if @sub_requests.any?

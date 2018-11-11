@@ -1,0 +1,31 @@
+- title 'Request a Sub'
+
+.card__header
+  %h1.kicker
+    Request a Sub
+    - unless dj == current_dj
+      for
+      = link_to dj.name, dj
+  .card__header
+    = link_to "Return to Sub Board", sub_requests_path,
+              class: %w[pt-button pt-icon-timeline-events]
+
+:markdown
+  So, you can’t do radio on a day you’re signed up for a show. No worries! Just
+  make a sub request and ask your fellow DJs to cover for you. But don’t mooch –
+  pay it forward by subbing for someone else next time.
+
+.grid.margin-top
+  - episodes.each do |episode|
+    .pt-card.pt-elevation-1
+      %p
+        %strong= episode.show.unambiguous_name
+        %br
+        = episode.date_string
+      - if episode.sub_requests.unfulfilled.any?
+        = link_to 'Pending Request', episode.sub_requests.first,
+                  class: %w[pt-button pt-intent-warning pt-icon-issue]
+      - else
+        = link_to 'Request Sub', new_episode_sub_request_path(episode),
+                  class: %w[pt-button pt-icon-issue-new]
+

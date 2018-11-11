@@ -14,6 +14,10 @@ class Episode < ActiveRecord::Base
   has_many :sub_requests, dependent: :destroy
   has_many :setbreaks, dependent: :destroy
 
+  default_scope { order(beginning: :desc) }
+  scope :past, -> { where 'beginning <= ?', Time.zone.now }
+  scope :future, -> { where 'beginning > ?', Time.zone.now }
+
   def self.on_at(time)
     where(beginning: (time - 6.hours)..time).order(:beginning).last
   end

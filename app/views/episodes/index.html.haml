@@ -18,7 +18,7 @@
       %p.instructions
         - if current_dj == @dj
           You can request a substitute for a show by clicking the&nbsp;
-          %i.fa.fa-calendar-times-o
+          %i.fas.fa-calendar-times
           &nbsp;icon.
         - if @future_episodes.map(&:sub_requests).flatten.reject(&:confirmed?).any?
           Active sub requests are indicated by the&nbsp;
@@ -38,7 +38,7 @@
             - elsif current_dj.can_create? SubRequest, for: ep
               %p{title: "Request Sub"}
                 = link_to new_episode_sub_request_path(ep) do
-                  %i.fa.fa-calendar-times-o
+                  %i.fas.fa-calendar-times
 
   .dj-all-episodes
     - @past_episodes_by_semester.each do |semester, episodes|
