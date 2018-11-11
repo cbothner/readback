@@ -1,75 +1,88 @@
-:ruby
-  title "Sub Request for #{@sub_request.episode.show.unambiguous_name}"
-  if @sub_request.confirmed?
-    headline "This sub request has been taken!"
-    subtitle "Thanks for going for it, anyway. "
-  else
-    headline "#{@sub_request.episode.dj} Needs a Sub"
-    subtitle "Be a hero:"
-  end
-  back_link link_to "Back to Sub Board", sub_requests_path
+- title "Sub Request for #{sub_request.episode.show.unambiguous_name}"
 
-  confirm_delete = <<~CONFIRM
-    Are you sure you want to delete this sub request?  If you do so, you are
-    reaffirming your commitment to do radio at this time.
-    CONFIRM
+- if sub_request.confirmed?
+  .pt-callout.pt-icon-tick-circle.pt-intent-success
+    %h1.kicker.pt-callout-title This sub request has been taken!
+    %p Thanks for going for it anyway.
+    = link_to "Return to Sub Board", sub_requests_path,
+              class: %w[pt-button pt-icon-timeline-events]
 
-- unless @sub_request.confirmed?
-  .sub-req-info
-    - if current_dj.can_delete?(@sub_request)
-      .show_delete{ style: "padding: 3px" }
-        = link_to @sub_request, method: :delete, confirm_with: confirm_delete do
-          [x],
-    %ul
-      %li
-        %span Show:&nbsp;
-        %span
-          = link_to @sub_request.episode.show do
-            = @sub_request.episode.show.unambiguous_name
-      %li
-        %span Date:&nbsp;
-        %span= @sub_request.episode.date_string
-      %li
-        %span Time:&nbsp;
-        %span= @sub_request.episode.just_time_string
-      %li
-        %span Current DJ:&nbsp;
-        %span= link_to @sub_request.episode.dj.name, @sub_request.episode.dj
-      %li
-        %span Reason:
-        %blockquote
-          - if @sub_request.reason.blank?
-            No reason given
-          - else
-            = surround "“", "”" do
-              = @sub_request.reason
+- else
+  .card__header
+    %h1.kicker
+      = sub_request.episode.dj.to_s.titlecase
+      Needs a Sub
 
-    - case @sub_request.status
-    - when 'needs_sub_in_group'
-      %p.subtitle
-        This request has been sent only to:
-        %br
-        = raw @sub_request.group.map {|x| Dj.find(x)}.map {|dj| link_to dj.name,
-          dj}.to_sentence + '.'
-    - when 'needs_sub_including_nighttime_djs'
-      %p.subtitle
-        The Program Director has made this slot available to all WCBN DJs.
+    .card__header
+      = link_to "Return to Sub Board", sub_requests_path,
+                class: %w[pt-button pt-icon-timeline-events]
 
-  .actions
-    - unless current_dj == @sub_request.episode.dj
-      = form_with url: sub_request_fulfillments_path(@sub_request) do |f|
-        - f.submit 'Cover for this slot', data: {disable_with: "Saving..."}
+  - unless sub_request.confirmed?
+    %p Be a hero and take this slot!
 
-    - if @sub_request.needs_sub_in_group?
-      - if current_dj.can_create?(SubRequest, for: @sub_request.episode)
-        = form_with model: @sub_request do |f|
-          = f.hidden_field :status, value: 'needs_sub'
-          = f.submit "Open this slot to all DJs",
-                     data: {disable_with: "Saving..."}
+    .medium-container
+      .pt-callout.pt-callout-card.pt-intent-primary.pt-icon-issue
+        %h2.kicker.pt-callout-title Request Details
+        %dl
+          %dt Show
+          %dd 
+            = link_to sub_request.episode.show do
+              = sub_request.episode.show.unambiguous_name
 
-    - elsif @sub_request.needs_sub? && !@sub_request.episode.nighttime?
-      - if current_dj.has_role?(:superuser)
-        = form_with model: @sub_request do |f|
-          = f.hidden_field :status, value: 'needs_sub_including_nighttime_djs'
-          = f.submit "Open this slot to nighttime DJs as well.",
-                     data: {disable_with: "Saving..."}
+          %dt Date
+          %dd= sub_request.episode.date_string
+
+          %dt Time
+          %dd= sub_request.episode.just_time_string
+
+          %dt Current DJ
+          %dd= link_to sub_request.episode.dj.name, sub_request.episode.dj
+
+          %dt Reason
+          %dd
+            - if sub_request.reason.blank?
+              No reason given
+            - else
+              = surround "“", "”" do
+                = sub_request.reason
+
+        %p
+          - case sub_request.status
+          - when 'needs_sub_in_group'
+            This request has been sent only to:
+            %br
+            = succeed '.' do
+              = sub_request.request_group_links
+          - when 'needs_sub_including_nighttime_djs'
+            The Program Director has made this slot available to all WCBN DJs.
+
+    .form__actions
+      - if sub_request.needs_sub_in_group?
+        - if current_dj.can_create?(SubRequest, for: sub_request.episode)
+          = form_with model: sub_request do |f|
+            = f.hidden_field :status, value: 'needs_sub'
+            = f.submit "Open this slot to all DJs", class: %i[pt-button],
+                       data: {disable_with: "Saving..."}
+
+      - elsif sub_request.needs_sub? && !sub_request.episode.nighttime?
+        - if current_dj.has_role?(:superuser)
+          = form_with model: sub_request do |f|
+            = f.hidden_field :status, value: 'needs_sub_including_nighttime_djs'
+            = f.submit "Open this slot to nighttime DJs as well",
+                       class: %i[pt-button], data: {disable_with: "Saving..."}
+
+      - unless current_dj == sub_request.episode.dj
+        = button_to sub_request_fulfillments_path(sub_request),
+                    data: { disable_with: 'Saving' },
+                    class: %i[pt-button pt-intent-success] do |f|
+          Cover for this slot
+
+      - if current_dj.can_delete?(sub_request)
+        :ruby
+          confirm_delete = <<~CONFIRM
+            Are you sure you want to delete this sub request?  If you do so, you
+            are reaffirming your commitment to do radio at this time.
+          CONFIRM
+        = button_to sub_request, method: :delete, confirm_with: confirm_delete,
+                    class: %w[pt-button pt-intent-danger pt-icon-trash] do
+          Delete Request

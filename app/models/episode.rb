@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Episode < ActiveRecord::Base
   include Authority::Abilities
 
-  enum status: [:unassigned, :normal, :confirmed, :needs_sub_in_group,
-                :needs_sub, :needs_sub_including_nighttime_djs, :overridden]
+  enum status: %i[unassigned normal confirmed needs_sub_in_group
+                  needs_sub needs_sub_including_nighttime_djs overridden]
   serialize :sub_request_group
 
   belongs_to :show, polymorphic: true
@@ -20,7 +22,7 @@ class Episode < ActiveRecord::Base
     on_at(Time.zone.now)
   end
 
-  def self.starts_on_day (day)
+  def self.starts_on_day(day)
     where(beginning: (day.at_beginning_of_day..day.tomorrow.at_beginning_of_day)).take
   end
 
@@ -41,7 +43,7 @@ class Episode < ActiveRecord::Base
   end
 
   def reminder_email_time
-    number_of_days_before = (0...6).include?(beginning.hour) ? 2 : 1
+    number_of_days_before = (0...6).cover?(beginning.hour) ? 2 : 1
     (beginning - number_of_days_before.days).at_beginning_of_day + 9.hours
   end
 
@@ -50,13 +52,13 @@ class Episode < ActiveRecord::Base
   end
 
   def date_string
-    "#{beginning.strftime("%A, %B %-d, %Y")}".html_safe
+    beginning.strftime('%A, %B %-d, %Y').to_s.html_safe
   end
 
   def just_time_string(html: true)
     dash = html ? '–'.html_safe : ' -- '
-    "#{beginning.strftime("%l:%M")}#{dash}#{ending.strftime("%l:%M%P")}"
-      .html_safe.gsub ' ', ''
+    "#{beginning.strftime('%l:%M')}#{dash}#{ending.strftime('%l:%M %p')}"
+      .html_safe.delete ' '
   end
 
   def time_string
@@ -68,16 +70,16 @@ class Episode < ActiveRecord::Base
   end
 
   def nighttime?
-    beginning.hour.between?(0,5)
+    beginning.hour.between?(0, 5)
   end
 
   def status_string
     case status
     when 'unassigned' then 'Unassigned'
-    when 'normal' then "#{dj}"
+    when 'normal' then dj.to_s
     when 'confirmed' then "#{dj} &#x2713;".html_safe
-    when /needs_sub/ then "#{dj}"
-    when 'overridden' then "Overridden!"
+    when /needs_sub/ then dj.to_s
+    when 'overridden' then 'Overridden!'
     end
   end
 

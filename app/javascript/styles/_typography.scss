@@ -18,6 +18,16 @@ strong {
   font-weight: 500;
 }
 
+dl {
+  display: grid;
+  grid-gap: 0.5em;
+  grid-template-columns: max-content 1fr;
+
+  dt {
+    font-weight: 500;
+  }
+}
+
 .kicker,
 .pt-running-text .kicker {
   @include kicker;

@@ -98,16 +98,6 @@ input[name='dj[umid]'] {
   justify-content: center;
 }
 
-.dj__personal-info {
-  display: grid;
-  grid-gap: 0.5em;
-  grid-template-columns: max-content 1fr;
-
-  dt {
-    font-weight: 500;
-  }
-}
-
 .dj__biography {
   .pt-callout {
     margin-bottom: 2em;

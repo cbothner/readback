@@ -3,18 +3,19 @@
 # @see SubRequest
 class SubRequestsController < ApplicationController
   before_action :authenticate_dj!
-  authorize_actions_for SubRequest, except: %i[new create]
   before_action :set_sub_request, only: %i[show update destroy]
   before_action :set_episode, only: %i[new create]
+
+  authorize_actions_for SubRequest, except: %i[new create]
+
+  decorates_assigned :sub_request
 
   # GET /sub_requests
   def index
     set_sub_requests
   end
 
-  def show
-    render layout: 'thin'
-  end
+  def show; end
 
   def new
     @sub_request = @episode.sub_requests.build
