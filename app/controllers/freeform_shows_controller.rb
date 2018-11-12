@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FreeformShowsController < ApplicationController
   include ShowsController
 
@@ -8,25 +10,25 @@ class FreeformShowsController < ApplicationController
   # POST /freeform_shows
   # POST /freeform_shows.json
   def create
-    @freeform_show = FreeformShow.new(freeform_show_params)
-    @freeform_show.dj_id = params[:freeform_show][:dj_id]
-    @freeform_show.semester_id = params[:semester_id]
+    @show = FreeformShow.new(freeform_show_params)
+    @show.dj_id = params[:freeform_show][:dj_id]
+    @show.semester_id = params[:semester_id]
 
-    @freeform_show.set_times_conditionally_from_params params[:freeform_show]
+    @show.set_times_conditionally_from_params params[:freeform_show]
 
     respond_to do |format|
-      if @freeform_show.save
+      if @show.save
         format.html do
           # session[:freeform_show] = {
-          #   weekday: @freeform_show.weekday,
-          #   beginning: @freeform_show.ending
+          #   weekday: @show.weekday,
+          #   beginning: @show.ending
           # }
-          redirect_to edit_semester_path(@freeform_show.semester)
+          redirect_to edit_semester_path(@show.semester)
         end
       else
         format.html do
-          flash[:alert] = @freeform_show.errors.full_messages
-          session[:freeform_show] = @freeform_show
+          flash[:alert] = @show.errors.full_messages
+          session[:freeform_show] = @show
           redirect_to edit_semester_path(params[:semester_id])
         end
       end
@@ -36,20 +38,20 @@ class FreeformShowsController < ApplicationController
   # PATCH/PUT /freeform_shows/1
   # PATCH/PUT /freeform_shows/1.json
   def update
-    authorize_action_for @freeform_show
+    authorize_action_for @show
 
     unless params[:freeform_show][:dj_id].nil?
-      @freeform_show.dj_id = params[:freeform_show][:dj_id]
+      @show.dj_id = params[:freeform_show][:dj_id]
     end
-    @freeform_show.set_times_conditionally_from_params params[:freeform_show]
+    @show.set_times_conditionally_from_params params[:freeform_show]
 
     respond_to do |format|
-      if @freeform_show.update(freeform_show_params)
-        format.html { redirect_to @freeform_show, notice: 'Freeform show was successfully updated.' }
-        format.json { render :show, status: :ok, location: @freeform_show }
+      if @show.update(freeform_show_params)
+        format.html { redirect_to @show, notice: 'Freeform show was successfully updated.' }
+        format.json { render :show, status: :ok, location: @show }
       else
         format.html { render :show }
-        format.json { render json: @freeform_show.errors, status: :unprocessable_entity }
+        format.json { render json: @show.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,9 +59,9 @@ class FreeformShowsController < ApplicationController
   # DELETE /freeform_shows/1
   # DELETE /freeform_shows/1.json
   def destroy
-    @freeform_show.destroy
+    @show.destroy
     respond_to do |format|
-      format.html { redirect_to edit_semester_path(@freeform_show.semester), notice: 'Freeform show was successfully destroyed.' }
+      format.html { redirect_to edit_semester_path(@show.semester), notice: 'Freeform show was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

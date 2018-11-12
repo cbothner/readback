@@ -41,26 +41,33 @@ label {
 }
 
 .with-sidebar__sidebar {
-  input {
+  input, textarea, select {
     border: 1px solid var(--color-primary__contrast);
     box-shadow: none;
     font-weight: 500;
 
     transition: background-color 0.1s ease-out;
 
-    &:not([type='submit']) {
-      background-color: transparent;
-      color: var(--color-primary__contrast);
-
-      &:focus {
-        box-shadow: none;
-        background-color: css-rgba(var(--color-primary__contrast--rgb), 0.2);
-      }
-    }
 
     &:focus {
       outline: none;
     }
+  }
+
+  input:not([type='submit']),
+  textarea,
+  select {
+    background: transparent;
+    color: var(--color-primary__contrast);
+
+    &:focus {
+      box-shadow: none;
+      background: css-rgba(var(--color-primary__contrast--rgb), 0.2);
+    }
+  }
+
+  .pt-select::after {
+    color: var(--color-primary__contrast);
   }
 
   .pt-control-group {
@@ -75,10 +82,13 @@ label {
   button {
     box-shadow: none;
     background: css-rgba(var(--color-primary__contrast--rgb), 0.8);
-    color: var(--color-primary);
+    color: var(--color-primary--dark);
+    width: 100%;
 
     &:hover {
+      box-shadow: none;
       background: css-rgba(var(--color-primary__contrast--rgb), 0.9);
+      color: var(--color-primary--dark);
     }
 
     &:active {

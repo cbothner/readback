@@ -67,6 +67,16 @@
   }
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+
+  &.top-and-bottom {
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}
+
 .grid {
   display: grid;
   grid-gap: 1em;

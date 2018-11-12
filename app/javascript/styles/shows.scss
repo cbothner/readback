@@ -1,0 +1,13 @@
+.show__host {
+  align-items: center;
+  display: flex;
+  font-weight: 500;
+
+  .profile-pic {
+    @include size(modular-scale(6));
+
+    &.robot {
+      @include size(modular-scale(8));
+    }
+  }
+}
