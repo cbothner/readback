@@ -29,6 +29,8 @@ class SubRequest < ActiveRecord::Base
                      needs_sub_including_nighttime_djs]
   }
 
+  validates :reason, presence: true
+
   def send_emails
     case status.to_sym
     when :needs_sub then SubRequestMailer.request_of_all(self).deliver!

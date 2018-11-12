@@ -18,40 +18,36 @@ class SubRequestsController < ApplicationController
   def show; end
 
   def new
-    @sub_request = @episode.sub_requests.build
-    if @episode.show.is_a? SpecialtyShow
-      @sub_request.group = @episode.show.hosts - [current_dj]
-    end
+    build_sub_request
     authorize_action_for @sub_request
-    render layout: 'thin'
   end
 
   def create
-    @sub_request = @episode.sub_requests.build(sub_request_params)
+    @sub_request = @episode.sub_requests.build sub_request_params
     authorize_action_for @sub_request
 
     if @sub_request.save
-      redirect_to sub_requests_path, notice: 'Sub request placed.'
+      redirect_to sub_requests_path, successfully_created
     else
       render :new
     end
   end
 
   def update
-    authorize_action_for(@sub_request)
+    authorize_action_for @sub_request
 
     if @sub_request.update sub_request_params
-      redirect_to @sub_request, notice: 'Sub request was successfully updated.'
+      redirect_to @sub_request, successfully_updated
     else
-      render :show, notice: @sub_request.errors.full_messages
+      render :show
     end
   end
 
   def destroy
     authorize_action_for @sub_request
     @sub_request.destroy
-    redirect_to dj_episodes_path(current_dj),
-                notice: 'Sub request was successfully deleted.'
+    redirect_to dj_upcoming_episodes_path(@sub_request.episode.dj),
+                successfully_destroyed
   end
 
   private
@@ -80,6 +76,13 @@ class SubRequestsController < ApplicationController
 
   def set_sub_request
     @sub_request = SubRequest.includes(episode: %i[dj show]).find(params[:id])
+  end
+
+  def build_sub_request
+    @sub_request = @episode.sub_requests.build
+    return unless @episode.show.is_a? SpecialtyShow
+
+    @sub_request.group = @episode.show.hosts - [current_dj]
   end
 
   def sub_request_params

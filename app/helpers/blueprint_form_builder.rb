@@ -12,7 +12,8 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
   def form_group(method, label: nil, in_parens: nil, placeholder: nil,
                  helper_text: nil, **kwargs, &block)
     without_field_error_wrapper do
-      classes = ['pt-form-group'] + error_classes(method)
+      custom_classes = kwargs.delete(:class) || []
+      classes = ['pt-form-group'] + error_classes(method) + custom_classes
       @template.content_tag :div, class: classes, **kwargs do
         contents = ''.html_safe
         contents << label_with_text_in_parens(method, label, in_parens)

@@ -30,7 +30,7 @@ module TranslatedFlashMessages
 
   def message(action, resource)
     I18n.t "activerecord.persistance.messages.#{action}",
-           model: I18n.t("activerecord.models.#{keyify resource}"),
+           model: I18n.t("activerecord.models.#{keyify resource}").capitalize,
            default: "#{resource} successfully #{action}."
   end
 

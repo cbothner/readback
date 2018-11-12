@@ -29,7 +29,8 @@ en:
               blank: "can’t be blank when U-M Affiliation is Community Member"
     models:
       dj: DJ
-      playlist_editor: Playlist Editor
+      playlist_editor: playlist editor
+      sub_request: sub request
     persistance:
       messages:
         created: "%{model} successfully created."
