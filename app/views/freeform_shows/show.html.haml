@@ -1,45 +1,11 @@
-- title "#{@show.name}"
-
 - if dj_signed_in? && current_dj.can_update?(@show)
   = content_for :sidebar do
     = render 'form'
 
-.card__header
-  %h1= @show.name
+= render 'shows/header', show: @show
+= render 'shows/hosts', show: @show
+= render 'shows/episodes', show: @show do |episode|
+  - if episode.past?
+    = link_to episode_songs_path(episode), class: %w[pt-button] do
+      = pluralize episode.songs.count, 'Song'
 
-  .card__header
-    = link_to 'Return to Schedule', semester_path(@show.semester),
-              class: %w[pt-button pt-icon-calendar]
-
-.medium-container.pt-running-text
-  %p= @show.description
-  - unless @show.website.blank?
-    = link_to 'Website', @show.website,
-              target: '_blank', rel: 'noopener noreferrer',
-              class: %i[pt-button pt-icon-globe]
-
-
-%h2.kicker= 'Your Host'.pluralize @show.hosts.count
-.grid
-  - @show.hosts.each do |host|
-    = link_to host, class: %w[show__host] do
-      = profile_picture host
-      = host
-
-%h2.kicker Episodes
-.grid
-  - @show.episodes.reverse_each do |episode|
-    .pt-card.pt-elevation-1.column.top-and-bottom
-      %div
-        %p
-          = episode.date_string
-          %br
-          = episode.just_time_string
-
-        - if episode.subbed_for?
-          %p.with
-            = with episode
-
-      - if episode.past?
-        = link_to episode_songs_path(episode), class: %w[pt-button] do
-          = pluralize episode.songs.count, 'Song'

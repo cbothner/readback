@@ -1,0 +1,16 @@
+- title "#{show.name}"
+
+.card__header
+  %h1= show.name
+
+  .card__header
+    = link_to 'Return to Schedule', semester_path(show.semester),
+              class: %w[pt-button pt-icon-calendar]
+
+.medium-container.pt-running-text
+  %p= show.description
+  - unless show.website.blank?
+    = link_to 'Website', show.website,
+              target: '_blank', rel: 'noopener noreferrer',
+              class: %i[pt-button pt-icon-globe]
+

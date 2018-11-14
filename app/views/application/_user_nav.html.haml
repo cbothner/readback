@@ -2,6 +2,8 @@
 %nav.user-nav{ class: user_nav_state }
   .max-width-container
     - if dj_signed_in?
+      = link_to 'Roster', djs_path
+      = link_to 'Trainees', trainees_path
       = link_to 'Sub Board', sub_requests_path
       = link_to 'My Profile', current_dj
       = link_to 'Sign Out', destroy_dj_session_path, method: :delete

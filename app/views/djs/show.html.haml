@@ -46,7 +46,7 @@
           %dd= dj.email
 
           %dt UM Affiliation
-          %dd= dj.um_affiliation
+          %dd= t "simple_form.options.dj.um_affiliation.#{dj.um_affiliation}"
 
           - unless dj.um_dept.blank?
             %dt Department

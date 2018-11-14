@@ -60,6 +60,12 @@ label {
     background: transparent;
     color: var(--color-primary__contrast);
 
+    &:hover,
+    &:active {
+      background: transparent;
+      box-shadow: none;
+    }
+
     &:focus {
       box-shadow: none;
       background: css-rgba(var(--color-primary__contrast--rgb), 0.2);
@@ -78,11 +84,16 @@ label {
     }
   }
 
+  option {
+    color: black;
+  }
+
   input[type='submit'],
   button {
     box-shadow: none;
     background: css-rgba(var(--color-primary__contrast--rgb), 0.8);
     color: var(--color-primary--dark);
+    text-align: center;
     width: 100%;
 
     &:hover {

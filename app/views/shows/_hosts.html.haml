@@ -1,0 +1,7 @@
+%h2.kicker= 'Your Host'.pluralize show.hosts.count
+.grid
+  - show.hosts.each do |host|
+    = link_to host, class: %w[show__host] do
+      = profile_picture host
+      = host
+
