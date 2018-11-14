@@ -47,20 +47,15 @@ class SpecialtyShowsController < ApplicationController
   # PATCH/PUT /specialty_shows/1
   # PATCH/PUT /specialty_shows/1.json
   def update
-    authorize_action_for @specialty_show
+    authorize_action_for @show
 
-    @specialty_show.coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
-    @specialty_show.djs = Dj.find(params[:specialty_show].delete(:djs).reject(&:blank?))
-    @specialty_show.set_times_conditionally_from_params params[:specialty_show]
+    set_coordinator_and_djs_from_params
+    set_show_times_from_params
 
-    respond_to do |format|
-      if @specialty_show.update(specialty_show_params)
-        format.html { redirect_to @specialty_show, notice: 'Specialty show was successfully updated.' }
-        format.json { render :show, status: :ok, location: @specialty_show }
-      else
-        format.html { render :show }
-        format.json { render json: @specialty_show.errors, status: :unprocessable_entity }
-      end
+    if @show.update specialty_show_params
+      redirect_to @show, successfully_updated
+    else
+      render :show
     end
   end
 
@@ -88,6 +83,11 @@ class SpecialtyShowsController < ApplicationController
 
   def active_record_find_includes
     { episodes: [:dj] }
+  end
+
+  def set_coordinator_and_djs_from_params
+    @show.coordinator = Dj.find(params[:specialty_show].delete(:coordinator_id))
+    @show.djs = Dj.find(params[:specialty_show].delete(:djs).reject(&:blank?))
   end
 
   def specialty_show_params

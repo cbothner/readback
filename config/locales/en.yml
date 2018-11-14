@@ -31,8 +31,11 @@ en:
               blank: "can’t be blank when U-M Affiliation is Community Member"
     models:
       dj: DJ
+      freeform_show: freeform show
       playlist_editor: playlist editor
+      specialty_show: specialty show
       sub_request: sub request
+      talk_show: talk show
     persistance:
       messages:
         created: "%{model} successfully created."

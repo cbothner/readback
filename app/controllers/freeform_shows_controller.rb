@@ -40,19 +40,13 @@ class FreeformShowsController < ApplicationController
   def update
     authorize_action_for @show
 
-    unless params[:freeform_show][:dj_id].nil?
-      @show.dj_id = params[:freeform_show][:dj_id]
-    end
-    @show.set_times_conditionally_from_params params[:freeform_show]
+    set_show_dj_from_params
+    set_show_times_from_params
 
-    respond_to do |format|
-      if @show.update(freeform_show_params)
-        format.html { redirect_to @show, notice: 'Freeform show was successfully updated.' }
-        format.json { render :show, status: :ok, location: @show }
-      else
-        format.html { render :show }
-        format.json { render json: @show.errors, status: :unprocessable_entity }
-      end
+    if @show.update freeform_show_params
+      redirect_to @show, successfully_updated
+    else
+      render :show
     end
   end
 
@@ -70,5 +64,9 @@ class FreeformShowsController < ApplicationController
 
   def active_record_find_includes
     { episodes: [:dj, show: [:dj]] }
+  end
+
+  def freeform_show_params
+    params.require(:freeform_show).permit(:name, :description, :website)
   end
 end

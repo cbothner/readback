@@ -7,7 +7,6 @@ module ShowsController
     authorize_actions_for controller_name.singularize.camelize.constantize,
                           except: :show
     before_action :set_show, only: %i[show update destroy deal]
-    before_action :define_params_method, only: %i[create update]
   end
 
   private
@@ -20,10 +19,18 @@ module ShowsController
     @show = model.includes(includes).find params[:id]
   end
 
-  def define_params_method
-    self.class.send :define_method, "#{controller_path.singularize}_params" do
-      hash = {}
-      hash.merge! params.require(controller_path.singularize).permit(:name, :topic, :description, :website)
-    end
+  def set_show_dj_from_params
+    dj_id = show_params[:dj_id]
+    return unless dj_id.present?
+
+    @show.dj = Dj.find(dj_id)
+  end
+
+  def set_show_times_from_params
+    @show.set_times_conditionally_from_params show_params
+  end
+
+  def show_params
+    params.require(controller_path.singularize.to_sym)
   end
 end

@@ -35,19 +35,15 @@ class TalkShowsController < ApplicationController
   # PATCH/PUT /talk_shows/1
   # PATCH/PUT /talk_shows/1.json
   def update
-    authorize_action_for @talk_show
+    authorize_action_for @show
 
-    @talk_show.dj = Dj.find(params[:talk_show][:dj_id]) unless params[:talk_show][:dj_id].blank?
-    @talk_show.set_times_conditionally_from_params params[:talk_show]
+    set_show_dj_from_params
+    set_show_times_from_params
 
-    respond_to do |format|
-      if @talk_show.update(talk_show_params)
-        format.html { redirect_to @talk_show, notice: 'Talk show was successfully updated.' }
-        format.json { render :show, status: :ok, location: @talk_show }
-      else
-        format.html { render :show }
-        format.json { render json: @talk_show.errors, status: :unprocessable_entity }
-      end
+    if @show.update talk_show_params
+      redirect_to @show, successfully_updated
+    else
+      render :show
     end
   end
 
@@ -59,5 +55,11 @@ class TalkShowsController < ApplicationController
       format.html { redirect_to edit_semester_path(@talk_show.semester), notice: 'Talk show was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def talk_show_params
+    params.require(:talk_show).permit(:name, :topic, :description, :website)
   end
 end
