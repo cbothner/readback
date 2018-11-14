@@ -31,3 +31,19 @@
     font-size: modular-scale(0);
   }
 }
+
+.show__episode {
+  time {
+    display: block;
+    font-size: modular-scale(-1);
+    margin-bottom: 1em;
+  }
+
+  &__meta a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,35 +1,34 @@
-= form_for [@semester, @talk_show] do |f|
-  - if @talk_show.errors.any?
-    .alert
-      - @talk_show.errors.full_messages.each do |msg|
-        %p= msg
-  .field
-    = f.label :name
-    = f.text_field :name, tabindex: 30
-  .field
-    = f.label :topic
-    %p.instructions
-      FCC Requirement for the public affairs log.
-    = f.text_field :topic, tabindex: 31
-  .field
-    = f.label :website
-    = f.text_field :website, tabindex: 32
-  .field
-    = f.label :description
-    = f.text_area :description, {tabindex: 33, rows: 8}
-  .field
-    = f.label :dj_id, 'Single host?'
-    = f.select :dj_id,
-      active_for_select(f.object.dj),
-      {include_blank: "Many hosts"}, tabindex: 34, class: 'chzn-select'
-  .field
-    = f.label :weekday
-    = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex: 35
-  .field.field-beginning
-    = f.label :beginning, 'Start'
-    = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 36
-  .field.field-ending
-    = f.label :duration, raw('Duration&nbsp;(hrs)')
-    = f.number_field :duration, step: 0.1, tabindex: 37
+= simple_form_for [semester, show], builder: BlueprintFormBuilder do |f|
+  = f.errors
+
+  = f.form_group :name
+
+  - helper_text = 'Required for the public affairs log.'
+  = f.form_group :topic, helper_text: helper_text
+
+  = f.form_group :description do |f, error_classes|
+    = f.text_area :description,
+                  rows: 8, class: %w[pt-input pt-fill] + error_classes
+
+  = f.form_group :website
+
+  = f.form_group :dj_id do |f, error_classes|
+    = f.select :dj_id, active_for_select(f.object.dj),
+               { include_blank: "Many hosts" },
+               class: %w[chzn-select] + error_classes
+
+  = f.form_group :weekday do |f, error_classes|
+    .pt-select{ class: %w[pt-fill] + error_classes }
+      = f.input_field :weekday, collection: DateTime::DAYNAMES.map.with_index
+
+  .form__row
+    = f.label :beginning, class: %w[pt-label] do
+      Start
+      = f.time_field :beginning, class: %w[pt-input]
+
+    = f.label :duration, class: %w[pt-label] do
+      Duration&nbsp;(hrs)
+      = f.number_field :duration, step: 0.1, class: %w[pt-input]
+
   .actions
-    = f.submit 'Save talk show', data: { disable_with: 'Saving...' }, tabindex: 38
+    = f.submit 'Save Talk Show', data: { disable_with: 'Saving...' }

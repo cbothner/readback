@@ -2,14 +2,11 @@
 .grid
   - show.episodes.reverse_each do |episode|
     .pt-card.pt-elevation-1.column.top-and-bottom
-      %div
-        %p
+      .show__episode
+        %time{ datetime: episode.at }
           = episode.date_string
           %br
           = episode.just_time_string
 
-        - if episode.subbed_for?
-          %p.with
-            = with episode
 
       = yield episode

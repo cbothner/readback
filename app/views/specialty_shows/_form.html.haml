@@ -1,34 +1,35 @@
-= form_for [@semester, @specialty_show] do |f|
-  - if @specialty_show.errors.any?
-    .alert
-      - @specialty_show.errors.full_messages.each do |msg|
-        %p= msg
-  .field
-    = f.label :name
-    = f.text_field :name, tabindex: 20
-  .field
-    = f.label :description
-    = f.text_area :description, {tabindex: 21, rows: 8}
-  .field
-    = f.label :website
-    = f.text_field :website, tabindex: 22
-  .field
-    = f.label :coordinator_id, 'Coordinator'
-    %br
-    = f.select :coordinator_id, active_for_select(f.object.coordinator), {}, tabindex:23, class: 'chzn-select'
-  .field
-    =f.label :djs, 'Rotating Hosts'
-    %br
-    =f.select :djs, active_for_select(f.object.djs.to_a), {}, multiple: true, tabindex: 24, class: 'chzn-select'
+= simple_form_for [semester, show], builder: BlueprintFormBuilder do |f|
+  = f.errors
+
+  = f.form_group :name
+
+  = f.form_group :description do |f, error_classes|
+    = f.text_area :description,
+                  rows: 8, class: %w[pt-input pt-fill] + error_classes
+
+  = f.form_group :website
+
+  = f.form_group :coordinator_id do |f, error_classes|
+    = f.select :coordinator_id, active_for_select(f.object.coordinator), {},
+               class: %w[chzn-select] + error_classes
+
+  = f.form_group :djs do |f, error_classes|
+    = f.select :djs, active_for_select(f.object.djs.to_a), {}, multiple: true,
+               class: %w[chzn-select] + error_classes
+
   - if current_dj.can_create?(SpecialtyShow)
-    .field
-      = f.label :weekday
-      = f.select :weekday, options_for_select(DateTime::DAYNAMES.map.with_index.to_a, f.object.weekday), {}, tabindex: 25
-    .field.field-beginning
-      = f.label :beginning, 'Start'
-      = f.time_field :beginning, value: format_time(f.object.beginning), tabindex: 26
-    .field.field-ending
-      = f.label :duration, raw('Duration&nbsp;(hrs)')
-      = f.number_field :duration, step: 0.1, tabindex: 27
+    = f.form_group :weekday do |f, error_classes|
+      .pt-select{ class: %w[pt-fill] + error_classes }
+        = f.input_field :weekday, collection: DateTime::DAYNAMES.map.with_index
+
+    .form__row
+      = f.label :beginning, class: %w[pt-label] do
+        Start
+        = f.time_field :beginning, class: %w[pt-input]
+
+      = f.label :duration, class: %w[pt-label] do
+        Duration&nbsp;(hrs)
+        = f.number_field :duration, step: 0.1, class: %w[pt-input]
+
   .actions
-    = f.submit 'Save specialty show', data: { disable_with: 'Saving...' }, tabindex: 28
+    = f.submit 'Save Specialty Show', data: { disable_with: 'Saving...' }

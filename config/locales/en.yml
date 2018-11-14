@@ -17,6 +17,8 @@ en:
         about: Your Bio
         lists: Your Picks
         statement: Personal Statement
+      talk_show:
+        dj_id: Single Host?
     errors:
       models:
         dj:

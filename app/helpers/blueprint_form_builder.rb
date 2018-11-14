@@ -57,6 +57,10 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
     end
   end
 
+  def time_field(method, **kwargs)
+    super(method, kwargs.merge(value: @object.send(method).strftime('%R')))
+  end
+
   def submit(*args, **kwargs)
     class_argument = kwargs.delete(:class) || []
     classes = %i[pt-button pt-intent-success].append(class_argument)

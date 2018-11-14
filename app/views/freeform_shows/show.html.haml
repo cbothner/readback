@@ -1,11 +1,20 @@
 - if dj_signed_in? && current_dj.can_update?(@show)
   = content_for :sidebar do
-    = render 'form'
+    = render 'form', semester: @semester, show: @show
 
 = render 'shows/header', show: @show
 = render 'shows/hosts', show: @show
-= render 'shows/episodes', show: @show do |episode|
-  - if episode.past?
-    = link_to episode_songs_path(episode), class: %w[pt-button] do
-      = pluralize episode.songs.count, 'Song'
 
+= render 'shows/episodes', show: @show do |episode|
+  .show__episode__meta
+    - if episode.subbed_for?
+      = link_to episode.dj, class: %w[pt-tag pt-intent-primary pt-minimal] do
+        Guest Host:
+        = episode.dj
+
+    %nbsp
+
+    - if episode.past?
+      = link_to episode_songs_path(episode),
+                class: %w[pt-tag pt-intent-primary pt-minimal] do
+        = pluralize episode.songs.count, 'Song'

@@ -1,44 +1,49 @@
-- dj_can_update_show = dj_signed_in? && current_dj.can_update?(@specialty_show)
-- content_for :rotating_hosts do
-  %h3 Rotating Hosts
-  - if dj_signed_in? && current_dj.can_update?(@specialty_show)
-    .subtitle
-      Assign rotating hosts to episodes of this specialty show by dragging them onto their episodes.
-      %br
-      Or, start by clicking here to
-      =link_to "deal out the unconfirmed episodes", deal_specialty_show_path(@specialty_show), method: :patch
-      to each host in turn.
-      %br
-      You can always change the results manually, or let the inmates run the asylum by asking DJs with conflicts to request subs from each other.
-  .rotating-hosts.tiles
-    -@specialty_show.hosts.each do |host|
-      .tile.rotating-host{data: ({dj_id: host.id} if dj_can_update_show)}
-        =render host
+- if dj_signed_in? && current_dj.can_update?(@show)
+  = content_for :sidebar do
+    = render 'form', semester: @semester, show: @show
 
-- title "#{@specialty_show.name}"
-- headline "#{@specialty_show.name}"
-- subtitle raw "#{@specialty_show.description.gsub("\r\n\r\n", '<br />')}"
-- back_link link_to "Back to Schedule", semester_path(@specialty_show.semester)
-= content_for :sidebar do
-  - if dj_can_update_show
-    =render 'form'
-  - else
-    = content_for :rotating_hosts
+= render 'shows/header', show: @show
+= render 'shows/hosts', show: @show
+= render 'shows/episodes', show: @show do |episode|
+  .show__episode__meta
+    = link_to episode.dj, class: %w[pt-tag pt-intent-primary pt-minimal] do
+      - unless @show.hosts.include? episode.dj
+        Guest
+      Host:
+      = episode.dj
+
+    %nbsp
+
+    - if episode.past?
+      = link_to episode_songs_path(episode),
+                class: %w[pt-tag pt-intent-primary pt-minimal] do
+        = pluralize episode.songs.count, 'Song'
 
 
+-#- dj_can_update_show = dj_signed_in? && current_dj.can_update?(@specialty_show)
+-#- content_for :rotating_hosts do
+  -#%h3 Rotating Hosts
+  -#- if dj_signed_in? && current_dj.can_update?(@specialty_show)
+    -#.subtitle
+      -#Assign rotating hosts to episodes of this specialty show by dragging them onto their episodes.
+      -#%br
+      -#Or, start by clicking here to
+      -#=link_to "deal out the unconfirmed episodes", deal_specialty_show_path(@specialty_show), method: :patch
+      -#to each host in turn.
+      -#%br
+      -#You can always change the results manually, or let the inmates run the asylum by asking DJs with conflicts to request subs from each other.
+  -#.rotating-hosts.tiles
+    -#-@specialty_show.hosts.each do |host|
+      -#.tile.rotating-host{data: ({dj_id: host.id} if dj_can_update_show)}
+        -#=render host
 
-= render 'shows/show_website', show: @specialty_show
-
-- if dj_can_update_show
-  = content_for :rotating_hosts
-
-%h3 Episodes
-.episodes.tiles
-  - @episodes.each do |episode|
-    .showinfo.tile{class: ["episode#{'-past' if episode.past? && !episode.unassigned? }", "episode-#{episode.status}"], data: ({episode_path: episode_path(episode)} if dj_can_update_show)}
-      %p=episode.date_string
-      -if episode.past?
-        %p.show-instance-links
-          =link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
-            episode_songs_path(episode)
-      %p.with=episode.status_string
+-#%h3 Episodes
+-#.episodes.tiles
+  -#- @episodes.each do |episode|
+    -#.showinfo.tile{class: ["episode#{'-past' if episode.past? && !episode.unassigned? }", "episode-#{episode.status}"], data: ({episode_path: episode_path(episode)} if dj_can_update_show)}
+      -#%p=episode.date_string
+      -#-if episode.past?
+        -#%p.show-instance-links
+          -#=link_to "#{episode.songs.count} #{"song".pluralize(episode.songs.count)}",
+            -#episode_songs_path(episode)
+      -#%p.with=episode.status_string

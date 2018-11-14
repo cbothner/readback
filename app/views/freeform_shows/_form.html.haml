@@ -1,4 +1,4 @@
-= simple_form_for [@semester, @show], builder: BlueprintFormBuilder do |f|
+= simple_form_for [semester, show], builder: BlueprintFormBuilder do |f|
   = f.errors
 
   = f.form_group :name
@@ -24,8 +24,8 @@
         = f.time_field :beginning, class: %w[pt-input]
 
       = f.label :duration, class: %w[pt-label] do
-        Duration
-        = f.number_field :duration, class: %w[pt-input]
+        Duration&nbsp;(hrs)
+        = f.number_field :duration, step: 0.1, class: %w[pt-input]
 
   .actions
     = f.submit 'Save Freeform Show', data: { disable_with: 'Saving...' }

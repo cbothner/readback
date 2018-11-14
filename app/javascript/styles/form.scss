@@ -72,6 +72,11 @@ label {
     }
   }
 
+  .pt-form-helper-text {
+    color: var(--color-primary__contrast);
+    font-weight: 500;
+  }
+
   .pt-select::after {
     color: var(--color-primary__contrast);
   }
