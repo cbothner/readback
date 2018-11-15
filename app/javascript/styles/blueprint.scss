@@ -8,6 +8,10 @@ $pt-link-color: var(--color-primary--dark);
 @import '~@blueprintjs/icons/src/blueprint-icons';
 @import '~@blueprintjs/core/src/blueprint';
 
+select.pt-input[multiple] {
+  height: 7em;
+}
+
 input[type='submit'].pt-button {
   padding: 5px 10px;
 }
@@ -22,4 +26,27 @@ input[type='submit'].pt-button {
 
 .pt-button {
   font-weight: 500;
+}
+
+.pt-button.pt-small:empty {
+  padding: 0 4px;
+}
+
+.with-sidebar__sidebar {
+  .pt-tab {
+    &[aria-selected="true"] {
+      box-shadow: inset 0 -3px 0 var(--color-primary__contrast)
+    }
+
+    &[aria-selected="false"]:hover {
+      box-shadow: inset 0 -3px 0
+        rgba(var(--color-primary__contrast--rgb), 0.5);
+    }
+
+    a {
+      font-weight: 500;
+      text-decoration: none;
+
+    }
+  }
 }

@@ -34,6 +34,8 @@ class Dj < ActiveRecord::Base
 
   after_update_commit :purge_detached_images
 
+  scope :active, -> { order(:name).where active: true }
+
   def semesters_count
     (freeform_shows.map(&:semester) + specialty_shows.map(&:semester))
       .uniq.count
@@ -47,6 +49,7 @@ class Dj < ActiveRecord::Base
   def allowed_to_do_daytime_radio?
     return true if Setting.get 'nighttime_requirement_disabled'
     return false if has_role? :no_daytime
+
     semesters_count > 1 || has_role?(:grandfathered_in)
   end
 

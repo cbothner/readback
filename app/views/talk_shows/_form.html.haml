@@ -13,9 +13,8 @@
   = f.form_group :website
 
   = f.form_group :dj_id do |f, error_classes|
-    = f.select :dj_id, active_for_select(f.object.dj),
-               { include_blank: "Many hosts" },
-               class: %w[chzn-select] + error_classes
+    .pt-select{ class: %w[pt-fill] + error_classes }
+      = f.input_field :dj_id, collection: Dj.active, include_blank: 'Many hosts'
 
   = f.form_group :weekday do |f, error_classes|
     .pt-select{ class: %w[pt-fill] + error_classes }

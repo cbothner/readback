@@ -17,6 +17,10 @@ en:
         about: Your Bio
         lists: Your Picks
         statement: Personal Statement
+      freeform_show:
+        dj_id: DJ
+      specialty_show:
+        djs: Rotating Hosts
       talk_show:
         dj_id: Single Host?
     errors:

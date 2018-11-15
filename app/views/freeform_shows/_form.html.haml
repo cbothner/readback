@@ -10,9 +10,9 @@
   = f.form_group :website
 
   - if current_dj.can_create?(FreeformShow)
-    -#= f.form_group :dj_id do |f, error_classes|
-      = f.select :dj_id, active_for_select(f.object.dj), {},
-                 class: %w[chzn-select] + error_classes
+    = f.form_group :dj_id do |f, error_classes|
+      .pt-select{ class: %w[pt-fill] + error_classes }
+        = f.input_field :dj_id, collection: Dj.active
 
     = f.form_group :weekday do |f, error_classes|
       .pt-select{ class: %w[pt-fill] + error_classes }

@@ -58,7 +58,8 @@ class BlueprintFormBuilder < SimpleForm::FormBuilder
   end
 
   def time_field(method, **kwargs)
-    super(method, kwargs.merge(value: @object.send(method).strftime('%R')))
+    value = @object.send(method).try(:strftime, '%R') || '%R'
+    super(method, kwargs.merge(value: value))
   end
 
   def submit(*args, **kwargs)

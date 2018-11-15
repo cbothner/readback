@@ -10,12 +10,12 @@
   = f.form_group :website
 
   = f.form_group :coordinator_id do |f, error_classes|
-    = f.select :coordinator_id, active_for_select(f.object.coordinator), {},
-               class: %w[chzn-select] + error_classes
+    .pt-select{ class: %w[pt-fill] + error_classes }
+      = f.input_field :coordinator_id, collection: Dj.active
 
   = f.form_group :djs do |f, error_classes|
-    = f.select :djs, active_for_select(f.object.djs.to_a), {}, multiple: true,
-               class: %w[chzn-select] + error_classes
+    = f.input_field :djs, collection: Dj.active, multiple: true,
+      class: %w[pt-input pt-fill]
 
   - if current_dj.can_create?(SpecialtyShow)
     = f.form_group :weekday do |f, error_classes|
