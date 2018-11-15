@@ -1,5 +1,5 @@
 = form_for [@on_air, @song] do |f|
-  - if session[:confirm_episode]
+  - if flash[:confirm_episode]
     .alert
       Would you like to save this to the new show, or the old?
 
@@ -46,7 +46,7 @@
 
   = hidden_field_tag :override_episode
   .actions
-    - if session[:confirm_episode]
+    - if flash[:confirm_episode]
       = f.submit "Save song to #{@on_air.show.unambiguous_name}",
                  class: %w[pt-button],
                  data: { disable_with: 'Saving...' }, tabindex: 9

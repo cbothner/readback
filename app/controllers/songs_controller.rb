@@ -36,16 +36,16 @@ class SongsController < ApplicationController
           format.json { render :show, status: :created, location: @song }
         else
           format.html do
-            flash[:alert] = @song.errors.full_messages
-            session[:song] = @song
+            flash[:error] = @song.errors.full_messages.to_sentence
+            flash[:song] = @song
             redirect_to root_path
           end
           format.json { render json: @song.errors, status: :unprocessable_entity }
         end
       else
         format.html do
-          session[:song] = @song
-          session[:confirm_episode] = true
+          flash[:song] = @song
+          flash[:confirm_episode] = true
           redirect_to root_path
         end
       end

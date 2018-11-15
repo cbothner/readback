@@ -100,7 +100,7 @@ class PlaylistsController < ApplicationController
   end
 
   def set_song
-    @song = Song.new(session.delete(:song))
+    @song = Song.new flash[:song]
     @song ||= @on_air.songs.build
   end
 end
