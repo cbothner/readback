@@ -1,31 +1,28 @@
-- title "Playlist: #{@episode.show.unambiguous_name}"
-- headline "Playlist: #{@episode.show.unambiguous_name}"
-- subtitle raw "#{with @episode} on #{@episode.date_string}"
-- if dj_signed_in? && current_dj.can_update?(@episode)
-  - subtitle raw "<br />"
-  - subtitle link_to "Edit show notes", edit_episode_path(@episode)
-- back_link link_to "Back to Schedule", @episode.show.semester
-- content_for :sidebar do
-  .rightalign=link_to "All Episodes", @episode.show
-  .tiles
-    - @episode.show.episodes.order(beginning: :desc).select(&:past?).each do |episode|
-      .showinfo.tile
-        %p{class: ("highlight" if episode == @episode)}
-          =link_to episode.date_string, episode_songs_path(episode)
-        %p.with
-          =with episode
+- title "#{@episode.date_string} — #{@episode.show.unambiguous_name}"
 
-= render 'episodes/shownotes', episode: @episode, longform: true
+.card__header
+  %h1.kicker
+    = @episode.show.name
+    with
+    = link_to @episode.dj, @episode.dj
+    %br
+    Playlist from
+    = @episode.date_string
 
-- unless @songs.empty?
-  %table
-    %thead
-      %td Time
-      %td Artist
-      %td Song Title
-      %td Album
-      %td Label
-      %td Year
-    - @songs.each do |song|
-      %tr
-        = render song
+  .card__header
+    = link_to 'Return to Episodes', @episode.show,
+              class: %w[pt-button pt-icon-timeline-events]
+
+
+- unless @episode.notes.blank?
+  .medium-container.margin-bottom
+    .pt-callout
+      %h2.kicker.pt-callout-title Show Notes
+      .pt-running-text
+        = markdown @episode.notes
+
+.playlist
+  - unless @items.empty?
+    - @items.each do |item|
+      .playlist-item{ class: "playlist-item--#{item.class.name.downcase}" }
+        = render item

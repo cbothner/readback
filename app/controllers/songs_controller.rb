@@ -3,17 +3,16 @@
 # We love music
 class SongsController < ApplicationController
   before_action :set_song, only: %i[update destroy]
-  layout 'headline'
 
   # GET /episodes/1/songs
   def index
     @episode = Episode.includes(:setbreaks,
                                 show: [:semester, :dj, episodes: %i[dj show]])
                       .find(params[:episode_id])
-    # @songs = Song.all.sort_by(&:at).reverse
-    @songs = @episode.songs
-    @songs += @episode.setbreaks
-    @songs = @songs.sort_by(&:at)
+
+    @items = @episode.songs
+    @items += @episode.setbreaks
+    @items = @items.sort_by(&:at)
   end
 
   # POST /songs
