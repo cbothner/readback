@@ -8,21 +8,21 @@
       - flash[:alert].each do |err|
         %div=err
   -#= render "form"
-  %h4 Add a Show
-  #tabs
-    %ul
-      %li
+  %h1.kicker Add a Show
+  #tabs.pt-tabs
+    %ul.pt-tab-list
+      %li.pt-tab(role="tab")
         %a{href: "#tab-freeform"} Freeform
-      %li
+      %li.pt-tab(role="tab")
         %a{href: "#tab-specialty"} Specialty
-      %li
+      %li.pt-tab(role="tab")
         %a{href: "#tab-talk"} Talk
-    #tab-freeform
-      = render "freeform_shows/form"
-    #tab-specialty
-      = render "specialty_shows/form"
-    #tab-talk
-      = render "talk_shows/form"
+    #tab-freeform.pt-tab-panel(role="tabpanel")
+      = render "freeform_shows/form", semester: @semester, show: @freeform_show
+    #tab-specialty.pt-tab-panel(role="tabpanel")
+      = render "specialty_shows/form", semester: @semester, show: @specialty_show
+    #tab-talk.pt-tab-panel(role="tabpanel")
+      = render "talk_shows/form", semester: @semester, show: @talk_show
 
 
 - cache [@semester, :edit] do

@@ -89,7 +89,7 @@ label {
     }
   }
 
-  option {
+  select:not([multiple]) option {
     color: black;
   }
 
@@ -120,6 +120,11 @@ label {
       background: css-rgba(var(--color-primary__contrast--rgb), 0.5);
       outline: none;
     }
+  }
+
+  .pt-callout.pt-intent-danger {
+    background-color: rgb(235, 213, 214);
+    color: var(--black);
   }
 }
 
