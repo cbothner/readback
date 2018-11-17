@@ -29,7 +29,11 @@ const InfoBox = styled.div`
   overflow: hidden;
 `
 
-type Props = { song: Song, visible: boolean, handleChangeVolume: any }
+type Props = {
+  song: Song,
+  visible: boolean,
+  handleChangeVolume: (SyntheticInputEvent<HTMLInputElement>) => void,
+}
 const SongInformation = ({ song, visible, handleChangeVolume }: Props) => {
   const { artist, name, album, label, year } = song
   return (
