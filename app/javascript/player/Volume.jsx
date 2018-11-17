@@ -14,6 +14,8 @@ const Slider = styled.input`
   background: ${props => props.theme.white};
   transform: rotate(270deg);
   -webkit-appearance: none;
+  cursor: pointer;
+  padding: 0;
 
   &:focus {
     outline: none;
@@ -22,28 +24,29 @@ const Slider = styled.input`
     box-shadow: none;
   }
 
-  // &::-webkit-slider-runnable-track {
-  //   width: 2px;
-  //   height: 2px;
-  //   cursor: pointer;
-  //   box-shadow: none;
-  //   background: black;
-  //   border-radius: 0px;
-  //   border: none;
-  // }
+  /* CHROME */
+  &::-webkit-slider-thumb,
+  input[type='range' i]::-webkit-media-slider-thumb {
+    width: 2px;
+    background: ${props => props.theme.white};
+    -webkit-appearance: none;
+    height: 11px;
+  }
 
-  // &::-webkit-slider-thumb {
-  //   content: '';
-  //   box-shadow: none;
-  //   border: none;
-  //   height: 16px;
-  //   width: 4px;
-  //   border-radius: 4px;
-  //   background: black;
-  //   cursor: pointer;
-  //   -webkit-appearance: none;
-  //   margin-top: -7px;
-  // }
+  /* FIREFOX */
+  &::-moz-range-track {
+    background-color: ${props => props.theme.white};
+  }
+  &::-moz-range-thumb {
+    width: 2px;
+    background: ${props => props.theme.white};
+    height: 11px;
+    border: none;
+    border-radius: 0;
+  }
+  &::-moz-focus-outer {
+    border: 0;
+  }
 `
 
 const Volume = () => <Slider id="volume-bar" type="range" min="0" max="10" />
