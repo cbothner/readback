@@ -4,7 +4,6 @@
  */
 
 import styled from 'styled-components'
-import { rgba } from 'polished'
 
 const Volume = styled.input.attrs({ type: 'range', min: 0, max: 10 })`
   writing-mode: bt-lr; /* IE */
@@ -20,20 +19,12 @@ const Volume = styled.input.attrs({ type: 'range', min: 0, max: 10 })`
   &:focus {
     outline: none;
     -webkit-box-shadow: none;
-    -moz-box-shadow: none;
     box-shadow: none;
   }
 
   .tab-focus &:focus {
-
-    &::-webkit-slider-thumb,
-    input[type='range' i]::-webkit-media-slider-thumb, -moz-range-thumb {
-      box-shadow: 0 0 0px 1px ${props => props.theme.blue};
-    }
-
-    box-shadow: 0 0 9px 2px #ffffffa6;
+    box-shadow: 0 0 5px 2px #ffffffa6;
     border: 1px solid ${props => props.theme.blue};
-    
   }
 
   /* CHROME */
