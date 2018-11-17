@@ -1,0 +1,9 @@
+- title @post.title
+
+.card__header
+  %h1= @post.title
+
+.medium-container.pt-running-text.trix-content
+  .margin-bottom.kicker
+    = @post.author
+  = sanitize @post.content
