@@ -29,8 +29,8 @@ const InfoBox = styled.div`
   overflow: hidden;
 `
 
-type Props = { song: Song, visible: boolean }
-const SongInformation = ({ song, visible }: Props) => {
+type Props = { song: Song, visible: boolean, handleChangeVolume: any }
+const SongInformation = ({ song, visible, handleChangeVolume }: Props) => {
   const { artist, name, album, label, year } = song
   return (
     <Motion style={{ x: spring(visible ? 0 : 1) }}>
@@ -40,7 +40,7 @@ const SongInformation = ({ song, visible }: Props) => {
             transform: `translate(calc(${x * -100}% + ${x * 4}px))`,
           }}
         >
-          <Volume />
+          <Volume onChange={handleChangeVolume} />
           <InfoBox>
             <AlbumArt song={song} />
             <div>

@@ -3,10 +3,9 @@
  * @flow
  */
 
-import * as React from 'react'
 import styled from 'styled-components'
 
-const Slider = styled.input`
+const Volume = styled.input.attrs({ type: 'range', min: 0, max: 10 })`
   writing-mode: bt-lr; /* IE */
   width: 50px;
   margin: -17px;
@@ -48,6 +47,4 @@ const Slider = styled.input`
     border: 0;
   }
 `
-
-const Volume = () => <Slider id="volume-bar" type="range" min="0" max="10" />
 export default Volume

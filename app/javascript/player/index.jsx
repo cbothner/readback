@@ -63,17 +63,10 @@ class Player extends React.Component<Props, { playing: boolean }> {
     if (url.searchParams.has('autoplay')) {
       this._play()
     }
+  }
 
-    var audio = this.audioElement
-
-    const volumeBar = document.getElementById('volume-bar')
-    volumeBar.addEventListener(
-      'input',
-      function () {
-        audio.volume = parseInt(this.value) / 10
-      },
-      false
-    )
+  handleChangeVolume = (e: SyntheticEvent<HTMLInputElement>) => {
+    this.audioElement.volume = parseInt(e.currentTarget.value) / 10
   }
 
   render () {
@@ -83,7 +76,11 @@ class Player extends React.Component<Props, { playing: boolean }> {
     return (
       <Container playing={playing}>
         <PlayPauseButton playing={playing} onClick={this.handlePlayPause} />
-        <SongInformation visible={playing} song={song} />
+        <SongInformation
+          visible={playing}
+          song={song}
+          handleChangeVolume={this.handleChangeVolume}
+        />
       </Container>
     )
   }
