@@ -18,10 +18,6 @@ class SubRequest
       end
     end
 
-    def previous_dj
-      Dj.find @sub_request.episode.dj_id_was
-    end
-
     private
 
     def set_attributes
