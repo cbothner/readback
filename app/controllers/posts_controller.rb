@@ -2,7 +2,7 @@
 
 class PostsController < ApplicationController
   def show
-    @post = Post.find params[:id]
+    set_post
   end
 
   def new
@@ -19,7 +19,25 @@ class PostsController < ApplicationController
     end
   end
 
+  def edit
+    set_post
+  end
+
+  def update
+    set_post
+
+    if @post.update post_params
+      redirect_to post_path(@post), successfully_updated
+    else
+      render :edit
+    end
+  end
+
   private
+
+  def set_post
+    @post = Post.find params[:id]
+  end
 
   def post_params
     params.require(:post).permit(:title, :author, :content, images: [])

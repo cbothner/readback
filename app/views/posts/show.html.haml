@@ -3,6 +3,10 @@
 .card__header
   %h1= @post.title
 
+  .card__header
+    = link_to edit_post_path(@post), class: 'pt-button pt-icon-edit' do
+      Edit Post
+
 .medium-container.pt-running-text.trix-content
   .margin-bottom.kicker
     = @post.author

@@ -1,0 +1,15 @@
+= simple_form_for post, builder: BlueprintFormBuilder do |f|
+  = f.errors
+
+  = f.form_group :title
+
+  = f.form_group :author
+
+  = f.form_group :content do |f|
+    = f.hidden_field :content, id: :post_content
+    %trix-editor.trix-content.pt-running-text(input="post_content")
+
+  = f.submit
+
+= javascript_pack_tag 'direct_uploads'
+= javascript_pack_tag 'trix_uploads'
