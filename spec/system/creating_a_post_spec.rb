@@ -4,7 +4,9 @@ require 'rails_helper'
 
 RSpec.describe 'Creating a post' do
   it 'is possible' do
-    visit new_post_path
+    visit posts_path
+
+    click_on 'New Post'
 
     fill_in 'Title', with: 'New post'
     fill_in 'Author', with: 'Charles Dickens'
