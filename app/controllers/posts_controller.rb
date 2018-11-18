@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
+  def index
+    @posts = Post.reverse_chronological
+  end
+
   def show
     set_post
   end

@@ -156,6 +156,7 @@ gem 'table_print'
 ###########
 group :test do
   gem 'faker'
+  gem 'orderly'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'webmock'

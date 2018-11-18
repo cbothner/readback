@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'playlists#show'
+  root 'posts#index'
 
   devise_for :djs, controllers: { passwords: 'djs/passwords' }
   devise_for :playlist_editors
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get :archive, on: :collection
   end
 
-  resources :posts, only: %i[show new create edit update]
+  resources :posts, only: %i[index show new create edit update]
 
   resources :semesters, only: %i[index create show edit] do
     resource :clone, module: :semesters, only: %i[new create]

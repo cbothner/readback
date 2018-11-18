@@ -1,0 +1,16 @@
+.card__header
+  %h1.kicker WCBN News
+
+  .card__header
+    = link_to 'New Post', new_post_path, class: %w[pt-button pt-icon-add]
+
+- @posts.each do |post|
+  .margin-bottom
+    %h2
+      = link_to post do
+        = post.title
+
+    .medium-container.pt-running-text.trix-content
+      - if post.author.present?
+        .kicker= post.author
+      = sanitize post.content
