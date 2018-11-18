@@ -31,7 +31,7 @@ Rails.application.routes.draw do
     get :archive, on: :collection
   end
 
-  resources :posts, only: %i[index show new create edit update]
+  resources :posts
 
   resources :semesters, only: %i[index create show edit] do
     resource :clone, module: :semesters, only: %i[new create]

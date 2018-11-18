@@ -4,6 +4,11 @@
   %h1= @post.title
 
   .card__header
+    = button_to post_path(@post), method: :delete,
+                data: { confirm: 'Are you sure?' },
+                class: %w[pt-button pt-intent-danger pt-icon-trash] do
+      Delete Post
+
     = link_to edit_post_path(@post), class: 'pt-button pt-icon-edit' do
       Edit Post
 
