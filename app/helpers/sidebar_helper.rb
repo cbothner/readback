@@ -2,7 +2,7 @@
 
 module SidebarHelper
   def on_air
-    @on_air ||= Episode.on_air
+    Episode.on_air
   end
 
   def upcoming_episodes
