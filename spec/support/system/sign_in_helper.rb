@@ -5,7 +5,7 @@ module System
     visit session_path dj
     fill_in 'Email', with: dj.email
     fill_in 'Password', with: dj.password
-    click_on 'Log in'
+    click_on 'Sign In'
   end
 
   private

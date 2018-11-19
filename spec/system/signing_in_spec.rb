@@ -12,7 +12,7 @@ RSpec.describe 'Signing in' do
 
       fill_in 'Email', with: dj.email
       fill_in 'Password', with: dj.password
-      click_on 'Log in'
+      click_on 'Sign In'
 
       expect(page).to have_content 'Signed in successfully'
     end
@@ -23,7 +23,7 @@ RSpec.describe 'Signing in' do
 
       fill_in 'Email', with: dj.email
       fill_in 'Password', with: 'wrong password'
-      click_on 'Log in'
+      click_on 'Sign In'
 
       expect(page).to have_content 'Invalid Email or Password'
     end
