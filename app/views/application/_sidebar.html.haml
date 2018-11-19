@@ -1,6 +1,13 @@
+- unless controller_name == 'playlists'
+  %h2.kicker On Air
+
+  = render on_air, tag: :div if on_air.present?
+
+-# ---
+
 %h2.kicker Up Next
 
-- @upcoming_episodes.each do |episode|
+- upcoming_episodes.each do |episode|
   = render episode, tag: :div
 
 -# ---
