@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
 class AlbumArtService
-  include HTTParty
-  debug_output $stdout
-
-  ARTWORK_KEY_PATH = ['results', 0, 'artworkUrl100'].freeze
-
-  base_uri 'https://itunes.apple.com'
-
   attr_reader :query
 
   def self.fetch(query)
@@ -15,25 +8,42 @@ class AlbumArtService
   end
 
   def initialize(query)
-    @query = query
+    @query = query.symbolize_keys
+    authenticate
   end
 
   def fetch
-    if search_results.success?
-      search_results.dig(*ARTWORK_KEY_PATH)
-    else
-      puts search_results
-    end
+    return if album.nil? || album.images.empty?
+
+    album.images.dig(0, 'url')
   end
 
   private
 
-  def search_results
-    @search_results ||=
-      self.class.get '/search', query: search_params, format: :json
+  def authenticate
+    credentials = Rails.application.credentials.spotify
+    RSpotify.authenticate credentials[:client_id], credentials[:client_secret]
   end
 
-  def search_params
-    { entity: 'musicTrack', limit: '1', term: query }
+  def album
+    @album ||= if query[:album].present?
+                 album_search_results.first
+               else
+                 track_search_results.first.album
+               end
+  end
+
+  def album_search_results
+    q = query_string_from %i[artist album]
+    RSpotify::Album.search q, limit: 1
+  end
+
+  def track_search_results
+    q = query_string_from %i[artist track]
+    RSpotify::Track.search q, limit: 1
+  end
+
+  def query_string_from(keywords)
+    keywords.map { |k| query[k] }.join ' '
   end
 end

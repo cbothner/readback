@@ -15,7 +15,8 @@ RSpec.describe AlbumArt do
 
       expect(artwork_url).to eq 'artwork'
       expect(service).to have_received(:fetch)
-        .with('The Decemberists Sons and Daughters The Crane Wife')
+        .with(artist: 'The Decemberists', track: 'Sons and Daughters',
+              album: 'The Crane Wife')
     end
 
     it 'caches the result so it doesn’t search twice for the same song' do

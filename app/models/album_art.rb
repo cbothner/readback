@@ -25,6 +25,10 @@ class AlbumArt
   end
 
   def query
-    %i[artist name album].map { |method| song.send method }.compact.join ' '
+    {
+      artist: song.artist,
+      track: song.name,
+      album: song.album
+    }
   end
 end

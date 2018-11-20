@@ -96,6 +96,11 @@ gem 'devise', '~> 4.0'
 gem 'encrypted_strings'
 gem 'rolify'
 
+############
+# Services #
+############
+gem 'rspotify'
+
 ##############
 # Production #
 ##############
@@ -137,6 +142,8 @@ group :development, :test do
 
   # Preview emails!
   gem 'letter_opener'
+
+  gem 'httplog', require: false
 end
 
 # To make console access better in development and on the production server
