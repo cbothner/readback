@@ -31,7 +31,8 @@ gem 'mini_racer', platforms: :ruby
 # File Storage
 gem 'aws-sdk-s3', require: false
 gem 'mini_magick'
-# SSH
+# Network
+gem 'httparty'
 gem 'net-ssh'
 
 ##########
@@ -149,6 +150,7 @@ group :test do
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 ruby '2.5.0'

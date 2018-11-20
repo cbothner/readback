@@ -12,6 +12,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 
 require 'spec_helper'
 require 'rspec/rails'
+require 'webmock/rspec'
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
@@ -36,6 +37,12 @@ RSpec.configure do |config|
   config.before(:all, type: :system) do
     Capybara.server = :puma, { Silent: true }
     driven_by :selenium, using: :headless_chrome unless ENV.key? 'NOT_HEADLESS'
+  end
+
+  config.around(:each, type: :system) do |example|
+    WebMock.disable!
+    example.run
+    WebMock.enable!
   end
 end
 
