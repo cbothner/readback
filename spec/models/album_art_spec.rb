@@ -32,6 +32,38 @@ RSpec.describe AlbumArt do
 
       expect(service).to have_received(:fetch).once
     end
+
+    it 'doesn’t search twice for two different songs from the same album' do
+      use_cache
+
+      service = class_double 'AlbumArtService'
+      allow(service).to receive(:fetch)
+
+      song1 = build_stubbed :song, sons_and_daughters
+      song2 = build_stubbed :song, after_the_bombs
+
+      [song1, song2].each do |song|
+        AlbumArt.for_song song, artwork_service: service
+      end
+
+      expect(service).to have_received(:fetch).once
+    end
+
+    it 'doesn’t consider two songs with blank album to be on the same album' do
+      use_cache
+
+      service = class_double 'AlbumArtService'
+      allow(service).to receive(:fetch)
+
+      song1 = build_stubbed :song, sons_and_daughters.merge(album: '')
+      song2 = build_stubbed :song, after_the_bombs.merge(album: '')
+
+      [song1, song2].each do |song|
+        AlbumArt.for_song song, artwork_service: service
+      end
+
+      expect(service).to have_received(:fetch).exactly(2).times
+    end
   end
 end
 
@@ -39,6 +71,14 @@ def sons_and_daughters
   {
     artist: 'The Decemberists',
     name: 'Sons and Daughters',
+    album: 'The Crane Wife'
+  }
+end
+
+def after_the_bombs
+  {
+    artist: 'The Decemberists',
+    name: 'After the Bombs',
     album: 'The Crane Wife'
   }
 end

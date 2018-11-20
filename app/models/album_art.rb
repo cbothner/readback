@@ -21,7 +21,11 @@ class AlbumArt
   private
 
   def cache_key
-    "#{song.cache_key}/album_art"
+    if song.album.present?
+      "#{song.artist}/#{song.album}/album_art"
+    else
+      "#{song.artist}/#{song.name}/album_art"
+    end
   end
 
   def query
