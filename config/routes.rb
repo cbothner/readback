@@ -47,7 +47,9 @@ Rails.application.routes.draw do
     get :public_affairs_logs, on: :collection
   end
 
-  resources :songs, only: %i[update destroy]
+  resources :songs, only: %i[update destroy] do
+    resource :album_artwork, only: %i[show]
+  end
 
   namespace :songs do
     resources :completions, only: %i[index]
