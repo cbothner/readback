@@ -21,8 +21,4 @@
       .pt-running-text
         = markdown @episode.notes
 
-.playlist
-  - unless @items.empty?
-    - @items.each do |item|
-      .playlist-item{ class: "playlist-item--#{item.class.name.downcase}" }
-        = render item
+= render 'playlists/playlist', items: @items

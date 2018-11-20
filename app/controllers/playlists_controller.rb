@@ -70,7 +70,7 @@ class PlaylistsController < ApplicationController
   private
 
   def items_between(from, til, ensure_all_songs_have_show_info: false)
-    songs = Song.includes(:episode).where at: from..til
+    songs = Song.includes(:episode).where(at: from..til).decorate
 
     episodes = Episode.includes(:dj, show: [:dj]).where ending: from...til
     if ensure_all_songs_have_show_info

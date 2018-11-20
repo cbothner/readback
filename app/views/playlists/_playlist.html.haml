@@ -1,6 +1,6 @@
-%h1.kicker Playlist
 .playlist
-  - @items.each do |item|
-    .playlist-item{ class: "playlist-item--#{item.class.name.downcase}",
-                    data: { at: item.at.to_json }}
-      = render item
+  - unless items.empty?
+    - items.each do |item|
+      .playlist-item{ class: "playlist-item--#{item.model_name.singular}",
+                      data: { at: item.at.to_json }}
+        = render item
