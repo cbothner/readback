@@ -1,6 +1,6 @@
 .song__metadata{ title: song.at.to_formatted_s(:long) }
-  %span.song__time-string= song.decorate.time_string # TODO
-  .song__album-art
+  %span.song__time-string= song.time_string
+  %img.song__album-art{ src: song.artwork_path }
 
 %div
   .song__details

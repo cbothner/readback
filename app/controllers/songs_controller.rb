@@ -10,7 +10,7 @@ class SongsController < ApplicationController
                                 show: [:semester, :dj, episodes: %i[dj show]])
                       .find(params[:episode_id])
 
-    @items = @episode.songs
+    @items = @episode.songs.decorate
     @items += @episode.setbreaks
     @items = @items.sort_by(&:at)
   end

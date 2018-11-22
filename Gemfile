@@ -31,7 +31,8 @@ gem 'mini_racer', platforms: :ruby
 # File Storage
 gem 'aws-sdk-s3', require: false
 gem 'mini_magick'
-# SSH
+# Network
+gem 'httparty'
 gem 'net-ssh'
 
 ##########
@@ -95,6 +96,11 @@ gem 'devise', '~> 4.0'
 gem 'encrypted_strings'
 gem 'rolify'
 
+############
+# Services #
+############
+gem 'rspotify'
+
 ##############
 # Production #
 ##############
@@ -136,6 +142,8 @@ group :development, :test do
 
   # Preview emails!
   gem 'letter_opener'
+
+  gem 'httplog', require: false
 end
 
 # To make console access better in development and on the production server
@@ -149,6 +157,7 @@ group :test do
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 ruby '2.5.0'

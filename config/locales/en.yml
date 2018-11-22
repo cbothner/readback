@@ -76,9 +76,9 @@ en:
     options:
       dj:
         um_affiliation:
-          student: UM Student
-          faculty: UM Faculty or Staff
-          alumnus: UM Alumnus/a
+          student: U-M Student
+          faculty: U-M Faculty or Staff
+          alumnus: U-M Alumnus/a
           community: Community Advisor
 
     prompts:
