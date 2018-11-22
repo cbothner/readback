@@ -13,8 +13,6 @@ class AlbumArtworksController < ApplicationController
 
   def artwork_url
     @artwork_url ||= AlbumArt.for_song song
-  rescue SocketError, HTTParty::Error
-    nil
   end
 
   def song
