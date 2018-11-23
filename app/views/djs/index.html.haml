@@ -38,16 +38,17 @@
 
 %table.table.table--minimal
   %thead
-    %td Active?
+    %td
     %td Name
     %td UM Affiliation
     %td Phone
     %td Email
     %td Last Seen
+    %td
 
   - @djs.each do |dj|
     %tr
-      %td
+      %td.td--icon
         - if dj.active?
           %span.pt-icon.pt-icon-tick.pt-intent-success
         - else
@@ -66,3 +67,8 @@
       %td= mail_to dj.email
 
       %td= time_ago_in_words(dj.last_sign_in_at) rescue "–"
+
+      %td.td--icon
+        = link_to edit_dj_settings_path(dj),
+                  class: %w[pt-button pt-minimal pt-small pt-icon-cog] do
+          -# Empty

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :djs, only: %i[index show new edit create update] do
     resources :episodes, only: %w[index]
 
+    resource :settings, module: :djs, only: %i[edit update]
+
     resources :upcoming_episodes, only: %w[index]
   end
 
