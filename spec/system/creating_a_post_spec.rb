@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Creating a post' do
   it 'is possible' do
+    sign_in create(:dj, :editor)
+
     visit posts_path
 
     click_on 'New Post'

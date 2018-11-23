@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe 'Editing a post' do
   let(:post) { create :post }
   it 'is possible' do
+    sign_in create(:dj, :editor)
+
     visit post_path post
     click_on 'Edit Post'
 

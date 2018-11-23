@@ -2,7 +2,8 @@
   %h1.kicker WCBN News
 
   .card__header
-    = link_to 'New Post', new_post_path, class: %w[pt-button pt-icon-add]
+    - if policy(Post).create?
+      = link_to 'New Post', new_post_path, class: %w[pt-button pt-icon-add]
 
 - @posts.each do |post|
   .margin-bottom

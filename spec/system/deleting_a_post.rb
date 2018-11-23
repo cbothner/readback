@@ -4,6 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Deleting a post' do
   it 'is possible' do
+    sign_in create(:dj, :editor)
+
     post = create :post, title: 'Hello, world!'
     visit post_path post
 

@@ -29,7 +29,7 @@ class Dj
     private
 
     def roles
-      %i[grandfathered_in stage_one_trainer superuser]
+      %i[editor grandfathered_in stage_one_trainer superuser]
     end
 
     def dj_params

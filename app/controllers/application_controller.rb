@@ -17,6 +17,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def pundit_user
+    current_dj || Listener.instance
+  end
+
   def current_user
     current_dj || current_playlist_editor
   end

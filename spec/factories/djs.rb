@@ -15,9 +15,15 @@ FactoryBot.define do
       umid 11_111_111
     end
 
+    trait :editor do
+      after :create do |this|
+        this.add_role :editor
+      end
+    end
+
     trait :superuser do
-      after :create do |dj|
-        dj.add_role :superuser
+      after :create do |this|
+        this.add_role :superuser
       end
     end
 
