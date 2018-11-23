@@ -1,13 +1,5 @@
 - title "Editing DJ — #{@dj}"
 
-- if @dj.invalid?
-  .form__errors.pt-callout.pt-intent-danger.pt-icon-error
-    %h5.pt-callout-title Error Saving DJ Profile
-    %ul
-    - @dj.errors.full_messages.each do |error|
-      %li= error
-
-
 = simple_form_for @dj, builder: BlueprintFormBuilder do |f|
   = f.errors
 
@@ -75,6 +67,17 @@
         PLACEHOLDER
       %trix-editor{ data: { 'trix-prevent-uploads': 'true' }, input: :dj_lists,                                |
                     placeholder: placeholder_text }
+
+  .pt-callout.pt-callout-card.pt-intent-warning.pt-icon-key.margin-bottom
+    %h2.kicker.pt-callout-title Change Password
+    %p.pt-text-muted Leave blank to leave your password unchanged.
+    .row.wrap
+      = f.form_group :password do |f, has_err|
+        = f.password_field :password, class: %w[pt-input] + has_err
+      = f.form_group :password_confirmation do |f, has_err|
+        = f.password_field :password_confirmation, class: %w[pt-input] + has_err
+      = f.form_group :current_password do |f, has_err|
+        = f.password_field :current_password, class: %w[pt-input] + has_err
 
   .row.wrap
     = f.submit class: %w[pt-button pt-intent-primary]

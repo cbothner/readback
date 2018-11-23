@@ -1,0 +1,26 @@
+.card__header
+  %h1.kicker
+    DJ Settings for
+    = @settings.dj.name
+  .card__header
+    = link_to 'Back to Roster', djs_path, class: %w[pt-button pt-icon-people]
+
+.medium-container
+  = simple_form_for @settings, url: dj_settings_path(@settings.dj),
+                    builder: BlueprintFormBuilder do |f|
+    .margin-bottom
+      %p Active DJs can log in to Readback and take subs.
+      = f.check_box :active
+
+    .margin-bottom
+      %p Stage One Trainers can access the New Trainee form.
+      = f.check_box :stage_one_trainer
+
+    .margin-bottom
+      %p
+        Superusers can create and update schedules, request subs on behalf of
+        others, edit anyone’s profile, and change these settings for other DJs,
+        including other superusers.
+      = f.check_box :superuser
+
+    = f.submit

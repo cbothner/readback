@@ -32,3 +32,12 @@
     padding: 10px 6px 12px;
   }
 }
+
+.table--minimal tbody td {
+  border-bottom: none;
+}
+
+.table .td--icon {
+  text-align: center;
+  width: 1em !important;
+}

@@ -4,6 +4,7 @@ class DjsController < ApplicationController
   before_action :authenticate_dj!, except: :show
   authorize_actions_for Dj, only: %i[new create destroy]
 
+  before_action :set_djs, only: %i[index create]
   before_action :set_dj, only: %i[show edit update destroy]
 
   decorates_assigned :dj
@@ -11,14 +12,15 @@ class DjsController < ApplicationController
   # GET /djs
   # GET /djs.json
   def index
-    @djs = Dj.all.order(name: :asc)
+    @dj = Dj.new
 
     respond_to do |format|
       format.html do
         authorize_action_for Dj
-        render layout: 'wide'
       end
+
       format.pdf { @djs = @djs.select(&:active) }
+
       format.csv do
         @djs = @djs.select(&:active)
         filename = "wcbn-djs-#{Time.zone.now.strftime '%F'}"
@@ -37,11 +39,6 @@ class DjsController < ApplicationController
   # GET /djs/new
   def new
     @dj = Dj.new
-  end
-
-  # GET /djs/1/edit
-  def edit
-    authorize_action_for @dj
   end
 
   # POST /djs
@@ -63,13 +60,18 @@ class DjsController < ApplicationController
         @dj.add_role(:grandfathered_in) if params[:grandfathered] == '1'
         @dj.send_reset_password_instructions
 
-        format.html { redirect_to @dj, notice: "#{@dj.name} is now a WCBN DJ." }
+        format.html { redirect_to @dj, flash: { success: "#{@dj.name} is now a WCBN DJ." } }
         format.json { render :show, status: :created, location: @dj }
       else
-        format.html { render :new }
+        format.html { render :index }
         format.json { render json: @dj.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /djs/1/edit
+  def edit
+    authorize_action_for @dj
   end
 
   # PATCH/PUT /djs/1
@@ -77,7 +79,8 @@ class DjsController < ApplicationController
   def update
     authorize_action_for @dj
 
-    if @dj.update(dj_params)
+    if update_dj
+      bypass_sign_in @dj, scope: :dj
       redirect_to @dj, successfully_updated
     else
       render :edit
@@ -85,6 +88,10 @@ class DjsController < ApplicationController
   end
 
   private
+
+  def set_djs
+    @djs = Dj.all.order(name: :asc)
+  end
 
   def set_dj
     show_assoc = %i[freeform_shows specialty_shows talk_shows].map do |show|
@@ -95,10 +102,22 @@ class DjsController < ApplicationController
   end
 
   def dj_params
-    params.require(:dj).permit(:name, :phone, :email, :umid, :um_affiliation,
-                               :um_dept, :experience, :referral, :interests,
-                               :statement, :real_name_is_public, :dj_name,
-                               :website, :public_email, :about, :lists, :active,
-                               :avatar, images: [])
+    params.require(:dj).permit(
+      :name, :phone, :email, :umid, :um_affiliation, :um_dept, :experience,
+      :referral, :interests, :statement, :real_name_is_public, :dj_name,
+      :website, :public_email, :about, :lists, :active, :avatar, :password,
+      :password_confirmation, :current_password,
+      images: []
+    )
+  end
+
+  def update_dj
+    if dj_params['password'].present?
+      @dj.update_with_password dj_params
+    else
+      profile_params = dj_params
+      profile_params.delete 'current_password'
+      @dj.update_without_password profile_params
+    end
   end
 end
