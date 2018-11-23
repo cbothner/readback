@@ -35,6 +35,8 @@ en:
               blank: "can’t be blank when U-M Affiliation is Community Member"
     models:
       dj: DJ
+      djs:
+        setting: dj settings
       freeform_show: freeform show
       playlist_editor: playlist editor
       specialty_show: specialty show

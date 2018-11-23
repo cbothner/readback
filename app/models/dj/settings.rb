@@ -7,6 +7,7 @@ class Dj
 
     attr_accessor :dj
     attribute :active, :boolean
+    attribute :grandfathered_in, :boolean
     attribute :superuser, :boolean
     attribute :stage_one_trainer, :boolean
 
@@ -28,7 +29,7 @@ class Dj
     private
 
     def roles
-      %i[stage_one_trainer superuser]
+      %i[grandfathered_in stage_one_trainer superuser]
     end
 
     def dj_params

@@ -17,7 +17,7 @@ module Djs
       @settings.assign_attributes settings_params
       @settings.save
 
-      redirect_to edit_dj_settings_path @settings.dj
+      redirect_to edit_dj_settings_path(@settings.dj), successfully_updated
     end
 
     private
@@ -28,9 +28,7 @@ module Djs
     end
 
     def settings_params
-      params.require(:dj_settings).permit(
-        :active, :stage_one_trainer, :superuser
-      )
+      params.require(:dj_settings).permit!
     end
   end
 end
