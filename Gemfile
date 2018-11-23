@@ -94,6 +94,7 @@ gem 'simple_form'
 gem 'authority'
 gem 'devise', '~> 4.0'
 gem 'encrypted_strings'
+gem 'pundit'
 gem 'rolify'
 
 ############

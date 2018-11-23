@@ -5,13 +5,18 @@ module Djs
     before_action :authenticate_dj!
 
     def edit
+      authorize Dj, :create?
+
       @settings = build_settings
     end
 
     def update
+      authorize Dj, :create?
+
       @settings = build_settings
       @settings.assign_attributes settings_params
       @settings.save
+
       redirect_to edit_dj_settings_path @settings.dj
     end
 
