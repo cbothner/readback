@@ -13,6 +13,7 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'webmock/rspec'
+require "pundit/rspec"
 
 Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 

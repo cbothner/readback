@@ -27,7 +27,10 @@ class Dj < ActiveRecord::Base
   validates :name, :phone, :email, :um_affiliation, presence: true
   validates :website, format: { with: /(\Ahttp|\A\Z)/, message: 'must start with “http://”' }
 
+  after_create_commit :send_reset_password_instructions
   after_update_commit :purge_detached_images
+
+  default_scope { order(name: :asc) }
 
   scope :active, -> { order(:name).where active: true }
 

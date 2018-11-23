@@ -2,8 +2,6 @@
 
 class DjsController < ApplicationController
   before_action :authenticate_dj!, except: :show
-  authorize_actions_for Dj, only: %i[new create destroy]
-
   before_action :set_djs, only: %i[index create]
   before_action :set_dj, only: %i[show edit update destroy]
 
@@ -15,14 +13,10 @@ class DjsController < ApplicationController
     @dj = Dj.new
 
     respond_to do |format|
-      format.html do
-        authorize_action_for Dj
-      end
-
-      format.pdf { @djs = @djs.select(&:active) }
-
+      format.html { authorize Dj }
+      format.pdf { @djs = @djs.active }
       format.csv do
-        @djs = @djs.select(&:active)
+        @djs = @djs.active
         filename = "wcbn-djs-#{Time.zone.now.strftime '%F'}"
         headers['Content-Disposition'] = "attachment; filename=\"#{filename}\""
         headers['Content-Type'] ||= 'text/csv'
@@ -36,48 +30,38 @@ class DjsController < ApplicationController
     with_theme :lime if @dj.id == 1
   end
 
-  # GET /djs/new
-  def new
-    @dj = Dj.new
-  end
-
   # POST /djs
   # POST /djs.json
   def create
-    if params[:trainee_id].blank?
-      @dj = Dj.new dj_params
-      @dj.password = Time.zone.now.to_s
+    authorize Dj
+
+    # if params[:trainee_id].blank?
+    @dj = Dj.new dj_params
+    @dj.password = SecureRandom.base64
+    # else
+    # trainee = Trainee.find(params[:trainee_id])
+    # @dj = Dj.new trainee.attributes.slice(*(Dj.column_names - ['id']))
+    # @dj.password ||= trainee.created_at.to_s
+    # end
+
+    if @dj.save
+      # trainee&.mark_graduated(approved_by: current_dj,
+      # associated_dj_instance: @dj)
+      redirect_to @dj, flash: { success: "#{@dj.name} is now a WCBN DJ." }
     else
-      trainee = Trainee.find(params[:trainee_id])
-      @dj = Dj.new trainee.attributes.slice(*(Dj.column_names - ['id']))
-      @dj.password ||= trainee.created_at.to_s
-    end
-
-    respond_to do |format|
-      if @dj.save
-        trainee&.mark_graduated(approved_by: current_dj,
-                                associated_dj_instance: @dj)
-        @dj.add_role(:grandfathered_in) if params[:grandfathered] == '1'
-        @dj.send_reset_password_instructions
-
-        format.html { redirect_to @dj, flash: { success: "#{@dj.name} is now a WCBN DJ." } }
-        format.json { render :show, status: :created, location: @dj }
-      else
-        format.html { render :index }
-        format.json { render json: @dj.errors, status: :unprocessable_entity }
-      end
+      render :index
     end
   end
 
   # GET /djs/1/edit
   def edit
-    authorize_action_for @dj
+    authorize @dj
   end
 
   # PATCH/PUT /djs/1
   # PATCH/PUT /djs/1.json
   def update
-    authorize_action_for @dj
+    authorize @dj
 
     if update_dj
       bypass_sign_in @dj, scope: :dj
@@ -90,7 +74,7 @@ class DjsController < ApplicationController
   private
 
   def set_djs
-    @djs = Dj.all.order(name: :asc)
+    @djs = policy_scope Dj
   end
 
   def set_dj
