@@ -1,13 +1,5 @@
 - title "Editing DJ — #{@dj}"
 
-- if @dj.invalid?
-  .form__errors.pt-callout.pt-intent-danger.pt-icon-error
-    %h5.pt-callout-title Error Saving DJ Profile
-    %ul
-    - @dj.errors.full_messages.each do |error|
-      %li= error
-
-
 = simple_form_for @dj, builder: BlueprintFormBuilder do |f|
   = f.errors
 

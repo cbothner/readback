@@ -4,6 +4,7 @@ class DjsController < ApplicationController
   before_action :authenticate_dj!, except: :show
   authorize_actions_for Dj, only: %i[new create destroy]
 
+  before_action :set_djs, only: %i[index create]
   before_action :set_dj, only: %i[show edit update destroy]
 
   decorates_assigned :dj
@@ -11,14 +12,15 @@ class DjsController < ApplicationController
   # GET /djs
   # GET /djs.json
   def index
-    @djs = Dj.all.order(name: :asc)
+    @dj = Dj.new
 
     respond_to do |format|
       format.html do
         authorize_action_for Dj
-        render layout: 'wide'
       end
+
       format.pdf { @djs = @djs.select(&:active) }
+
       format.csv do
         @djs = @djs.select(&:active)
         filename = "wcbn-djs-#{Time.zone.now.strftime '%F'}"
@@ -63,10 +65,10 @@ class DjsController < ApplicationController
         @dj.add_role(:grandfathered_in) if params[:grandfathered] == '1'
         @dj.send_reset_password_instructions
 
-        format.html { redirect_to @dj, notice: "#{@dj.name} is now a WCBN DJ." }
+        format.html { redirect_to @dj, flash: { success: "#{@dj.name} is now a WCBN DJ." } }
         format.json { render :show, status: :created, location: @dj }
       else
-        format.html { render :new }
+        format.html { render :index }
         format.json { render json: @dj.errors, status: :unprocessable_entity }
       end
     end
@@ -85,6 +87,10 @@ class DjsController < ApplicationController
   end
 
   private
+
+  def set_djs
+    @djs = Dj.all.order(name: :asc)
+  end
 
   def set_dj
     show_assoc = %i[freeform_shows specialty_shows talk_shows].map do |show|

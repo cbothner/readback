@@ -1,33 +1,68 @@
 - title "DJs"
-- headline "WCBN DJs"
-- subtitle link_to "Print phone list", djs_path( format: :pdf )
 
-%p= link_to "Create new DJ", new_dj_path
+- content_for :sidebar do
+  %h2.kicker Create a DJ Account
 
-%table.dj-roster
+  %p.margin-bottom
+    If you need to, you can bypass the trainee subsystem and create a DJ account
+    here. The new DJ will receive an email so they can choose their password.
+
+  = simple_form_for @dj, builder: BlueprintFormBuilder do |f|
+    = f.errors
+
+    = f.form_group :name
+
+    = f.form_group :email do |f, error_classes|
+      = f.email_field :email, autocomplete: :email,
+                      class: %w[pt-input pt-fill] + error_classes
+
+    = f.form_group :phone do |f, error_classes|
+      = f.telephone_field :phone, autocomplete: :tel,
+                          class: %w[pt-input pt-fill] + error_classes
+
+    = f.form_group :um_affiliation do |f, error_classes|
+      .pt-select.pt-fill{ class: error_classes }
+        = f.input_field :um_affiliation, prompt: :translate,
+                        collection: Person::UM_AFFILIATIONS.map(&:to_sym)
+
+    .actions
+      = f.submit class: %w[pt-button pt-intent-primary]
+
+
+.card__header
+  %h1.kicker WCBN DJs
+
+  .card__header
+    = link_to 'Download Phone List', djs_path(format: :pdf),
+              class: %w[pt-button pt-icon-document]
+
+%table.table.table--minimal
   %thead
     %td Active?
-    %td ID
-    %td.width4 Name
-    %td.width3 UM Affiliation
-    %td UMID
+    %td Name
+    %td UM Affiliation
     %td Phone
     %td Email
-    %td Last Signed In
+    %td Last Seen
+
   - @djs.each do |dj|
     %tr
-      %td{class: ("accent" if !dj.active)}
-        = best_in_place dj, :active, as: :checkbox
-      %td=dj.id
+      %td
+        - if dj.active?
+          %span.pt-icon.pt-icon-tick.pt-intent-success
+        - else
+          %span.pt-icon.pt-icon-cross.pt-intent-danger
+
       %td
         = link_to dj do
           =dj.to_s
         = " (#{dj.dj_name.blank? ? dj.name.split(' ')[1..-1]*' ' : dj.name})"
+
       %td
-        = dj.um_dept
         = Person::AFFILIATION_NAMES[dj.um_affiliation]
-      %td=dj.um_id
+
       %td=dj.phone
-      %td=mail_to dj.email
-      %td
-        = time_ago_in_words(dj.last_sign_in_at) rescue "–"
+
+      %td= mail_to dj.email
+
+      %td= time_ago_in_words(dj.last_sign_in_at) rescue "–"

@@ -3,8 +3,8 @@
 class Dj < ActiveRecord::Base
   include Person
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable,
+         :validatable
   include Authority::UserAbilities
   include Authority::Abilities
   rolify
@@ -26,11 +26,6 @@ class Dj < ActiveRecord::Base
 
   validates :name, :phone, :email, :um_affiliation, presence: true
   validates :website, format: { with: /(\Ahttp|\A\Z)/, message: 'must start with “http://”' }
-
-  with_options if: :um_affiliated? do |dj|
-    dj.validates :umid, :um_dept, presence: true
-    # dj.validates :umid, format: {with: /\A[0-9]{8}\Z/}
-  end
 
   after_update_commit :purge_detached_images
 
