@@ -26,9 +26,6 @@
 
 
   .card__header
-    - if current_dj == dj
-      = link_to edit_dj_password_path, class: 'pt-button pt-icon-key' do
-        Change Password
     - if current_dj&.can_update? dj
       = link_to edit_dj_path(dj), class: 'pt-button pt-icon-edit' do
         Edit

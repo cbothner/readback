@@ -41,11 +41,6 @@ class DjsController < ApplicationController
     @dj = Dj.new
   end
 
-  # GET /djs/1/edit
-  def edit
-    authorize_action_for @dj
-  end
-
   # POST /djs
   # POST /djs.json
   def create
@@ -74,12 +69,18 @@ class DjsController < ApplicationController
     end
   end
 
+  # GET /djs/1/edit
+  def edit
+    authorize_action_for @dj
+  end
+
   # PATCH/PUT /djs/1
   # PATCH/PUT /djs/1.json
   def update
     authorize_action_for @dj
 
-    if @dj.update(dj_params)
+    if update_dj
+      bypass_sign_in @dj, scope: :dj
       redirect_to @dj, successfully_updated
     else
       render :edit
@@ -101,10 +102,22 @@ class DjsController < ApplicationController
   end
 
   def dj_params
-    params.require(:dj).permit(:name, :phone, :email, :umid, :um_affiliation,
-                               :um_dept, :experience, :referral, :interests,
-                               :statement, :real_name_is_public, :dj_name,
-                               :website, :public_email, :about, :lists, :active,
-                               :avatar, images: [])
+    params.require(:dj).permit(
+      :name, :phone, :email, :umid, :um_affiliation, :um_dept, :experience,
+      :referral, :interests, :statement, :real_name_is_public, :dj_name,
+      :website, :public_email, :about, :lists, :active, :avatar, :password,
+      :password_confirmation, :current_password,
+      images: []
+    )
+  end
+
+  def update_dj
+    if dj_params['password'].present?
+      @dj.update_with_password dj_params
+    else
+      profile_params = dj_params
+      profile_params.delete 'current_password'
+      @dj.update_without_password profile_params
+    end
   end
 end
