@@ -1,6 +1,7 @@
-- user_nav_state = dj_signed_in? ? 'user-nav--active' : 'user-nav--inactive'
+- user_nav_state = user_signed_in? ? 'user-nav--active' : 'user-nav--inactive'
 %nav.user-nav{ class: user_nav_state }
   .max-width-container
+
     - if dj_signed_in?
       - if current_dj.has_role? :superuser
         = link_to 'Roster', djs_path
@@ -14,6 +15,12 @@
       = link_to 'My Profile', current_dj
 
       = link_to 'Sign Out', destroy_dj_session_path, method: :delete
+
+    - elsif trainee_signed_in?
+
+      = link_to 'My Profile', current_trainee
+
+      = link_to 'Sign Out', destroy_trainee_session_path, method: :delete
 
     - else
       = link_to 'DJ Sign In', new_dj_session_path

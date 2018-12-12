@@ -5,8 +5,6 @@ class TraineesController < ApplicationController
   authorize_actions_for Trainee, only: %i[index new create]
   before_action :set_trainee, only: %i[show edit update destroy]
 
-  layout 'headline'
-
   # GET /trainees
   # GET /trainees.json
   def index

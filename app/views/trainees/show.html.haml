@@ -12,7 +12,6 @@
 
 - content_for :sidebar do
   - unless @trainee.broadcasters_exam.accepted?
-    %h3 Actions
     - if dj_signed_in?
       = render 'training_coordinator_actions'
     - else

@@ -1,9 +1,15 @@
 - unless @trainee.demo_tapes.any?(&:accepted_at)
-  = form_for [@trainee, DemoTape.new] do |f|
-    .field.padtop
-      = label_tag "Submit a demo tape"
-      %p.instructions
-        When you have finished recording your demo tape in Prod C, upload
-        the MP3 here so it can be reviewed.
-      = f.text_field :url, placeholder: 'URL (replace with upload)'
-      .padtop= f.submit 'Submit demo tape', class: 'padtop'
+  = simple_form_for [@trainee, DemoTape.new],
+                    builder: BlueprintFormBuilder do |f|
+    = f.form_group :recording do |f|
+      %p
+        When you have finished recording your demo in Prod C, upload the MP3
+        here so it can be reviewed.
+
+      = f.file_field :recording,
+                     direct_upload: true, instructions: 'Choose a File...',
+                     class: %w[pt-fill]
+
+    = f.submit 'Submit Demo'
+
+= javascript_pack_tag 'direct_uploads'

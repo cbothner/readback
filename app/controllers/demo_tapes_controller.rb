@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DemoTapesController < ApplicationController
   before_action :set_demo_tape, only: %i[edit update]
   def create
@@ -33,7 +35,7 @@ class DemoTapesController < ApplicationController
   end
 
   def trainee_editable_params
-    params.require(:demo_tape).permit(:url)
+    params.require(:demo_tape).permit(:recording)
   end
 
   def coordinator_editable_params
