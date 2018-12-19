@@ -1,0 +1,18 @@
+
+#about-wrapper
+  %div.title
+    %h1
+      About - Edit
+  %hr
+
+  = simple_form_for @about, builder: BlueprintFormBuilder do |f|
+    = f.errors
+
+    = f.label :description
+    = f.hidden_field :description, id: :about_description
+    %trix-editor.trix-content.pt-running-text{input: :about_description}
+
+    = f.submit class: %w[pt-button pt-intent-primary]
+
+= javascript_pack_tag 'direct_uploads'
+= javascript_pack_tag 'trix_uploads'

@@ -1,0 +1,15 @@
+- content_for :head do
+  = javascript_pack_tag 'options'
+  
+#about-wrapper
+  %div.title
+    %h1
+      About
+    - if dj_signed_in?
+      = react_component 'Options', prerender: true,
+        props: { items: [ { text: 'Edit',
+                          icon: 'edit',
+                          href: edit_about_path(@about) } ] }
+  %hr
+  .description
+    = sanitize @about.description

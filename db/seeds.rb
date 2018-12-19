@@ -19,3 +19,5 @@ show.propagate(top_of_the_hour, semester.ending)
 episode = show.most_recent_episode
 episode.songs.create at: Time.zone.now, name: 'Changes', artist: 'David Bowie',
                      album: 'Hunky Dory', year: 1971, label: 'Parlophone'
+
+About.create description: 'WCBN will free your mind'

@@ -10,10 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_27_134351) do
+ActiveRecord::Schema.define(version: 2018_12_19_025920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "about", force: :cascade do |t|
+    t.string "description"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -273,5 +277,6 @@ ActiveRecord::Schema.define(version: 2018_10_27_134351) do
     t.index ["dj_id"], name: "index_trainees_on_dj_id"
   end
 
+  add_foreign_key "trainees", "djs"
   add_foreign_key "trainees", "djs"
 end
