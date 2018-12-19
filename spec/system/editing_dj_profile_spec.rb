@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Editing a DJ profile' do
+  before do
+    create :semester
+  end
+  
   let(:dj) { create :dj }
 
   before(:each) { sign_in dj }

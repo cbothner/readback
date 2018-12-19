@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Signing in' do
+  before do
+    create :semester
+  end
+  
   context 'as a DJ' do
     let(:dj) { create :dj }
 
