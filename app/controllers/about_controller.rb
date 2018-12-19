@@ -16,6 +16,6 @@ class AboutController < ApplicationController
   end
 
   def about_params
-    params.require(:about).permit(:description)
+    params.require(:about).permit(:description, images: [])
   end
 end
