@@ -2,28 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#about-wrapper {
-  .title {
-    display: flex;
-    justify-content: space-between;
-  }
 
+#about-content {
   hr {
-    margin: 0;
+    margin: 0 !important;
   }
-
-  .description {
-    margin: 1em 0;
-  }
-
-  label {
-    display: inline-block;
-    margin: 10px 0;
-  }
-
-  input[type=submit] {
-    float: right;
-    margin: 10px 0;
-  }
-
 }
