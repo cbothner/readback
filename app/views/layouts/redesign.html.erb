@@ -30,7 +30,7 @@
         <%= yield %>
       </main>
 
-      <% unless content_for?(:sidebar) %>
+      <% unless content_for?(:sidebar) or content_for(:title) == 'DJs' %>
         <aside class="with-sidebar__sidebar">
           <%= render 'application/sidebar' %>
         </aside>

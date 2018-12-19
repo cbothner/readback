@@ -140,3 +140,22 @@ input[name='dj[umid]'] {
   display: block;
 }
 
+.dj-roster {
+
+  .red {
+    color: $vermilion4;
+  }
+
+  thead td{
+    font-weight: 500;
+  }
+
+  td {
+    max-width: 250px;
+
+    &:hover {
+      cursor: unset !important;
+    }
+  }
+  
+}

@@ -2,12 +2,13 @@
 - headline "WCBN DJs"
 - subtitle link_to "Print phone list", djs_path( format: :pdf )
 
-%p= link_to "Create new DJ", new_dj_path
+%p
+  = link_to 'Create new DJ', new_dj_path,
+              class: %w[pt-button pt-intent-primary pt-icon-plus]
 
-%table.dj-roster
+%table.dj-roster.pt-html-table.pt-small.pt-interactive.pt-html-table-bordered
   %thead
     %td Active?
-    %td ID
     %td.width4 Name
     %td.width3 UM Affiliation
     %td UMID
@@ -16,9 +17,8 @@
     %td Last Signed In
   - @djs.each do |dj|
     %tr
-      %td{class: ("accent" if !dj.active)}
+      %td{class: ("red" if !dj.active)}
         = best_in_place dj, :active, as: :checkbox
-      %td=dj.id
       %td
         = link_to dj do
           =dj.to_s

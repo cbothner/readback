@@ -16,7 +16,6 @@ class DjsController < ApplicationController
     respond_to do |format|
       format.html do
         authorize_action_for Dj
-        render layout: 'wide'
       end
       format.pdf { @djs = @djs.select(&:active) }
       format.csv do
