@@ -1,0 +1,30 @@
+- if current_dj.can_create?(Dj) && @trainee.demotape.accepted? && !@trainee.disqualified
+  = form_for [@trainee, Dj.new] do |f|
+    .field.padtop
+      = label_tag "Graduate Trainee"
+      %p.instructions
+        Record that this trainee has passed the broadcaster’s exam, create a
+        full DJ account for this trainee, and allow them to begin subbing for
+        nighttime shows.  The trainee will receive an email to that effect.
+      .actions
+        = f.submit "Graduate Trainee",
+          data: {confirm_with: "Are you sure? This action cannot be undone.",
+                 disable_with: "Saving..."}
+
+- if current_dj.can_delete?(@trainee)
+  = form_for @trainee do |f|
+    .padtop.margintop
+      - unless @trainee.disqualified
+        = label_tag "Discontinue this person’s training"
+        %p.instructions
+          This trainee will not be able to access their account, and will
+          receive no further reminder emails.  They will
+          %strong not
+          be automatically
+          informed.
+      - else
+        = label_tag "Reinstate this disqualified trainee"
+    .actions
+      = f.hidden_field :disqualified, value: !@trainee.disqualified
+      = f.submit (@trainee.disqualified ? "Reinstate trainee" : "Discontinue training"),
+        data: {disable_with: "Saving..."}

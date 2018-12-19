@@ -1,5 +1,9 @@
 en:
   activerecord:
+    models:
+      dj: DJ
+      trainee: trainee
+      playlist_editor: playlist editor
     attributes:
       song:
         name: Song Title
@@ -56,6 +60,9 @@ en:
         other: "%{count} errors prevented this %{model} from being saved"
 
   helpers:
+    label:
+      demo_tape:
+        recording: Submit a Demo
     submit:
       dj:
         update: Update DJ

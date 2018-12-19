@@ -1,0 +1,15 @@
+{
+  "app/policies/*_policy.rb": {
+    "type": "policy",
+    "template": [
+      "class {camelcase|capitalize|colons}Policy < ApplicationPolicy",
+      "  class Scope < Scope",
+      "    def resolve",
+      "      scope.all",
+      "    end",
+      "  end",
+      "end"
+    ],
+    "related": "app/models/{}.rb"
+  }
+}
