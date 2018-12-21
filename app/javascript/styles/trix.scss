@@ -29,3 +29,7 @@ trix-editor {
     display: initial;
   }
 }
+
+.trix-button--icon-embed::before {
+  background-image: url('https://static.thenounproject.com/png/13694-200.png');
+}
