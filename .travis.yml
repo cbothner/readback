@@ -17,6 +17,7 @@ cache:
     - '$HOME/.cache/yarn'
 
 addons:
+  chrome: stable
   postgresql: '9.6'
 
 install: 'bin/setup'

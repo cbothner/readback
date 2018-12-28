@@ -13,8 +13,8 @@ class SubRequest
 
     def save
       ActiveRecord::Base.transaction do
-        @sub_request.save
         @sub_request.episode.save
+        @sub_request.save
       end
     end
 

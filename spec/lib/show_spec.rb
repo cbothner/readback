@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Show do
   describe '#propagate' do
-    before { @show = create :freeform_show }
+    before { @show = create :freeform_show, now: 1.day.since }
 
     context 'when creating a show' do
       it 'creates the right number of Episodes' do

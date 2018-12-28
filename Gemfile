@@ -108,8 +108,10 @@ group :development, :test do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 
+  gem 'capybara'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'selenium-webdriver'
 
   # To identify database inefficiencies like n+1 queries and unused eager
   # loading
@@ -135,6 +137,7 @@ group :test do
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'webdrivers'
 end
 
 ruby '2.5.0'
