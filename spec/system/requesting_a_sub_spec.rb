@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Requesting a sub' do
   it 'works' do
-    asking_dj = create :dj
-    fulfilling_dj = create :dj
+    asking_dj = create :dj, :grandfathered_in
+    fulfilling_dj = create :dj, :grandfathered_in
     show = create :freeform_show, dj: asking_dj
     episode = show.episodes.first
 

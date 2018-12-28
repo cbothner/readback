@@ -9,8 +9,10 @@ FactoryBot.define do
 
     um_affiliation 'community' # Default because it requires no UMID, etc.
 
-    after :create do |dj|
-      dj.add_role :grandfathered_in
+    trait :grandfathered_in do
+      after :create do |dj|
+        dj.add_role :grandfathered_in
+      end
     end
 
     trait :student do
