@@ -111,7 +111,7 @@ group :development, :test do
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
-  gem 'webdrivers'
+  gem 'selenium-webdriver'
 
   # To identify database inefficiencies like n+1 queries and unused eager
   # loading
@@ -137,6 +137,7 @@ group :test do
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
+  gem 'webdrivers', require: false
 end
 
 ruby '2.5.0'
