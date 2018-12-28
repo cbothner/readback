@@ -412,6 +412,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0)
   seed_dump
+  selenium-webdriver
   sentry-raven
   shoulda-matchers
   sidekiq
