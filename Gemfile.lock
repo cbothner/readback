@@ -147,6 +147,8 @@ GEM
       tilt
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+    icalendar (2.5.2)
+      ice_cube (~> 0.16)
     ice_cube (0.16.2)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
@@ -386,6 +388,7 @@ DEPENDENCIES
   guard
   guard-rspec
   haml
+  icalendar
   ice_cube
   jbuilder (~> 2.0)
   jc-validates_timeliness
