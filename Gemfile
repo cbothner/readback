@@ -29,6 +29,11 @@ gem 'mini_magick'
 # SSH
 gem 'net-ssh'
 
+#########
+# Other #
+#########
+gem 'icalendar'
+
 ##########
 # Models #
 ##########
