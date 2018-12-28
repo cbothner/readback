@@ -35,8 +35,8 @@ class SubRequest < ActiveRecord::Base
     when :needs_sub_in_group then
       SubRequestMailer.request_of_group(self).deliver_later
     when :confirmed
-      SubRequestMailer.fulfilled(self, asking_dj: Dj.find(episode.dj_id_was))
-                      .deliver_later
+      asking_dj = Dj.find(episode.dj_id_previous_change.first)
+      SubRequestMailer.fulfilled(self, asking_dj: asking_dj).deliver_later
     end
   end
 
