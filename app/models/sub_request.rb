@@ -29,6 +29,8 @@ class SubRequest < ActiveRecord::Base
                      needs_sub_including_nighttime_djs]
   }
 
+  delegate :beginning, :ending, :show, to: :episode
+
   def send_emails
     case status.to_sym
     when :needs_sub then SubRequestMailer.request_of_all(self).deliver_later
@@ -54,6 +56,10 @@ class SubRequest < ActiveRecord::Base
 
   def for
     "for #{episode.show.name} on #{episode.date_string}"
+  end
+
+  def show_name
+    show.unambiguous_name
   end
 
   private

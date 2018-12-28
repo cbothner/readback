@@ -29,8 +29,7 @@ class SubRequestMailer < ApplicationMailer
                    asking_dj
                  end
 
-    cal = ical_event(@sub_request)
-    attachments['sub_request_fulfilled.ics'] = {mime_type: 'text/calendar', content: cal.to_ical}
+    attach_ical_event
 
     mail to: @asking_dj.name_and_email,
       cc: @fulfilling_dj.name_and_email,
@@ -51,24 +50,29 @@ class SubRequestMailer < ApplicationMailer
 
     @duration = @episode.beginning - Time.zone.now
 
+    attach_ical_event
+
     mail to: @dj.name_and_email, subject: "Remember: you’re signed up to sub for #{@episode.show.dj} tomorrow!"
   end
 
   private
 
-  def ical_event(sub_request)
-    @sub_request = sub_request
-    cal = Icalendar::Calendar.new
-    cal.event do |e|
-      e.dtstart = sub_request.episode.beginning
-      e.dtend = sub_request.episode.ending
-      e.summary = "Covering #{@sub_request.episode.show.name}"
-      e.description = "Thanks for signing up to cover for #{@sub_request.for}"
-      e.location = 'WCBN'
-      e.ip_class = 'PRIVATE'
-      e.organizer = Icalendar::Values::CalAddress.new('mailto:radio@wcbn.org', cn: 'WCBN-FM Ann Arbor')
-    end
-    cal
+  def attach_ical_event
+    attachments['add_to_calendar.ics'] = {
+      mime_type: 'text/calendar',
+      content: ical_event.to_ical
+    }
   end
 
+  def ical_event
+    Icalendar::Calendar.new.tap do |cal|
+      cal.event do |e|
+        e.dtstart = @sub_request.beginning
+        e.dtend = @sub_request.ending
+        e.summary = @sub_request.show_name
+        e.description = "Thanks for subbing for #{@sub_request.show_name}"
+        e.location = 'WCBN'
+      end
+    end
+  end
 end
