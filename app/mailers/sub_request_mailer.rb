@@ -67,12 +67,16 @@ class SubRequestMailer < ApplicationMailer
   def ical_event
     Icalendar::Calendar.new.tap do |cal|
       cal.event do |e|
-        e.dtstart = @sub_request.beginning
-        e.dtend = @sub_request.ending
+        e.dtstart = embed_timezone @sub_request.beginning
+        e.dtend = embed_timezone @sub_request.ending
         e.summary = @sub_request.show_name
         e.description = "Thanks for subbing for #{@sub_request.show_name}"
         e.location = 'WCBN'
       end
     end
+  end
+
+  def embed_timezone(time)
+    Icalendar::Values::DateTime.new time, tzid: 'America/Detroit'
   end
 end

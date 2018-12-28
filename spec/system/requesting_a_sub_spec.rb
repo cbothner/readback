@@ -33,17 +33,25 @@ RSpec.describe 'Requesting a sub' do
       expect_email to: asking_dj.email,
                    cc: fulfilling_dj.email,
                    matching: /You were bailed out by #{fulfilling_dj}/
+
+      cals = Icalendar::Calendar.parse last_email.attachments.first
+      event = cals.first.events.first
+      expect(event.dtstart).to eq episode.beginning
+      expect(event.dtend).to eq episode.ending
+      expect(event.summary).to eq episode.show.unambiguous_name
     end
   end
 
   private
 
   def expect_email(to:, cc: nil, matching:)
-    email = ActionMailer::Base.deliveries.last
+    expect(last_email.to.first).to eq to
+    expect(last_email.cc.first).to eq cc unless cc.blank?
+    expect(last_email.text_part.body.to_s).to match matching
+    expect(last_email.html_part.body.to_s).to match matching
+  end
 
-    expect(email.to.first).to eq to
-    expect(email.cc.first).to eq cc unless cc.blank?
-    expect(email.text_part.body.to_s).to match matching
-    expect(email.html_part.body.to_s).to match matching
+  def last_email
+    ActionMailer::Base.deliveries.last
   end
 end
