@@ -9,6 +9,10 @@ FactoryBot.define do
 
     um_affiliation 'community' # Default because it requires no UMID, etc.
 
+    after :create do |dj|
+      dj.add_role :grandfathered_in
+    end
+
     trait :student do
       um_affiliation 'student'
       um_dept 'LSA Linguistics'
