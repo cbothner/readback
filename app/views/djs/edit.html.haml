@@ -65,7 +65,8 @@
           4. Jimi Hendrix at Woodstock
           5. The Beatles’ rooftop concert, 30 January 1969
         PLACEHOLDER
-      %trix-editor{ data: { 'trix-prevent-uploads': 'true' }, input: :dj_lists,                                |
+      %trix-editor{ data: { 'trix-prevent-uploads': 'true',  
+                            'trix-prevent-embeds': 'true'}, input: :dj_lists,                                |
                     placeholder: placeholder_text }
 
   .pt-callout.pt-callout-card.pt-intent-warning.pt-icon-key.margin-bottom
@@ -84,3 +85,4 @@
 
 = javascript_pack_tag 'direct_uploads'
 = javascript_pack_tag 'trix_uploads'
+= javascript_pack_tag 'trix_embeds'
