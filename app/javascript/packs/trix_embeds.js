@@ -14,6 +14,7 @@ const createToolbarEmbedBtn = () => {
 const createEmbedDialog = toolbar => {
   const linkDialog = toolbar.querySelector('.trix-dialog--link')
   const embedDialog = linkDialog.cloneNode(true)
+  delete embedDialog.dataset.trixDialogAttribute
   linkDialog.insertAdjacentElement('afterend', embedDialog)
   return embedDialog
 }
