@@ -63,9 +63,8 @@ addEventListener('trix-initialize', event => {
 
   embedBtn.addEventListener('click', () => {
     if (!embedInput.value) return
-    const element = event.target
     const embedCode = embedInput.value
     const attachment = new Trix.Attachment({ content: embedCode })
-    element.editor.insertAttachment(attachment)
+    event.target.editor.insertAttachment(attachment)
   })
 })
