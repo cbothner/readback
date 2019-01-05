@@ -120,4 +120,8 @@ class SemesterDecorator < Draper::Decorator
   def end
     ending.strftime '%B %-d, %Y'
   end
+
+  def range
+    self.start + '-' + self.end
+  end
 end
