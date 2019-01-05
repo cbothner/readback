@@ -5,20 +5,25 @@ class Semester < ActiveRecord::Base
   has_many :talk_shows, dependent: :destroy
 
   validates :beginning, :ending, presence: true
-  validate :semester_does_not_conflict_with_any_other
+  validate :semesters_dont_overlap
+  validate :beginning_before_ending
 
   before_save :ensure_beginning_and_ending_are_at_six_am
   after_create { Signoff.propagate_all(beginning, ending) }
 
   default_scope { order(beginning: :desc) }
 
-  def semester_does_not_conflict_with_any_other
+  def semesters_dont_overlap
     conflicts = Semester.all.select{ |s| (beginning - s.ending) * (s.beginning - ending) > 0 }
 
     return unless conflicts.any?
     conflicting_semesters = conflicts.map(&:id).to_sentence
-    errors.add(:base, "Start or end date conflicts with semester #{conflicting_semesters}.")
-    print 'AAAAAA'
+    errors.add(:beginning, "Start or end date conflicts with semester #{conflicting_semesters}.")
+  end
+
+  def beginning_before_ending
+    return unless beginning > ending
+    errors.add(:beginning, 'Start date must be before end date.')
   end
 
   def self.current
