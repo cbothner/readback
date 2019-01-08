@@ -4,13 +4,13 @@ module Semesters
   # Create a new semester by copying some shows from a previous one
   class ClonesController < ApplicationController
     before_action :authenticate_dj!
+    before_action :set_model
     authorize_actions_for Semester
 
     layout 'headline'
 
     # GET /semesters/1/clone/new
     def new
-      @model = find_semester(params.delete(:semester_id)).decorate
       @semester = Semester.new beginning: @model.ending
     end
 
@@ -27,6 +27,10 @@ module Semesters
     end
 
     private
+
+    def set_model
+      @model = find_semester(params.delete(:semester_id)).decorate
+    end
 
     def find_semester(id)
       Semester
