@@ -6,11 +6,10 @@ class Semester < ActiveRecord::Base
   has_many :specialty_shows, dependent: :destroy
   has_many :talk_shows, dependent: :destroy
 
-  before_validation :ensure_beginning_and_ending_are_at_six_am
-
   validates :beginning, :ending, presence: true
   validate :discrete_semester_dates
 
+  before_validation :ensure_beginning_and_ending_are_at_six_am
   after_create { Signoff.propagate_all(beginning, ending) }
 
   default_scope { order(beginning: :desc) }
