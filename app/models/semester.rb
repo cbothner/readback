@@ -1,29 +1,32 @@
+# frozen_string_literal: true
+
 class Semester < ActiveRecord::Base
   include Authority::Abilities
   has_many :freeform_shows, dependent: :destroy
   has_many :specialty_shows, dependent: :destroy
   has_many :talk_shows, dependent: :destroy
 
-  validates :beginning, :ending, presence: true
-  validate :semesters_dont_overlap
-  validate :beginning_before_ending
+  before_validation :ensure_beginning_and_ending_are_at_six_am
 
-  before_save :ensure_beginning_and_ending_are_at_six_am
+  validates :beginning, :ending, presence: true
+  validate :discrete_semester_dates
+
   after_create { Signoff.propagate_all(beginning, ending) }
 
   default_scope { order(beginning: :desc) }
 
-  def semesters_dont_overlap
-    conflicts = Semester.all.select{ |s| (beginning - s.ending) * (s.beginning - ending) > 0 }
+  def discrete_semester_dates
+    if beginning > ending
+      errors.add(:ending, 'must be later than start date')
+      return
+    end
 
+    conflicts = Semester.where(
+      'tsrange(beginning, ending) && tsrange(?, ?)',
+      beginning, ending
+    )
     return unless conflicts.any?
-    conflicting_semesters = conflicts.map(&:id).to_sentence
-    errors.add(:beginning, "Start or end date conflicts with semester #{conflicting_semesters}.")
-  end
-
-  def beginning_before_ending
-    return unless beginning > ending
-    errors.add(:beginning, 'must be before end date')
+    errors.add(:base, 'semester dates conflict with another semester')
   end
 
   def self.current
