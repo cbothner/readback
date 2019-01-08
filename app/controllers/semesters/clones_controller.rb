@@ -11,7 +11,7 @@ module Semesters
     # GET /semesters/1/clone/new
     def new
       @model = find_semester(params.delete(:semester_id)).decorate
-      @semester = Semester.new beginning: @model.ending + 1.day
+      @semester = Semester.new beginning: @model.ending
     end
 
     # POST /semesters/1/clone
