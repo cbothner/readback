@@ -8,7 +8,8 @@
     = hidden_field_tag :model_id, @model.id
   .field
     = f.label :beginning
-    %br
+    %p.instructions
+      Typically the end date of the previous semester
     = f.date_field :beginning, tabindex: 1
   .field
     = f.label :ending
