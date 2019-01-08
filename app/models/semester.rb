@@ -23,7 +23,7 @@ class Semester < ActiveRecord::Base
 
   def beginning_before_ending
     return unless beginning > ending
-    errors.add(:beginning, 'Start date must be before end date.')
+    errors.add(:beginning, 'must be before end date')
   end
 
   def self.current
