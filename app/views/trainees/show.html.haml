@@ -79,7 +79,7 @@
             = @trainee.phone
           %li
             Email:
-            = link_to @trainee.email, "mailto://#{@trainee.email}"
+            = mail_to @trainee.email
 
     .interests.grey="Interests: #{@trainee.interests}"
     .longform

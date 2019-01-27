@@ -69,7 +69,7 @@
           - unless @dj.public_email.blank?
             %li
               = "#{"Public " if dj_signed_in?}Email:"
-              = link_to @dj.public_email, "mailto://#{@dj.public_email}"
+              = mail_to @dj.public_email
     .dj-about
       - unless @dj.about.blank?
         = sanitize @dj.about
