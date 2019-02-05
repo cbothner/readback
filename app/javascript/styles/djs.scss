@@ -106,6 +106,14 @@ input[name='dj[umid]'] {
   &:last-child {
     margin: 0 10em;
   }
+
+  iframe {
+    border: none;
+  }
+
+  .trix-content .attachment {
+    width: 100%;
+  }
 }
 
 .dj__lists__container {
