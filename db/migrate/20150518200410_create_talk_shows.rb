@@ -1,4 +1,4 @@
-class CreateTalkShows < ActiveRecord::Migration
+class CreateTalkShows < ActiveRecord::Migration[5.2]
   def change
     create_table :talk_shows do |t|
       t.references :semester, index: true

@@ -1,4 +1,4 @@
-class AddProfileDetailsToDj < ActiveRecord::Migration
+class AddProfileDetailsToDj < ActiveRecord::Migration[5.2]
   def change
     change_table :djs do |t|
       t.string :dj_name

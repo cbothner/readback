@@ -1,4 +1,4 @@
-class CreateSpecialtyShows < ActiveRecord::Migration
+class CreateSpecialtyShows < ActiveRecord::Migration[5.2]
   def change
     create_table :specialty_shows do |t|
       t.references :semester, index: true

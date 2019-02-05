@@ -1,4 +1,4 @@
-class AddTimesToShows < ActiveRecord::Migration
+class AddTimesToShows < ActiveRecord::Migration[5.2]
   def up
     [:freeform_shows, :specialty_shows, :talk_shows].each do |show_type|
       change_table show_type do |t|

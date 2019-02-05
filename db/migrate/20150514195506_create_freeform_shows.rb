@@ -1,4 +1,4 @@
-class CreateFreeformShows < ActiveRecord::Migration
+class CreateFreeformShows < ActiveRecord::Migration[5.2]
   def change
     create_table :freeform_shows do |t|
       t.references :semester, index: true

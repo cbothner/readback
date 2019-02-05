@@ -1,4 +1,4 @@
-class AddSubRequestInformationToEpisodes < ActiveRecord::Migration
+class AddSubRequestInformationToEpisodes < ActiveRecord::Migration[5.2]
   def change
     change_table :episodes do |t|
       t.string :sub_request_information

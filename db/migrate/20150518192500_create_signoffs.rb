@@ -1,4 +1,4 @@
-class CreateSignoffs < ActiveRecord::Migration
+class CreateSignoffs < ActiveRecord::Migration[5.2]
   def change
     create_table :signoffs do |t|
       t.string :on

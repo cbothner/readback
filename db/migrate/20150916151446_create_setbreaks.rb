@@ -1,4 +1,4 @@
-class CreateSetbreaks < ActiveRecord::Migration
+class CreateSetbreaks < ActiveRecord::Migration[5.2]
   def change
     create_table :setbreaks do |t|
       t.datetime :at

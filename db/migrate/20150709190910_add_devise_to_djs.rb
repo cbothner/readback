@@ -1,4 +1,4 @@
-class AddDeviseToDjs < ActiveRecord::Migration
+class AddDeviseToDjs < ActiveRecord::Migration[5.2]
   def self.up
     change_table(:djs) do |t|
       ## Database authenticatable

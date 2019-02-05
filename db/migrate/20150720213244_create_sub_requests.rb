@@ -1,4 +1,4 @@
-class CreateSubRequests < ActiveRecord::Migration
+class CreateSubRequests < ActiveRecord::Migration[5.2]
   def change
     create_table :sub_requests do |t|
       t.references :episode, index: true

@@ -1,4 +1,4 @@
-class CreateDjs < ActiveRecord::Migration
+class CreateDjs < ActiveRecord::Migration[5.2]
   def change
     create_table :djs do |t|
       # Demographics

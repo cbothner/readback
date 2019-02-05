@@ -1,4 +1,4 @@
-class CreateSignoffInstances < ActiveRecord::Migration
+class CreateSignoffInstances < ActiveRecord::Migration[5.2]
   def change
     create_table :signoff_instances do |t|
       t.string :on

@@ -1,4 +1,4 @@
-class RemoveDurationFromShows < ActiveRecord::Migration
+class RemoveDurationFromShows < ActiveRecord::Migration[5.2]
   def up
     [:freeform_shows, :specialty_shows, :talk_shows].each do |show_type|
       show_type.to_s.classify.constantize.all.each do |show|
