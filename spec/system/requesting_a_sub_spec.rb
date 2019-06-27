@@ -1,6 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'Requesting a sub' do
+  before do
+    ActionMailer::Base.deliveries.clear
+  end
+
   it 'works' do
     asking_dj = create :dj, :grandfathered_in
     fulfilling_dj = create :dj, :grandfathered_in
