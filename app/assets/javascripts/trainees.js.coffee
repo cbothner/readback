@@ -16,7 +16,7 @@ $(document).on "ready turbolinks:load", ->
     traineeInterests.trigger "input"
 
   $(document).on "change", "#trainee_um_affiliation", ->
-    if $(this).val() == "community"
+    if $(this).val() == "community" || $(this).val() == "alumnus"
       $(".hidden").removeClass("hidden")
 
   $(document).on "input", "#trainee_interests", ->
