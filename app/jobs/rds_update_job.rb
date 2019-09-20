@@ -20,6 +20,11 @@ class RdsUpdateJob < ApplicationJob
     end
   end
 
+  rescue_from StandardError do |exception|
+    # Log exception but don't allow the job to be retried
+    Raven.capture_exception exception
+  end
+
   private
 
   def rds_tunnel_options
