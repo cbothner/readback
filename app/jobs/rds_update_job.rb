@@ -6,8 +6,6 @@ class RdsUpdateJob < ApplicationJob
 
   # @param [Song]
   def perform(song = nil)
-    raise StandardError, 'test'
-
     unless rds_tunnel_options
       logger.warn 'Skipping RDS update because tunnel credentials are missing'
       return
