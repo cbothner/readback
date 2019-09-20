@@ -8,7 +8,7 @@ class IcecastUpdateJob < ApplicationJob
   def perform(song = nil)
     return unless ENV['ICECAST_ADMIN_PASSWORD']
 
-    logger.debug("Updating Icecast: `#{metadata_string(song)}`")
+    logger.info("Updating Icecast: `#{metadata_string(song)}`")
 
     %w[hd mid hi].each do |qual|
       system(

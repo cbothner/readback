@@ -6,12 +6,14 @@ class RdsUpdateJob < ApplicationJob
 
   # @param [Song]
   def perform(song = nil)
+    raise StandardError, 'test'
+
     unless rds_tunnel_options
       logger.warn 'Skipping RDS update because tunnel credentials are missing'
       return
     end
 
-    logger.debug("Updating RDS: `#{I18n.transliterate(metadata_string(song))}`")
+    logger.info("Updating RDS: `#{I18n.transliterate(metadata_string(song))}`")
 
     Net::SSH.start(*rds_tunnel_options) do |ssh|
       command = format rds_settings song
