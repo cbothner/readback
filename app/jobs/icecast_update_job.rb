@@ -8,6 +8,8 @@ class IcecastUpdateJob < ApplicationJob
   def perform(song = nil)
     return unless ENV['ICECAST_ADMIN_PASSWORD']
 
+    logger.info("Updating Icecast: `#{metadata_string(song)}`")
+
     %w[hd mid hi].each do |qual|
       system(
         'curl',
@@ -16,6 +18,11 @@ class IcecastUpdateJob < ApplicationJob
         icecast_endpoint(qual, song)
       )
     end
+  end
+
+  rescue_from StandardError do |exception|
+    # Log exception but don't allow the job to be retried
+    Raven.capture_exception exception
   end
 
   private

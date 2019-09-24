@@ -116,7 +116,6 @@ group :development, :test do
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
-  gem 'selenium-webdriver'
 
   # To identify database inefficiencies like n+1 queries and unused eager
   # loading

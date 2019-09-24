@@ -11,11 +11,18 @@ class RdsUpdateJob < ApplicationJob
       return
     end
 
+    logger.info("Updating RDS: `#{I18n.transliterate(metadata_string(song))}`")
+
     Net::SSH.start(*rds_tunnel_options) do |ssh|
       command = format rds_settings song
       result = ssh.exec! "echo -n \"#{command}\" | nc 10.211.81.205 22201"
       puts result.gsub "\n\r", ', '
     end
+  end
+
+  rescue_from StandardError do |exception|
+    # Log exception but don't allow the job to be retried
+    Raven.capture_exception exception
   end
 
   private
@@ -26,6 +33,7 @@ class RdsUpdateJob < ApplicationJob
     key = ENV['RDS_TUNNEL_KEY']
 
     return unless host && user && key
+
     [host, user, key_data: [key]]
   end
 
@@ -45,6 +53,7 @@ class RdsUpdateJob < ApplicationJob
 
   def metadata_string(song)
     return episode_string Episode.on_air if song.blank?
+
     "#{song.artist}--#{song.name}--#{episode_string song.episode}"
   end
 
