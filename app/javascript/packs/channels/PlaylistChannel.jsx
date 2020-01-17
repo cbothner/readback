@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import { defaultSong } from '../models'
+import { defaultSong } from '../models/Song'
 
 function withPlaylistChannel (
   Component
