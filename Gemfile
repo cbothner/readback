@@ -66,7 +66,7 @@ gem 'maildown'
 # JavaScript #
 ##############
 # Webpacker for the npm ecosystem
-gem 'webpacker', '~> 3.5'
+gem 'webpacker', '~> 4.2'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

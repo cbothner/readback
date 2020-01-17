@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "4.2.2",
     "activestorage": "^5.2.1",
     "babel-preset-react": "^6.24.1",
     "coffeescript": "1.12.7",
@@ -14,7 +14,7 @@
     "trix": "^1.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "^7.2.1",
+    "babel-eslint": "^10.0.3",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^7.1.0",
     "eslint-config-standard-react": "^4.3.0",
@@ -26,6 +26,6 @@
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-standard": "^2.3.1",
     "flow-bin": "^0.61.0",
-    "webpack-dev-server": "2.11.2"
+    "webpack-dev-server": "^3.10.1"
   }
 }
