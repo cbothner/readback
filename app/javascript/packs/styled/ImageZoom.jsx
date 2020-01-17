@@ -1,8 +1,3 @@
-/**
- * @providesModule ImageZoom
- * @flow
- */
-
 import * as React from 'react'
 import BaseImageZoom from 'react-medium-image-zoom'
 
@@ -13,8 +8,7 @@ import BaseImageZoom from 'react-medium-image-zoom'
  * expects from us.
  */
 
-type Props = { className: string, image: { [string]: string } }
-const ImageZoom = ({ className, image, ...rest }: Props) => (
+const ImageZoom = ({ className, image, ...rest }) => (
   <BaseImageZoom image={{ ...image, className }} {...rest} />
 )
 export default ImageZoom

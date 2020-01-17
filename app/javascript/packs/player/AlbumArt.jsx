@@ -1,15 +1,8 @@
-/**
- * @providesModule AlbumArt
- * @flow
- */
-
 import * as React from 'react'
 import styled from 'styled-components'
 import { rgba } from 'polished'
 
-import ImageZoom from 'styled/ImageZoom'
-
-import type { Song } from 'models'
+import ImageZoom from '../styled/ImageZoom'
 
 const Image = styled(ImageZoom).attrs({ role: 'presentation' })`
   background-color: ${p => rgba(p.theme.white, 0.4)};
@@ -18,13 +11,10 @@ const Image = styled(ImageZoom).attrs({ role: 'presentation' })`
   object-fit: cover;
   margin-right: 10px;
 `
-
-type Props = { song: Song }
-type State = { imageSrc: ?string }
 class AlbumArt extends React.Component<Props, State> {
   state = { imageSrc: null }
 
-  componentDidUpdate (prevProps: Props) {
+  componentDidUpdate (prevProps) {
     if (this.props.song !== prevProps.song) this._getArtworkURL()
   }
 

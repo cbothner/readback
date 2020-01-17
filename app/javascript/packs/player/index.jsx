@@ -1,15 +1,8 @@
-/**
- * @providesModule Player
- * @flow
- */
-
 import * as React from 'react'
 import styled from 'styled-components'
 
 import PlayPauseButton from './PlayPauseButton'
 import SongInformation from './SongInformation'
-
-import type { Song } from 'models'
 
 const WCBN_HD_STREAM_URL = 'http://floyd.wcbn.org:8000/wcbn-hd.mp3'
 
@@ -25,11 +18,9 @@ const Container = styled.div`
   font-family: 'Lato';
 `
 
-function drupalLinks (): NodeList<HTMLAnchorElement> {
+function drupalLinks () {
   return document.querySelectorAll(
-    // Typecating this string to the literal 'a' so that our NodeList knows it’s
-    // full of HTMLAnchorElements
-    (('#wcbn-org-nav a[href^="http"], #wcbn-org-nav a[href^="//"]': any): 'a')
+    '#wcbn-org-nav a[href^="http"], #wcbn-org-nav a[href^="//"]'
   )
 }
 
@@ -47,12 +38,11 @@ function removeTargetBlankFromDrupalLinks () {
   })
 }
 
-type Props = { song: Song }
-class Player extends React.Component<Props, { playing: boolean }> {
-  audioElement: HTMLAudioElement
+class Player extends React.Component {
+  audioElement
   state = { playing: false }
 
-  constructor (props: Props) {
+  constructor (props) {
     super(props)
 
     this.audioElement = document.createElement('audio')
@@ -65,7 +55,7 @@ class Player extends React.Component<Props, { playing: boolean }> {
     }
   }
 
-  handleChangeVolume = (e: SyntheticEvent<HTMLInputElement>) => {
+  handleChangeVolume = e => {
     this.audioElement.volume = parseInt(e.currentTarget.value) / 10
   }
 

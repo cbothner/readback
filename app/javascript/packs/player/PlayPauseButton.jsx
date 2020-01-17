@@ -1,8 +1,3 @@
-/**
- * @providesModule PlayPauseButton
- * @flow
- */
-
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
@@ -65,8 +60,7 @@ const Icon = styled.i.attrs({
     `};
 `
 
-type Props = { onClick: (e: SyntheticMouseEvent<*>) => mixed, playing: boolean }
-const PlayPauseButton = ({ onClick, playing }: Props) => (
+const PlayPauseButton = ({ onClick, playing }) => (
   <Container>
     <Button onClick={onClick}>
       <Icon playing={playing} />

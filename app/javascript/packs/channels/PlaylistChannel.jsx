@@ -1,31 +1,12 @@
-/**
- * @providesModule withPlaylistChannel
- * @flow
- */
-
-/* global App */
-
 import * as React from 'react'
 
-import { defaultSong } from 'models'
-import type { Song } from 'models'
+import { defaultSong } from '../models'
 
-type SongCreatedMessage = {| +type: 'song_created', +song: Song |}
-type SongUpdatedMessage = {| +type: 'song_updated', +song: Song |}
-type SongDestroyedMessage = {| +type: 'song_destroyed', +id: number |}
-type PlaylistChannelMessage =
-  | SongCreatedMessage
-  | SongUpdatedMessage
-  | SongDestroyedMessage
-
-type State = {
-  song: Song,
-}
-function withPlaylistChannel<Props: {}> (
-  Component: React.ComponentType<State & Props>
-): React.ComponentType<Props> {
+function withPlaylistChannel (
+  Component
+) {
   class WrapperComponent extends React.Component<Props, State> {
-    subscription: ?ActionCable$Subscription
+    subscription
     state = { song: defaultSong }
 
     componentDidMount () {
@@ -40,7 +21,7 @@ function withPlaylistChannel<Props: {}> (
     _connect () {
       if (App == null) return
       this.subscription = App.cable.subscriptions.create('PlaylistChannel', {
-        received: (message: PlaylistChannelMessage) => {
+        received: (message) => {
           this._setRefreshNeeded()
 
           switch (message.type) {

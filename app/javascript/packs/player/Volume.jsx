@@ -1,8 +1,3 @@
-/**
- * @providesModule Volume
- * @flow
- */
-
 import styled from 'styled-components'
 
 const Volume = styled.input.attrs({ type: 'range', min: 0, max: 10 })`

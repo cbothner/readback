@@ -1,8 +1,3 @@
-/**
- * @providesModule SongInformation
- * @flow
- */
-
 import * as React from 'react'
 import styled from 'styled-components'
 
@@ -10,8 +5,6 @@ import { Motion, spring } from 'react-motion'
 
 import AlbumArt from './AlbumArt'
 import Volume from './Volume'
-
-import type { Song } from 'models'
 
 const Container = styled.div`
   background-color: ${props => props.theme.blue};
@@ -29,12 +22,7 @@ const InfoBox = styled.div`
   overflow: hidden;
 `
 
-type Props = {
-  song: Song,
-  visible: boolean,
-  handleChangeVolume: (SyntheticInputEvent<HTMLInputElement>) => void,
-}
-const SongInformation = ({ song, visible, handleChangeVolume }: Props) => {
+const SongInformation = ({ song, visible, handleChangeVolume }) => {
   const { artist, name, album, label, year } = song
   return (
     <Motion style={{ x: spring(visible ? 0 : 1) }}>
