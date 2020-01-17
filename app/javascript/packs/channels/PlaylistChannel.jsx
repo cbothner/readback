@@ -2,26 +2,24 @@ import * as React from 'react'
 
 import { defaultSong } from '../models/Song'
 
-function withPlaylistChannel (
-  Component
-) {
-  class WrapperComponent extends React.Component<Props, State> {
+function withPlaylistChannel(Component) {
+  class WrapperComponent extends React.Component {
     subscription
     state = { song: defaultSong }
 
-    componentDidMount () {
+    componentDidMount() {
       this._connect()
     }
 
-    render () {
+    render() {
       const { song } = this.state
       return <Component {...this.props} song={song} />
     }
 
-    _connect () {
+    _connect() {
       if (App == null) return
       this.subscription = App.cable.subscriptions.create('PlaylistChannel', {
-        received: (message) => {
+        received: message => {
           this._setRefreshNeeded()
 
           switch (message.type) {
@@ -40,16 +38,16 @@ function withPlaylistChannel (
               this._connect()
               break
           }
-        },
+        }
       })
     }
 
-    _disconnect () {
+    _disconnect() {
       if (this.subscription == null) return
       this.subscription.unsubscribe()
     }
 
-    _setRefreshNeeded () {
+    _setRefreshNeeded() {
       if (this.state.song.id == null) return
       document.body && document.body.classList.add('playlist-needs-refresh')
     }

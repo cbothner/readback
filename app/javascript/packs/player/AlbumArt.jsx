@@ -11,14 +11,14 @@ const Image = styled(ImageZoom).attrs({ role: 'presentation' })`
   object-fit: cover;
   margin-right: 10px;
 `
-class AlbumArt extends React.Component<Props, State> {
+class AlbumArt extends React.Component {
   state = { imageSrc: null }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (this.props.song !== prevProps.song) this._getArtworkURL()
   }
 
-  render () {
+  render() {
     if (this.state.imageSrc == null) return null
     return (
       <Image
@@ -28,7 +28,7 @@ class AlbumArt extends React.Component<Props, State> {
     )
   }
 
-  _getArtworkURL () {
+  _getArtworkURL() {
     fetch(this._queryURL())
       .then(r => r.json())
       .then(data => {
@@ -42,13 +42,13 @@ class AlbumArt extends React.Component<Props, State> {
   /**
    * The high-resolution image is lazy-loaded when the album art is zoomed in
    */
-  _largeImageSrc () {
+  _largeImageSrc() {
     const { imageSrc } = this.state
     if (imageSrc == null) return null
     return imageSrc.replace(/100x100/, '1000x1000')
   }
 
-  _queryURL () {
+  _queryURL() {
     const { album, artist } = this.props.song
     return (
       'https://itunes.apple.com/search?limit=1&version=2&entity=album&' +
