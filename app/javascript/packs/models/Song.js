@@ -1,4 +1,4 @@
-export const defaultSong: Song = {
+export const defaultSong = {
   id: null,
   name: '',
   artist: '',
