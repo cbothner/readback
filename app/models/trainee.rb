@@ -1,4 +1,7 @@
 class Trainee < ActiveRecord::Base
+  include Authority::Abilities
+  include Person
+
   Acceptance = Struct.new(:timestamp, :dj_id, :message) do
     def accepted?
       !timestamp.nil?
@@ -7,12 +10,16 @@ class Trainee < ActiveRecord::Base
       Dj.find(dj_id).name rescue "a training coordinator"
     end
   end
+
+  attribute :experience, :string, default: ''
+  attribute :interests, :string, default: ''
+  attribute :referral, :string, default: ''
+
   serialize :demotape, Acceptance
   serialize :broadcasters_exam, Acceptance
 
-  include Person
-
-  include Authority::Abilities
+  belongs_to :dj, optional: true
+  has_many :episodes
 
   with_options if: :um_affiliated? do |dj|
     dj.validates :umid, :um_dept, presence: true
@@ -20,12 +27,7 @@ class Trainee < ActiveRecord::Base
   end
 
   validates :name, :phone, :email, presence: true
-
-  belongs_to :dj, optional: true
-
   validates :statement, presence: true, unless: :um_affiliated?
-
-  has_many :episodes
 
   def age
     (Time.zone.now.to_date - created_at.to_date).to_i
@@ -49,5 +51,4 @@ class Trainee < ActiveRecord::Base
     dj = associated_dj_instance
     save
   end
-
 end
