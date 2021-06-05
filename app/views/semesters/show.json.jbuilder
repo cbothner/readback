@@ -11,8 +11,8 @@ json.shows do
       json.description show.description
       json.website show.website
       json.dj do                            # Deprecated
-        json.id show.dj.id                  # Deprecated
-        json.name show.dj.to_s              # Deprecated
+        json.id show.dj&.id     || 0        # Deprecated
+        json.name show.dj&.to_s || ""       # Deprecated
       end                                   # Deprecated
       json.djs show.hosts do |d|
         json.url url_for d
